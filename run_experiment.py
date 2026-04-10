@@ -132,15 +132,18 @@ class SyntheticDataset(torch.utils.data.Dataset):
         self.n_samples = n_samples
         in_channels = 2 if mode == "both" else 1
         self.images = torch.randn(n_samples, in_channels, 64, 64)
-        self.labels = torch.randint(0, 2, (n_samples,)).tolist()
+        # Store as torch.long tensor — avoids Python 3.14 int collation bugs
+        self.label_tensor = torch.randint(0, 2, (n_samples,), dtype=torch.long)
+        self.labels = self.label_tensor.tolist()
         # Expose .samples so make_balanced_sampler works
-        self.samples = [(None, i, self.labels[i]) for i in range(n_samples)]
+        self.samples = [(None, i, int(self.labels[i])) for i in range(n_samples)]
 
     def __len__(self):
         return self.n_samples
 
     def __getitem__(self, idx):
-        return self.images[idx], self.labels[idx]
+        # Return torch.long label — DataLoader collates this correctly
+        return self.images[idx], self.label_tensor[idx]
 
 
 def run_smoke_test(output_dir: str):
@@ -163,7 +166,7 @@ def run_smoke_test(output_dir: str):
             train_ds = SyntheticDataset(mode, n_samples=80)
             val_ds   = SyntheticDataset(mode, n_samples=20)
 
-            model = build_model(mode=mode, pretrained=False)
+            model = build_model(mode=mode, pretrained=True)
 
             result = train(
                 model=model,
