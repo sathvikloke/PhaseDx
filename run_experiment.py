@@ -210,6 +210,73 @@ def run_smoke_test(output_dir: str):
 # Main
 # ---------------------------------------------------------------------------
 
+
+def run_prostate(args, checkpoint_dir, results_dir):
+    """Run all 3 conditions for prostate using CSV labels."""
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent))
+    from utils.data_utils import load_prostate_labels, ProstateSliceDataset
+    from models.models import build_model
+    from train import train
+    from evaluate import plot_training_history
+
+    labels_dir = str(Path(args.prostate_dir) / "labels")
+    if not Path(labels_dir).exists():
+        # Try finding labels folder anywhere under prostate_dir
+        found = list(Path(args.prostate_dir).rglob("dwi_slice_level_labels.csv"))
+        if found:
+            labels_dir = str(found[0].parent)
+        else:
+            logger.error(f"Cannot find labels folder under {args.prostate_dir}")
+            return {}
+
+    slice_labels = load_prostate_labels(labels_dir)
+    h5_dir = args.prostate_dir
+
+    all_results = {}
+    for mode in MODES:
+        run_name = f"prostate_{mode}"
+        logger.info(f"\n--- {run_name} ---")
+
+        full_ds = ProstateSliceDataset(h5_dir, slice_labels, mode=mode)
+
+        if len(full_ds) == 0:
+            logger.error(f"No samples found for {run_name}. Check your paths.")
+            continue
+
+        # 70/15/15 split
+        n = len(full_ds)
+        n_train = int(n * 0.70)
+        n_val   = int(n * 0.15)
+        n_test  = n - n_train - n_val
+
+        generator = torch.Generator().manual_seed(42)
+        train_ds, val_ds, test_ds = torch.utils.data.random_split(
+            full_ds, [n_train, n_val, n_test], generator=generator
+        )
+
+        # Expose .samples for WeightedRandomSampler
+        train_ds.samples = [full_ds.samples[i] for i in train_ds.indices]
+        val_ds.samples   = [full_ds.samples[i] for i in val_ds.indices]
+        test_ds.samples  = [full_ds.samples[i] for i in test_ds.indices]
+
+        model = build_model(mode=mode, pretrained=True)
+        result = train(
+            model=model,
+            train_dataset=train_ds,
+            val_dataset=val_ds,
+            checkpoint_dir=checkpoint_dir,
+            run_name=run_name,
+            num_epochs=args.epochs,
+            batch_size=args.batch_size,
+            num_workers=args.num_workers,
+            patience=5,
+        )
+        all_results[mode] = result
+        plot_training_history(result["history"], run_name, results_dir)
+
+    return all_results
+
 def main():
     parser = argparse.ArgumentParser(
         description="Phase-informed MRI tumor classification experiment"
