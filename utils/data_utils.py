@@ -207,3 +207,117 @@ class ProstateExamDataset(Dataset):
         except Exception as e:
             logger.debug(f"Process error {path}: {e}")
             return dummy, dummy_label
+
+
+class BreastExamDataset(Dataset):
+    """
+    Exam-level dataset for FastMRI Breast DCE MRI.
+    kspace shape: (2, readout, time, coils, spokes)
+    Index 0 = real, index 1 = imaginary.
+    Uses middle DCE time frame for classification.
+    Labels: 1 = malignant, 0 = everything else.
+    """
+
+    def __init__(self, h5_dir, labels_path, mode="both",
+                 target_size=(160, 160)):
+        assert mode in ("magnitude", "phase", "both")
+        self.mode = mode
+        self.target_size = target_size
+        self.in_channels = 2 if mode == "both" else 1
+
+        self.exam_labels = self._load_labels(labels_path)
+        self.samples = []
+        self._build_index(h5_dir)
+
+    def _load_labels(self, labels_path):
+        df = pd.read_excel(labels_path)
+        col = 'Lesion status (0 = negative, 1= malignancy, 2= benign)'
+        result = {}
+        for _, row in df.iterrows():
+            name = str(row['Patient Coded Name']).strip()
+            result[name] = 1 if int(row[col]) == 1 else 0
+        pos = sum(result.values())
+        logger.info(f"Breast labels loaded: {len(result)} patients "
+                    f"({pos} malignant, {len(result)-pos} non-malignant)")
+        return result
+
+    def _build_index(self, h5_dir):
+        files = sorted(Path(h5_dir).rglob("*.h5"))
+        files = [f for f in files if not f.name.startswith("._")]
+        for f in files:
+            # filename: fastMRI_breast_136_1.h5 -> patient key: fastMRI_breast_136
+            parts = f.stem.split("_")
+            pt_key = "_".join(parts[:4])  # fastMRI_breast_136
+            # Pad patient number to 3 digits for label lookup
+            try:
+                pt_num = int(parts[2])
+                pt_key_padded = f"fastMRI_breast_{pt_num:03d}"
+            except (ValueError, IndexError):
+                continue
+            if pt_key_padded not in self.exam_labels:
+                continue
+            self.samples.append((str(f), self.exam_labels[pt_key_padded]))
+
+        pos = sum(l for _, l in self.samples)
+        neg = len(self.samples) - pos
+        logger.info(f"BreastExamDataset [{self.mode}]: "
+                    f"{len(self.samples)} files ({pos} malignant, {neg} non-malignant)")
+
+    def __len__(self):
+        return len(self.samples)
+
+    def __getitem__(self, idx):
+        path, label = self.samples[idx]
+        dummy = torch.zeros(self.in_channels, *self.target_size)
+        dummy_label = torch.tensor(label, dtype=torch.long)
+
+        try:
+            with h5py.File(path, 'r') as f:
+                ks = f['kspace'][:]  # (2, readout, time, coils, spokes)
+        except Exception as e:
+            logger.debug(f"Skip {path}: {e}")
+            return dummy, dummy_label
+
+        try:
+            real = ks[0]
+            imag = ks[1]
+            kspace_complex = real + 1j * imag  # (readout, time, coils, spokes)
+
+            # Use middle DCE time frame
+            mid_t = kspace_complex.shape[1] // 2
+            kspace_t = kspace_complex[:, mid_t, :, :]  # (readout, coils, spokes)
+            kspace_t = kspace_t.transpose(1, 0, 2).astype(np.complex64)  # (coils, readout, spokes)
+
+            # 1D iFFT along readout
+            imgs = np.fft.ifftshift(
+                np.fft.ifft(np.fft.ifftshift(kspace_t, axes=1), axis=1),
+                axes=1
+            )  # (coils, readout, spokes)
+
+            channels = []
+            if self.mode in ("magnitude", "both"):
+                mag = np.sqrt(np.sum(np.abs(imgs)**2, axis=0)).astype(np.float32)
+                channels.append(resize_2d(normalize(mag), self.target_size))
+
+            if self.mode in ("phase", "both"):
+                n_coils = imgs.shape[0]
+                X = imgs.reshape(n_coils, -1)
+                X_ri = np.concatenate([X.real, X.imag], axis=0)
+                cov = X_ri @ X_ri.T / (X_ri.shape[1] + 1e-8)
+                _, vecs = np.linalg.eigh(cov)
+                top = vecs[:, -1]
+                w = top[:n_coils] + 1j * top[n_coils:]
+                w /= np.linalg.norm(w) + 1e-8
+                virtual = np.einsum('c,chw->hw', w, imgs)
+                phase = np.angle(virtual).astype(np.float32)
+                phase = (phase + np.pi) / (2 * np.pi)
+                channels.append(resize_2d(phase, self.target_size))
+
+            image = torch.from_numpy(
+                np.stack(channels, axis=0).astype(np.float32)
+            )
+            return image, dummy_label
+
+        except Exception as e:
+            logger.debug(f"Process error {path}: {e}")
+            return dummy, dummy_label

@@ -69,6 +69,74 @@ def run_smoke_test(output_dir):
 # Prostate experiment
 # ---------------------------------------------------------------------------
 
+
+def run_breast(args, checkpoint_dir, results_dir):
+    Path(results_dir).mkdir(parents=True, exist_ok=True)
+    from utils.data_utils import BreastExamDataset
+
+    labels_path = os.path.expanduser('~/fastmri_local/breast/fastMRI_breast_labels.xlsx')
+
+    all_results = {}
+    for mode in MODES:
+        run_name = f'breast_{mode}'
+        logger.info('=' * 50 + ' ' + run_name + ' ' + '=' * 50)
+
+        full_ds = BreastExamDataset(
+            h5_dir=args.breast_dir,
+            labels_path=labels_path,
+            mode=mode,
+        )
+
+        if len(full_ds) == 0:
+            logger.error(f'No samples found for {run_name}.')
+            continue
+
+        n = len(full_ds)
+        n_train = int(n * 0.70)
+        n_val   = int(n * 0.15)
+        n_test  = n - n_train - n_val
+
+        g = torch.Generator().manual_seed(42)
+        train_ds, val_ds, test_ds = torch.utils.data.random_split(
+            full_ds, [n_train, n_val, n_test], generator=g
+        )
+
+        train_ds.samples = [full_ds.samples[i] for i in train_ds.indices]
+        val_ds.samples   = [full_ds.samples[i] for i in val_ds.indices]
+        test_ds.samples  = [full_ds.samples[i] for i in test_ds.indices]
+
+        logger.info(f'Split: {len(train_ds)} train / {len(val_ds)} val / {len(test_ds)} test')
+
+        model = build_model(mode=mode, pretrained=True)
+        trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        total     = sum(p.numel() for p in model.parameters())
+        logger.info(f'Trainable params: {trainable:,} / {total:,}')
+
+        result = train(
+            model=model,
+            train_dataset=train_ds,
+            val_dataset=val_ds,
+            checkpoint_dir=checkpoint_dir,
+            run_name=run_name,
+            num_epochs=args.epochs,
+            batch_size=args.batch_size,
+            lr=args.lr,
+            num_workers=args.num_workers,
+            patience=7,
+        )
+        all_results[mode] = result
+        plot_training_history(result['history'], run_name, results_dir)
+        logger.info(f'[{run_name}] FINAL best_val_auc = {result["best_val_auc"]:.4f}')
+
+    logger.info("=" * 50)
+    logger.info("BREAST RESULTS SUMMARY")
+    logger.info("=" * 50)
+    for mode in MODES:
+        if mode in all_results:
+            logger.info(f'  {mode:12s}: AUC = {all_results[mode]["best_val_auc"]:.4f}')
+    logger.info("="*50)
+    return all_results
+
 def run_prostate(args, checkpoint_dir, results_dir):
     Path(results_dir).mkdir(parents=True, exist_ok=True)
 
@@ -158,6 +226,7 @@ def run_prostate(args, checkpoint_dir, results_dir):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--prostate_dir", type=str, default=None)
+    parser.add_argument("--breast_dir",   type=str, default=None)
     parser.add_argument("--output_dir",   type=str, default="./results")
     parser.add_argument("--epochs",       type=int, default=30)
     parser.add_argument("--batch_size",   type=int, default=8)
@@ -177,11 +246,15 @@ def main():
         run_smoke_test(args.output_dir)
         return
 
-    if args.prostate_dir is None:
-        logger.error("Please provide --prostate_dir")
+    if args.prostate_dir is None and args.breast_dir is None:
+        logger.error("Please provide --prostate_dir or --breast_dir")
         sys.exit(1)
 
-    run_prostate(args, checkpoint_dir, results_dir)
+    if args.prostate_dir:
+        run_prostate(args, checkpoint_dir, results_dir)
+
+    if args.breast_dir:
+        run_breast(args, checkpoint_dir, results_dir)
     logger.info(f"All outputs saved to: {args.output_dir}")
 
 
