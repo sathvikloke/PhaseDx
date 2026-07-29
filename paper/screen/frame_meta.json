@@ -1,0 +1,8 @@
+{
+  "query": "(\"deep learning\"[tiab] OR \"convolutional neural network\"[tiab] OR \"convolutional neural networks\"[tiab] OR CNN[tiab] OR \"neural network\"[tiab] OR \"neural networks\"[tiab]) AND (MRI[tiab] OR \"magnetic resonance imaging\"[tiab] OR \"computed tomography\"[tiab] OR CT[tiab] OR PET[tiab] OR \"optical coherence tomography\"[tiab]) AND (classification[tiab] OR classifier[tiab] OR classify[tiab] OR \"computer-aided diagnosis\"[tiab] OR diagnosis[tiab] OR detection[tiab]) AND (AUC[tiab] OR AUROC[tiab] OR \"area under the curve\"[tiab] OR \"area under the receiver\"[tiab] OR accuracy[tiab] OR sensitivity[tiab] OR specificity[tiab] OR \"F1\"[tiab]) AND english[la] AND 2019/01/01:2026/12/31[dp] NOT (review[pt] OR \"systematic review\"[pt] OR meta-analysis[pt] OR editorial[pt] OR comment[pt] OR \"case reports\"[pt])",
+  "database": "PubMed (NCBI E-utilities esearch.fcgi)",
+  "date_run_utc": "2026-07-29T06:42:52.213094+00:00",
+  "esearch_count": 9979,
+  "pmids_retrieved": 9979,
+  "frame_sha256": "d611def0785f3a5e7b7489364959f1d3471b61651f98a3ed049252654264374b"
+}

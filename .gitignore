@@ -1,0 +1,52 @@
+# ---------------------------------------------------------------------------
+# FastMRI data and anything derived from it — NEVER commit these.
+#
+# The raw k-space is held under the NYU FastMRI data use agreement, and that
+# covers derived artefacts too, not just the .h5 files. The cohort and cache
+# index tables carry coded patient identifiers alongside institution, device_id
+# and scanner fields pulled out of the ISMRMRD headers, and the caches
+# themselves are reconstructed patient images. pipeline_out/ is therefore
+# excluded whole rather than by pattern, so a new subdirectory cannot leak by
+# default.
+# ---------------------------------------------------------------------------
+pipeline_out/
+pipeline_out_inventory.log
+*.h5
+*.tar
+data/
+results/
+results_*/
+experiment_output/
+checkpoints/
+smoke_output/
+smoke_results/
+
+# Model checkpoints and weights
+*.pt
+*.pth
+*.ckpt
+
+# ---------------------------------------------------------------------------
+# Superseded manuscript drafts.
+#
+# manuscript/*.docx report numbers that no code in this repository has ever
+# produced — see manuscript/DO_NOT_SUBMIT.md, which IS published so the record
+# is public. The drafts themselves are kept locally only, because a public copy
+# invites someone to read or cite the numbers in them.
+# ---------------------------------------------------------------------------
+manuscript/*.docx
+manuscript/figures/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# OS
+.DS_Store
+._*

@@ -1,0 +1,216 @@
+{
+ "_schema": "PhaseDx prevalence screen — extraction form and codebook v1.0",
+ "_frozen_utc": "2026-07-29",
+ "_status": "PRE-REGISTERED. Frozen after a 10-paper pilot. Amendments go in the changelog at the end of this file and in paper/screen_protocol.md; never edit a rule silently.",
+ "_companion": "paper/screen_protocol.md (rationale, sampling frame, analysis plan)",
+ "_sample": "paper/screen_sample.json",
+
+ "governing_principles": [
+  "Code what the paper DID, never what its title or abstract claims it did. Pilot paper PMID 39031408 is titled 'CNN-based glioma detection in MRI' and evaluates segmentation with Dice only.",
+  "Every field marked requires_quote=true must carry a VERBATIM quote from the paper plus its location (section, page, table or figure number). A code without a quote is not submitted; it is coded 'unclear' with a note. This mirrors the project rule that every claim about a paper must quote it.",
+  "Record the evidence before choosing the code. The form is ordered so the quote field precedes the code field.",
+  "'Not stated' and 'unclear' are real, reportable answers. Never infer a code from what the authors probably did. Absence of a statement is the finding.",
+  "A field you cannot decide after the specified reading effort is coded 'unclear'. Guessing to avoid an 'unclear' is the single most damaging thing a screener can do here."
+ ],
+
+ "reading_effort": {
+  "stage_1_abstract": "Title + abstract only. Produces the stage-1 decision and nothing else.",
+  "stage_2_methods_skim": "Full text: Methods in full, plus Results tables/figures, plus any 'baseline'/'comparison'/'statistical analysis' subsection, plus supplementary Methods if the main Methods defers to it. Discussion/Introduction are read only to resolve an otherwise-unclear code. Budget ~20 minutes per paper.",
+  "stage_2_required_searches": "Before coding trivial_baseline_* as absent, the screener must Ctrl-F the full text (including supplement) for ALL of: 'baseline', 'chance', 'random', 'majority', 'prevalence', 'constant', 'trivial', 'metadata', 'clinical-only', 'clinical model', 'position', 'location', 'slice index', 'permut'. Record in searches_run that this was done. A negative code without the search is invalid."
+ },
+
+ "eligibility": {
+  "_decidable_at": "stage 1 where possible; anything not decidable from the abstract goes to stage 2 rather than being guessed",
+  "inclusion": [
+   {"id": "I1", "rule": "Primary research report of an original experiment. Publication date 2019-01-01 to 2026-12-31 (guaranteed by the frame)."},
+   {"id": "I2", "rule": "A supervised CLASSIFIER is fitted, and a categorical label is assigned to an imaging unit (slice, sub-volume, volume, scan, lesion-as-class, or patient). Binary or multi-class both qualify."},
+   {"id": "I3", "rule": "The classifier's INPUT is a spatially resolved image derived from a VOLUMETRIC acquisition, i.e. one natively reconstructed as an ordered stack of 2D cross-sections. Qualifying modalities: CT, CBCT, MRI (incl. DWI/DCE/fMRI volumes), PET, PET/CT, SPECT, volumetric OCT / OCTA B-scan stacks, 3D ultrasound, 3D mammography (DBT)."},
+   {"id": "I4", "rule": "At least one classification performance metric is reported numerically: AUC/AUROC, accuracy, sensitivity, specificity, PPV/NPV, F1, balanced accuracy, AUPRC, kappa."}
+  ],
+  "exclusion": [
+   {"code": "E-SEG",   "rule": "Segmentation, delineation, bounding-box detection, landmark localisation, registration, reconstruction, denoising, synthesis, super-resolution or image-quality assessment, with NO categorical class decision evaluated. Reporting sensitivity/specificity/AUC does NOT make a segmentation paper a classification paper — three of ten pilot papers did exactly this. If the paper does BOTH segmentation and classification, INCLUDE and code only the classification arm."},
+   {"code": "E-2D",    "rule": "Imaging is natively 2D: chest/skeletal radiography, 2D mammography, fundus photography, dermoscopy, endoscopy, histopathology whole-slide, 2D echocardiography, single-frame ultrasound."},
+   {"code": "E-PROJ",  "rule": "The acquisition is volumetric but the classifier input is a collapsed 2D projection with no slice axis: en-face maps, maximum-intensity projections, scout/topogram/localiser images, unfolded or flattened surface maps. Pilot amendment A1, from PMID 41732778."},
+   {"code": "E-DERIV", "rule": "The classifier input is a non-spatial derived representation with the image discarded: a radiomics feature vector alone, a functional-connectivity matrix, a connectome, a shape/volumetry descriptor table, or clinical variables alone. Pilot amendment A5, from PMID 34924987. Counted and reported separately; these papers are outside the failure mode but inside the query."},
+   {"code": "E-NOCLF", "rule": "No supervised classifier fitted: survival/regression-only outcome, unsupervised clustering with no class decision, purely descriptive or reader study with no model."},
+   {"code": "E-NOMET", "rule": "No numeric classification metric reported anywhere, including supplement."},
+   {"code": "E-TYPE",  "rule": "Review, systematic review, meta-analysis, editorial, letter, comment, erratum, conference abstract without methods, study protocol, dataset descriptor with no model, or a survey/benchmark paper that only re-tabulates other people's numbers."},
+   {"code": "E-NONMED","rule": "Not human medical imaging: phantom-only, preclinical animal-only, materials/industrial CT, or non-imaging signal (EEG, ECG) despite matching the query."},
+   {"code": "E-LANG",  "rule": "Full text not in English despite an English abstract."},
+   {"code": "E-DUP",   "rule": "Duplicate report of the same experiment already screened in this sample (same cohort, same model, same results). Record the PMID retained."}
+  ],
+  "ambiguous_case_rules": [
+   {"id": "A1", "case": "Volumetric acquisition, but the paper does not say whether the model saw slices or an en-face/projected image.", "rule": "Go to stage 2. If still undeterminable after the Methods and figures, code included with input_representation='unclear'. Do NOT exclude — excluding the under-described papers would systematically drop the least rigorous ones, which is the exact direction that flatters the literature."},
+   {"id": "A2", "case": "Mixed modality, e.g. CT and chest X-ray in one paper.", "rule": "INCLUDE if at least one volumetric arm exists AND a metric is reported separately for it. Code modality for the volumetric arm and set mixed_modality=true. If results are only pooled across 2D and 3D and cannot be separated, code included with headline_value_scope='pooled_2D_and_3D' and flag it.", "source": "pilot PMID 35052273"},
+   {"id": "A3", "case": "Multi-task paper: segmentation plus classification.", "rule": "INCLUDE. Code the classification arm only, everywhere. Ignore Dice/IoU entirely.", "source": "pilot PMID 34136106"},
+   {"id": "A4", "case": "Title or abstract uses 'detection'/'diagnosis' but the evaluation is segmentation.", "rule": "Code on the evaluated task. E-SEG.", "source": "pilot PMID 39031408"},
+   {"id": "A5", "case": "Several models or several datasets; which is 'the' headline?", "rule": "The headline is the number in the Abstract's results sentence. If the abstract gives several, take the one for the authors' own proposed method on the most external/most held-out test set they report. If the abstract gives none, take the first row of the first results table for the proposed method. Record which rule fired in headline_selection_rule."},
+   {"id": "A6", "case": "Multi-class task, so 'AUC' is macro-averaged or one-vs-rest.", "rule": "Record the macro/weighted average if given, else the value for the class the paper foregrounds. Set headline_metric_qualifier accordingly."},
+   {"id": "A7", "case": "The paper reports both internal and external validation.", "rule": "Headline = external if the abstract foregrounds it, else internal. Record which in headline_test_set."},
+   {"id": "A8", "case": "2.5D input (a small stack of adjacent slices, e.g. 3 or 5, predicting the centre slice's label).", "rule": "This IS slice-level. Code evaluation_unit='slice' and input_representation='2.5D'. The label is attached to a slice."},
+   {"id": "A9", "case": "Patient-level label broadcast to every slice for training, but evaluation aggregated to patient.", "rule": "evaluation_unit='patient'; set label_broadcast_to_slices=true. This is a distinct and important configuration."}
+  ]
+ },
+
+ "fields": [
+  {"name": "record_id", "type": "string", "required": true, "note": "PMID, from screen_sample.json."},
+  {"name": "permutation_position", "type": "integer", "required": true},
+  {"name": "batch", "type": "enum", "values": ["overlap", "batch_A", "batch_B", "batch_C", "batch_D"], "required": true},
+  {"name": "screener_id", "type": "enum", "values": ["S1", "S2", "S3", "S4"], "required": true},
+  {"name": "coded_utc", "type": "iso8601", "required": true},
+
+  {"name": "stage1_decision", "type": "enum", "required": true,
+   "values": ["include_provisional", "exclude", "go_to_fulltext"],
+   "codebook": "From title+abstract only. 'exclude' is permitted at stage 1 ONLY when an exclusion code is unambiguous from the abstract (e.g. Dice is the only metric, or the modality is plainly 2D). Every other record goes to stage 2. When in doubt, go_to_fulltext.",
+   "requires_quote": false},
+
+  {"name": "fulltext_reachable", "type": "enum", "required": true,
+   "values": ["oa_pmc_or_publisher", "institutional_access", "repository_or_accepted_manuscript", "preprint_version_only", "author_supplied", "unreachable_paywalled", "unreachable_not_found", "not_attempted_excluded_at_stage1"],
+   "codebook": "Follow the access ladder in screen_protocol.md §7 in order and stop at the first rung that works. 'unreachable_*' is assigned only after every permitted rung has been tried and, for the interlibrary/author rung, 21 days have elapsed. Unreachable papers are NOT excluded; they enter the bounding analysis.",
+   "requires_quote": false},
+  {"name": "fulltext_version_used", "type": "enum", "required": true,
+   "values": ["version_of_record", "accepted_manuscript", "preprint", "abstract_only", "na"],
+   "codebook": "If anything other than version_of_record was coded from, say so. A preprint may differ from the published paper; this is reported as a limitation and in a sensitivity analysis."},
+
+  {"name": "final_inclusion", "type": "enum", "required": true,
+   "values": ["included", "excluded", "unreachable_eligibility_unresolved"],
+   "codebook": "'unreachable_eligibility_unresolved' = the abstract was consistent with inclusion but the full text could not be obtained, so eligibility itself could not be confirmed. Reported separately in the flow diagram."},
+  {"name": "exclusion_code", "type": "enum", "required": false,
+   "values": ["E-SEG", "E-2D", "E-PROJ", "E-DERIV", "E-NOCLF", "E-NOMET", "E-TYPE", "E-NONMED", "E-LANG", "E-DUP"],
+   "requires_quote": true,
+   "quote_field": "exclusion_quote",
+   "codebook": "Exactly one code, the FIRST that applies in the listed order, so two screeners meeting the same paper produce the same code."},
+  {"name": "exclusion_quote", "type": "string", "required": false},
+
+  {"name": "evaluation_unit_reported", "type": "enum", "required": true,
+   "values": ["slice", "patient", "both", "volume_or_scan_not_patient", "lesion", "other", "unclear"],
+   "requires_quote": true, "quote_field": "evaluation_unit_quote",
+   "codebook": "The unit over which the reported metric was computed, i.e. what one row of the score vector is. 'slice' includes 2D slice, B-scan, frame, and 2.5D centre-slice. 'volume_or_scan_not_patient' is for per-scan metrics where a patient may contribute several scans and the paper does not aggregate to patient — do NOT collapse this into 'patient'; it is a distinct and common case. 'both' requires the same metric to be reported at two units. AMBIGUOUS CASE: if the paper says only 'n images' and never defines whether an image is a slice or a volume, code 'unclear' — this is a substantive finding, not a coding failure."},
+  {"name": "evaluation_unit_quote", "type": "string", "required": true},
+
+  {"name": "headline_unit", "type": "enum", "required": true,
+   "values": ["slice", "patient", "volume_or_scan", "lesion", "other", "na_only_one_unit_reported", "unclear"],
+   "requires_quote": true, "quote_field": "headline_unit_quote",
+   "codebook": "Applies when evaluation_unit_reported='both'. The headline is the unit of the number in the abstract's results sentence (rule A5). If both units appear in the abstract, the headline is whichever is stated first. If only one unit is reported anywhere, code 'na_only_one_unit_reported'."},
+  {"name": "headline_unit_quote", "type": "string", "required": false},
+
+  {"name": "split_unit", "type": "enum", "required": true,
+   "values": ["patient_subject", "slice_or_image", "scan_or_study", "site_or_centre", "external_cohort_only", "random_unit_not_stated", "no_held_out_test_set", "unclear"],
+   "requires_quote": true, "quote_field": "split_quote",
+   "codebook": "The unit at which train/test (or CV folds) were separated. CRITICAL DISTINCTION: 'patient_subject' requires the paper to SAY so — e.g. 'split at the patient level', 'patient-wise', 'subject-disjoint', 'no patient appeared in more than one fold'. 'random_unit_not_stated' is for the very common 'the dataset was randomly split 80/20' with no unit named; do NOT upgrade this to patient-level because the sentence mentions patients elsewhere. If the paper splits at patient level but never verifies disjointness, still code 'patient_subject' and set split_disjointness_verified=false."},
+  {"name": "split_quote", "type": "string", "required": true},
+  {"name": "split_disjointness_verified", "type": "enum", "values": ["stated_and_checked", "stated_only", "not_stated", "na"], "required": true},
+
+  {"name": "trivial_baseline", "type": "object", "required": true,
+   "requires_quote": true, "quote_field": "trivial_baseline_quote",
+   "codebook": "THE PRIMARY FIELD. Each sub-flag is independent; set every one that applies. A flag is true only if the paper reports a MEASURED value for that baseline on the same metric. An assertion with no number (e.g. 'AUC of 0.5 represents chance') is FALSE for every flag — record it in chance_asserted_without_measurement instead.",
+   "subfields": [
+    {"name": "constant_or_prevalence", "codebook": "A constant / majority-class / always-positive / prevalence predictor with a measured metric value. TRUE also for a reported no-information-rate or a measured 'random guess' arm."},
+    {"name": "positional", "codebook": "A model using slice index or relative slice position (or z-coordinate / table position / ImagePositionPatient) and no pixels, with a measured value. This is the construction our paper formalises."},
+    {"name": "acquisition_metadata", "codebook": "A model using DICOM/acquisition or administrative fields only — scanner, manufacturer, field strength, TR/TE, kVp, slice thickness, site, acquisition date, series description, release batch or source directory — with no pixels, with a measured value."},
+    {"name": "permuted_or_shuffled_label", "codebook": "The model retrained or rescored on randomised labels, with a measured value (a permutation null)."},
+    {"name": "clinical_or_demographic_only", "codebook": "A model using patient variables only — age, sex, BMI, PSA, lab values, symptoms — with no imaging, with a measured value on the same metric. Includes the 'clinical-only' arm of a clinical+radiomics nomogram. TRUE here does NOT count toward the primary endpoint; it counts toward secondary S1."},
+    {"name": "other_non_imaging", "codebook": "Any other pixel-free comparator with a measured value. Describe it in trivial_baseline_other_description."}
+   ],
+   "does_not_count": [
+    "comparison against another imaging deep-learning model, another architecture, or a published imaging method",
+    "comparison against human readers/radiologists",
+    "a radiomics or hand-crafted-feature model — it uses pixels",
+    "an ablation that removes a network component, an input channel that is still an image, or an augmentation",
+    "transfer-learning-from-scratch comparisons",
+    "a stated chance level with no measurement",
+    "a baseline mentioned only as future work or only in the Discussion with no number"
+   ]},
+  {"name": "trivial_baseline_quote", "type": "string", "required": true,
+   "codebook": "If ANY sub-flag is true: quote the sentence or table cell reporting it, with location. If ALL sub-flags are false: paste the searches_run string instead and write 'no match' — the negative must be evidenced too."},
+  {"name": "trivial_baseline_other_description", "type": "string", "required": false},
+  {"name": "chance_asserted_without_measurement", "type": "boolean", "required": true},
+  {"name": "searches_run", "type": "string", "required": true,
+   "codebook": "The literal list of search terms run over the full text per reading_effort.stage_2_required_searches, plus 'supplement: yes/no/none exists'."},
+
+  {"name": "positional_distribution_reported", "type": "enum", "required": true,
+   "values": ["figure_or_table", "text_with_numbers", "text_qualitative_only", "no", "unclear"],
+   "requires_quote": true, "quote_field": "positional_distribution_quote",
+   "codebook": "Does the paper show or state how the label is distributed along the slice axis — a histogram of positive-slice position, a mean/sd of relative position, a statement that lesions concentrate in the mid-volume, or a position-stratified metric? 'text_qualitative_only' = asserted without numbers. Anatomical statements with no reference to position WITHIN the acquired stack ('lesions occur in the peripheral zone') are 'no'."},
+  {"name": "positional_distribution_quote", "type": "string", "required": false},
+
+  {"name": "dataset_name", "type": "string", "required": true, "codebook": "Named public dataset(s) verbatim (LUNA16, PI-CAI, fastMRI prostate, ADNI, BraTS, OCTA-500, ...), or 'private_single_centre' / 'private_multi_centre'. Semicolon-separate several."},
+  {"name": "dataset_public", "type": "enum", "values": ["public", "private", "mixed", "unclear"], "required": true},
+  {"name": "modality", "type": "enum", "values": ["CT", "CBCT", "MRI", "PET", "PET_CT", "SPECT", "OCT", "OCTA", "US_3D", "DBT", "multiple", "other"], "required": true},
+  {"name": "mixed_modality", "type": "boolean", "required": true},
+  {"name": "organ_or_region", "type": "string", "required": true, "codebook": "Free text from a controlled starter list: brain, breast, prostate, lung, liver, kidney, pancreas, cardiac, head_neck, spine, musculoskeletal, retina, abdomen_general, whole_body, other."},
+  {"name": "n_patients", "type": "integer_or_null", "required": true, "codebook": "Total distinct patients/subjects in the study. NULL if the paper never states a patient count — a finding in itself. Do not back-compute from slice counts."},
+  {"name": "n_patients_test", "type": "integer_or_null", "required": true},
+  {"name": "n_slices_or_images", "type": "integer_or_null", "required": true},
+  {"name": "n_positive_reported", "type": "enum", "values": ["patients_and_slices", "patients_only", "slices_only", "neither", "na"], "required": true},
+  {"name": "headline_metric", "type": "enum", "values": ["AUC", "AUPRC", "accuracy", "sensitivity", "specificity", "F1", "balanced_accuracy", "kappa", "other"], "required": true},
+  {"name": "headline_value", "type": "number_or_null", "required": true, "codebook": "On a 0-1 scale; convert percentages. NULL if only a range or a figure is given."},
+  {"name": "headline_metric_qualifier", "type": "string", "required": false, "codebook": "e.g. 'macro-averaged one-vs-rest over 7 classes'."},
+  {"name": "headline_test_set", "type": "enum", "values": ["external", "internal_held_out", "cross_validation", "unclear"], "required": true},
+  {"name": "headline_value_scope", "type": "enum", "values": ["single_modality_arm", "pooled_2D_and_3D", "pooled_multi_dataset", "unclear"], "required": true},
+  {"name": "headline_selection_rule", "type": "enum", "values": ["abstract_sentence", "abstract_multiple_took_external", "first_results_table_row", "other"], "required": true},
+  {"name": "uncertainty_interval_reported", "type": "enum", "values": ["ci_clustered_by_subject", "ci_unspecified_method", "sd_across_folds", "none", "unclear"], "required": true},
+  {"name": "input_representation", "type": "enum", "values": ["2D_slice", "2.5D_stack", "3D_volume", "patch_3D", "mixed", "unclear"], "required": true},
+  {"name": "label_broadcast_to_slices", "type": "enum", "values": ["true", "false", "unclear", "na"], "required": true},
+
+  {"name": "code_availability", "type": "enum", "values": ["public_link_works", "public_link_stated", "on_request", "none"], "required": true},
+  {"name": "screener_confidence", "type": "enum", "values": ["high", "medium", "low"], "required": true,
+   "codebook": "'low' triggers mandatory adjudication by a second screener regardless of batch."},
+  {"name": "notes", "type": "string", "required": false},
+  {"name": "flag_for_adjudication", "type": "boolean", "required": true}
+ ],
+
+ "endpoints": {
+  "_denominator_default": "papers with final_inclusion='included' AND fulltext_reachable not in {unreachable_paywalled, unreachable_not_found} (the complete-case set), unless a specific endpoint says otherwise",
+  "primary": {
+   "id": "P1",
+   "statement": "Proportion of included papers reporting at least one ZERO-IMAGE baseline with a measured value on the same metric — i.e. any of trivial_baseline.constant_or_prevalence, .positional, .acquisition_metadata, .permuted_or_shuffled_label.",
+   "rationale": "This is the exact family our checklist items B1-B3 require, and the only family that tests whether the benchmark is solvable without pixels. clinical_or_demographic_only is deliberately EXCLUDED from the primary: a clinical-variables nomogram is a different comparison and does not test the shortcut.",
+   "interval": "Wilson score, 95%, two-sided",
+   "prespecified_direction": "none — this is an estimate, not a test"
+  },
+  "secondary": [
+   {"id": "S1", "statement": "Proportion reporting at least one NON-IMAGING baseline of any kind (P1 family plus clinical_or_demographic_only)."},
+   {"id": "S2", "statement": "Proportion whose headline evaluation unit is the slice (headline_unit='slice', or evaluation_unit_reported='slice' with only one unit reported)."},
+   {"id": "S3", "statement": "Among papers reporting any slice-level metric, the proportion that ALSO report a patient-level metric.", "denominator": "included papers with evaluation_unit_reported in {slice, both}"},
+   {"id": "S4", "statement": "Proportion explicitly stating a subject-level split (split_unit='patient_subject')."},
+   {"id": "S5", "statement": "Proportion reporting or discussing the positional distribution of labels (positional_distribution_reported in {figure_or_table, text_with_numbers})."},
+   {"id": "S6", "statement": "Proportion of eligible-looking papers for which full text was unreachable.", "denominator": "included plus unreachable_eligibility_unresolved"},
+   {"id": "S7", "statement": "Cross-tabulation of headline_unit against the P1 flag, with the exact-count table reported in full."},
+   {"id": "S8", "statement": "Proportion reporting a subject-clustered uncertainty interval (uncertainty_interval_reported='ci_clustered_by_subject')."},
+   {"id": "S9", "statement": "Proportion reporting n positive PATIENTS as well as n positive slices (n_positive_reported='patients_and_slices')."}
+  ],
+  "exploratory_subgroups": {
+   "_label": "EXPLORATORY. No multiplicity correction. Reported with intervals and explicitly labelled exploratory in every table.",
+   "strata": ["publication year 2019-2022 vs 2023-2026", "modality (CT vs MRI vs other)", "dataset_public (public vs private)", "venue type: clinical radiology/medical journal vs engineering/computing journal, classified from the journal's scope statement before unblinding", "evaluation_unit_reported"]
+  },
+  "no_hypothesis_tests": "No significance test is pre-specified for any endpoint. All results are proportions with Wilson intervals. If a reviewer requests a test, it will be reported as post-hoc and labelled as such."
+ },
+
+ "missing_and_unreachable": {
+  "rule_1": "An unreachable paper is NEVER silently dropped. It is reported in the flow diagram and in endpoint S6.",
+  "rule_2": "Primary analysis is complete-case (reachable included papers).",
+  "rule_3": "Two bounding analyses are reported ALONGSIDE the primary, always, not only if they matter: LOWER = every unreachable paper coded as NOT reporting a zero-image baseline; UPPER = every unreachable paper coded as reporting one.",
+  "rule_4": "If unreachable papers exceed 15% of the eligible set, the bounding interval REPLACES the complete-case estimate as the headline number.",
+  "rule_5": "Direction of bias is stated in the paper: paywalled articles skew toward higher-tier clinical journals, which are the venues most likely to demand a comparator arm, so silent exclusion would bias P1 DOWNWARD — in the direction that flatters our thesis. This is why rule 3 is unconditional.",
+  "rule_6": "Within an included and reachable paper, a field coded 'unclear' is kept as 'unclear' and reported as its own category. Fields are not imputed."
+ },
+
+ "agreement": {
+  "overlap_set": "the 15 records at permutation positions 1-15, coded independently by all four screeners",
+  "independence": "Each screener submits the overlap set as a sealed file before seeing any other screener's codes. Submission timestamps are recorded in git. No discussion of any overlap paper before all four are in.",
+  "primary_statistic": "Fleiss' kappa across 4 raters on the P1 flag. Cohen's kappa is defined for two raters only, so the six pairwise Cohen's kappas are reported as a matrix alongside it, not instead of it.",
+  "fields_with_reported_agreement": ["final_inclusion", "trivial_baseline (P1 flag)", "evaluation_unit_reported", "headline_unit", "split_unit", "positional_distribution_reported"],
+  "paradox_guard": "P1 is expected to be extremely skewed. Under high skew, kappa collapses toward 0 even at near-perfect agreement (the first kappa paradox). Raw percent agreement AND Gwet's AC1 are therefore PRE-SPECIFIED for every field above and reported in the same table as kappa. Reporting them is not a post-hoc rescue; it is fixed here, before any coding.",
+  "interval": "bootstrap percentile 95% CI over 2000 resamples of the 15 papers, seed 20260729",
+  "threshold_and_remedy": "If Fleiss' kappa on the P1 flag is below 0.60 (or, if the paradox guard triggers, if raw agreement is below 90%): a documented adjudication round is held, the codebook is amended in the changelog, and EVERY already-coded paper is re-coded under the amended codebook. Both pre- and post-reconciliation statistics are reported.",
+  "non_overlap_quality_control": "A 20% random subsample of each screener's non-overlap batch (seed 20260729, drawn within batch) is independently re-coded by the next screener in the cycle A->B->C->D->A. Disagreement rate on the P1 flag is reported. This is the only way to detect drift outside the overlap set.",
+  "low_confidence_rule": "Any record with screener_confidence='low' or flag_for_adjudication=true is adjudicated by a second screener regardless of batch; the adjudicated code is used and the disagreement is logged."
+ },
+
+ "changelog": [
+  {"date": "2026-07-29", "version": "0.1", "event": "Draft criteria written from the research question, before any record was read."},
+  {"date": "2026-07-29", "version": "1.0", "event": "PILOT of 10 records at permutation positions 101-110 (PMIDs 41732778, 39693092, 35052273, 39389801, 34136106, 39520662, 34924987, 41897586, 39031408, 38866884), abstracts only. Six amendments adopted: A1 (E-PROJ, en-face/projection inputs), A2 (mixed 2D/3D modality rule), A3 (multi-task segmentation+classification -> include, code classification arm), A4 (code the evaluated task, not the title verb), A5 (E-DERIV, connectivity-matrix and feature-vector inputs), A6 (modality list extended to SPECT and CBCT). Explicit warning added that reporting sensitivity/specificity/AUC does not make a segmentation paper a classification paper: 3 of 10 pilot papers did this. The 10 pilot records are PERMANENTLY EXCLUDED from the analysis sample because the protocol author has read them."},
+  {"date": "2026-07-29", "version": "1.0", "event": "FROZEN. Sampling frame executed, sample drawn, endpoints and analysis fixed before any analysis-sample record was read."}
+ ]
+}

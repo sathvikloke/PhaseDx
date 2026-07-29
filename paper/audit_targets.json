@@ -1,0 +1,758 @@
+{
+  "generated": "2026-07-28",
+  "title": "Audit target list for zero-image null models on public medical imaging benchmarks",
+  "companion_document": "paper/audit_targets.md",
+  "nulls": {
+    "positional": {
+      "needs": [
+        "subject_id",
+        "slice_index",
+        "label",
+        "train_test_split"
+      ],
+      "implementation": "pipeline/s12_rempe.py::positional_scores, ::run_positional_baseline_on_their_labels",
+      "estimator": "20-bin P(label | relative slice position), fitted on TRAINING slices only"
+    },
+    "metadata": {
+      "needs": [
+        "subject_id",
+        "acquisition_or_provenance_field",
+        "label",
+        "train_test_split"
+      ],
+      "implementation": "pipeline/s08_belowchance.py",
+      "established_results": [
+        {
+          "cohort": "breast",
+          "feature": "release batch (download tarball id)",
+          "auc": 0.743,
+          "network_auc": 0.633
+        },
+        {
+          "cohort": "prostate_t2",
+          "feature": "kspace matrix shape",
+          "auc": 0.609,
+          "network_auc": "0.38-0.48"
+        }
+      ]
+    }
+  },
+  "entry_criterion": "A dataset qualifies as a label-file-only target if subject id, slice index, label and split can be obtained WITHOUT downloading pixel data and WITHOUT a DUA covering pixels.",
+  "anchor_correction": {
+    "issue": "The brief's headline positional-baseline numbers come from the DWI label file; the persisted artefact is the T2 run.",
+    "dwi": {
+      "file": "dwi_slice_level_labels.csv",
+      "slice_auc": 0.8514,
+      "slice_ci_naive": [
+        0.8207,
+        0.8804
+      ],
+      "patient_auc": 0.424,
+      "patient_ci_clustered": [
+        0.2982,
+        0.5471
+      ]
+    },
+    "t2": {
+      "file": "t2_slice_level_labels.csv",
+      "slice_auc": 0.8542,
+      "slice_ci_naive": [
+        0.822,
+        0.8843
+      ],
+      "slice_ci_clustered": [
+        0.8123,
+        0.8913
+      ],
+      "patient_auc": 0.5058,
+      "patient_ci_clustered": [
+        0.3808,
+        0.6316
+      ]
+    },
+    "evidence": "pipeline_out/rempe/positional_baseline.json has source '/Volumes/Research/fastmridatasets/prostate/labels/t2_slice_level_labels.csv' while the waterfall docstring in pipeline/s12_rempe.py lines 272-278 quotes the DWI numbers.",
+    "both_reproduce_from_clean_download": true,
+    "action": "Rempe et al. work on prostate diffusion data, so DWI is the correct arm. Regenerate the persisted JSON against the DWI file, or state T2 in the manuscript. Both arms support the same conclusion (slice-level ~ their headline, patient-level ~ chance), so this is a bookkeeping fix, not a result change."
+  },
+  "datasets": [
+    {
+      "id": "fastmri_prostate",
+      "name": "fastMRI Prostate (Tibrewala et al. 2024)",
+      "modality": "MRI 3T bp-MRI (T2, DWI)",
+      "organ": "prostate",
+      "n_patients": 312,
+      "n_slices": {
+        "t2": 9508,
+        "dwi": 9490
+      },
+      "per_slice_labels_public": true,
+      "label_file_only": true,
+      "verification": "VERIFIED_DOWNLOADED",
+      "label_file_urls": [
+        "https://raw.githubusercontent.com/cai2r/fastMRI_prostate/main/fastmri_prostate/data/t2_slice_level_labels.csv",
+        "https://raw.githubusercontent.com/cai2r/fastMRI_prostate/main/fastmri_prostate/data/dwi_slice_level_labels.csv",
+        "https://raw.githubusercontent.com/cai2r/fastMRI_prostate/main/fastmri_prostate/data/volume_exam_labels.csv"
+      ],
+      "label_schema": [
+        "fastmri_pt_id",
+        "slice",
+        "PIRADS",
+        "fastmri_rawfile",
+        "data_split",
+        "folder"
+      ],
+      "official_split": true,
+      "split_field": "data_split",
+      "split_counts_t2": {
+        "training": 6647,
+        "validation": 1462,
+        "test": 1399
+      },
+      "licence": "label CSVs public on GitHub (no DUA); pixel data requires NYU fastMRI registration",
+      "feasibility": 5,
+      "impact": 5,
+      "score": 25,
+      "status": "DONE_ANCHOR",
+      "notes": "Anchor case study. Audit requires one curl and no GPU. Repo artefact/manuscript mismatch: see paper/audit_targets.md section 0."
+    },
+    {
+      "id": "deeplesion",
+      "name": "DeepLesion (Yan et al. 2018, NIH)",
+      "modality": "CT",
+      "organ": "whole body / 8 coarse lesion types",
+      "n_patients": 4427,
+      "n_lesions": 32735,
+      "n_key_slices": 32120,
+      "n_studies": 10594,
+      "per_slice_labels_public": true,
+      "label_file_only": true,
+      "verification": "VERIFIED_DOWNLOADED",
+      "label_file_urls": [
+        "https://huggingface.co/datasets/farrell236/DeepLesion/resolve/main/DL_info.csv"
+      ],
+      "label_schema": [
+        "File_name",
+        "Patient_index",
+        "Study_index",
+        "Series_ID",
+        "Key_slice_index",
+        "Measurement_coordinates",
+        "Bounding_boxes",
+        "Lesion_diameters_Pixel_",
+        "Normalized_lesion_location",
+        "Coarse_lesion_type",
+        "Possibly_noisy",
+        "Slice_range",
+        "Spacing_mm_px_",
+        "Image_size",
+        "DICOM_windows",
+        "Patient_gender",
+        "Patient_age",
+        "Train_Val_Test"
+      ],
+      "official_split": true,
+      "split_field": "Train_Val_Test",
+      "split_counts": {
+        "train": 22919,
+        "val": 4889,
+        "test": 4927
+      },
+      "licence": "CC BY-SA 4.0 (HuggingFace mirror); NIH terms on original release",
+      "feasibility": 5,
+      "impact": 4,
+      "score": 20,
+      "status": "PROBE_RUN",
+      "notes": "Normalized_lesion_location publishes the z confound directly - no inference needed. Coarse_lesion_type exists only in val/test (patient-disjoint, 0 shared patients). CAVEAT: the 8 classes are anatomical regions, so a high positional null is expected and is NOT evidence of unsoundness. Frame as a reference level, not a debunking."
+    },
+    {
+      "id": "fastmri_plus_knee",
+      "name": "fastMRI+ knee (Zhao et al. 2022, Sci Data)",
+      "modality": "MRI knee (coronal PD/PDFS)",
+      "organ": "knee",
+      "n_volumes": 1172,
+      "n_annotation_rows": 16167,
+      "n_pathology_categories": 22,
+      "per_slice_labels_public": true,
+      "label_file_only": false,
+      "verification": "VERIFIED_DOWNLOADED",
+      "label_file_urls": [
+        "https://raw.githubusercontent.com/microsoft/fastmri-plus/main/Annotations/knee.csv",
+        "https://raw.githubusercontent.com/microsoft/fastmri-plus/main/Annotations/knee_file_list.csv"
+      ],
+      "label_schema": [
+        "file",
+        "slice",
+        "study_level",
+        "x",
+        "y",
+        "width",
+        "height",
+        "label"
+      ],
+      "official_split": false,
+      "licence": "public GitHub (microsoft/fastmri-plus); underlying fastMRI needs registration",
+      "feasibility": 4,
+      "impact": 4,
+      "score": 16,
+      "status": "READY",
+      "notes": "Positive slices only - negatives implicit. Relative slice position needs per-volume slice counts from fastMRI HDF5 headers (header read, not pixel download). We hold fastMRI. Do NOT describe as label-file-only without this caveat. Maintainers warn labels are 'an indicatition of where a pathology could be present', not adjudicated ground truth."
+    },
+    {
+      "id": "duke_breast_mri",
+      "name": "Duke Breast Cancer MRI (TCIA)",
+      "modality": "DCE-MRI",
+      "organ": "breast",
+      "n_patients": 922,
+      "per_slice_labels_public": true,
+      "label_file_only": true,
+      "verification": "VERIFIED_DOWNLOADED",
+      "label_file_urls": [
+        "https://www.cancerimagingarchive.net/tcia-downloads/duke-breast-cancer-mri-da-other-1/annotation_boxes/",
+        "https://raw.githubusercontent.com/kinyanjjui/BreastTumorMRI_Classification/main/Annotation_Boxes.csv"
+      ],
+      "label_schema": [
+        "Patient ID",
+        "Start Row",
+        "End Row",
+        "Start Column",
+        "End Column",
+        "Start Slice",
+        "End Slice"
+      ],
+      "official_split": false,
+      "licence": "TCIA, CC BY-NC 4.0 class terms; tabular files need no DUA",
+      "feasibility": 4,
+      "impact": 4,
+      "score": 16,
+      "status": "READY",
+      "notes": "Data owners' own tutorial defines the canonical slice task: positives = slices inside the tumour box, negatives = slices >=5 away. That definition is purely positional by construction. Needs per-series slice counts from TCIA metadata CSV (tabular, no pixels). All patients have cancer, so the slice task is localisation not diagnosis."
+    },
+    {
+      "id": "rsna_ich_2019",
+      "name": "RSNA 2019 Intracranial Haemorrhage Detection",
+      "modality": "non-contrast head CT",
+      "organ": "brain",
+      "n_images": 874035,
+      "n_studies_approx": 25000,
+      "per_slice_labels_public": true,
+      "label_file_only": false,
+      "verification": "PAGE",
+      "label_file_urls": [
+        "https://www.kaggle.com/competitions/rsna-intracranial-hemorrhage-detection/data",
+        "https://mira.rsna.org/dataset/1",
+        "https://atlas.rsna.org/cards/bd41bbe2-f161-4c19-841c-85d8b645e306"
+      ],
+      "label_schema": [
+        "ID (ID_<SOPInstanceUID>_<subtype>)",
+        "Label"
+      ],
+      "official_split": true,
+      "official_split_quote": "Data from each institution were divided into sets of 500 examinations, and the last 100 examinations in each segment were selected for the test and validation sets",
+      "licence": "RSNA MIRA Dataset Research Use Agreement (free click-through)",
+      "feasibility": 3,
+      "impact": 5,
+      "score": 15,
+      "status": "BLOCKED_ON_JOIN",
+      "notes": "HIGHEST IMPACT: the official competition metric IS per-slice weighted multi-label log loss. BLOCKER: stage_2_train.csv carries only SOPInstanceUID + label - no patient id, no study id, no slice position. Those are in the DICOM headers. Needs either header extraction (~450 GB) or a provenance-checked third-party metadata CSV. If no verifiable mapping exists, report that as a finding about benchmark release practice. RSNA also documents label noise: 'under-labeling' where 'a single image label' reflected 'the entire examination'."
+    },
+    {
+      "id": "picai",
+      "name": "PI-CAI Challenge (public training and development set)",
+      "modality": "bp-MRI",
+      "organ": "prostate",
+      "n_patients": 1476,
+      "n_cases": 1500,
+      "n_positive": 425,
+      "n_negative": 1075,
+      "per_slice_labels_public": true,
+      "label_file_only": true,
+      "verification": "PAGE",
+      "label_file_urls": [
+        "https://github.com/DIAGNijmegen/picai_labels",
+        "https://github.com/DIAGNijmegen/picai_labels/blob/main/clinical_information/marksheet.csv",
+        "https://github.com/DIAGNijmegen/picai_baseline",
+        "https://zenodo.org/records/6624726"
+      ],
+      "label_schema": [
+        "csPCa_lesion_delineations/human_expert/resampled/*.nii.gz (1295/1500 cases)",
+        "marksheet.csv"
+      ],
+      "official_split": true,
+      "split_detail": "5-fold CV splits published in picai_baseline; all challenge models used the same splits",
+      "licence": "CC BY-NC 4.0",
+      "feasibility": 3,
+      "impact": 4,
+      "score": 12,
+      "status": "EXPECTED_NEGATIVE_RUN_EARLY",
+      "notes": "Labels are standalone .nii.gz label volumes - no pixels needed, but they are volumes not a CSV. PI-CAI reports patient-level AUROC and lesion-level AP and publishes NO slice-level number. Expected to be a NEGATIVE result for the null and should be reported as the paper's positive example of a benchmark doing it right. Run this BEFORE the harder targets."
+    },
+    {
+      "id": "rsna_abdominal_trauma_2023",
+      "name": "RSNA 2023 Abdominal Trauma Detection (RATIC)",
+      "modality": "CE abdominal CT",
+      "organ": "abdomen",
+      "per_slice_labels_public": true,
+      "label_file_only": false,
+      "verification": "PAGE",
+      "label_file_urls": [
+        "https://www.kaggle.com/competitions/rsna-2023-abdominal-trauma-detection/data",
+        "https://pubs.rsna.org/doi/10.1148/ryai.240101"
+      ],
+      "label_schema": [
+        "patient_id",
+        "series_id",
+        "instance_number",
+        "injury_name"
+      ],
+      "label_file_quote": "Train only. Identifies specific images that contain either bowel or extravasation injuries.",
+      "official_split": true,
+      "licence": "Kaggle competition terms / RSNA",
+      "feasibility": 3,
+      "impact": 4,
+      "score": 12,
+      "status": "CANDIDATE",
+      "notes": "image_level_labels.csv is genuinely per-slice and carries patient/series id plus instance number. Slice counts per series still need the series manifest."
+    },
+    {
+      "id": "luna16_lidc",
+      "name": "LUNA16 / LIDC-IDRI",
+      "modality": "CT",
+      "organ": "lung",
+      "n_patients_lidc": 1010,
+      "n_cases_lidc": 1018,
+      "n_scans_luna16": 888,
+      "per_slice_labels_public": true,
+      "label_file_only": true,
+      "verification": "PAGE",
+      "label_file_urls": [
+        "https://luna16.grand-challenge.org/Data/",
+        "https://www.cancerimagingarchive.net/collection/lidc-idri/"
+      ],
+      "label_schema": [
+        "seriesuid",
+        "coordX",
+        "coordY",
+        "coordZ",
+        "diameter_mm (annotations.csv)",
+        "class (candidates_V2.csv)"
+      ],
+      "official_split": true,
+      "split_detail": "LUNA16 publishes 10 subset folds",
+      "licence": "LUNA16 CC BY 4.0; LIDC-IDRI CC BY 3.0",
+      "feasibility": 4,
+      "impact": 3,
+      "score": 12,
+      "status": "CANDIDATE",
+      "notes": "candidates_V2.csv gives ~750k candidates with a z world coordinate, series id and binary label, no pixels. Metric mismatch: the benchmark is FROC on candidates, not slice-level AUC. Supporting case only."
+    },
+    {
+      "id": "rsna_cervical_spine_2022",
+      "name": "RSNA 2022 Cervical Spine Fracture Detection",
+      "modality": "CT",
+      "organ": "cervical spine",
+      "n_scans": 3112,
+      "n_fracture_studies": 1445,
+      "n_bbox_annotated_studies": 235,
+      "per_slice_labels_public": true,
+      "label_file_only": false,
+      "verification": "PAGE",
+      "label_file_urls": [
+        "https://www.kaggle.com/competitions/rsna-2022-cervical-spine-fracture-detection/data",
+        "https://pubs.rsna.org/doi/10.1148/ryai.230034"
+      ],
+      "label_schema": [
+        "StudyInstanceUID",
+        "slice_number",
+        "x",
+        "y",
+        "width",
+        "height (train_bounding_boxes.csv)"
+      ],
+      "official_split": true,
+      "licence": "Kaggle competition terms / RSNA",
+      "feasibility": 3,
+      "impact": 3,
+      "score": 9,
+      "status": "CANDIDATE",
+      "notes": "train.csv is study-level per-vertebra (C1-C7), NOT per slice. Only train_bounding_boxes.csv is per-slice, and only for 235 studies - limited power."
+    },
+    {
+      "id": "prostatex",
+      "name": "PROSTATEx (SPIE-AAPM-NCI)",
+      "modality": "mp-MRI",
+      "organ": "prostate",
+      "per_slice_labels_public": false,
+      "label_file_only": false,
+      "verification": "PAGE",
+      "label_file_urls": [
+        "https://www.cancerimagingarchive.net/collection/prostatex/"
+      ],
+      "official_split": true,
+      "licence": "TCIA",
+      "feasibility": 2,
+      "impact": 3,
+      "score": 6,
+      "status": "DEFERRED",
+      "notes": "ProstateX-Findings CSV gives finding position in patient coordinates (mm); converting to a slice index needs DICOM headers. Challenge metric is per-finding AUC."
+    },
+    {
+      "id": "cq500",
+      "name": "CQ500 (qure.ai)",
+      "modality": "head CT",
+      "organ": "brain",
+      "n_scans": 491,
+      "n_slices": 193317,
+      "per_slice_labels_public": false,
+      "label_file_only": false,
+      "verification": "PAGE",
+      "label_file_urls": [
+        "http://headctstudy.qure.ai/dataset",
+        "https://zenodo.org/records/8063221"
+      ],
+      "official_split": false,
+      "licence": "CC BY-NC-SA (dataset page); Seg-CQ500 masks on Zenodo",
+      "feasibility": 1,
+      "impact": 3,
+      "score": 3,
+      "status": "EXCLUDE",
+      "notes": "reads.csv labels are SCAN-LEVEL (three radiologist reads per scan), not per slice. The positional null as specified does not apply. Excluded, with reason stated in the paper."
+    },
+    {
+      "id": "segmentation_benchmarks",
+      "name": "BraTS / KiTS / Medical Segmentation Decathlon / AMOS / TotalSegmentator",
+      "modality": "MRI and CT",
+      "organ": "multi",
+      "per_slice_labels_public": true,
+      "label_file_only": false,
+      "verification": "PAGE",
+      "official_split": true,
+      "licence": "varies (mostly CC BY / CC BY-NC / CC BY-SA)",
+      "feasibility": 1,
+      "impact": 2,
+      "score": 2,
+      "status": "EXCLUDE",
+      "notes": "Segmentation benchmarks scored by Dice/HD95. Per-slice labels are derivable from released masks, but (a) masks generally ship in the same archive as the images so the no-pixel-download property fails, and (b) there is no published slice-level classification number for a null to be compared against. A positional null against a Dice score is not a meaningful comparison. Mention only as the boundary of the method's applicability."
+    },
+    {
+      "id": "unverified_candidates",
+      "name": "CT-ICH (PhysioNet), INSTANCE 2022, COVIDx CT-3, MosMedData, SPIDER, VerSe",
+      "modality": "mixed",
+      "organ": "mixed",
+      "per_slice_labels_public": null,
+      "label_file_only": null,
+      "verification": "UNVERIFIED",
+      "official_split": null,
+      "licence": "unknown",
+      "feasibility": null,
+      "impact": null,
+      "score": null,
+      "status": "UNVERIFIED",
+      "notes": "Label files NOT confirmed this session. Must not enter the manuscript without a download."
+    }
+  ],
+  "published_numbers": [
+    {
+      "dataset": "fastmri_prostate",
+      "citation": "Rempe M, Horst F, Seibold C, Hadaschik B, Schlimbach M, Egger J, Kroninger K, Breuer F, Blaimer M, Kleesiek J. Tumor likelihood estimation on MRI prostate data by utilizing k-Space information. arXiv:2407.06165",
+      "value": 0.861,
+      "metric": "AUROC",
+      "uncertainty": "+/-1.8 (half-width, percent)",
+      "evaluation_unit": "slice",
+      "quote": "AUROC of $86.1\\%\\pm1.8\\%$",
+      "table_ref": "abstract; Table II 'gold standard x2 image+kSpace'",
+      "split_policy": "authors' published patient-disjoint training/validation/test split (data_split field)",
+      "patient_level_reported": false,
+      "verification": "VERIFIED_ABSTRACT",
+      "note": "Full Table II already transcribed in pipeline/s12_rempe.py::REPORTED. Evaluation unit recorded there as 'slice-level AUROC, unclustered bootstrap (1000 iterations)'. No patient-level number is reported by the authors - that absence is the point."
+    },
+    {
+      "dataset": "fastmri_prostate",
+      "citation": "Rempe et al. arXiv:2407.06165",
+      "value": 0.809,
+      "metric": "AUROC",
+      "uncertainty": "+/-2.1",
+      "evaluation_unit": "slice",
+      "table_ref": "Table II, PCA x2, magnitude+phase",
+      "quote": "transcribed in pipeline/s12_rempe.py::REPORTED['pca_x2_magnitude_phase'] = (80.9, 2.1)",
+      "split_policy": "as above",
+      "patient_level_reported": false,
+      "verification": "VERIFIED_CODE_TRANSCRIPTION"
+    },
+    {
+      "dataset": "fastmri_prostate",
+      "citation": "Rempe et al. arXiv:2407.06165",
+      "value": 0.714,
+      "metric": "AUROC",
+      "uncertainty": "+/-2.9",
+      "evaluation_unit": "slice",
+      "table_ref": "undersampling factor 16, PCA coil combination",
+      "quote": "AUROC of $71.4\\%\\pm2.9\\%$",
+      "split_policy": "as above",
+      "patient_level_reported": false,
+      "verification": "VERIFIED_ABSTRACT"
+    },
+    {
+      "dataset": "rsna_ich_2019",
+      "citation": "Ngo DT, Nguyen TTB, Nguyen HT, Nguyen DB, Nguyen HQ, Pham HH. Slice-level Detection of Intracranial Hemorrhage on CT Using Deep Descriptors of Adjacent Slices. arXiv:2208.03403, IEEE SSP 2022",
+      "value": 0.05341,
+      "metric": "weighted multi-label log loss (official competition metric)",
+      "evaluation_unit": "slice",
+      "quote": "obtain a single model in the top 4% best-performing solutions of the RSNA ICH challenge",
+      "table_ref": "results text; single ResNet-50, no ensemble",
+      "split_policy": "official competition split, private test set of 3,518 studies",
+      "patient_level_reported": false,
+      "verification": "VERIFIED_FULLTEXT",
+      "note": "Because the metric is a log loss over slice-level probabilities, the natural null comparison is the log loss of the positional prior, not an AUC - a cleaner and more damaging comparison than AUC if the position join is resolved."
+    },
+    {
+      "dataset": "cq500",
+      "citation": "Ngo et al. arXiv:2208.03403, Table I",
+      "value": 0.971,
+      "metric": "AUC (mean over 5 subtypes + any)",
+      "evaluation_unit": "study (max probability over slices)",
+      "quote": "Experimental results measured by AUC score on CQ500 dataset",
+      "table_ref": "Table I; proposed method column. Baseline column mean 0.9520. Per-finding: ICH-any 0.9419->0.9612, intraparenchymal 0.9544->0.9691, intraventricular 0.9310->0.9832, subarachnoid 0.9574->0.9596, subdural 0.9521->0.9694, extradural 0.9731->0.9814",
+      "split_policy": "trained on RSNA public training set only; evaluated on 490 of 500 CQ500 studies (10 excluded as noisy)",
+      "patient_level_reported": true,
+      "verification": "VERIFIED_FULLTEXT"
+    },
+    {
+      "dataset": "rsna_ich_2019",
+      "citation": "arXiv:2005.10992",
+      "value": 0.0522,
+      "metric": "weighted log loss",
+      "evaluation_unit": "slice",
+      "quote": "For the RSNA challenge, our best single model achieves a weighted log loss of 0.0522",
+      "table_ref": "NOT YET READ FROM SOURCE TABLE",
+      "split_policy": "unconfirmed",
+      "patient_level_reported": null,
+      "verification": "SNIPPET_ONLY_DO_NOT_CITE_YET"
+    },
+    {
+      "dataset": "deeplesion",
+      "citation": "OUR COMPUTATION, this session",
+      "value": 0.5602,
+      "metric": "8-class accuracy",
+      "evaluation_unit": "lesion/key-slice",
+      "quote": "20-bin P(Coarse_lesion_type | Normalized_lesion_location z) fitted on the val split, applied to the test split",
+      "table_ref": "n/a - computed",
+      "split_policy": "official Train_Val_Test field; val->test; 0 shared patients; n_test=4927",
+      "patient_level_reported": false,
+      "verification": "COMPUTED_THIS_SESSION",
+      "note": "Majority-class accuracy 0.2233. HONEST CAVEAT: DeepLesion's 8 coarse classes are anatomical regions (bone, abdomen, mediastinum, liver, lung, kidney, soft tissue, pelvis), so z predicting them is the task, not a confound. Frame as the reference level a classifier must clear, NOT as a debunking."
+    },
+    {
+      "dataset": "fastmri_plus_knee",
+      "citation": "Zhao R et al. fastMRI+: Clinical pathology annotations for knee and brain fully sampled multi-coil MRI data. Sci Data 2022. DOI 10.1038/s41597-022-01255-z",
+      "value": null,
+      "metric": null,
+      "evaluation_unit": null,
+      "quote": "16154 subspecialist expert bounding box annotations and 13 study-level labels for 22 different pathology categories on the fastMRI knee dataset",
+      "table_ref": "data descriptor - releases annotations, not a leaderboard",
+      "split_policy": null,
+      "patient_level_reported": null,
+      "verification": "OPEN",
+      "note": "No slice-level classification benchmark number obtained. DO NOT cite a fastMRI+ classification number until read from a source table."
+    },
+    {
+      "dataset": "duke_breast_mri",
+      "citation": "Mazurowski lab tutorial, sites.duke.edu/mazurowski/2022/07/13/breast-mri-cancer-detect-tutorial-part1/",
+      "value": null,
+      "metric": null,
+      "evaluation_unit": "slice",
+      "quote": "take all 2D slices that contain a tumor bounding box to be positive, (labeled with \"1\"), and all other slices at least five slices away from positive slices to be negative (\"0\")",
+      "table_ref": "task definition only; part 1 reports no accuracy or AUC",
+      "split_policy": null,
+      "patient_level_reported": null,
+      "verification": "OPEN",
+      "note": "Canonical slice-level task definition supplied by the data owners; downstream published metric still needed."
+    },
+    {
+      "dataset": "picai",
+      "citation": "PI-CAI Challenge, pi-cai.grand-challenge.org",
+      "value": null,
+      "metric": "patient-level AUROC and lesion-level average precision",
+      "evaluation_unit": "patient and lesion",
+      "quote": "All models were trained via 5-fold cross-validation using the exact same splits",
+      "table_ref": "challenge leaderboard",
+      "split_policy": "published 5-fold CV splits",
+      "patient_level_reported": true,
+      "verification": "PAGE",
+      "note": "PI-CAI publishes NO slice-level number. This is the paper's positive example of a benchmark evaluating at the right unit."
+    }
+  ],
+  "prior_art": [
+    {
+      "id": "badgeley2019",
+      "citation": "Badgeley MA, Zech JR, Oakden-Rayner L, Glicksberg BS, Liu M, Gale W, McConnell MV, Percha B, Snyder TM, Dudley JT. Deep learning predicts hip fracture using confounding patient and healthcare variables. npj Digit Med 2019;2:31",
+      "doi": "10.1038/s41746-019-0105-1",
+      "relevance": "CLOSEST PRIOR ART FOR THE METADATA NULL",
+      "established": "Fracture predicted from image AUC=0.78; image+patient data AUC=0.86; +hospital process AUC=0.91. On a test set balanced across patient and process variables 'the model performed randomly (AUC = 0.52, 95% CI 0.46-0.58), indicating that these variables were the main source of the model's fracture predictions.' Scanner model predictable from the radiograph at AUC=1.00.",
+      "leaves_open": "Uses a NEGATIVE control (balance the confounder, watch the model collapse). We use a POSITIVE control (fit on the confounder alone, watch it match the published number). The positive-control form is the one runnable without images. Difference in form, not in discovery - say so explicitly.",
+      "verification": "VERIFIED_PUBMED_ABSTRACT"
+    },
+    {
+      "id": "yagis2021",
+      "citation": "Yagis E, Atnafu SW, Garcia Seco de Herrera A, Marzi C, Scheda R, Giannelli M, Tessa C, Citi L, Diciotti S. Effect of data leakage in brain MRI classification using 2D convolutional neural networks. Sci Rep 2021;11:22544",
+      "doi": "10.1038/s41598-021-01681-w",
+      "relevance": "CLOSEST PRIOR ART FOR THE SLICE-LEVEL EVALUATION CRITIQUE",
+      "established": "Slice-level CV 'erroneously boosted the average slice level accuracy on the test set by 30% on OASIS, 29% on ADNI, 48% on PPMI and 55% on a local de-novo PD Versilia dataset'. On randomly labelled data: 'about 96% of (erroneous) accuracy (slice-level split) and 50% accuracy (subject-level split)'.",
+      "leaves_open": "Measures the cost of an INCORRECT (subject-overlapping) split. We measure residual inflation under a CORRECT patient-disjoint split. Rempe et al.'s split IS patient-disjoint, so our 0.851 is not a leakage result in the Yagis sense. The paper MUST make this distinction or a reviewer will conflate them and reject for redundancy.",
+      "verification": "VERIFIED_PUBMED_ABSTRACT"
+    },
+    {
+      "id": "wen2020",
+      "citation": "Wen J, Thibeau-Sutre E, Diaz-Melo M, Samper-Gonzalez J, Routier A, Bottani S, Dormont D, Durrleman S, Burgos N, Colliot O. Convolutional neural networks for classification of Alzheimer's disease: Overview and reproducible evaluation. Med Image Anal 2020;63:101694",
+      "doi": "10.1016/j.media.2020.101694",
+      "relevance": "PRIOR ART FOR BOTH LEAKAGE PREVALENCE AND TRIVIAL BASELINES",
+      "established": "'more than half of the surveyed papers may have suffered from data leakage and thus reported biased performance'. Also a trivial-baseline result: 'the different CNN approaches did not perform better than a SVM with voxel-based features.' 2D slice-level approach performed worst.",
+      "leaves_open": "Single disease family (AD); no zero-image null; no released audit tool; no cross-benchmark systematisation.",
+      "verification": "VERIFIED_PUBMED_ABSTRACT"
+    },
+    {
+      "id": "tampu2022",
+      "citation": "Tampu IE, Eklund A, Haj-Hosseini N. Inflation of test accuracy due to data leakage in deep learning-based classification of OCT images. Sci Data 2022",
+      "doi": null,
+      "relevance": "corroborates slice-adjacency leakage in a second modality",
+      "established": "Improper dataset splitting inflates MCC by 0.07 to 0.43 (accuracy 5% to 30%) across three open-access OCT datasets.",
+      "leaves_open": "Same as Yagis: split leakage, not position under a correct split.",
+      "verification": "VERIFIED_CONSENSUS_ABSTRACT"
+    },
+    {
+      "id": "kapoor2023",
+      "citation": "Kapoor S, Narayanan A. Leakage and the reproducibility crisis in machine-learning-based science. Patterns 2023;4(9)",
+      "doi": "10.1016/j.patter.2023.100804",
+      "relevance": "the cross-disciplinary framing our tool instantiates",
+      "established": "Leakage is a widespread failure mode affecting 'at least 294 papers across 17 disciplines'; proposes model info sheets as the remedy.",
+      "leaves_open": "Domain-general and checklist-based. No executable null, nothing medical-imaging specific, no positional construct.",
+      "verification": "VERIFIED_SEARCH_SNIPPET"
+    },
+    {
+      "id": "oakdenrayner2020",
+      "citation": "Oakden-Rayner L, Dunnmon J, Carneiro G, Re C. Hidden stratification causes clinically meaningful failures in machine learning for medical imaging. ACM CHIL 2020",
+      "doi": "10.1145/3368555.3384468",
+      "relevance": "aggregate metrics hide subgroup failure",
+      "established": "Models with good aggregate performance fail on unlabelled subsets; incomplete labelling schemas hide clinically meaningful variation.",
+      "leaves_open": "Concerns label subgroups, not the evaluation UNIT (slice vs patient), and constructs no zero-image predictor.",
+      "verification": "VERIFIED_SEARCH"
+    },
+    {
+      "id": "degrave2021",
+      "citation": "DeGrave AJ, Janizek JD, Lee S-I. AI for radiographic COVID-19 detection selects shortcuts over signal. Nat Mach Intell 2021;3(7)",
+      "doi": "10.1038/s42256-021-00338-7",
+      "relevance": "canonical medical-imaging shortcut demonstration",
+      "established": "COVID-19 chest radiograph classifiers rely on dataset-provenance confounders rather than pathology.",
+      "leaves_open": "Explanation-based diagnosis on one task; no null-model family, no benchmark audit.",
+      "verification": "VERIFIED_SEARCH"
+    },
+    {
+      "id": "roberts2021",
+      "citation": "Roberts M, et al. Common pitfalls and recommendations for using machine learning to detect and prognosticate for COVID-19 using chest radiographs and CT scans. Nat Mach Intell 2021;3",
+      "doi": "10.1038/s42256-021-00307-0",
+      "relevance": "systematic review establishing field-wide methodological failure",
+      "established": "'none of the models identified are of potential clinical use due to methodological flaws and/or underlying biases'.",
+      "leaves_open": "A review of others' papers using a checklist; runs no baseline of its own.",
+      "verification": "VERIFIED_SEARCH"
+    },
+    {
+      "id": "varoquaux2022",
+      "citation": "Varoquaux G, Cheplygina V. Machine learning for medical imaging: methodological failures and recommendations for the future. npj Digit Med 2022;5:48",
+      "doi": "10.1038/s41746-022-00592-y",
+      "relevance": "field-level critique that already recommends better baselines",
+      "established": "Reviews roadblocks across data, evaluation and incentives; shows bias can enter at every step.",
+      "leaves_open": "Narrative review; no executable null model and no quantified share of published performance.",
+      "verification": "VERIFIED_PUBMED_ABSTRACT"
+    },
+    {
+      "id": "ongly2024",
+      "citation": "Ong Ly C, et al. Shortcut learning in medical AI hinders generalization: method for estimating AI model generalization without external data. npj Digit Med 2024",
+      "doi": null,
+      "relevance": "quantifies the SIZE of shortcut-driven overestimation",
+      "established": "Across 13 datasets (X-ray, CT, ECG, discharge summaries, lung auscultation) 'model performance is frequently overestimated by up to 20% on average due to shortcut learning of hidden data acquisition biases'; releases PEst, a bias-corrected external accuracy estimate.",
+      "leaves_open": "Estimates a correction factor; does not construct interpretable zero-image nulls tied to a named confound (position), and needs the images.",
+      "verification": "VERIFIED_CONSENSUS_ABSTRACT"
+    },
+    {
+      "id": "hill2024",
+      "citation": "Hill BG, et al. The risk of shortcutting in deep learning algorithms for medical imaging research. Sci Rep 2024",
+      "doi": null,
+      "relevance": "the reductio version of our argument",
+      "established": "ResNet18 predicts whether a patient avoids refried beans (AUC 0.63) or beer (AUC 0.73) from a knee radiograph; the shortcut features cannot be removed by preprocessing.",
+      "leaves_open": "Demonstrates absurd predictability; does not audit published benchmarks or supply a reusable null.",
+      "verification": "VERIFIED_CONSENSUS_ABSTRACT"
+    },
+    {
+      "id": "lin2024",
+      "citation": "Shortcut Learning in Medical Image Segmentation. MICCAI 2024. arXiv:2403.06748",
+      "doi": "10.1007/978-3-031-72111-3_59",
+      "relevance": "extends shortcut learning to segmentation",
+      "established": "Documents shortcut learning in medical image segmentation.",
+      "leaves_open": "Segmentation, not slice-level classification metrics.",
+      "verification": "VERIFIED_SEARCH"
+    },
+    {
+      "id": "geirhos2020",
+      "citation": "Geirhos R, et al. Shortcut learning in deep neural networks. Nat Mach Intell 2020;2:665-673",
+      "doi": "10.1038/s42256-020-00257-z",
+      "relevance": "names the phenomenon",
+      "established": "Canonical statement of shortcut learning across deep learning.",
+      "leaves_open": "Not medical, not benchmark-specific.",
+      "verification": "WELL_KNOWN_VERIFY_BEFORE_CITING"
+    },
+    {
+      "id": "zech2018",
+      "citation": "Zech JR, et al. Variable generalization performance of a deep learning model to detect pneumonia in chest radiographs: a cross-sectional study. PLOS Med 2018",
+      "doi": null,
+      "relevance": "hospital-system confounding in chest radiographs",
+      "established": "Models key on hospital-system markers; generalisation degrades across sites.",
+      "leaves_open": "Site confounding, not slice position.",
+      "verification": "UNVERIFIED_THIS_SESSION_VERIFY_DOI_BEFORE_CITING"
+    }
+  ],
+  "novelty_assessment": {
+    "not_new": [
+      "shortcut learning occurs in medical imaging",
+      "models exploit acquisition and process metadata (Badgeley 2019 is close prior art for our metadata arm)",
+      "slice-level evaluation of volumetric data inflates reported performance (Yagis 2021, Tampu 2022, Wen 2020)",
+      "patient-level is the correct evaluation unit",
+      "leakage is widespread and under-reported across ML-based science (Kapoor & Narayanan 2023)",
+      "trivial baselines sometimes match deep models (Wen 2020: SVM on voxel features matched CNNs for AD)"
+    ],
+    "plausibly_new": [
+      "Quantification under a CORRECT patient-disjoint split: prior work measures the cost of a wrong split; we measure the residual inflation of a right one.",
+      "The family framing: positional and metadata nulls as two instances of one construct - predictors that see no pixels - applied uniformly with identical reporting.",
+      "The zero-cost audit: auditing benchmarks we will never hold, from published label files, with no DUA and no GPU. Strongest novelty claim.",
+      "The released tool and the remedy: report the null alongside every slice-level number, report patient-level, and report the position-stratified metric (already implemented as slice_auc_position_stratified; collapses the null to ~0.55)."
+    ],
+    "biggest_reviewer_risk": "A reviewer who knows Yagis 2021 and Badgeley 2019 will ask what is new beyond combining two known results on more datasets. The answer must be the zero-cost audit, and that only survives if Part 1 delivers enough benchmarks for the audit to be genuinely systematic. Credible label-file-only targets today: FOUR (fastMRI prostate, fastMRI+, DeepLesion, Duke breast), plus RSNA ICH as a fifth conditional on the metadata join. Four to five supports an article; two does not - submit as a Letter.",
+    "negative_searches": {
+      "queries": [
+        "\"slice number\" OR \"slice index\" alone predicts diagnosis baseline no image medical imaging null model",
+        "predicting pathology from \"slice location\" alone without image features baseline AUC CT MRI confounder anatomical prior",
+        "\"null model\" OR \"trivial baseline\" medical imaging AI benchmark audit zero-image chance performance",
+        "PubMed: (slice-level OR \"per-slice\") AND (data leakage OR shortcut OR confound) AND (deep learning) AND (CT OR MRI)"
+      ],
+      "outcome": "Queries 1 and 3 returned zero results. Query 2 returned only body-part-regression work (predicting position FROM the image - the inverse problem). The PubMed query returned 6 records, none constructing a position-only predictor.",
+      "caveat": "Absence of evidence from a handful of queries, not proof of novelty. Before submission: search Google Scholar and MICCAI/MIDL/ML4H proceedings directly, and check RSNA ICH Kaggle solution write-ups - the competition community very likely knew slice position is predictive. A public forum post predating us would not sink the paper but must be acknowledged."
+    }
+  },
+  "recommended_execution_order": [
+    "fastmri_prostate (fix artefact)",
+    "deeplesion",
+    "fastmri_plus_knee",
+    "duke_breast_mri",
+    "picai",
+    "rsna_ich_2019",
+    "rsna_abdominal_trauma_2023"
+  ],
+  "execution_note": "Run PI-CAI before the harder RSNA ICH join: a null that FAILS is the fastest available protection against the accusation that the tool only ever confirms itself.",
+  "open_items": [
+    "published slice-level number for fastMRI+ classification",
+    "published slice-level number for Duke breast MRI",
+    "published DeepLesion 8-class lesion-type accuracy (only detection sensitivities located)",
+    "exact tables from arXiv:2005.10992 and arXiv:2205.07556 for RSNA ICH",
+    "provenance-checked SOPInstanceUID -> StudyInstanceUID + ImagePositionPatient mapping for RSNA ICH",
+    "verify Zech 2018 and Geirhos 2020 DOIs before citing",
+    "verify CT-ICH / INSTANCE 2022 / COVIDx CT-3 / MosMedData / SPIDER / VerSe label files"
+  ]
+}
