@@ -85,10 +85,29 @@ license "the model learned nothing". Every card repeats this.
 | 11 | PI-CAI | **0.91** (95% CI 0.87–0.94) case-level AUROC, AI system | Saha et al., *Lancet Oncol* 2024;25:879-887, [DOI](https://doi.org/10.1016/S1470-2045(24)00220-1) | **0.692** [0.626, 0.755] metadata CART, case level | 0.467 [0.307, 0.622] | **NOT MATCHED** ¹ |
 | 12 | PI-CAI | **0.86** (0.83–0.89) case-level AUROC, 62 radiologists PI-RADS 2.1 | same | 0.692 [0.626, 0.755] | 0.532 [0.350, 0.708] | **NOT MATCHED** ¹ |
 
+| 16 | RSNA ICH, **any haemorrhage** | **0.9843** slice ROC AUC | Burduja, Ionescu & Verga, *Sensors* 2020;20(19):5611, [DOI](https://doi.org/10.3390/s20195611), Table 3, ResNeXt-101 32×8d + BiLSTM | **0.738** [0.727, 0.750] positional 20-bin | 0.492 | **PARTIAL** ² |
+| 17 | RSNA ICH, epidural | 0.9851 slice ROC AUC | same table, same row | 0.719 [0.649, 0.776] | 0.451 | **PARTIAL** ² |
+| 18 | RSNA ICH, intraparenchymal | 0.9927 slice ROC AUC | same | 0.753 [0.732, 0.772] | 0.513 | **PARTIAL** ² |
+| 19 | RSNA ICH, intraventricular | 0.9970 slice ROC AUC | same | **0.806** [0.791, 0.820] | 0.615 | **PARTIAL** ² |
+| 20 | RSNA ICH, subarachnoid | 0.9821 slice ROC AUC | same | 0.692 [0.665, 0.710] | 0.398 | **PARTIAL** ² |
+| 21 | RSNA ICH, subdural | 0.9682 slice ROC AUC | same | 0.721 [0.707, 0.735] | 0.472 | **PARTIAL** ² |
+
 ¹ Rows 11–12 carry a cohort caveat that would justify calling them NON-COMPARABLE; see
 §3.5. They are scored as NOT MATCHED because the caveat cuts *against* the null (our
 baseline had the easier cohort and still lost), so scoring them is the conservative
 choice. Rows 7–9 use the majority class (0.236) as the chance anchor, not 0.5.
+
+² **The interval on rows 16–21 is a different object from the one on rows 1–12 and must
+not be read as the same thing.** Rows 1–12 carry a patient-clustered bootstrap interval
+on a fixed split. Rows 16–21 carry a 2.5–97.5 percentile interval over **200 random
+re-draws of the held-out split**, because Burduja et al. publish the *geometry* of their
+split (744 held-out scans, 24,290 slices) but not the draw itself, so a single draw would
+make the comparison hostage to a seed. The spread is therefore split-to-split variation,
+not sampling error, and it is narrow: sd 0.006 on the `any` arm. Rows 16–21 come from
+`pipeline/audit_prep/rsna_ich_burduja_conditions.py` on the full 752,802-slice file. The
+s14 harness card for this benchmark (bin sweep, patient-level unit, metadata baselines,
+permutation calibration) is reported separately in §3.7 and was run on a seeded
+patient-level subsample for the reason given there.
 
 ### 2.2 Non-comparable rows — audited, but no defensible published comparator
 
@@ -97,6 +116,50 @@ choice. Rows 7–9 use the majority class (0.236) as the chance anchor, not 0.5.
 | 13 | fastMRI+ knee, "Meniscus Tear" per slice | positional 20-bin **0.873** [0.858, 0.886] slice AUROC; **0.510** [0.428, 0.592] patient | fastMRI+ is a data descriptor; no published slice-level classification number was located, and `paper/audit_targets.md` §2.3 already flags this as open. Also 199 of the 1,173 roster volumes (§3.3). |
 | 14 | fastMRI+ knee, "any annotated finding" per slice | positional 20-bin **0.801** [0.779, 0.824] slice; **0.558** [0.470, 0.648] patient | as above |
 | 15 | Duke Breast Cancer MRI, owner-defined slice task | positional 20-bin **0.823** [0.811, 0.834] slice AUROC; patient AUROC **undefined** | the Mazurowski lab tutorial defines the task but publishes no metric. No downstream number with the same task definition was located. |
+
+### 2.3 Peer-review status of every comparator — checked one by one on 2026-07-29
+
+The audit's rows are only as good as the numbers they are compared against. Each
+comparator was re-checked against the literature databases on the date of this run, not
+taken on trust from the earlier session's notes. Three corrections came out of it, two
+in our favour and one against.
+
+| benchmark | comparator | venue | peer-reviewed? | same metric? | same unit? | split condition | counts as a benchmarked row? |
+|---|---|---|---|---|---|---|---|
+| fastMRI Prostate T2 / DWI (rows 1–6) | Rempe et al., arXiv:2407.06165 | arXiv | **NO** | yes, slice AUROC | yes, slice | their own in-file split | **NO — fails the peer-review test** |
+| DeepLesion (rows 7–9) | Yan et al., CVPR 2018 | IEEE/CVF CVPR proceedings | **yes**, conference not journal | yes, 8-class accuracy | yes, lesion | their partition reconstructed, 200 draws | **YES** |
+| LUNA16 (row 10) | Setio et al., *Medical Image Analysis* 2017;42:1–13 | Elsevier journal | **yes** | yes, sensitivity at FP/scan | yes, candidate | approximate, stated in §3.6 | **YES** |
+| PI-CAI (rows 11–12) | Saha et al., *Lancet Oncol* 2024;25:879–887 | journal | **yes** | yes, case AUROC | yes, case | **different cohort**, stated in §3.5 | **YES, weakest of the four** |
+| RSNA ICH (rows 16–21, new) | Burduja, Ionescu & Verga, *Sensors* 2020;20(19):5611 | MDPI journal, PubMed-indexed, CC BY | **yes** | yes, slice ROC AUC | yes, slice | same file, split geometry published and replicated, stated in §3.7 | **YES** |
+| fastMRI+ knee (rows 13–14) | none located | — | — | — | — | — | no |
+| Duke breast (row 15) | none located | — | — | — | — | — | no |
+| RSNA PE | see §3.8 | — | yes, but **exam-level on a non-public private test set** | **no** | **no** | — | no |
+
+**Two corrections in our favour.** The audit previously cited LUNA16's comparator as
+`arXiv:1612.08012` and DeepLesion's as `arXiv:1711.10535`. Both are the preprints of
+peer-reviewed papers, and both should be cited as the published versions: Setio et al.
+appeared in *Medical Image Analysis* 2017;42:1–13
+([DOI](https://doi.org/10.1016/j.media.2017.06.015)), whose abstract carries the exact
+claim the audit compares against, verbatim — *"The combination of these solutions
+achieved an excellent sensitivity of over 95% at fewer than 1.0 false positives per
+scan."* Yan et al. appeared at CVPR 2018; DBLP records it as a conference paper with the
+arXiv entry as the separate preprint. So two rows that looked preprint-backed are in fact
+journal- and proceedings-backed.
+
+**One correction against us, and it is the important one.** Rempe et al. was re-queried
+on the arXiv API on 2026-07-29: no `journal_ref`, no DOI, no Europe PMC record, two years
+after posting. It is still a preprint. Since rows 1–6 are the **only MATCHED rows in the
+entire audit**, the consequence has to be stated without softening:
+
+> **Every peer-reviewed comparison in this audit is PARTIAL or NOT MATCHED. The only
+> MATCHED rows rest on a preprint.**
+
+That is a materially different paper from the one the earlier draft implied. It does not
+weaken the audit — it relocates the claim. What survives peer-reviewed comparison is
+*"a pixel-blind model reaches a large and quantified fraction of published slice-level
+performance"*, not *"a pixel-blind model matches it"*. The matching result remains real
+and reportable, but must be labelled as resting on a preprint comparator every time it
+appears.
 
 ---
 

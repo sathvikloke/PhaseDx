@@ -1,0 +1,220 @@
+{
+ "frame_source": "openFDA /device/510k.json, product_code in {QIH,QFM,QAS,MYN,POK,QDQ}, pulled 2026-07-29",
+ "frame_n": 535,
+ "frame_with_summary": 529,
+ "sample_seed": 20260729,
+ "sample_n": 30,
+ "pdf_url_pattern": "https://www.accessdata.fda.gov/cdrh_docs/pdf{YY}/{K}.pdf",
+ "sample": [
+  {
+   "k": "K191556",
+   "date": "2020-02-28",
+   "code": "QFM",
+   "device": "Red Dot",
+   "applicant": "Behold.Ai Technologies Limited"
+  },
+  {
+   "k": "K193351",
+   "date": "2020-04-21",
+   "code": "QAS",
+   "device": "NinesAI",
+   "applicant": "Nines, Inc."
+  },
+  {
+   "k": "K200921",
+   "date": "2020-06-17",
+   "code": "QAS",
+   "device": "qER",
+   "applicant": "Qure.Ai Technologies"
+  },
+  {
+   "k": "K202300",
+   "date": "2021-03-05",
+   "code": "POK",
+   "device": "Optellum Virtual Nodule Clinic, Optellum software, Optellum platform",
+   "applicant": "Optellum, Ltd."
+  },
+  {
+   "k": "K203822",
+   "date": "2021-03-12",
+   "code": "QDQ",
+   "device": "ProFound AI Software V3.0",
+   "applicant": "Icad, Inc."
+  },
+  {
+   "k": "K210719",
+   "date": "2021-07-20",
+   "code": "QIH",
+   "device": "Change Healthcare Anatomical AI",
+   "applicant": "Change Healthcare Canada Company"
+  },
+  {
+   "k": "K221248",
+   "date": "2022-05-31",
+   "code": "QAS",
+   "device": "Rapid LVO",
+   "applicant": "Ischemaview, Inc."
+  },
+  {
+   "k": "K221100",
+   "date": "2022-08-29",
+   "code": "QIH",
+   "device": "Viz RV/LV",
+   "applicant": "Viz. Ai, Inc."
+  },
+  {
+   "k": "K222329",
+   "date": "2022-09-28",
+   "code": "QAS",
+   "device": "BriefCase",
+   "applicant": "Aidoc Medical , Ltd."
+  },
+  {
+   "k": "K220080",
+   "date": "2022-09-29",
+   "code": "QFM",
+   "device": "CogNet QmTRIAGE",
+   "applicant": "Medcognetics, Inc."
+  },
+  {
+   "k": "K221632",
+   "date": "2022-10-18",
+   "code": "QIH",
+   "device": "Spine CAMP\u0099",
+   "applicant": "Medical Metrics, Inc."
+  },
+  {
+   "k": "K223268",
+   "date": "2022-12-16",
+   "code": "QIH",
+   "device": "BrainInsight",
+   "applicant": "Hyperfine, Inc."
+  },
+  {
+   "k": "K223811",
+   "date": "2023-09-13",
+   "code": "MYN",
+   "device": "Lung-CAD",
+   "applicant": "Imagen Technologies, Inc."
+  },
+  {
+   "k": "K231324",
+   "date": "2024-01-08",
+   "code": "QIH",
+   "device": "DASI Dimensions (V1.0)",
+   "applicant": "Dasi Simulations"
+  },
+  {
+   "k": "K231871",
+   "date": "2024-01-17",
+   "code": "QFM",
+   "device": "Radify Triage",
+   "applicant": "Envisionit Deepai, Ltd."
+  },
+  {
+   "k": "K233209",
+   "date": "2024-05-17",
+   "code": "QIH",
+   "device": "uOmnispace.CT",
+   "applicant": "Shanghai United Imaging Healthcare Co., Ltd."
+  },
+  {
+   "k": "K233925",
+   "date": "2024-06-13",
+   "code": "QIH",
+   "device": "Relu Creator",
+   "applicant": "Relu BV"
+  },
+  {
+   "k": "K234141",
+   "date": "2024-08-01",
+   "code": "POK",
+   "device": "AISAP Cardio V1.0",
+   "applicant": "Aisap"
+  },
+  {
+   "k": "K240301",
+   "date": "2024-08-01",
+   "code": "QDQ",
+   "device": "MammoScreen\u00ae (3)",
+   "applicant": "Therapixel"
+  },
+  {
+   "k": "K241430",
+   "date": "2024-10-10",
+   "code": "QIH",
+   "device": "EchoMeasure",
+   "applicant": "Icardio.Ai"
+  },
+  {
+   "k": "K242130",
+   "date": "2024-11-15",
+   "code": "POK",
+   "device": "Koios DS",
+   "applicant": "Koios Medical, Inc."
+  },
+  {
+   "k": "K243688",
+   "date": "2024-12-19",
+   "code": "QDQ",
+   "device": "Saige-Dx (3.1.0)",
+   "applicant": "DeepHealth, Inc."
+  },
+  {
+   "k": "K250042",
+   "date": "2025-03-19",
+   "code": "QIH",
+   "device": "PeekMed web",
+   "applicant": "Peek Health, S.A."
+  },
+  {
+   "k": "K242166",
+   "date": "2025-03-31",
+   "code": "QIH",
+   "device": "TribusConnect",
+   "applicant": "Tribusmed Beheer BV"
+  },
+  {
+   "k": "K243762",
+   "date": "2025-05-21",
+   "code": "QIH",
+   "device": "Synapse 3D Base Tools (V7.0)",
+   "applicant": "Fujifilm Corporation"
+  },
+  {
+   "k": "K251002",
+   "date": "2025-09-19",
+   "code": "MYN",
+   "device": "Videa Dental AI",
+   "applicant": "Videahealth, Inc."
+  },
+  {
+   "k": "K252298",
+   "date": "2025-10-22",
+   "code": "QIH",
+   "device": "ANDI 2.0",
+   "applicant": "Imeka Solutions, Inc."
+  },
+  {
+   "k": "K250330",
+   "date": "2025-11-03",
+   "code": "QIH",
+   "device": "3mensio Workstation",
+   "applicant": "Pie Medical Imaging BV"
+  },
+  {
+   "k": "K253930",
+   "date": "2026-04-10",
+   "code": "QIH",
+   "device": "Overjet Iris Intelligent Imaging System",
+   "applicant": "Overjet, Inc."
+  },
+  {
+   "k": "K252953",
+   "date": "2026-05-11",
+   "code": "MYN",
+   "device": "Velmeni for Dentists (V4D)  Endo-Perio",
+   "applicant": "Velmeni, Inc."
+  }
+ ]
+}

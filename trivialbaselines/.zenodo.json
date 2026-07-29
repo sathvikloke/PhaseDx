@@ -1,0 +1,38 @@
+{
+  "title": "trivialbaselines: zero-image null models for slice-labelled medical imaging benchmarks",
+  "upload_type": "software",
+  "license": "MIT",
+  "version": "1.0.0",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Srinivas, Sathvik L.",
+      "affiliation": "Westview High School, San Diego, California, USA"
+    }
+  ],
+  "description": "<p>A benchmark auditor that reads no pixels. Given only a label table &mdash; subject identifier, slice index, label, and split &mdash; it reports how much of a published performance number is reachable without any image data: from where a slice sits in its stack, from acquisition or release metadata, from volume size, or from prevalence alone.</p><p>Each baseline is reported at both slice and patient level with subject-clustered bootstrap intervals, and is calibrated against its own permutation null rather than against an assumed 0.5 &mdash; a metadata baseline fitted out-of-fold on a subject-level label sits systematically below 0.5, so judging against 0.5 would manufacture spurious below-chance findings.</p><p>Requires numpy and pandas only. No images, no GPU, and no data-use agreement covering pixel data, which is what makes third-party auditing of benchmarks one does not hold possible at all.</p><p><strong>Worked result.</strong> On the published label file and patient-disjoint split of a 2024 prostate diffusion MRI classification study, the positional baseline reaches 0.851 (95% CI 0.816&ndash;0.887) slice-level AUROC against a reported 0.809&ndash;0.861, and falls to 0.424 (0.298&ndash;0.547) at the patient level. Roughly 98% of the published margin over chance requires no pixels.</p><p><strong>Prior art, stated plainly.</strong> The construction is not novel and this package does not claim it. A position-only baseline was publicly disclosed in a 2020 Kaggle notebook (&ldquo;Baseline with no image&rdquo;, RSNA-STR Pulmonary Embolism Detection), and a location-only baseline appears in DeepLesion's own defining paper (Yan et al., CVPR 2018). Metadata-driven performance was demonstrated by Badgeley et al. (npj Digital Medicine, 2019). What is contributed here is a reusable implementation with confidence intervals, the slice-versus-patient contrast, and permutation calibration.</p><p><strong>Verification.</strong> The self-test includes a benchmark the baselines must <em>fail</em> to detect &mdash; a genuinely image-driven label &mdash; alongside ones they must detect, so a tool that always fires cannot pass.</p>",
+  "keywords": [
+    "medical imaging",
+    "benchmark auditing",
+    "shortcut learning",
+    "data leakage",
+    "evaluation methodology",
+    "null model",
+    "reproducibility",
+    "AUROC",
+    "slice-level evaluation"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/sathvikloke/PhaseDx",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.1038/s41746-019-0105-1",
+      "relation": "cites",
+      "scheme": "doi"
+    }
+  ],
+  "access_right": "open"
+}

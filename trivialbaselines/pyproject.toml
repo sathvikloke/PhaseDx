@@ -39,7 +39,8 @@ dependencies = [
 ]
 
 [[project.authors]]
-name = "PhaseDx study authors"
+name = "Sathvik L. Srinivas"
+email = "lokesrinivas@gmail.com"
 
 [project.optional-dependencies]
 # Only needed to read .parquet label tables; .csv and .tsv work without it.

@@ -1,0 +1,70 @@
+cff-version: 1.2.0
+title: >-
+  trivialbaselines: zero-image null models for slice-labelled medical imaging benchmarks
+message: If you use this software, please cite it using these metadata.
+type: software
+authors:
+  - given-names: Sathvik
+    name-particle: L.
+    family-names: Srinivas
+    email: lokesrinivas@gmail.com
+    city: San Diego
+    region: California
+    country: US
+repository-code: "https://github.com/sathvikloke/PhaseDx"
+url: "https://github.com/sathvikloke/PhaseDx/tree/main/trivialbaselines"
+license: MIT
+version: 1.0.0
+date-released: "2026-07-29"
+keywords:
+  - medical imaging
+  - benchmark auditing
+  - shortcut learning
+  - data leakage
+  - evaluation
+  - null model
+  - reproducibility
+abstract: >-
+  A benchmark auditor that reads no pixels. Given only a label table — subject
+  identifier, slice index, label, and split — it reports how much of a published
+  performance number is reachable without any image data: from where a slice sits
+  in its stack, from acquisition or release metadata, from volume size, or from
+  prevalence alone. Each baseline is reported at both slice and patient level with
+  subject-clustered bootstrap intervals, and calibrated against its own permutation
+  null rather than against an assumed 0.5. Requires numpy and pandas only; no
+  images, no GPU, and no data-use agreement covering pixel data.
+
+  On the published label file and patient-disjoint split of a 2024 prostate
+  diffusion MRI classification study, the positional baseline reaches 0.851
+  (95% CI 0.816–0.887) slice-level AUROC against a reported 0.809–0.861, and falls
+  to 0.424 (0.298–0.547) at the patient level.
+
+  The construction is not novel and the package does not claim it: a position-only
+  baseline was publicly disclosed in a 2020 Kaggle notebook ("Baseline with no
+  image", RSNA-STR Pulmonary Embolism Detection), and a location-only baseline
+  appears in DeepLesion's own defining paper (Yan et al., CVPR 2018). What is
+  provided here is a reusable implementation with confidence intervals, the
+  slice-versus-patient contrast, and permutation calibration.
+references:
+  - type: article
+    title: >-
+      Deep learning predicts hip fracture using confounding patient and healthcare
+      variables
+    authors:
+      - family-names: Badgeley
+        given-names: Marcus A.
+    journal: npj Digital Medicine
+    volume: "2"
+    year: 2019
+    doi: 10.1038/s41746-019-0105-1
+  - type: conference-paper
+    title: >-
+      DeepLesion: automated mining of large-scale lesion annotations and universal
+      lesion detection with deep learning
+    authors:
+      - family-names: Yan
+        given-names: Ke
+    year: 2018
+    notes: >-
+      Table 1 reports a location-feature-only baseline, prior art for the positional
+      null implemented here.
