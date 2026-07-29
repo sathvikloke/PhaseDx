@@ -5,12 +5,19 @@ message: If you use this software, please cite it using these metadata.
 type: software
 authors:
   - given-names: Sathvik
-    name-particle: L.
-    family-names: Srinivas
-    email: lokesrinivas@gmail.com
-    city: San Diego
-    region: California
-    country: US
+    family-names: Loke
+    email: sloke@imsa.edu
+    affiliation: Illinois Mathematics and Science Academy
+  - given-names: Ethan
+    family-names: Johnson
+    email: ethanthekek21@gmail.com
+  - given-names: Neeraj
+    family-names: Movva
+    email: nmovva@imsa.edu
+    affiliation: Illinois Mathematics and Science Academy
+  - given-names: Aditya
+    family-names: Raut
+    email: aditya.sraut09@gmail.com
 repository-code: "https://github.com/sathvikloke/PhaseDx"
 url: "https://github.com/sathvikloke/PhaseDx/tree/main/trivialbaselines"
 license: MIT

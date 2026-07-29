@@ -1,41 +1,83 @@
 # Audit results — zero-image null models against published medical imaging benchmarks
 
-Run 2026-07-29. Tool: `pipeline/s14_trivialbaselines.py` (self-test passed before and
-after the one change made during this run; see §7). Label-table preparation scripts:
-`pipeline/audit_prep/`. Machine-readable results: `pipeline_out/trivial_baselines/*.json`,
-one card per run in `*.md`.
+Run 2026-07-29, revised later the same day after RSNA ICH was reached and every
+comparator's peer-review status was re-checked (§2.3, §3.7, §3.8). Tool:
+`pipeline/s14_trivialbaselines.py`. **The tool was not modified in the revision pass**;
+its self-test was re-run afterwards and all checks pass. The `--relpos-col` option
+described in §7 was added in the earlier pass of the same day. Label-table preparation
+scripts: `pipeline/audit_prep/`. Machine-readable results:
+`pipeline_out/trivial_baselines/*.json`, one card per run in `*.md`. Every number added in
+the revision pass is reproduced by a logged script under `pipeline_out/audit_logs/`:
+
+| log | produces |
+|---|---|
+| `rsna_ich_prep.log` | the ordering test and the built ICH slice table (§3.7) |
+| `rsna_ich_burduja_conditions.log` | rows 16–21, full 752,802-slice file |
+| `rsna_ich_s14_card.log` | the s14 harness card, seeded 1,500-patient subsample |
+| `rsna_pe_position_test.log` | the RSNA-STR PE negative (§3.8) |
 
 ---
 
 ## 0. Headline, stated before any table
 
-**Six benchmarks were audited on seven label files, producing fifteen rows. Twelve rows
-carry a defensible published comparator: six are MATCHED, three are PARTIAL, three are
-NOT MATCHED. The remaining three rows are NON-COMPARABLE and are not scored.** All six
-MATCHED rows come from a single benchmark — fastMRI Prostate under Rempe et al.'s
+**Seven benchmarks were audited on eight label files, producing twenty-one rows. Eighteen
+rows carry a defensible published comparator: six are MATCHED, nine are PARTIAL, three
+are NOT MATCHED. The remaining three rows are NON-COMPARABLE and are not scored.** All
+six MATCHED rows come from a single benchmark — fastMRI Prostate under Rempe et al.'s
 protocol. Every other benchmark audited either resisted the null outright or was matched
 only in part.
+
+Two things changed in this run, and the second one is uncomfortable.
+
+**One: RSNA 2019 Intracranial Haemorrhage was reached**, having been recorded as
+unreachable in the previous run. It is the benchmark whose official metric is per-slice
+and whose organisers stated on the record that the released fields could not determine
+whether an image contains haemorrhage. On the organisers' own file, a model that never
+sees a pixel reaches **slice AUROC 0.738** against a published, peer-reviewed 0.9843 on
+the same metric, the same unit and the same cohort — and then falls to **0.462 at the
+patient level**, below chance, on 18,938 patients. See §3.7.
+
+**Two: a peer-review audit of every comparator (§2.3) found that the only MATCHED rows in
+the entire audit rest on a preprint.** Rempe et al. was re-queried on 2026-07-29 and is
+still arXiv-only, two years after posting. Meanwhile two comparators were being
+under-cited: LUNA16's is a *Medical Image Analysis* 2017 paper and DeepLesion's is a CVPR
+2018 paper, both cited here previously by their arXiv numbers. Stated plainly:
+
+> **Every peer-reviewed comparison in this audit is PARTIAL or NOT MATCHED. The only
+> MATCHED rows rest on a preprint comparator.**
 
 That distribution is the finding, and it changes the framing the paper can support:
 
 * **The claim "trivial baselines match published performance on medical imaging
-  benchmarks" is not supported as a general statement.** It is supported for one
-  benchmark, strongly and reproducibly, and partially for a second.
+  benchmarks" is not supported as a general statement, and is not supported against the
+  peer-reviewed literature at all.** It is supported for one benchmark, strongly and
+  reproducibly, whose comparator is a preprint. Against peer-reviewed numbers the
+  supportable claim is quantitative rather than absolute: a pixel-blind model reaches
+  **40–62%** of the margin over chance on RSNA ICH, **48–89%** on DeepLesion, and
+  essentially none on LUNA16 and PI-CAI.
 * **What generalises further than the match is the gap between the slice-level and the
-  patient-level number.** On three of the six benchmarks a pixel-blind positional model
-  scores 0.80–0.87 at the slice level and falls to chance at the patient level: fastMRI
-  Prostate T2 0.854 → 0.506, DWI 0.851 → 0.424, fastMRI+ knee meniscus 0.873 → 0.510.
-  Duke breast reaches 0.823 at the slice level and cannot be evaluated at the patient
-  level at all, because all 922 patients are positive — a fourth way the same protocol
-  problem shows up. Crucially this did *not* depend on whether the published number was
-  matched, so it is not hostage to any comparability argument. It is the most defensible
-  general claim the audit supports.
+  patient-level number.** On four of the seven benchmarks a pixel-blind positional model
+  scores 0.73–0.87 at the slice level and falls to chance or below at the patient level:
+  **RSNA ICH 0.731 → 0.462**, fastMRI Prostate T2 0.854 → 0.506, DWI 0.851 → 0.424,
+  fastMRI+ knee meniscus 0.873 → 0.510. Duke breast reaches 0.823 at the slice level and
+  cannot be evaluated at the patient level at all, because all 922 patients are positive —
+  a fifth way the same protocol problem shows up. Crucially this did *not* depend on
+  whether the published number was matched, so it is not hostage to any comparability
+  argument. It is the most defensible general claim the audit supports, and **RSNA ICH is
+  now the flagship instance**: 18,938 patients rather than the 46–199 of the fastMRI
+  cohorts. See the qualification about bin choice in §4.
   **It is not universal.** DeepLesion stays high at both units (pelvis 0.977 slice, 0.954
   patient) because its labels are anatomical regions, and LUNA16 is at chance at both
   (0.534 slice, 0.581 patient). Both exceptions must be reported alongside the rule.
 * **Two benchmarks are clean.** LUNA16 is decisively unmatched on its own metric (CPM
   0.0020 against a published >0.95 sensitivity at <1 FP/scan) and PI-CAI is unmatched at
   its own evaluation unit. Both belong in the paper at equal prominence.
+* **Two of the three largest per-slice benchmarks publish a label file from which the
+  slice cannot be located.** For RSNA ICH the ordering was recoverable from a third-party
+  pixel-free mirror and is verified here by a run-length test (§3.7). For RSNA-STR
+  Pulmonary Embolism it was not: the official `train.csv` was obtained and its row order
+  *measured* to carry no positional information at all (§3.8). That pair of results is a
+  finding about benchmark release practice and should be reported as one.
 * **A published location-only baseline already exists on DeepLesion.** Yan et al. (CVPR
   2018) Table 1 reports a "Location feature" baseline at 59.7% 8-class accuracy against
   their own 90.5%. This is closer prior art than `paper/audit_targets.md` §3.4 records,
@@ -311,6 +353,140 @@ inventing a value. The slice task is within-patient localisation, not diagnosis.
 * World z was used as the position, rescaled within each scan; with ~850 candidates per
   scan the endpoints are well determined, so no supplied position column was needed.
 
+### 3.7 RSNA 2019 Intracranial Haemorrhage (rows 16–21) — the blocker was removed, and the organisers' claim is now refuted with a number
+
+The previous run recorded this benchmark as unreachable because `stage_2_train.csv` is
+keyed by `ID_<SOPInstanceUID>_<subtype>` and carries no patient id, no study id and no
+slice position. **That blocker is gone.** The join is recoverable from a public,
+MIT-licensed, pixel-free tabular file.
+
+* **Source.** `ianpan/rsna-intracranial-hemorrhage-16bit-png` on HuggingFace, a derived
+  mirror of the Kaggle release. Two tabular files were downloaded: `slice_labels.csv`
+  (61,729,905 bytes, sha256 `72885546ba8f55fb…`) and `rescale_values.csv` (1,294,907
+  bytes, sha256 `ca1d0d583ed6a41d…`). **`images.tar` (144 GB) was not downloaded and no
+  pixel data was touched.** The repo is MIT-licensed.
+* **The file is the official training set.** 752,802 rows, 18,938 patients, 21,744
+  series, slice prevalence 0.14338. Burduja et al. describe the official training set as
+  752,803 slices in 21,744 scans. The series count matches exactly and the slice count is
+  one short — consistent with the one series (of 21,744) whose `IM` counter is not
+  contiguous, i.e. a single dropped file. That is a known feature of this release, not a
+  silent subsetting, but it is one row we cannot account for and it is recorded here as
+  such.
+* **The whole row rests on one claim, and the claim is tested rather than assumed.** The
+  filename encodes `IM%06d`, a counter within the series. Everything depends on that
+  counter being the anatomical z-order. `prep_rsna_ich.py::verify_ordering` tests it
+  falsifiably: a haemorrhage is a spatially contiguous object, so a z-ordered index makes
+  positive slices form very few runs, while an arbitrary index makes them form as many
+  runs as random placement predicts. **Observed 1.384 runs per series against 7.167
+  expected under random placement; shuffling the labels within each series returns 7.170,
+  recovering the random expectation to three decimal places.** The index is z-ordered.
+  The test re-runs on every invocation and the script aborts if it stops holding. It
+  fixes order but not orientation — whether `IM000001` is the vertex or the skull base is
+  undetermined, and does not matter, because the positional baseline is invariant to
+  reversing the axis and is applied per series.
+* **This is the benchmark whose organisers said it could not be done.** On the record:
+  *"the available fields do not contain information that can determine if an image
+  contains intracranial hemorrhage"* — and the fields include ImagePositionPatient. A
+  20-bin estimate of P(haemorrhage | relative slice position), fitted on training scans
+  and applied to held-out scans, reaches **slice AUROC 0.738** on the `any` label. That
+  is not a determination of every image, and the organisers' sentence should be read as a
+  claim about individual certainty rather than about aggregate rankability. But as a
+  statement about what the metadata carries it is quantitatively wrong, and this is the
+  cleanest foil in the paper because the number is computed on the organisers' own file.
+* **Comparability to Burduja et al. is unusually good, and approximate in exactly one
+  respect.** Same cohort (the identical official training file), same label (`any`), same
+  metric (ROC AUC), same evaluation unit (the slice), and they publish the geometry of
+  their split verbatim: *"We further split the official training data into a training set
+  of 728,513 slices and a validation set 24,290 slices… the training set contains 21,000
+  CT scans, the validation set contains 744 CT scans."* What they do not publish is the
+  draw. So the audit repeats the draw 200 times at their geometry and reports the
+  distribution. **The comparison is approximate in the choice of held-out scans and in
+  nothing else**, and the spread it induces is sd 0.006.
+* **Their split leaks patients; it does not matter, and we checked rather than assumed.**
+  Their 21,744 scans come from 18,938 patients, so a scan-level split puts some patients
+  in both arms and the null benefits. Re-running patient-disjoint gives 0.7376 against
+  0.7381 — a difference of 0.0005. Both are reported by the script; the audit quotes the
+  scan-level number because that is their protocol, and the patient-disjoint number is
+  the honest one, and here they agree.
+* **A stronger-venue comparator was sought and rejected on the merits.** The obvious
+  candidate was Wu Y, Iorga M, …, Hill VB, *Radiology: Artificial Intelligence*
+  2024;6:e230296,
+  [DOI](https://doi.org/10.1148/ryai.230296), which is explicitly about image-level ICH
+  localisation. It does not qualify: the RSNA dataset is used only for **pretraining**,
+  and its AUC of 0.96 is reported on a local held-out cohort of 7,243 scans and an
+  external set of 491, neither of which we hold. Comparing against it would have been the
+  cross-cohort error this audit exists to refuse. *Sensors* is an MDPI journal and some
+  reviewers discount MDPI; it is nonetheless the correct comparator here, because it is
+  the one located paper reporting slice-level ROC AUC on this exact cohort with a
+  published split geometry. It is PubMed-indexed, CC BY, and its Table 2 also reports the
+  official competition metric, placing it, in their words, "in the top 30 ranking from a total of 1345
+  participants" — so it is not a
+  weak system being cherry-picked as an easy target.
+* **The harness card was run on a seeded subsample, and the reason is mundane.** The full
+  752,802-row file drove the machine into swap exhaustion (11.9 GB of 13.3 GB swap in
+  use) and the run was killed twice rather than left to thrash. The s14 card at
+  `pipeline_out/trivial_baselines/rsna_ich_any_slice.json` is therefore computed on a
+  seeded random sample of 1,500 of the 18,938 patients (58,794 slices, seed 20260729;
+  slice prevalence 0.14651 against the full file's 0.14338). **The scored rows 16–21 do
+  not depend on that subsample** — they come from the full file via
+  `rsna_ich_burduja_conditions.py`. The two agree: 0.731 [0.723, 0.739] on the subsample
+  against 0.738 [0.727, 0.750] on the full file.
+* **Not a binning artefact.** Bin sweep on the slice unit: 5→0.707, 10→0.725, 20→0.731,
+  50→0.740, and a fit-free centrality score −|relpos − 0.5| reaches 0.730 with no
+  training data at all.
+* **Permutation-calibrated.** The positional baseline's own permutation null is 0.501 and
+  its excess over that null is 0.231. The harness also flags that the constant predictor
+  scored 0.487 rather than 0.500 under pooled out-of-fold evaluation, which is the floor
+  of what any pooled number here can mean; the effect is 0.013 and does not touch the
+  conclusion.
+* **Acquisition metadata is nearly inert here, unlike DeepLesion.** The metadata tree
+  reaches 0.506. The only metadata column that carries anything is the number of slices
+  in the series (0.573 slice / 0.599 patient). `plane` and `rescale_slope` are
+  single-valued in this cohort and score exactly 0.487/0.500.
+
+### 3.8 RSNA-STR Pulmonary Embolism 2020 — NOT REACHED, and the reason is now a measurement rather than a guess
+
+This was the priority target. It is not reached, and the negative is sharper than the
+previous "we could not get the file" because the file was obtained and then shown to be
+insufficient.
+
+* **The official label file was obtained without Kaggle credentials.** `train.csv` is
+  committed to a public GitHub repository, `darraghdog/rsnastr`, at `data/train.csv.zip`
+  (16,512,900 bytes zipped; 119,970,071 bytes expanded, dated 2020-09-07). It is
+  genuine: 1,790,594 rows, 7,279 studies, `pe_present_on_image` prevalence 0.05392. Those
+  three numbers match Table 4 of Hu Z, Lin HM, …, Colak E, *npj Digital Medicine*
+  2025;8:254 ([DOI](https://doi.org/10.1038/s41746-025-01594-2)) exactly — it reports the
+  RSPECT train split as 96,540 positive of 1,790,594 slices, 5.39%, over 7,279 exams.
+* **Requirement (a) fails, and this was measured.** `train.csv` carries
+  StudyInstanceUID, SeriesInstanceUID, SOPInstanceUID and the labels, and **no slice
+  index and no z position**. The obvious hope is that the file's row order preserves
+  acquisition order. It does not. Applying the same run-length test used on RSNA ICH:
+  observed 31.090 runs of positive slices per series against 31.913 expected under random
+  placement, a ratio of **0.974**. Sorting by SOPInstanceUID instead gives 31.938, ratio
+  **1.001**. **Neither the row order nor the identifier order carries any positional
+  information whatsoever.** No public pixel-free source of RSNA PE slice positions was
+  located (HuggingFace, Zenodo, and the twelve public solution repositories were
+  checked; the second-place solution ships a metadata-extraction *script* that requires
+  the DICOMs, and the top solution ships only image-derived lung bounding boxes, which
+  would break the zero-image guarantee).
+* **Requirement (b) fails independently.** The peer-reviewed numbers located on this
+  benchmark are at the **examination level**, not the slice level, and are computed on
+  the **private test set, whose labels were never released**. Hu et al.'s AUCs of 0.928
+  (semi-weak, 27.5% of slice labels) and 0.932 (fully supervised) are exam-level on the
+  RSPECT private split (385,238 slices, of which 18,846 positive). So even with
+  slice positions in hand, there would be nothing on the same metric and unit and cohort
+  to compare against.
+* **So RSNA PE fails (a) and (b) for independent reasons**, and the descriptor paper
+  (Colak et al., *Radiology: Artificial Intelligence* 2021;3:e200254) is a dataset
+  descriptor that publishes no per-slice classification metric.
+* **This is worth a sentence in the paper, not a footnote.** RSNA ICH and RSNA PE are the
+  two largest per-slice-labelled benchmarks in medical imaging. Both publish a label file
+  from which the slice cannot be located. For ICH a third party reconstructed the
+  ordering and we could test and use it; for PE nobody has, and we can now demonstrate
+  the absence rather than assert it. OsciiArt's 2020 notebook (the prior art recorded in
+  `paper/audit_targets.md`) did this on PE with the DICOM headers in hand, which is
+  precisely the resource a label-file-only auditor does not have.
+
 ---
 
 ## 4. Slice-level versus patient-level, measured on every benchmark
@@ -330,15 +506,35 @@ not show the effect.
 | DeepLesion, pelvis vs rest | 0.977 [0.969, 0.984] | 0.954 [0.939, 0.967] | — |
 | PI-CAI (case level) | not applicable | metadata only, 0.692 [0.626, 0.755] | — |
 | LUNA16 candidates | 0.534 [0.514, 0.558] | 0.581 [0.538, 0.613] | — |
+| **RSNA ICH, any haemorrhage** | **0.731** [0.723, 0.739] | **0.462** [0.431, 0.491] | — |
 
-Two benchmarks show the collapse outright — fastMRI Prostate (both arms) and fastMRI+
-knee (both label definitions). Duke breast is a third variant of the same protocol
-problem: 0.823 at the slice level, and no patient-level number is computable at all
-because every patient in the cohort is positive. DeepLesion does not collapse, and should
-not: its labels are anatomical regions, so they *are* patient-level facts about where
-lesions were found, and position predicts them at both units. LUNA16 is at chance at both
-units. PI-CAI has no slice-level structure to collapse. Stating all five outcomes is what
-makes the first three credible.
+Three benchmarks show the collapse outright — fastMRI Prostate (both arms), fastMRI+
+knee (both label definitions), and now **RSNA ICH, which is by far the largest and the
+most consequential**: 0.731 at the slice level and 0.462 at the patient level, i.e.
+*below* chance, on 752,802 slices from 18,938 patients. Duke breast is a fourth variant
+of the same protocol problem: 0.823 at the slice level, and no patient-level number is
+computable at all because every patient in the cohort is positive. DeepLesion does not
+collapse, and should not: its labels are anatomical regions, so they *are* patient-level
+facts about where lesions were found, and position predicts them at both units. LUNA16 is
+at chance at both units. PI-CAI has no slice-level structure to collapse. Stating all six
+outcomes is what makes the first three credible.
+
+**RSNA ICH is the single most useful row in this table** and it should lead the paper.
+The other collapses are on cohorts of 46 to 199 subjects. This one is on 18,938 patients,
+on the benchmark whose official metric is per-slice, whose organisers stated on the record
+that the metadata could not do this, and against a published slice-level number on the
+identical file. It needs no comparability argument at all: both columns are our own
+computation on one label file.
+
+**One honest qualification on the ICH patient-level number.** The collapse is bin-robust
+at the slice level (0.707→0.740 over 5→50 bins) but *not* at the patient level, where the
+sweep runs 5→0.425, 10→0.435, 20→0.462, 50→**0.652**. At 50 bins over volumes of 20–60
+slices the bin index is nearly the raw slice index, so the per-patient aggregate starts
+tracking volume length, and volume length is itself weakly predictive here (0.599 patient
+AUROC on its own). The honest statement is that the *positional* signal collapses at the
+patient level while a separate and weaker *volume-size* signal does not, and that the
+50-bin patient number is measuring the latter. The 20-bin setting is the pre-specified
+one and is what the table reports.
 
 The remedy column is the constructive half. Stratifying the slice-level AUROC by
 relative position collapses the fastMRI Prostate null from 0.854 to 0.546 and from 0.851
@@ -380,15 +576,22 @@ sharpens what is left as new:
 
 ## 6. What was and was not reached
 
-**Audited (7 label files, 6 distinct benchmarks):** fastMRI Prostate T2, fastMRI Prostate
-DWI, DeepLesion, fastMRI+ knee, Duke Breast Cancer MRI, PI-CAI, LUNA16.
+**Audited (8 label files, 7 distinct benchmarks):** fastMRI Prostate T2, fastMRI Prostate
+DWI, DeepLesion, fastMRI+ knee, Duke Breast Cancer MRI, PI-CAI, LUNA16, **RSNA 2019
+Intracranial Haemorrhage (new)**.
+
+**Reached this run, having been listed as unreachable in the previous one:**
+
+| target | how the blocker was removed |
+|---|---|
+| **RSNA 2019 Intracranial Haemorrhage** | Both blockers recorded previously turned out to be avoidable. The slice-position join is available in a public MIT-licensed HuggingFace mirror as a pixel-free CSV, and no click-through agreement was accepted because nothing was downloaded from Kaggle. The third-party mapping is no longer "unverified": its slice ordering is confirmed by a falsifiable run-length test (§3.7), and its patient/series counts reconcile with the peer-reviewed literature. See §3.7. |
 
 **Not reached, with reasons:**
 
 | target | why not |
 |---|---|
-| **RSNA 2019 Intracranial Haemorrhage** (highest impact on the list) | Two independent blockers. (a) `stage_2_train.csv` is keyed by `ID_<SOPInstanceUID>_<subtype>` and carries only the label — no patient id, no study id, no slice position. The join needs DICOM headers from the ~450 GB image release or an unverified third-party metadata CSV, and no provenance-checkable mapping was found. (b) Access is behind a click-through Research Use Agreement; accepting terms on the user's behalf is outside what this session may do. **Both are reportable findings about benchmark release practice**: the benchmark whose official metric is per-slice publishes a label file from which the slice cannot be located. |
-| **RSNA 2023 Abdominal Trauma / RSNA 2022 Cervical Spine** | Kaggle-hosted; same click-through-agreement blocker. `image_level_labels.csv` is genuinely per-slice and these remain the best next targets for someone who accepts the agreement. |
+| **RSNA-STR Pulmonary Embolism 2020** (was the priority target) | The official `train.csv` **was** obtained, from a public GitHub mirror, with no Kaggle credentials, and verified genuine against published counts. It still fails: it carries no slice position, and its row order and identifier order were **measured** to carry none (run-length ratio 0.974 and 1.001 against random). Independently, the peer-reviewed numbers on this benchmark are exam-level on a test set whose labels were never released. Fails (a) and (b) separately. See §3.8. |
+| **RSNA 2023 Abdominal Trauma / RSNA 2022 Cervical Spine** | Kaggle-hosted; click-through-agreement blocker. `image_level_labels.csv` is genuinely per-slice and these remain the best next targets for someone who accepts the agreement. Worth noting after §3.7 that a public pixel-free mirror may exist for these too, and that possibility was not exhausted. |
 | **fastMRI+ brain** | Only 73 of 1,001 roster volumes held locally. Underpowered; not run. |
 | **PI-CAI slice-level arm** | Would require downloading 1,295 lesion-delineation volumes and a NIfTI reader (neither `nibabel` nor `SimpleITK` is in the venv). Not attempted; the case-level arm was run instead. |
 | **PROSTATEx, CQ500, BraTS/KiTS/MSD/AMOS/TotalSegmentator** | Excluded for the reasons already recorded in `paper/audit_targets.md` Tier 3 (DICOM-header dependence, scan-level-only labels, segmentation metrics). Not revisited. |
@@ -409,6 +612,9 @@ downloaded for any target.
 | PI-CAI official CV folds ×5 | ~7.5 kB each | — | github.com/DIAGNijmegen/picai_baseline | Apache 2.0 (repo) |
 | `candidates_V2.csv` | 71,374,684 | `2e0f79bbee9a3ba7` | Zenodo 3723295 (LUNA16) | CC BY 4.0 (Zenodo record metadata) |
 | `annotations.csv` (LUNA16) | 136,986 | `db9adb75b381f3e9` | Zenodo 3723295 | CC BY 4.0 |
+| `slice_labels.csv` (RSNA ICH) | 61,729,905 | `72885546ba8f55fb` | HuggingFace `ianpan/rsna-intracranial-hemorrhage-16bit-png` | MIT (repo) |
+| `rescale_values.csv` (RSNA ICH) | 1,294,907 | `ca1d0d583ed6a41d` | same | MIT (repo) |
+| `train.csv` (RSNA-STR PE) | 119,970,071 | — | github.com/darraghdog/rsnastr, `data/train.csv.zip` | no licence file in that repo; **obtained, verified, and then not used** — see §3.8 |
 
 Files not obtained in this session were already present from the prior session's
 downloads and their hashes match, which is why rows 1–6 reproduce exactly.
@@ -438,17 +644,45 @@ and reproduce to four decimal places (T2 0.8542 [0.8123, 0.8913]; DWI 0.8514 [0.
 1. **Retitle.** "Trivial baselines match published performance on medical imaging
    benchmarks" over-claims on this evidence. What the audit supports is closer to *"How
    much of a slice-level medical imaging benchmark can be reached without the pixels: a
-   label-file audit of six public benchmarks"*. The strong version survives only for
-   fastMRI Prostate.
-2. **Lead with the unit-of-evaluation collapse (§4), not with the match.** It is the only
-   result that holds across benchmarks and it needs no published comparator, so it cannot
-   be attacked on comparability.
-3. **Give LUNA16 and PI-CAI first-class space.** Two of six benchmarks resisted the null.
-   A paper that reports that is much harder to dismiss than one that does not.
+   label-file audit of seven public benchmarks"*. The strong version survives only for
+   fastMRI Prostate, whose comparator is a preprint (§2.3).
+2. **Lead with the unit-of-evaluation collapse (§4), not with the match, and lead the
+   collapse with RSNA ICH.** It is the only result that holds across benchmarks and it
+   needs no published comparator, so it cannot be attacked on comparability. RSNA ICH
+   gives it a cohort of 18,938 patients on the most-cited slice-level benchmark in the
+   field, which the fastMRI cohorts of 46–199 subjects cannot.
+3. **Give LUNA16 and PI-CAI first-class space.** Two of seven benchmarks resisted the
+   null. A paper that reports that is much harder to dismiss than one that does not.
+3a. **Never present a MATCHED row without saying its comparator is a preprint.** This is
+   now the paper's largest exposure. A reviewer who checks the six MATCHED rows will find
+   they all trace to one arXiv posting that has not been peer-reviewed in two years. Say
+   it first, in the results, not in a limitations paragraph.
+3b. **Use the RSNA ICH organisers' statement as the paper's opening foil, now that it has
+   a number attached.** "The available fields do not contain information that can
+   determine if an image contains intracranial hemorrhage" against a slice AUROC of 0.738
+   computed on their own released label file is the most economical possible statement of
+   the paper's thesis. Handle it fairly: their sentence is defensible as a claim about
+   individual certainty and indefensible as a claim about aggregate rankability, and the
+   paper should say so rather than treat it as a simple error.
+3c. **Report the RSNA PE negative next to the ICH positive.** Obtaining the official PE
+   label file and then *measuring* that its row order carries no positional information
+   (ratio 0.974 against random) is a stronger and more interesting result than not
+   obtaining it. It also demonstrates the run-length test as a reusable instrument, which
+   is a small methodological contribution the tool can carry.
 4. **Rewrite the novelty section around Yan et al. 2018** (§5) and re-run the prior-art
    search properly.
 5. **Reverse the T2/DWI recommendation in `audit_targets.json`** (§3.1).
-6. **On today's count the label-file-only claim supports five targets** (fastMRI Prostate
-   ×2 arms, DeepLesion, Duke breast tabular, PI-CAI marksheet, LUNA16) — fastMRI+ is
-   *not* one of them, and RSNA ICH is the case that proves benchmarks can publish a
-   slice-level metric and still make the slice unlocatable from the label file.
+6. **On today's count the label-file-only claim supports six targets** (fastMRI Prostate
+   ×2 arms, DeepLesion, Duke breast tabular, PI-CAI marksheet, LUNA16, **RSNA ICH**) —
+   fastMRI+ is *not* one of them. RSNA ICH moves from the "unlocatable" column to the
+   "locatable, but only via a third party" column, and **RSNA-STR PE now occupies the
+   column ICH vacated**: it is the case that proves a benchmark can publish a per-slice
+   metric and a per-slice label file and still make the slice unlocatable.
+7. **State the count that this run was commissioned to produce.** Rows meeting all three
+   of (a) pixel-free label file, (b) peer-reviewed comparator on the same metric and unit,
+   (c) adequate split information or an explicit approximation statement: **four
+   benchmarks** — RSNA ICH, LUNA16, DeepLesion, PI-CAI. Two of those four carry a named
+   caveat (DeepLesion's comparator is peer-reviewed conference proceedings rather than a
+   journal; PI-CAI's is on a different cohort). fastMRI Prostate, which supplies all six
+   MATCHED rows, is **not** among the four, because its comparator is a preprint. See
+   §2.3 for the row-by-row determination.
