@@ -12,16 +12,26 @@
 %    camelyon16leaderboard, chen2025camcsa, colak2021rsnape,
 %    degrave2021covid, flanders2020rsnaich, fleiss1971kappa,
 %    geirhos2020shortcut, guo2019wsi, gwet2008ac1, holm1979, islam2021pe,
-%    jarkman2022generalization, kapoor2023leakage, maierhein2018rankings,
+%    jarkman2022generalization, kapoor2023leakage, knoll2020fastmri,
+%    maierhein2018rankings,
 %    ongly2024shortcut, osciiart2020baseline, page2021prisma,
 %    rempe2024kspace, roberts2021pitfalls, ruan2021wsi,
 %    saha2018radiogenomics, saha2021dukebreastmri, saha2024picai,
-%    setio2017luna16, tampu2022leakage, tibrewala2023fastmriprostate,
+%    setio2017luna16, solomon2025fastmribreast, tampu2022leakage,
+%    tibrewala2023fastmriprostate,
 %    trivialbaselines2026, varoquaux2022failures, wen2020cnn, wilson1927,
 %    yagis2021leakage, yan2018deeplesion, yan2018deeplesiongraphs,
-%    zech2018pneumonia, zhao2022fastmriplus
-%  (osciiart2020baseline is a Kaggle notebook; rempe2024kspace is an arXiv
-%   preprint -- both must be cited as such.)
+%    zbontar2018fastmri, zech2018pneumonia, zhao2022fastmriplus
+%  (osciiart2020baseline is a Kaggle notebook; rempe2024kspace and
+%   zbontar2018fastmri are arXiv preprints -- all must be cited as such.)
+%
+%  ATTRIBUTION THAT IS NOT OPTIONAL: knoll2020fastmri and zbontar2018fastmri
+%  are required by the NYU fastMRI Data Sharing Agreement, paragraph 6(b).
+%  The agreement also requires the literal string "NYU fastMRI" in the
+%  abstract (para 6a) and the "Data used in the preparation of this article
+%  were obtained from the NYU fastMRI Initiative database" paragraph in the
+%  Methods (para 6c). Both are present below. Removing any of the three puts
+%  the manuscript in breach; see refs.bib section 10.
 % =====================================================================
 \documentclass[11pt,a4paper]{article}
 
@@ -89,6 +99,12 @@ Aditya Raut --- \todo{MISSING: affiliation for Aditya Raut}\\[0.4em]
 % Radiology: AI caps the structured abstract near 300 words and original
 % research near 3,000. This draft is deliberately complete for co-author
 % review; cut to the caps at submission. Do not cut an interval to make room.
+%
+% AND DO NOT CUT THE STRING "NYU fastMRI" OUT OF THE ABSTRACT. It is in the
+% Materials and Methods paragraph below, and it is there because the fastMRI
+% Data Sharing Agreement, paragraph 6(a), requires it verbatim: "In any
+% published abstract, I will cite 'NYU fastMRI' as the source of the data in
+% the abstract." It is two words. Cut something else.
 \section*{Abstract}
 \addcontentsline{toc}{section}{Abstract}
 
@@ -108,7 +124,8 @@ commonly published columns --- subject identifier, slice index, label, train/tes
 assignment --- were fitted on training slices, and the resulting score vector was
 read at both the slice and the patient level with subject-clustered bootstrap
 intervals. Seven public benchmarks (eight label files) were audited. A
-rank-inversion analysis on 21 method configurations across five cohorts compared
+rank-inversion analysis on 21 method configurations across five NYU fastMRI
+cohorts compared
 between-unit rank disagreement against within-unit resampling noise. A
 pre-registered random-sample screen of a frozen \num{9979}-record PubMed frame
 (seed 20260729, four independent screeners) estimated reporting prevalence.
@@ -386,6 +403,25 @@ coverage figures are lower bounds.
 
 \subsection{The worked-example cohorts}
 
+% -------------------------------------------------------------------------
+% DO NOT DELETE, ABRIDGE OR MOVE THE FOLLOWING PARAGRAPH.
+% It is the acknowledgement mandated by the NYU fastMRI Data Sharing
+% Agreement, paragraph 6(c), which closes: "further acknowledge that
+% inclusion of some variation of the language shown above is mandatory."
+% All five worked-example cohorts are NYU fastMRI releases.
+% -------------------------------------------------------------------------
+Data used in the preparation of this article were obtained from the NYU fastMRI
+Initiative database (\url{https://fastmri.med.nyu.edu})
+\citep{knoll2020fastmri,zbontar2018fastmri}. As such, NYU fastMRI investigators
+provided data but did not participate in analysis or writing of this report. A
+listing of NYU fastMRI investigators, subject to updates, can be found at
+\url{https://fastmri.med.nyu.edu}. The primary goal of fastMRI is to test whether
+machine learning can aid in the reconstruction of medical images. The five
+cohorts used here are the fastMRI knee and brain raw $k$-space releases
+\citep{knoll2020fastmri,zbontar2018fastmri}, fastMRI Prostate --- T2 and DWI
+\citep{tibrewala2023fastmriprostate} --- and fastMRI Breast
+\citep{solomon2025fastmribreast}.
+
 To demonstrate the protocol where every control could be run, we applied it to
 our own study of whether MRI phase carries tumour signal beyond magnitude: three
 clinical cohorts (prostate T2 $n=67$, prostate DWI $n=45$, breast $n=70$) and
@@ -396,14 +432,34 @@ which every method's per-slice predictions exist, which is 136 brain and 29 knee
 subjects, and Table~\ref{tab:rank} reports those counts rather than the roster
 sizes. 102 training runs and 456 control runs, five-fold subject-level
 cross-validation, seven architectures, two seeds, pooled out-of-fold estimation
-with each subject tested exactly once. Reconstructions were validated against the
+with each subject tested exactly once.
+
+\textbf{What the input actually is.} The magnitude condition is fed as a single
+per-slice z-scored magnitude channel, so that global slice brightness --- which
+tracks receive gain, and therefore scanner and session --- is not available to it.
+The phase
+condition is fed as two channels, $\sin\varphi$ and $\cos\varphi$, and never as
+raw radians: phase wraps, so $-\pi$ and $+\pi$ are the same angle but maximally
+distant as numbers, and a convolution over wrapped phase sees a false edge at
+every wrap. $\sin\varphi$ and $\cos\varphi$ are already bounded in $[-1,1]$ and
+are deliberately not rescaled per slice, which would destroy their physical
+units. The \emph{both} condition is the concatenation of the three. All three of
+these channels are shown for the primary cohort in the Results, beside the raw
+angle they are computed from, which no estimator ever receives. Supplementary
+Figure S3 shows the remaining four cohorts more briefly: the magnitude channel
+and that same raw angle, not $\sin\varphi$ and $\cos\varphi$.
+
+Reconstructions were validated against the
 vendor reference images shipped in the same files: $r=1.000$ for brain and knee,
 0.998 for prostate T2, 0.984 for DWI with the low-$b$ volumes magnitude-averaged
 as the vendor does, and 0.977 for breast. Every vendor reference in these
 releases is a magnitude image, so these validate the magnitude reconstruction
 only; the breast reference is itself a temporal-TV-regularised reconstruction of
 the same k-space, so that correlation is agreement between two estimators rather
-than a ground truth.
+than a ground truth. Because two images of the same body part correlate even when
+they are different slices, each correlation is also reported against an
+anatomy-support floor, per cohort and per slice, in Supplementary Figure S2 and
+Supplementary Section S4.
 
 \subsection{The pre-registered prevalence screen}
 
@@ -846,7 +902,13 @@ of this subsection is the demonstration, not the biology
 
 The question was whether MRI phase carries tumour signal beyond magnitude, tested
 under nine criteria fixed in advance with prostate T2 pre-registered as the
-primary cohort. All three clinical cohorts were \textbf{NOT SUPPORTED} at the
+primary cohort. Figure~\ref{fig:input} shows what the estimators were given on
+that cohort --- the magnitude channel, the two phase channels and the raw angle
+they are computed from, for one slice with an annotated tumour and one without,
+read out of the cache in stored order. It is there so that a reader can see the
+input rather than infer it from a channel name; it illustrates and does not
+adjudicate, and none of the results below rest on it. All three clinical cohorts
+were \textbf{NOT SUPPORTED} at the
 patient level: prostate T2 gave 0.473 (95\% CI: 0.321, 0.632) for magnitude,
 0.380 (95\% CI: 0.244, 0.530) for phase and 0.492 (95\% CI: 0.345, 0.645) for
 both; breast 0.642 (95\% CI: 0.474, 0.793), 0.631 (95\% CI: 0.457, 0.800) and
@@ -867,10 +929,23 @@ prostate T2 --- 0.025 below, with the control's own interval entirely above chan
 headline, and 0.549 against 0.587 on breast. \emph{The input channel encodes the
 hardware}: on a cohort whose label contains no pathology of any kind, a network
 reading phase alone predicts receive-coil count $\geq 16$ at AUROC 0.921 (95\%
-CI: 0.870, 0.966) on 136 independent test subjects, and 0.979 (95\% CI: 0.953,
-0.996) when stratified within site, so the effect is not merely site. It is not
+CI: 0.870, 0.966) on 136 independent test subjects. Stratifying the comparison
+within site does not remove it, but the within-site number rests on one of the
+two sites and must be read that way: the cohort's 136 test subjects split 98/38
+between them, and only the 98-subject site clears the 10-per-class floor fixed
+before the analysis, at 0.979 (95\% CI: 0.953, 0.996) on the first of two seeds
+and 0.974 (95\% CI: 0.940, 0.997) on the second. The 38-subject site, which
+carries only 6 subjects in one class, sits at 0.542 and 0.578 on the same two
+seeds and is below that floor. What the separability analysis licenses is
+therefore the qualitative statement --- the effect survives conditioning on site
+in the only site where it can be tested --- and not a within-site point estimate
+for the cohort. It is not
 separable from scanner model or coil array, so we may say phase encodes hardware
-and may not decompose that hardware further. \emph{No aggregation rescues the
+and may not decompose that hardware further. Every confound control written for
+the three clinical cohorts, including the ones that land near chance, and every
+site stratum including the one below the floor, is plotted
+against the same axis and the same pre-registered ceiling in Supplementary
+Figure S1. \emph{No aggregation rescues the
 null}: seven patient-aggregation schemes were swept, none lifts any clinical
 cohort's interval lower bound above 0.500, and the selection-aware envelope tops
 out at 0.476, while 16 confound-cohort results do clear chance under the same
@@ -1079,6 +1154,16 @@ overlay, the four reserve blocks and the pooling script --- are released at
 \todo{MISSING: public repository URL and archival DOI}. The 44 unreachable
 records are listed by PMID so that a reader with better access can complete the
 screen. No pixel data were downloaded for any audited target.
+
+The worked-example cohorts are NYU fastMRI releases and are \emph{not}
+redistributed with this work. They are obtained by application to the NYU
+fastMRI Initiative at \url{https://fastmri.med.nyu.edu} under its data sharing
+agreement \citep{knoll2020fastmri,zbontar2018fastmri,tibrewala2023fastmriprostate,solomon2025fastmribreast}.
+That agreement forbids onward distribution of the dataset or of files derived
+from it, so no reconstructed image, cache file or slice is included in the
+released repository; the figures of those cohorts in this article and its
+supplement are supplied to the journal directly, and the code that regenerates
+them from a reader's own copy of the data is released.
 
 % =====================================================================
 \clearpage
@@ -1404,6 +1489,42 @@ control: deleting the anatomy and training on air alone does not collapse the
 slice-level number. A diagnostic signal that survives deleting the patient is not
 a diagnostic signal.}
 \label{fig:case}
+\end{figure}
+
+% ---------------------------------------------------------------------
+% NOTE: figures/fig6_qualitative_phase.pdf is NOT in the public git
+% repository. It embeds fastMRI-derived MRI slices, and the NYU fastMRI
+% data sharing agreement permits their use in an academic publication but
+% forbids redistribution. It is named in paper/tex/.gitignore and must be
+% supplied to the journal out of band; make_figures.py rebuilds it from
+% pipeline_out/cache/prostate_t2.h5 in one command. See paper/tex/README.md.
+% ---------------------------------------------------------------------
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig6_qualitative_phase.pdf}
+\caption{\textbf{The estimator's input on the pre-specified primary cohort
+(fastMRI Prostate, T2), for one slice of each class.} Left to right: the
+magnitude channel as fed, per-slice z-scored; phase channel 1, $\sin\varphi$;
+phase channel 2, $\cos\varphi$; and, for orientation only, the raw phase in
+radians on a cyclic scale so that the $\pm\pi$ wrap reads as a wrap. Columns 1--3
+are the arrays the network receives; column 4 is never fed to it. The cyan
+outline is the stage-2 body mask, whose complement defines the background-only
+control. \textbf{(A)} A slice with a tumour annotated on it: cache row 1312,
+\texttt{file\_prostate\_AXT2\_052.h5}, slice 9, patient 52, label 1.
+\textbf{(B)} A slice with no tumour annotated: cache row 1224,
+\texttt{file\_prostate\_AXT2\_049.h5}, slice 11, patient 49, label 0. Both are
+drawn from the official test split by a rule fixed for every panel in this
+manuscript --- the median row at that label, in cache order --- and neither was
+chosen by any outcome. The arrays are read from the stage-2 cache in stored
+order, with no transpose, no re-reconstruction and no per-slice rescaling of
+phase; the magnitude \emph{display} is windowed at $\pm$ the 99th centile of
+$|z|$, as its colour bar states, and the three other columns are shown over
+their full range. \textbf{This figure illustrates the input; it is not evidence for or
+against the phase hypothesis.} That question is settled by the intervals in
+Figure~\ref{fig:case} and by the falsification suite, not by how a slice looks.
+Data used in the preparation of this figure were obtained from the NYU fastMRI
+Initiative database \citep{knoll2020fastmri,zbontar2018fastmri,tibrewala2023fastmriprostate}.}
+\label{fig:input}
 \end{figure}
 
 % =====================================================================

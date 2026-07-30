@@ -3,9 +3,23 @@
 %  "What a slice-level benchmark certifies without the pixels"
 %
 %  THIS FILE COMPILES ON ITS OWN. It does not \input, \include or otherwise
-%  depend on main.tex, and it loads no external graphics or .bib file.
+%  depend on main.tex, and it loads no .bib file.
 %  Engine: pdfLaTeX. Two passes (hyperref/longtable need the second).
 %  Every package below ships with a standard TeX Live / Overleaf install.
+%
+%  CHANGED 2026-07-30: it now DOES load external graphics. Section S8 carries
+%  three figures from figures/, so this file is no longer buildable from
+%  itself alone -- it needs the sibling figures/ directory. That directory is
+%  in the same folder and travels in the same Overleaf zip, so nothing about
+%  the submission workflow changes, but the old "delete every other file and
+%  it still builds" guarantee is gone and README.md says so.
+%
+%  ONE OF THOSE THREE FIGURES IS NOT IN THE PUBLIC GIT REPOSITORY.
+%  figures/figS3_qualitative_cohorts.pdf embeds fastMRI-derived MRI slices.
+%  The NYU fastMRI data sharing agreement permits their use in an academic
+%  publication and forbids redistribution, so the file is named in
+%  paper/tex/.gitignore and must be supplied to the journal out of band.
+%  make_figures.py rebuilds it from pipeline_out/cache/*.h5 in one command.
 % ============================================================================
 \documentclass[11pt,a4paper]{article}
 
@@ -17,6 +31,7 @@
 \usepackage{amssymb}
 \usepackage{array}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage{longtable}
 \usepackage{ragged2e}
 \usepackage{caption}
@@ -57,7 +72,7 @@ Ethan Johnson \and Neeraj Movva \and Aditya Raut}
 \noindent
 This document is the supplement to the main manuscript. It is self-contained: every
 number in it is traceable to a named released artefact, and the section numbering
-(\mbox{S1--S7}) is referenced from the main text but does not depend on it.
+(\mbox{S1--S8}) is referenced from the main text but does not depend on it.
 
 \medskip
 \noindent
@@ -1118,9 +1133,34 @@ be read as one. Nine arms cannot support a specificity claim, and none is made.
 \section{Reconstruction validation for the case study}
 % ===========================================================================
 
+% ---------------------------------------------------------------------------
+% DO NOT DELETE OR ABRIDGE THE FOLLOWING PARAGRAPH. It is the acknowledgement
+% mandated by the NYU fastMRI Data Sharing Agreement, paragraph 6(c). This
+% file loads no .bib, so the two required references are written out in full
+% rather than cited by key, exactly as the supplement does elsewhere.
+% ---------------------------------------------------------------------------
+\textbf{Data source.} Data used in the preparation of this article were obtained from
+the NYU fastMRI Initiative database (\url{https://fastmri.med.nyu.edu}). As such, NYU
+fastMRI investigators provided data but did not participate in analysis or writing of
+this report. A listing of NYU fastMRI investigators, subject to updates, can be found
+at \url{https://fastmri.med.nyu.edu}. The primary goal of fastMRI is to test whether
+machine learning can aid in the reconstruction of medical images. The required
+references are Knoll F, Zbontar J, Sriram A, et al. ``fastMRI: A Publicly Available
+Raw $k$-Space and DICOM Dataset of Knee Images for Accelerated MR Image Reconstruction
+Using Machine Learning.'' \emph{Radiology: Artificial Intelligence} 2020;2(1):e190007,
+doi:10.1148/ryai.2020190007; and Zbontar J, Knoll F, Sriram A, et al. ``fastMRI: An
+Open Dataset and Benchmarks for Accelerated MRI.'' arXiv:1811.08839, 2018 (preprint,
+not peer reviewed). The prostate T2 and DWI cohorts are the fastMRI Prostate release
+(Tibrewala R, Dutt T, Tong A, et al., arXiv:2304.09254, 2023) and the breast cohort is
+the fastMRI Breast release (Solomon E, Johnson PM, Tan Z, et al., \emph{Radiology:
+Artificial Intelligence} 2025;7(1):e240345, doi:10.1148/ryai.240345). None of these
+data are redistributed with this work.
+
 The case-study cohorts were reconstructed from raw $k$-space by our own pipeline. Each
 reconstruction was validated against the vendor reference image shipped in the same
-HDF5 file, by Pearson correlation recomputed for every cached slice.
+HDF5 file, by Pearson correlation recomputed for every cached slice. The distribution
+behind every mean in this section, and the anatomy-support floor described at the end
+of it, are plotted together in Figure~\ref{fig:reconfid}.
 
 \textbf{Scope, stated before the numbers.} Every vendor reference in these releases is
 a \emph{magnitude} image. These correlations therefore validate the magnitude
@@ -1221,6 +1261,7 @@ volume. That value is the floor; $r$ minus that floor is the slice-specific marg
 vendor reference five slices away in the same volume; \texttt{margin} is
 $r$ minus that. The breast margin is the smallest of the five, which is the same
 conclusion the \texttt{temptv} caveat reaches by a different route.}
+\label{tab:anatomyfloor}
 \small
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -1793,5 +1834,185 @@ git log -- paper/screen_batch_A.json paper/screen_batch_B.json \
            paper/screen_batch_C.json paper/screen_batch_D.json
 \end{verbatim}
 \end{quote}
+
+\clearpage
+% ===========================================================================
+\section{Supplementary figures}
+% ===========================================================================
+
+Three figures that did not fit the main article's display-item budget. Two of them
+(Figures~\ref{fig:confound} and \ref{fig:reconfid}) are plots of released JSON and CSV
+artefacts. The third (Figure~\ref{fig:qualcohorts}) shows MRI slices and is therefore
+fastMRI-derived image data; see the note above it.
+
+None of the three establishes anything on its own. Figure~\ref{fig:confound} is a
+redrawing of the stage-5 confound controls that criterion C6 already reads;
+Figure~\ref{fig:reconfid} is the distribution behind the means in Section~S4; and
+Figure~\ref{fig:qualcohorts} is an illustration of the input and carries no inference
+at all.
+
+\subsection{What the acquisition columns are predictable from}
+
+Criterion C6 asks whether the same input channel that produced a diagnostic number can
+also identify the acquisition. Figure~\ref{fig:confound} plots every confound control
+stage 5 wrote for the three clinical cohorts, together with the two cohorts whose label
+is hardware or protocol rather than pathology, against the C6 ceiling taken from the
+criterion's own rule text. The direction of this axis is the opposite of the usual one:
+a \emph{high} value here counts against the phase hypothesis, not for it.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/figS1_acquisition_fingerprint.pdf}
+\caption{\textbf{AUROC at predicting an acquisition property, not a diagnosis, from the
+same input channels.} Slice-level AUROC with 95\% subject-clustered intervals.
+\textbf{Upper block:} every \texttt{confound\_predictability} control stage 5 wrote for
+the three cohorts on which a diagnostic claim was made --- prostate T2 and prostate DWI
+against \texttt{institution} and \texttt{receiver\_channels}, breast against
+\texttt{acq} and \texttt{folder} --- with the test-subject count printed beside each
+row. All of them are shown, including the ones whose intervals cross chance; none was
+selected on its value. Only the magnitude and phase arms appear, because stage 5 wrote
+no \emph{both} arm for this control on these cohorts, and the gap is left empty rather
+than filled. The black tick on each cohort's rows is that cohort's own phase headline
+\emph{for the tumour label}, placed on the same axis so the two can be compared
+directly. \textbf{Lower block:} the two cohorts whose label contains no pathology of
+any kind --- brain, labelled by receive-coil count $\geq 16$ channels, and knee,
+labelled by pulse sequence --- plus the brain phase arm recomputed inside each site
+stratum, one row per stratum. The dotted line is the 0.65 ceiling written into criterion C6
+before any of these numbers existed, read here out of the criterion's own rule string;
+the dashed line is chance. \textbf{A high value on this axis is evidence against the
+phase hypothesis, because the label being predicted is the scanner and not the
+disease.}
+\textbf{Reading the within-site rows.} The brain cohort's 136 test subjects split
+98/38 between two sites, and the estimate is carried by the 98-subject stratum:
+it is the only one that clears the 10-per-class floor set before the analysis.
+The 38-subject stratum has 6 subjects in one class, sits at 0.542, and is drawn
+without an interval because \texttt{s09\_robustness.json} writes none for a
+stratum below the floor. It is drawn rather than dropped: this figure claims to
+show every control including the near-chance ones, and that has to include this
+one. Both rows are the first of two seeds, which is stated on the rows; on the
+second seed the same two strata give 0.974 and 0.578, so the qualitative reading
+is stable across seeds and the point estimate is not a cohort-level within-site
+figure. The 0.926 printed beside these rows as the unstratified comparator and the
+0.921 on the brain row above are the same measurement read from two different
+artefacts, \texttt{s09\_robustness.json} and \texttt{verdict.json}, which do not
+aggregate the two seeds the same way: the per-seed unstratified values are 0.926
+and 0.923, and \texttt{verdict.json}'s cohort figure is 0.921. The difference is
+the aggregation and not a disagreement about the data, and both are shown rather
+than one being quietly dropped. What the separability analysis in
+\texttt{s09\_robustness.json} licenses is the scanner-and-coil configuration
+taken together, tested in the only stratum where it can be tested: it is not
+decomposable into coil count versus scanner model, and no such decomposition is
+claimed. Sources: \texttt{pipeline\_out/report/verdict.json},
+\texttt{pipeline\_out/robustness/s09\_robustness.json} and the per-cohort
+\texttt{confound\_predictability} payloads under
+\texttt{pipeline\_out/controls/results/}.}
+\label{fig:confound}
+\end{figure}
+
+\subsection{Reconstruction fidelity, with its distribution and its floor}
+
+Section~S4 reports the mean correlation against the vendor reference for each cohort.
+A mean hides a distribution, and a correlation between two images of the same body part
+is bounded away from zero by the shared body support alone. Figure~\ref{fig:reconfid}
+shows both: the spread of the per-slice correlations, and the part of each that is
+specific to the slice rather than to the anatomy.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/figS2_recon_fidelity.pdf}
+\caption{\textbf{Our reconstruction against the vendor reference shipped in the same
+HDF5 file.} \textbf{(A)} Per-slice Pearson $r$ per cohort: the bar is the interquartile
+range, the whisker the 5th to 95th centile, the tick the minimum, and the name of the
+vendor reference dataset is printed beside each row together with the number of slices
+the row actually plots --- that is, those with a computable correlation, which for
+breast is 2{,}224 of the 2{,}240 cached and matches Table~\ref{tab:reconDetail} rather
+than the cohort's cache size. Plotted
+against each is the anatomy-support null --- the same slice of ours correlated with the
+vendor's reference \emph{five slices away} in the same volume --- which is the floor
+that shared anatomy buys before any reconstruction is correct. \textbf{(B)} The
+difference, $r$ minus that floor, summarised by its median with the 5th centile to
+$+1$~SD; Table~\ref{tab:anatomyfloor} gives the \emph{mean} of the same quantity, so
+the two will not agree to the last digit and are not meant to. Breast is marked because
+\texttt{temptv} is the vendor's temporal-TV-regularised reconstruction of the same
+radial $k$-space rather than an independent ground truth, so its row is agreement
+between two estimators; the prostate DWI per-slice row carries a deliberate SNR penalty
+explained in Section~S4. Every vendor reference here is a magnitude image, so nothing
+in this figure validates the phase channel. Sources:
+\texttt{pipeline\_out/recon\_fidelity/recon\_fidelity\_summary.json} and the per-cohort
+CSVs beside it.}
+\label{fig:reconfid}
+\end{figure}
+
+\clearpage
+\subsection{The estimator's input on the remaining four cohorts}
+
+The main article shows all four columns --- magnitude, $\sin\varphi$, $\cos\varphi$
+and the raw angle --- for the pre-specified primary cohort.
+Figure~\ref{fig:qualcohorts} shows the other four cohorts more briefly, on the same
+selection rule: the magnitude channel and the raw angle only, because
+$\sin\varphi$ and $\cos\varphi$ are a fixed pointwise function of that angle and
+eight further panels of them would fill a page without adding one. It is included so
+that a reader can see what a phase map looks like on a diffusion cohort, on a radial
+breast acquisition and on the two hardware-labelled cohorts, rather than take the
+description on trust.
+
+% ---------------------------------------------------------------------------
+% figures/figS3_qualitative_cohorts.pdf is NOT in the public git repository.
+% It embeds fastMRI-derived MRI slices; the NYU fastMRI data sharing agreement
+% permits use in an academic publication and forbids redistribution. It is
+% named in paper/tex/.gitignore and is supplied to the journal out of band.
+% make_figures.py rebuilds it from pipeline_out/cache/*.h5.
+% ---------------------------------------------------------------------------
+% width is 0.72 rather than 1.0 because this figure is nearly square and its
+% caption carries the full per-panel provenance plus the breast label note; at
+% \textwidth the float is taller than the page, and at 0.78 the last caption
+% line runs into the folio.
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.72\textwidth]{figures/figS3_qualitative_cohorts.pdf}
+\caption{\textbf{The estimator's input on the four cohorts not shown in the main
+article, one slice of each class.} For each cohort, columns 1--2 are the positive class
+and columns 3--4 the negative class; within each pair, the first panel is the magnitude
+channel as fed, per-slice z-scored, and the second is the raw phase in radians on a
+cyclic scale. The raw angle is shown for orientation only and is never fed to any
+estimator; what is fed is $\sin\varphi$ and $\cos\varphi$, computed from it. The cyan
+outline is the stage-2 body mask. \textbf{(A)} prostate DWI: cache row 1279,
+\texttt{file\_prostate\_AXDIFF\_052.h5}, slice 10, patient 52, tumour annotated;
+against cache row 904, \texttt{file\_prostate\_AXDIFF\_038.h5}, slice 27, patient 38,
+no tumour annotated. \textbf{(B)} breast: cache row 1888,
+\texttt{fastMRI\_breast\_290\_1.h5}, slice 25, patient 290, label 1; against
+cache row 1792, \texttt{fastMRI\_breast\_287\_1.h5}, slice 62, patient 287, label 0.
+\textbf{The breast panels read ``label $=$ 1/0 (patient level)'' and not ``tumour
+annotated on this slice'', because the breast label is not a slice annotation}: it
+is the release's patient-level lesion status, 1 for malignancy with benign and
+negative both mapped to 0, broadcast unchanged to all 32 cached slices of the
+patient. No breast patient in the index carries more than one distinct slice label,
+and nine patients in the negative class have a recorded benign lesion, patient 287
+among them. The wording is set by a test on the index rather than by hand: a cohort
+gets ``on this slice'' only where the index shows the label varying within a
+patient, which it does for prostate T2 and DWI (31 of 67 and 24 of 45 patients) and
+not for breast.
+\textbf{(C)} brain: cache row 1160,
+\texttt{file\_brain\_AXT2\_200\_6002484.h5}, slice 4, patient \texttt{brain\_0151},
+label $\geq 16$; against cache row 1655,
+\texttt{file\_brain\_AXT2\_207\_2070148.h5}, slice 4, patient \texttt{brain\_0239},
+label $<16$. \textbf{(D)} knee: cache row 462, \texttt{file1001090.h5}, slice 18,
+patient \texttt{knee\_0011}, label \texttt{CORPDFS\_FBK}; against cache row 522,
+\texttt{file1001168.h5}, slice 14, patient \texttt{knee\_0094}, label
+\texttt{CORPD\_FBK}. \textbf{The brain and knee labels are hardware and protocol
+identity, not pathology} --- receive-coil count and pulse sequence --- and the class
+names printed on the panels are stage 2's own \texttt{label\_name} values rather than
+clinical terms. Every panel is drawn from the official test split by the rule used for
+every qualitative panel in this work: the median row at that label, in cache order. No
+panel was ranked on any outcome. The arrays are read from the stage-2 cache in stored
+order, with no transpose, no re-reconstruction and no per-slice rescaling of phase.
+\textbf{This figure illustrates the input and is not evidence for or against any
+hypothesis}; the null rests on the intervals and the falsification suite, not on the
+appearance of a slice. Data used in the preparation of this figure were obtained from
+the NYU fastMRI Initiative database (\url{https://fastmri.med.nyu.edu}); see the data
+source paragraph of Section~S4. Sources: \texttt{pipeline\_out/cache/*.h5}, their index
+CSVs, and \texttt{pipeline\_out/report/verdict.json} for the class wording.}
+\label{fig:qualcohorts}
+\end{figure}
 
 \end{document}

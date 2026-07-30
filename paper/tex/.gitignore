@@ -6,6 +6,21 @@
 #
 # NOT ignored, and must stay tracked: *.tex, references.bib, figures/*.pdf,
 # make_figures.py, README.md. The figures are inputs to the build, not outputs of it.
+#
+# ...with two named exceptions, below. Two figures embed MRI slices and are therefore
+# fastMRI-DERIVED IMAGE DATA. The NYU fastMRI data sharing agreement, paragraph 5(c),
+# forbids distributing "any portion or all of the fastMRI Dataset or any subsequent
+# variables or data files derived from" it, and carves out only "uses in academic
+# publications and presentations with citations as provided in paragraph 6". A figure
+# inside a submitted manuscript is inside that carve-out. A file in a public GitHub
+# repository is not: it is unbounded redistribution to any person or entity.
+#
+# The same rule already governs pipeline_out/ (ignored whole, for the same reason).
+# Derived STATISTICS may be committed -- that is what fig1-fig5, figS1 and figS2 are.
+# Derived IMAGES may not. Ship these two to the journal out of band; make_figures.py
+# rebuilds them from pipeline_out/cache/*.h5 in one command.
+figures/fig6_qualitative_phase.pdf
+figures/figS3_qualitative_cohorts.pdf
 
 ## Core latex/pdflatex
 *.aux

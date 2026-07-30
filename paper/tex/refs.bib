@@ -14,6 +14,13 @@
 % the audit's own reference. Verify both before submission. See
 % paper/tex/AUDIT.md, items C-3 and U-9.
 %
+% Section 10 was appended on 2026-07-30 to carry the NYU fastMRI attribution
+% the data sharing agreement requires. Its three entries WERE checked against
+% a live record on that date (PubMed E-utilities for PMID 32076662 and
+% 39772976; the arXiv abstract page for 1811.08839), so they meet the same
+% standard as sections 1-8. The one transcription departure is recorded in
+% the section header itself.
+%
 % Encoding: LaTeX accent commands only, no raw UTF-8, so the file compiles
 % under a stock Overleaf TeX Live with either bibtex or biber.
 %
@@ -898,4 +905,107 @@
   note    = {PMID 18482474. The {AC1} statistic, pre-specified in the frozen
              protocol as the paradox guard for the extremely skewed primary
              flag, before any coding}
+}
+
+
+% ---------------------------------------------------------------------
+% 10. NYU fastMRI ATTRIBUTION -- REQUIRED BY THE DATA SHARING AGREEMENT,
+%     NOT OPTIONAL AND NOT REMOVABLE.
+%
+%     All five worked-example cohorts (brain, knee, breast, prostate T2,
+%     prostate DWI) are NYU fastMRI releases. The fastMRI Data Sharing
+%     Agreement, paragraph 6(b), states: "In any published manuscripts
+%     using data from NYU fastMRI, I will reference the following paper:
+%     Knoll et al Radiol Artif Intell. 2020 Jan 29;2(1):e190007 [...] and
+%     the arXiv paper, https://arxiv.org/abs/1811.08839." Both are below
+%     and BOTH must be cited together wherever the cohorts are described.
+%     Paragraph 6(a) additionally requires the literal string "NYU fastMRI"
+%     in the abstract, and 6(c) requires the acknowledgement sentence in
+%     the Methods; neither is a bib entry, and both live in main.tex.
+%     If either key is ever dropped from main.tex the manuscript is in
+%     breach of the agreement, not merely under-cited.
+%
+%     All three entries were checked against a live record on 2026-07-30:
+%     knoll2020fastmri and solomon2025fastmribreast against the PubMed
+%     E-utilities record (PMID 32076662 and 39772976); zbontar2018fastmri
+%     against the arXiv abstract page for 1811.08839. Journal, volume,
+%     issue, pages, year, DOI and author order are transcribed from those
+%     records. ONE DEPARTURE, recorded rather than silently corrected: the
+%     PubMed author list for PMID 32076662 renders the tenth author as
+%     "Drozdzalv, Michal"; the arXiv record for the same author group gives
+%     "Michal Drozdzal", and that spelling is used here.
+%
+%     solomon2025fastmribreast is the release paper for the BREAST cohort of
+%     the worked example, which carried no citation of any kind before
+%     2026-07-30. It is a different dataset from saha2021dukebreastmri: Duke
+%     Breast Cancer MRI is an AUDITED LABEL FILE, this is a WORKED-EXAMPLE
+%     COHORT, and the two must not be merged.
+%
+%     unsrtnat prints the `note' field into the reference list, as it already
+%     does for every other entry here. Keep these notes to facts a reader may
+%     see; put instructions to co-authors in this comment block instead.
+% ---------------------------------------------------------------------
+
+@article{knoll2020fastmri,
+  author  = {Knoll, Florian and Zbontar, Jure and Sriram, Anuroop and
+             Muckley, Matthew J. and Bruno, Mary and Defazio, Aaron and
+             Parente, Marc and Geras, Krzysztof J. and Katsnelson, Joe and
+             Chandarana, Hersh and Zhang, Zizhao and Drozdzal, Michal and
+             Romero, Adriana and Rabbat, Michael and Vincent, Pascal and
+             Pinkerton, James and Wang, Duo and Yakubova, Nafissa and
+             Owens, Erich and Zitnick, C. Lawrence and Recht, Michael P. and
+             Sodickson, Daniel K. and Lui, Yvonne W.},
+  title   = {{fastMRI}: A Publicly Available Raw $k$-Space and {DICOM}
+             Dataset of Knee Images for Accelerated {MR} Image
+             Reconstruction Using Machine Learning},
+  journal = {Radiology: Artificial Intelligence},
+  year    = {2020},
+  volume  = {2},
+  number  = {1},
+  pages   = {e190007},
+  doi     = {10.1148/ryai.2020190007},
+  note    = {PMID 32076662; PMCID PMC6996599; published 2020-01-29.
+             Cited as required by the {NYU} fastMRI Data Sharing Agreement,
+             paragraph 6(b)}
+}
+
+@misc{zbontar2018fastmri,
+  author       = {Zbontar, Jure and Knoll, Florian and Sriram, Anuroop and
+                  Murrell, Tullie and Huang, Zhengnan and
+                  Muckley, Matthew J. and Defazio, Aaron and Stern, Ruben and
+                  Johnson, Patricia and Bruno, Mary and Parente, Marc and
+                  Geras, Krzysztof J. and Katsnelson, Joe and
+                  Chandarana, Hersh and Zhang, Zizhao and Drozdzal, Michal and
+                  Romero, Adriana and Rabbat, Michael and Vincent, Pascal and
+                  Yakubova, Nafissa and Pinkerton, James and Wang, Duo and
+                  Owens, Erich and Zitnick, C. Lawrence and Recht, Michael P.
+                  and Sodickson, Daniel K. and Lui, Yvonne W.},
+  title        = {{fastMRI}: An Open Dataset and Benchmarks for Accelerated
+                  {MRI}},
+  year         = {2018},
+  eprint       = {1811.08839},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.CV},
+  doi          = {10.48550/arXiv.1811.08839},
+  url          = {https://arxiv.org/abs/1811.08839},
+  urldate      = {2026-07-30},
+  note         = {PREPRINT, not peer reviewed. Cited as required by the {NYU}
+                  fastMRI Data Sharing Agreement, paragraph 6(b), which names
+                  this arXiv record by {URL} alongside Knoll et al}
+}
+
+@article{solomon2025fastmribreast,
+  author  = {Solomon, Eddy and Johnson, Patricia M. and Tan, Zhengguo and
+             Tibrewala, Radhika and Lui, Yvonne W. and Knoll, Florian and
+             Moy, Linda and Kim, Sungheon Gene and Heacock, Laura},
+  title   = {{FastMRI} Breast: A Publicly Available Radial $k$-Space Dataset
+             of Breast Dynamic Contrast-enhanced {MRI}},
+  journal = {Radiology: Artificial Intelligence},
+  year    = {2025},
+  volume  = {7},
+  number  = {1},
+  pages   = {e240345},
+  doi     = {10.1148/ryai.240345},
+  note    = {PMID 39772976; PMCID PMC11791504. The release paper for the
+             breast cohort of the worked example}
 }
