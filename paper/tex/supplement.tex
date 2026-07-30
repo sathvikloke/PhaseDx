@@ -1329,12 +1329,20 @@ Volumetric (CT/MR) devices reporting per-scan, per-case or per-subject & \textbf
 Reports any diagnostic accuracy metric (sensitivity, specificity, AUROC) & 16 / 30 \\
 Reports the metric at more than one analysis unit & 1 / 30 \\
 Reports a unique \emph{patient} count for the evaluation set & 9 / 30 \\
-States patient-level train/test disjointness & \textbf{1 / 30} \\
+States patient-level train/test disjointness & \textbf{3 / 30} \\
 States nothing at all about train/test independence & \textbf{11 / 30} \\
 Reports test-set size in images or slices & \textbf{0 / 30} \\
 Reports \emph{any} trivial or non-imaging baseline & \textbf{0 / 30} \\
 \bottomrule
 \end{tabular}
+
+\vspace{2mm}
+\footnotesize\raggedright
+The sample frame --- the 30 clearance numbers, the product codes, the seed and the URL
+pattern --- is released. \textbf{The per-device coding sheet is not, so a reader cannot
+at present reproduce any cell of this table.} Releasing it, or re-coding the sample with
+a second reader, is outstanding work. No claim in the main text depends on this table;
+the main text quotes only the first three rows.
 \end{table}
 
 \subsection{What this sample does and does not show}
@@ -1363,12 +1371,18 @@ none is.} (i) The flaw would have to be present in the regulatory record; it is 
 device's test set is public, so the trivial baseline can never be run against any of
 them, and the strongest achievable claim is ``the Summary does not let me check''.
 (iii) That non-reporting claim would have to be new; it is not, and a full census of
-903 devices coded on closely related fields has already been published.
+903 devices coded on closely related fields has already been published (Muehlematter
+U, Daniore P, Vokinger KN. Approval of artificial intelligence and machine
+learning-based medical devices in the USA and Europe (2015--20): a comparative
+analysis. \textit{Lancet Digit Health} 2021;3(3):e195--e203; see also Wu E, Wu K,
+Daneshjou R, Ouyang D, Ho DE, Zou J. How medical AI devices are evaluated:
+limitations and recommendations from an analysis of FDA approvals. \textit{Nat Med}
+2021;27(4):582--584).
 
 \textbf{What is left, stated at its true size.} Three of the ten coded fields are
 zeros --- no Summary in the sample reports test-set size in images or slices, and none
 reports any trivial or non-imaging baseline --- and patient-level train/test
-disjointness is stated in one Summary out of thirty. That is a reporting observation
+disjointness is stated in three Summaries out of thirty. That is a reporting observation
 about a 30-document sample, offered as context for the reporting protocol in the main
 text. It is not a finding about device safety, it is not a finding about the
 submissions themselves (absence from a public Summary is not absence from a

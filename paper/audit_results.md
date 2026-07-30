@@ -407,15 +407,24 @@ mean anything, and where it did not hold the row was demoted.
 * **We still cannot reproduce their pipeline.** Their protocol on our data gives 0.616,
   not 0.809. The claim these six rows support is that *their evaluation protocol* is
   matched by a zero-image baseline — not that their model learned nothing.
-* **Correction to `paper/audit_targets.json`.** Its `anchor_correction` block asserts
-  "Rempe et al. work on prostate diffusion data, so DWI is the correct arm". The evidence
-  points the other way: Rempe et al.'s abstract says "312 subject and a total of 9508
-  slices", and 9,508 is the exact row count of `t2_slice_level_labels.csv` (DWI has
-  9,490). **T2 is the correct arm, the persisted artefact
-  `pipeline_out/rempe/positional_baseline.json` is already right, and it is the docstring
-  waterfall at `pipeline/s12_rempe.py:272-278` that quotes the wrong arm.** Both arms are
-  reported here so the conclusion does not depend on resolving it, but the recommendation
-  in `audit_targets.json` should be reversed before submission.
+* **Which arm is theirs: DWI. Settled 2026-07-30 from the paper's own text.** An earlier
+  revision of this section argued for T2 from the slice count, and was wrong. Rempe et
+  al.'s section IIIC says verbatim: *"The dataset comes with k-Space data of both T2 and
+  DWI. To show the feasibility of our approach, we only work on the DWI data, as it needs
+  more extensive post-processing steps."* Three further details in the same section are
+  DWI-only — matrix 100 × 100 with a 200 mm FOV, the b=50/b=1000/b=0 direction-and-average
+  counts, and the GRAPPA comparison, which is needed because fastMRI prostate DWI ships 2×
+  undersampled. **DWI is the correct arm.** `paper/audit_targets.json`'s
+  `anchor_correction` block and the waterfall docstring at `pipeline/s12_rempe.py:272-278`
+  are both right as written; no reversal is needed.
+
+  The slice count that misled the earlier revision is a real discrepancy, but it is in
+  *their* reporting, not ours. Their abstract and section IIIC both give the cohort as
+  "312 subject and a total of 9508 slices". 9,508 is the row count of
+  `t2_slice_level_labels.csv`; the diffusion file they state they use has 9,490 rows. Both
+  files cover the same 312 patients, so the patient count cannot discriminate between them.
+  The manuscript therefore leads with the DWI arm and reports the T2 arm beside it, naming
+  this discrepancy as the reason both are shown.
 
 ### 3.2 DeepLesion (rows 7–9) — their conditions were reconstructed, not assumed
 

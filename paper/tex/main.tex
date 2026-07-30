@@ -605,13 +605,17 @@ reference, no DOI and no Europe PMC record when re-queried two years after
 posting \citep{rempe2024kspace}. Those rows are reported as a worked example, labelled
 as such in every sentence, and never as evidence for a general claim: on the
 authors' own published label CSVs, their own patient-disjoint split and their own
-evaluation unit, the zero-image positional baseline reaches slice AUROC 0.854
-(95\% CI: 0.812, 0.891) on T2 and 0.851 (95\% CI: 0.816, 0.887) on DWI against a
-published headline of 0.861, for trivial fractions of 0.981 (95\% CI: 0.865,
-1.084) and 0.973 (95\% CI: 0.876, 1.073). It does not depend on fitting anything:
-the T2 bin sweep gives 0.835 / 0.848 / 0.854 / 0.854 / 0.856 over 5 / 10 / 20 /
-30 / 50 bins, and the no-fit centrality score reaches 0.825 (T2) and 0.841
-(DWI). \textbf{The general claim that trivial baselines match published
+evaluation unit, the zero-image positional baseline reaches slice AUROC 0.851
+(95\% CI: 0.816, 0.887) against a published headline of 0.861, for a trivial
+fraction of 0.973 (95\% CI: 0.876, 1.073). That is the diffusion arm, which is
+the arm those authors state they use (``we only work on the DWI data''); the
+T2 arm of the same release, which they do not use, gives 0.854 (95\% CI: 0.812,
+0.891) and a fraction of 0.981 (95\% CI: 0.865, 1.084), and we report it because
+their stated cohort size of 9{,}508 labelled slices is the row count of the
+release's T2 label file rather than of the diffusion file they describe using
+(9{,}490). The result does not depend on fitting anything: the diffusion bin
+sweep gives 0.834 / 0.842 / 0.851 / 0.852 / 0.841 over 5 / 10 / 20 / 30 / 50
+bins, and the no-fit centrality score reaches 0.841 (DWI) and 0.825 (T2). \textbf{The general claim that trivial baselines match published
 performance on medical imaging benchmarks is not supported by these data and is
 not supported against the peer-reviewed literature at all.} What is supported is
 quantitative, and it is the distribution above.
@@ -953,8 +957,9 @@ scale, by a third party.
 \subsection{Limitations}
 
 \textbf{The construction is prior art.} A Kaggle notebook built the pixel-free
-positional predictor in 2020 \citep{osciiart2020baseline} and DeepLesion's own defining
-paper published a location-only baseline in 2018 \citep{yan2018deeplesiongraphs}. What is new
+positional predictor in 2020 \citep{osciiart2020baseline} and the paper that defines the
+DeepLesion lesion-type task published a location-only baseline in 2018
+\citep{yan2018deeplesiongraphs}. What is new
 here is the measurement of how much published performance it accounts for, the
 subject-clustered statistics, the slice-versus-patient contrast, the prevalence
 estimate and the released tool --- not the idea.
@@ -1308,7 +1313,7 @@ that it was written for.}
 1 & Split at the subject level, and state the unit & Slice-level cross-validation inflated accuracy by 30--55\% and reached $\sim$96\% on randomly labelled data \citep{yagis2021leakage} --- the one rule here backed by others' numbers\\
 2 & Report the patient level as primary & One score vector, two readings: 0.737 slice vs 0.453 patient on \num{18938} patients, on all six labels of the benchmark whose own metric is per-slice\\
 3 & Subject-clustered intervals, never the slice-level bootstrap & Nominal-95\% coverage 46.5\% vs 91.5\%; 3.18$\times$ too narrow in simulation and 1.5--2.0$\times$ too narrow on the RSNA ICH label file\\
-4 & Report the zero-image baselines beside every headline number & 0.854 against a published 0.861, with no pixels (preprint comparator)\\
+4 & Report the zero-image baselines beside every headline number & 0.851 against a published 0.861, with no pixels, on the diffusion arm those authors state they use (preprint comparator)\\
 5 & Publish the positional label distribution and stratify on it & 0.851 falls to 0.539 once position is held fixed; 1 of 91 sampled papers showed the distribution\\
 6 & Test whether metadata predicts the label & Release batch predicts breast cancer status at 0.743 against 0.633 for the trained network on the same subjects\\
 7 & Report the trivial fraction as a number, including when it is small & Median 0.469 (IQR 0.437--0.490, $n=9$) against peer-reviewed comparators, and $-0.002$ on LUNA16 --- the same statistic distinguishes the two; a MATCHED/NOT-MATCHED label does not\\
