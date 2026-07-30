@@ -1,10 +1,10 @@
 {
- "_schema": "PhaseDx prevalence screen — extraction form and codebook v1.0",
+ "_schema": "PhaseDx prevalence screen — extraction form and codebook v1.2",
  "_frozen_utc": "2026-07-29",
- "_status": "PRE-REGISTERED. Frozen after a 10-paper pilot. Amendments go in the changelog at the end of this file and in paper/screen_protocol.md; never edit a rule silently.",
+ "_status": "PRE-REGISTERED, AMENDED. Frozen v1.0 after a 10-paper pilot; amended to v1.2 on 2026-07-29 by the pre-registered adjudication remedy (agreement.threshold_and_remedy), which was TRIGGERED. Every amendment is logged in the changelog at the end of this file, in paper/screen_protocol.md §12, and paper-by-paper in paper/screen_adjudication.md. No rule has been edited silently and no rule was changed to make a number better.",
+ "_amendment_direction_rule": "An amendment must make the codebook MORE DECIDABLE, never more permissive. Concretely: (a) a new level may be added only where the form previously forced a screener to guess; (b) 'not_applicable' is available ONLY on records whose final_inclusion is not 'included' — on an included record 'unclear' remains the only answer for an undeterminable field and is still reported as its own category; (c) where a rule changes a paper's code, the direction of that change on our own headline numbers is stated in screen_adjudication.md, and rules that move a number AGAINST our thesis are adopted on the same footing as rules that move it toward.",
  "_companion": "paper/screen_protocol.md (rationale, sampling frame, analysis plan)",
  "_sample": "paper/screen_sample.json",
-
  "governing_principles": [
   "Code what the paper DID, never what its title or abstract claims it did. Pilot paper PMID 39031408 is titled 'CNN-based glioma detection in MRI' and evaluates segmentation with Dice only.",
   "Every field marked requires_quote=true must carry a VERBATIM quote from the paper plus its location (section, page, table or figure number). A code without a quote is not submitted; it is coded 'unclear' with a note. This mirrors the project rule that every claim about a paper must quote it.",
@@ -12,105 +12,445 @@
   "'Not stated' and 'unclear' are real, reportable answers. Never infer a code from what the authors probably did. Absence of a statement is the finding.",
   "A field you cannot decide after the specified reading effort is coded 'unclear'. Guessing to avoid an 'unclear' is the single most damaging thing a screener can do here."
  ],
-
  "reading_effort": {
   "stage_1_abstract": "Title + abstract only. Produces the stage-1 decision and nothing else.",
   "stage_2_methods_skim": "Full text: Methods in full, plus Results tables/figures, plus any 'baseline'/'comparison'/'statistical analysis' subsection, plus supplementary Methods if the main Methods defers to it. Discussion/Introduction are read only to resolve an otherwise-unclear code. Budget ~20 minutes per paper.",
   "stage_2_required_searches": "Before coding trivial_baseline_* as absent, the screener must Ctrl-F the full text (including supplement) for ALL of: 'baseline', 'chance', 'random', 'majority', 'prevalence', 'constant', 'trivial', 'metadata', 'clinical-only', 'clinical model', 'position', 'location', 'slice index', 'permut'. Record in searches_run that this was done. A negative code without the search is invalid."
  },
-
  "eligibility": {
   "_decidable_at": "stage 1 where possible; anything not decidable from the abstract goes to stage 2 rather than being guessed",
   "inclusion": [
-   {"id": "I1", "rule": "Primary research report of an original experiment. Publication date 2019-01-01 to 2026-12-31 (guaranteed by the frame)."},
-   {"id": "I2", "rule": "A supervised CLASSIFIER is fitted, and a categorical label is assigned to an imaging unit (slice, sub-volume, volume, scan, lesion-as-class, or patient). Binary or multi-class both qualify."},
-   {"id": "I3", "rule": "The classifier's INPUT is a spatially resolved image derived from a VOLUMETRIC acquisition, i.e. one natively reconstructed as an ordered stack of 2D cross-sections. Qualifying modalities: CT, CBCT, MRI (incl. DWI/DCE/fMRI volumes), PET, PET/CT, SPECT, volumetric OCT / OCTA B-scan stacks, 3D ultrasound, 3D mammography (DBT)."},
-   {"id": "I4", "rule": "At least one classification performance metric is reported numerically: AUC/AUROC, accuracy, sensitivity, specificity, PPV/NPV, F1, balanced accuracy, AUPRC, kappa."}
+   {
+    "id": "I1",
+    "rule": "Primary research report of an original experiment. Publication date 2019-01-01 to 2026-12-31 (guaranteed by the frame)."
+   },
+   {
+    "id": "I2",
+    "rule": "A supervised CLASSIFIER is fitted, and a categorical label is assigned to an imaging unit (slice, sub-volume, volume, scan, lesion-as-class, or patient). Binary or multi-class both qualify."
+   },
+   {
+    "id": "I3",
+    "rule": "The classifier's INPUT is a spatially resolved image derived from a VOLUMETRIC acquisition, i.e. one natively reconstructed as an ordered stack of 2D cross-sections. Qualifying modalities: CT, CBCT, MRI (incl. DWI/DCE/fMRI volumes), PET, PET/CT, SPECT, volumetric OCT / OCTA B-scan stacks, 3D ultrasound, 3D mammography (DBT)."
+   },
+   {
+    "id": "I4",
+    "rule": "At least one classification performance metric is reported numerically: AUC/AUROC, accuracy, sensitivity, specificity, PPV/NPV, F1, balanced accuracy, AUPRC, kappa."
+   }
   ],
   "exclusion": [
-   {"code": "E-SEG",   "rule": "Segmentation, delineation, bounding-box detection, landmark localisation, registration, reconstruction, denoising, synthesis, super-resolution or image-quality assessment, with NO categorical class decision evaluated. Reporting sensitivity/specificity/AUC does NOT make a segmentation paper a classification paper — three of ten pilot papers did exactly this. If the paper does BOTH segmentation and classification, INCLUDE and code only the classification arm."},
-   {"code": "E-2D",    "rule": "Imaging is natively 2D: chest/skeletal radiography, 2D mammography, fundus photography, dermoscopy, endoscopy, histopathology whole-slide, 2D echocardiography, single-frame ultrasound."},
-   {"code": "E-PROJ",  "rule": "The acquisition is volumetric but the classifier input is a collapsed 2D projection with no slice axis: en-face maps, maximum-intensity projections, scout/topogram/localiser images, unfolded or flattened surface maps. Pilot amendment A1, from PMID 41732778."},
-   {"code": "E-DERIV", "rule": "The classifier input is a non-spatial derived representation with the image discarded: a radiomics feature vector alone, a functional-connectivity matrix, a connectome, a shape/volumetry descriptor table, or clinical variables alone. Pilot amendment A5, from PMID 34924987. Counted and reported separately; these papers are outside the failure mode but inside the query."},
-   {"code": "E-NOCLF", "rule": "No supervised classifier fitted: survival/regression-only outcome, unsupervised clustering with no class decision, purely descriptive or reader study with no model."},
-   {"code": "E-NOMET", "rule": "No numeric classification metric reported anywhere, including supplement."},
-   {"code": "E-TYPE",  "rule": "Review, systematic review, meta-analysis, editorial, letter, comment, erratum, conference abstract without methods, study protocol, dataset descriptor with no model, or a survey/benchmark paper that only re-tabulates other people's numbers."},
-   {"code": "E-NONMED","rule": "Not human medical imaging: phantom-only, preclinical animal-only, materials/industrial CT, or non-imaging signal (EEG, ECG) despite matching the query."},
-   {"code": "E-LANG",  "rule": "Full text not in English despite an English abstract."},
-   {"code": "E-DUP",   "rule": "Duplicate report of the same experiment already screened in this sample (same cohort, same model, same results). Record the PMID retained."}
+   {
+    "code": "E-SEG",
+    "rule": "Segmentation, delineation, bounding-box detection, landmark localisation, registration, reconstruction, denoising, synthesis, super-resolution or image-quality assessment, with NO categorical class decision evaluated. Reporting sensitivity/specificity/AUC does NOT make a segmentation paper a classification paper — three of ten pilot papers did exactly this. If the paper does BOTH segmentation and classification, INCLUDE and code only the classification arm."
+   },
+   {
+    "code": "E-2D",
+    "rule": "Imaging is natively 2D: chest/skeletal radiography, 2D mammography, fundus photography, dermoscopy, endoscopy, histopathology whole-slide, 2D echocardiography, single-frame ultrasound."
+   },
+   {
+    "code": "E-PROJ",
+    "rule": "The acquisition is volumetric but the classifier input is a collapsed 2D projection with no slice axis: en-face maps, maximum-intensity projections, scout/topogram/localiser images, unfolded or flattened surface maps. Pilot amendment A1, from PMID 41732778."
+   },
+   {
+    "code": "E-DERIV",
+    "rule": "The classifier input is a non-spatial derived representation with the image discarded: a radiomics feature vector alone, a functional-connectivity matrix, a connectome, a shape/volumetry descriptor table, or clinical variables alone. Pilot amendment A5, from PMID 34924987. Counted and reported separately; these papers are outside the failure mode but inside the query."
+   },
+   {
+    "code": "E-NOCLF",
+    "rule": "No supervised classifier fitted: survival/regression-only outcome, unsupervised clustering with no class decision, purely descriptive or reader study with no model. AMENDMENT D10 (v1.2): this code, NOT E-SEG, applies where the deep-learning component performs a non-classification image task (synthesis, segmentation, reconstruction, denoising, super-resolution) AND the only categorical decision reported is made by HUMAN READERS. E-SEG's own text is qualified 'with NO categorical class decision evaluated'; where a class decision was evaluated but not by a fitted model, E-SEG's qualifier fails and the defining failure is the absence of a fitted classifier (criterion I2). E-SEG remains correct where the DL component segments/synthesises and no categorical decision of any kind is evaluated."
+   },
+   {
+    "code": "E-NOMET",
+    "rule": "No numeric classification metric reported anywhere, including supplement."
+   },
+   {
+    "code": "E-TYPE",
+    "rule": "Review, systematic review, meta-analysis, editorial, letter, comment, erratum, conference abstract without methods, study protocol, dataset descriptor with no model, or a survey/benchmark paper that only re-tabulates other people's numbers."
+   },
+   {
+    "code": "E-NONMED",
+    "rule": "Not human medical imaging: phantom-only, preclinical animal-only, materials/industrial CT, or non-imaging signal (EEG, ECG) despite matching the query."
+   },
+   {
+    "code": "E-LANG",
+    "rule": "Full text not in English despite an English abstract."
+   },
+   {
+    "code": "E-DUP",
+    "rule": "Duplicate report of the same experiment already screened in this sample (same cohort, same model, same results). Record the PMID retained."
+   }
   ],
   "ambiguous_case_rules": [
-   {"id": "A1", "case": "Volumetric acquisition, but the paper does not say whether the model saw slices or an en-face/projected image.", "rule": "Go to stage 2. If still undeterminable after the Methods and figures, code included with input_representation='unclear'. Do NOT exclude — excluding the under-described papers would systematically drop the least rigorous ones, which is the exact direction that flatters the literature."},
-   {"id": "A2", "case": "Mixed modality, e.g. CT and chest X-ray in one paper.", "rule": "INCLUDE if at least one volumetric arm exists AND a metric is reported separately for it. Code modality for the volumetric arm and set mixed_modality=true. If results are only pooled across 2D and 3D and cannot be separated, code included with headline_value_scope='pooled_2D_and_3D' and flag it.", "source": "pilot PMID 35052273"},
-   {"id": "A3", "case": "Multi-task paper: segmentation plus classification.", "rule": "INCLUDE. Code the classification arm only, everywhere. Ignore Dice/IoU entirely.", "source": "pilot PMID 34136106"},
-   {"id": "A4", "case": "Title or abstract uses 'detection'/'diagnosis' but the evaluation is segmentation.", "rule": "Code on the evaluated task. E-SEG.", "source": "pilot PMID 39031408"},
-   {"id": "A5", "case": "Several models or several datasets; which is 'the' headline?", "rule": "The headline is the number in the Abstract's results sentence. If the abstract gives several, take the one for the authors' own proposed method on the most external/most held-out test set they report. If the abstract gives none, take the first row of the first results table for the proposed method. Record which rule fired in headline_selection_rule."},
-   {"id": "A6", "case": "Multi-class task, so 'AUC' is macro-averaged or one-vs-rest.", "rule": "Record the macro/weighted average if given, else the value for the class the paper foregrounds. Set headline_metric_qualifier accordingly."},
-   {"id": "A7", "case": "The paper reports both internal and external validation.", "rule": "Headline = external if the abstract foregrounds it, else internal. Record which in headline_test_set."},
-   {"id": "A8", "case": "2.5D input (a small stack of adjacent slices, e.g. 3 or 5, predicting the centre slice's label).", "rule": "This IS slice-level. Code evaluation_unit='slice' and input_representation='2.5D'. The label is attached to a slice."},
-   {"id": "A9", "case": "Patient-level label broadcast to every slice for training, but evaluation aggregated to patient.", "rule": "evaluation_unit='patient'; set label_broadcast_to_slices=true. This is a distinct and important configuration."}
+   {
+    "id": "A1",
+    "case": "Volumetric acquisition, but the paper does not say whether the model saw slices or an en-face/projected image.",
+    "rule": "Go to stage 2. If still undeterminable after the Methods and figures, code included with input_representation='unclear'. Do NOT exclude — excluding the under-described papers would systematically drop the least rigorous ones, which is the exact direction that flatters the literature."
+   },
+   {
+    "id": "A2",
+    "case": "Mixed modality, e.g. CT and chest X-ray in one paper.",
+    "rule": "INCLUDE if at least one volumetric arm exists AND a metric is reported separately for it. Code modality for the volumetric arm and set mixed_modality=true. If results are only pooled across 2D and 3D and cannot be separated, code included with headline_value_scope='pooled_2D_and_3D' and flag it.",
+    "source": "pilot PMID 35052273"
+   },
+   {
+    "id": "A3",
+    "case": "Multi-task paper: segmentation plus classification.",
+    "rule": "INCLUDE. Code the classification arm only, everywhere. Ignore Dice/IoU entirely.",
+    "source": "pilot PMID 34136106"
+   },
+   {
+    "id": "A4",
+    "case": "Title or abstract uses 'detection'/'diagnosis' but the evaluation is segmentation.",
+    "rule": "Code on the evaluated task. E-SEG.",
+    "source": "pilot PMID 39031408"
+   },
+   {
+    "id": "A5",
+    "case": "Several models or several datasets; which is 'the' headline?",
+    "rule": "The headline is the number in the Abstract's results sentence. If the abstract gives several, take the one for the authors' own proposed method on the most external/most held-out test set they report. If the abstract gives none, take the first row of the first results table for the proposed method. Record which rule fired in headline_selection_rule."
+   },
+   {
+    "id": "A6",
+    "case": "Multi-class task, so 'AUC' is macro-averaged or one-vs-rest.",
+    "rule": "Record the macro/weighted average if given, else the value for the class the paper foregrounds. Set headline_metric_qualifier accordingly."
+   },
+   {
+    "id": "A7",
+    "case": "The paper reports both internal and external validation.",
+    "rule": "Headline = external if the abstract foregrounds it, else internal. Record which in headline_test_set."
+   },
+   {
+    "id": "A8",
+    "case": "2.5D input (a small stack of adjacent slices, e.g. 3 or 5, predicting the centre slice's label).",
+    "rule": "This IS slice-level. Code evaluation_unit='slice' and input_representation='2.5D'. The label is attached to a slice."
+   },
+   {
+    "id": "A9",
+    "case": "Patient-level label broadcast to every slice for training, but evaluation aggregated to patient.",
+    "rule": "evaluation_unit='patient'; set label_broadcast_to_slices=true. This is a distinct and important configuration."
+   },
+   {
+    "_block": "AMENDMENT v1.2 — rules D1-D14, written by the pre-registered adjudication round of 2026-07-29 (paper/screen_adjudication.md). Each names the overlap-set disagreement that exposed the defect. Rules D1-D9 and D14 close gaps where codebook v1.0 did not determine an answer, so the divergence was a CODEBOOK DEFECT and not a screener error; D10-D13 correct or complete a rule that was already there."
+   },
+   {
+    "id": "D1",
+    "case": "The full text could not be obtained, but the screener judges eligibility (I1-I4) fully determinable from the abstract. Is final_inclusion 'included' or 'unreachable_eligibility_unresolved'?",
+    "rule": "UNREACHABLE DOMINATES INCLUDED. If fulltext_reachable is in {unreachable_paywalled, unreachable_not_found}, final_inclusion MUST be 'unreachable_eligibility_unresolved' and MUST NOT be 'included', however clear the abstract is. It may be 'excluded' only where stage1_decision='exclude', i.e. only where the exclusion code was declared unambiguous from the abstract BEFORE the access attempt. RATIONALE, and note it is forced by a rule the codebook already had: an 'included' record must carry an EVIDENCED trivial_baseline code, and the mandatory 14-term full-text search (reading_effort.stage_2_required_searches) cannot be run without the full text. Coding such a record 'included' therefore admits an unevidenced negative into the primary endpoint's denominator, which the codebook already forbids.",
+    "resolves": "PMIDs 41617832, 37222638 (S1, S4 coded 'included'; S2, S3 coded unresolved) and 42489954 (S1, S4 coded 'excluded' E-DERIV on abstract evidence they themselves recorded as ambiguous and low-confidence, having coded stage1_decision='go_to_fulltext'; S2, S3 coded unresolved). Adjudicated to 'unreachable_eligibility_unresolved' in all three."
+   },
+   {
+    "id": "D2",
+    "case": "A trivial_baseline sub-flag on a record whose full text was never obtained. The form declares the sub-flags boolean and gives NO level for 'could not be assessed', so four screeners invented four conventions: false, null, the string 'unclear', and false.",
+    "rule": "POSITIVE/NEGATIVE ASYMMETRY, plus a third value. Every trivial_baseline sub-flag is THREE-VALUED: true / false / 'not_assessable'. (a) A sub-flag may be coded TRUE on any evidence that satisfies requires_quote, INCLUDING an abstract-only quote, provided the quote itself carries the MEASURED VALUE; a TRUE code is admissible and reportable on an unreachable record and is held pending eligibility resolution. (b) A sub-flag may be coded FALSE only where the mandatory 14-term full-text search including the supplement has been run and recorded in searches_run. (c) Where neither holds, the sub-flag is 'not_assessable' — never false. THIS IS A TIGHTENING: it makes a negative harder to claim and a positive no easier, and it removes the ability to enter an unevidenced false. An abstract that NAMES a pixel-free comparator but reports no number for it is 'not_assessable', not TRUE — the existing rule that 'an assertion with no number is FALSE for every flag' governs what counts as a measured value.",
+    "resolves": "The entire measured P1-flag disagreement. On 9 of the 15 overlap papers the four screeners recorded IDENTICAL evidence and differed only in the placeholder they typed. PMID 37222638 gains a recorded TRUE on clinical_or_demographic_only (abstract reports three measured AUCs, 0.741/0.772/0.675, for a pixel-free clinical arm); PMID 41617832 does NOT (its abstract names a clinical arm but reports no value for it)."
+   },
+   {
+    "id": "D3",
+    "case": "evaluation_unit_reported, headline_unit, split_unit and the other descriptive fields are required:true, but on an excluded or unreachable record they describe something that does not exist. Screeners variously wrote 'unclear', the paper's actual design, or a nearest not-applicable level.",
+    "rule": "New level 'not_applicable' on every descriptive field. Where final_inclusion is NOT 'included', every field listed in fields[].not_applicable_when_not_included is coded 'not_applicable' and its quote field states the reason in one line. These cells enter no endpoint numerator or denominator and no agreement statistic beyond the record's own eligibility code. GUARD: 'not_applicable' is available ONLY where final_inclusion is not 'included'. On an INCLUDED record the only answer for an undeterminable field remains 'unclear', which is still reported as its own category and never merged or imputed. The amendment therefore narrows the space of admissible codes on the records that matter.",
+    "resolves": "Every non-unanimous cell on evaluation_unit_reported, headline_unit and positional_distribution_reported except PMIDs 36016875 and 42130124 respectively — i.e. PMIDs 36789248, 36072854, 40239684, 40335658, 40194851, 42489954, 39423605, 41617832, 37222638."
+   },
+   {
+    "id": "D4",
+    "case": "Was the access ladder supposed to be climbed for a record already excluded from the abstract? Screeners split between 'not_attempted_excluded_at_stage1' and 'unreachable_paywalled' on the same papers.",
+    "rule": "If stage1_decision='exclude', the access ladder is NOT climbed and fulltext_reachable='not_attempted_excluded_at_stage1'. If the full text happens to be in hand anyway (e.g. the record is in PMC), record the rung that worked. 'unreachable_paywalled' / 'unreachable_not_found' are reserved for records that reached stage 2, so that endpoint S6 measures the reachability of the ELIGIBLE-LOOKING literature and is not inflated by records that were never eligible.",
+    "resolves": "PMIDs 40335658, 40194851, 40239684."
+   },
+   {
+    "id": "D5",
+    "case": "The Abstract and the Methods/Results contradict each other on a matter of FACT — the split unit, the evaluation unit, an n, a metric value. Rule A5 governs only which NUMBER is the headline and does not cover this.",
+    "rule": "THE METHODS/RESULTS TEXT GOVERNS. Code the Methods/Results statement and record the contradiction verbatim in notes; the contradiction is itself a reportable finding. The abstract is a summary written to a word limit; the Methods is the description of what was done. This rule is direction-neutral and is applied wherever it fires, including where it moves a number against us.",
+    "resolves": "PMID 36016875: Abstract says '70% of cases for training and 30% of cases for validation', Methods split 85/15 over 2,070+388 image units against only 119 patients, which is arithmetically incompatible with a patient-level split. Adjudicated evaluation_unit_reported='slice', split_unit='slice_or_image' (S2, S3, S4 correct; S1 had coded from the abstract). DIRECTION: this moves a paper INTO the slice-level stratum, which flatters our own thesis; it is adopted because the arithmetic forces it."
+   },
+   {
+    "id": "D6",
+    "case": "The paper splits 'cases', 'samples' or 'records' and a demographics table elsewhere shows one such unit is one patient. May split_unit be upgraded to 'patient_subject'?",
+    "rule": "NO. 'patient_subject' requires a PATIENT-NAMING NOUN inside the splitting sentence itself. Nouns that satisfy it: patient, subject, participant, individual, person, woman, man, child, and 'case' ONLY where the same sentence or its own table defines a case as exactly one patient. Nouns that do NOT satisfy it: case (undefined), sample, image, scan, study, examination, lesion, dataset, record, eye, ear, vertebra, slice. Demographic tables, cohort descriptions or patient counts ELSEWHERE in the paper never upgrade the code — this is the codebook's existing CRITICAL DISTINCTION made operational with a word list.",
+    "resolves": "PMID 42130124, '10% of all cases were randomly selected' (S1, S2 coded patient_subject on the strength of a per-case demographics table; S3, S4 coded random_unit_not_stated). Adjudicated 'random_unit_not_stated'. DIRECTION: this REMOVES a paper from endpoint S4's numerator, i.e. it makes the literature look worse, not better."
+   },
+   {
+    "id": "D7",
+    "case": "The splitting sentence names no unit, but a table caption, column header or figure legend does.",
+    "rule": "A unit named in a table caption, column header or figure legend IS a named unit. 'random_unit_not_stated' applies only where no unit is named ANYWHERE in the split description, including its tables and figures.",
+    "resolves": "PMID 41068276, Table 2 headed 'Distribution of MRI images by dataset split (70/15/15)' with per-class image counts. Adjudicated split_unit='slice_or_image' (S2, S3, S4 correct; S1 had coded random_unit_not_stated)."
+   },
+   {
+    "id": "D8",
+    "case": "(a) The split is performed over lesions/nodules/ROIs, but split_unit has no such level while evaluation_unit_reported does. (b) The sampled record defers its Methods to a companion paper that is NOT in the sample.",
+    "rule": "(a) New split_unit level 'lesion_or_roi' for a split performed over lesions, nodules, ROIs or other sub-scan annotations. Do not force these into 'slice_or_image'. (b) Where the sampled record states no split unit of its own and defers to a companion paper not itself in the sample, split_unit='unclear'. The sample is a sample of RECORDS, not of research programmes; importing a method from an unsampled paper is not screening and would make the coded unit depend on which half of a two-part paper the permutation happened to draw.",
+    "resolves": "(a) PMID 36776294 and the lesion split in PMID 31093705 — a gap screener S1 logged in its own file header as a forced hand-mapping. (b) PMID 31093705, which defers to Part I (PMID 31016442, not sampled): adjudicated split_unit='unclear' (S2, S3, S4 correct)."
+   },
+   {
+    "id": "D9",
+    "case": "The paper tabulates label frequency against an anatomically NAMED but strictly ORDERED index — vertebral level L1-L5, cervical level, rib number — and that ordered element is itself the classification unit. Is that the positional distribution or an anatomical statement?",
+    "rule": "THE TEST IS THE ORDERING OF THE CLASSIFICATION UNIT, NOT THE VOCABULARY. Code 'figure_or_table' or 'text_with_numbers' where the paper tabulates or quantifies label frequency against the ORDERED INDEX OF THE CLASSIFICATION UNIT WITHIN ONE ACQUISITION: slice index, B-scan index, frame number, or an anatomically named but strictly ordered level WHEN that level is the scored unit. Code 'no' where the axis is an anatomical region that is not the unit ordering (peripheral zone, tympanic sinus, intraconal compartment, lobe, hemisphere), or where the statement is about scan geometry rather than label position (slices per scan, scan length).",
+    "resolves": "PMID 42130124, whose Table 2 tabulates fracture counts by vertebral level L1 57/16, L2 53/12, L3 45/7, L4 29/3, L5 16/2 while the vertebra IS the scored unit. Adjudicated 'figure_or_table' — S1 correct, S2, S3 and S4 overturned. DIRECTION: this moves a paper INTO endpoint S5's numerator, taking S5 from 0/35 to 1/35 — i.e. it makes the literature look BETTER on the very endpoint our paper accuses it of ignoring. Adopted anyway, because it is the correct reading."
+   },
+   {
+    "id": "D10",
+    "case": "See exclusion code E-NOCLF. Deep learning does image synthesis; the categorical decision (AO Spine class) is made by five human readers. E-SEG is first in the listed order and lists 'synthesis', but its text is qualified 'with NO categorical class decision evaluated'.",
+    "rule": "The qualifier BINDS. See the amended E-NOCLF rule text. The first-applicable-in-listed-order rule is unchanged; what D10 fixes is which codes actually APPLY.",
+    "resolves": "PMID 40335658: adjudicated E-NOCLF (S2 correct; S1, S3, S4 had taken E-SEG mechanically on list order)."
+   },
+   {
+    "id": "D11",
+    "case": "When is stage1_decision='include_provisional' permitted rather than 'go_to_fulltext'? v1.0 stated the trigger for 'exclude' and said 'when in doubt, go_to_fulltext', but never stated the trigger for 'include_provisional'.",
+    "rule": "'exclude' only where an exclusion code is unambiguous from the abstract ALONE (unchanged). 'include_provisional' only where I1, I2, I3 and I4 are ALL affirmatively evidenced in the abstract AND no exclusion code is plausible. Every other record, including every record where any of I1-I4 is merely consistent-with rather than stated, is 'go_to_fulltext'.",
+    "resolves": "Screener S3 used 'include_provisional' on PMIDs 36776294, 42130124, 39061744, 36016875 and 41068276 where S1, S2 and S4 used 'go_to_fulltext'. stage1_decision is not an agreement field and no endpoint was affected, but the gap was real and is closed rather than left."
+   },
+   {
+    "id": "D12",
+    "case": "MRI is converted to synthetic CT. Is modality 'MRI' or 'multiple'?",
+    "rule": "modality is the modality of the classifier's INPUT acquisition. A synthesised, reconstructed or otherwise derived OUTPUT modality never makes a record 'multiple'. mixed_modality=true requires two acquisition modalities ENTERING the model.",
+    "resolves": "PMID 40335658 (S4 coded 'multiple'; MRI is the input, sCT is the output)."
+   },
+   {
+    "id": "D13",
+    "case": "code_availability has levels public_link_works / public_link_stated / on_request / none, so a paper that simply says nothing about code must be coded 'none' — an inference, in a form whose governing principle is that 'not stated' is a real answer.",
+    "rule": "New level 'not_stated'. 'none' now means the paper explicitly declines to share code; 'not_stated' means the paper is silent. Screener S2 recorded this defect twice in its own notes before it was fixed here.",
+    "resolves": "No overlap-set disagreement — a defect found DURING the adjudication and corrected openly rather than left because it cost nothing."
+   },
+   {
+    "id": "D14",
+    "case": "Exactly one evaluation unit is reported, but what that unit IS cannot be determined. Is headline_unit 'na_only_one_unit_reported' or 'unclear'?",
+    "rule": "'na_only_one_unit_reported'. headline_unit='unclear' applies ONLY where two or more units are reported and the headline cannot be attributed to one of them. Where exactly one unit is reported, 'na_only_one_unit_reported' applies even if that unit is itself coded 'unclear' in evaluation_unit_reported — the two fields answer different questions.",
+    "resolves": "PMID 41068276 (S4 coded 'unclear'; S1, S2, S3 correct)."
+   }
   ]
  },
-
  "fields": [
-  {"name": "record_id", "type": "string", "required": true, "note": "PMID, from screen_sample.json."},
-  {"name": "permutation_position", "type": "integer", "required": true},
-  {"name": "batch", "type": "enum", "values": ["overlap", "batch_A", "batch_B", "batch_C", "batch_D"], "required": true},
-  {"name": "screener_id", "type": "enum", "values": ["S1", "S2", "S3", "S4"], "required": true},
-  {"name": "coded_utc", "type": "iso8601", "required": true},
-
-  {"name": "stage1_decision", "type": "enum", "required": true,
-   "values": ["include_provisional", "exclude", "go_to_fulltext"],
-   "codebook": "From title+abstract only. 'exclude' is permitted at stage 1 ONLY when an exclusion code is unambiguous from the abstract (e.g. Dice is the only metric, or the modality is plainly 2D). Every other record goes to stage 2. When in doubt, go_to_fulltext.",
-   "requires_quote": false},
-
-  {"name": "fulltext_reachable", "type": "enum", "required": true,
-   "values": ["oa_pmc_or_publisher", "institutional_access", "repository_or_accepted_manuscript", "preprint_version_only", "author_supplied", "unreachable_paywalled", "unreachable_not_found", "not_attempted_excluded_at_stage1"],
-   "codebook": "Follow the access ladder in screen_protocol.md §7 in order and stop at the first rung that works. 'unreachable_*' is assigned only after every permitted rung has been tried and, for the interlibrary/author rung, 21 days have elapsed. Unreachable papers are NOT excluded; they enter the bounding analysis.",
-   "requires_quote": false},
-  {"name": "fulltext_version_used", "type": "enum", "required": true,
-   "values": ["version_of_record", "accepted_manuscript", "preprint", "abstract_only", "na"],
-   "codebook": "If anything other than version_of_record was coded from, say so. A preprint may differ from the published paper; this is reported as a limitation and in a sensitivity analysis."},
-
-  {"name": "final_inclusion", "type": "enum", "required": true,
-   "values": ["included", "excluded", "unreachable_eligibility_unresolved"],
-   "codebook": "'unreachable_eligibility_unresolved' = the abstract was consistent with inclusion but the full text could not be obtained, so eligibility itself could not be confirmed. Reported separately in the flow diagram."},
-  {"name": "exclusion_code", "type": "enum", "required": false,
-   "values": ["E-SEG", "E-2D", "E-PROJ", "E-DERIV", "E-NOCLF", "E-NOMET", "E-TYPE", "E-NONMED", "E-LANG", "E-DUP"],
+  {
+   "name": "record_id",
+   "type": "string",
+   "required": true,
+   "note": "PMID, from screen_sample.json."
+  },
+  {
+   "name": "permutation_position",
+   "type": "integer",
+   "required": true
+  },
+  {
+   "name": "batch",
+   "type": "enum",
+   "values": [
+    "overlap",
+    "batch_A",
+    "batch_B",
+    "batch_C",
+    "batch_D"
+   ],
+   "required": true
+  },
+  {
+   "name": "screener_id",
+   "type": "enum",
+   "values": [
+    "S1",
+    "S2",
+    "S3",
+    "S4"
+   ],
+   "required": true
+  },
+  {
+   "name": "coded_utc",
+   "type": "iso8601",
+   "required": true
+  },
+  {
+   "name": "stage1_decision",
+   "type": "enum",
+   "required": true,
+   "values": [
+    "include_provisional",
+    "exclude",
+    "go_to_fulltext"
+   ],
+   "codebook": "From title+abstract only. 'exclude' is permitted at stage 1 ONLY when an exclusion code is unambiguous from the abstract (e.g. Dice is the only metric, or the modality is plainly 2D). AMENDMENT D11 (v1.2): 'include_provisional' is permitted ONLY when I1, I2, I3 and I4 are ALL affirmatively evidenced in the abstract AND no exclusion code is plausible. Every other record, including every record where any of I1-I4 is merely consistent-with rather than stated, is 'go_to_fulltext'. When in doubt, go_to_fulltext.",
+   "requires_quote": false
+  },
+  {
+   "name": "fulltext_reachable",
+   "type": "enum",
+   "required": true,
+   "values": [
+    "oa_pmc_or_publisher",
+    "institutional_access",
+    "repository_or_accepted_manuscript",
+    "preprint_version_only",
+    "author_supplied",
+    "unreachable_paywalled",
+    "unreachable_not_found",
+    "not_attempted_excluded_at_stage1"
+   ],
+   "codebook": "Follow the access ladder in screen_protocol.md §7 in order and stop at the first rung that works. 'unreachable_*' is assigned only after every permitted rung has been tried and, for the interlibrary/author rung, 21 days have elapsed. Unreachable papers are NOT excluded; they enter the bounding analysis. AMENDMENT D4 (v1.2): if stage1_decision='exclude' the ladder is NOT climbed and this field is 'not_attempted_excluded_at_stage1' (if the full text is in hand anyway, record the rung that worked). 'unreachable_*' is reserved for records that reached stage 2, so that endpoint S6 measures the reachability of the eligible-looking literature and is not inflated by records that were never eligible.",
+   "requires_quote": false
+  },
+  {
+   "name": "fulltext_version_used",
+   "type": "enum",
+   "required": true,
+   "values": [
+    "version_of_record",
+    "accepted_manuscript",
+    "preprint",
+    "abstract_only",
+    "na"
+   ],
+   "codebook": "If anything other than version_of_record was coded from, say so. A preprint may differ from the published paper; this is reported as a limitation and in a sensitivity analysis."
+  },
+  {
+   "name": "final_inclusion",
+   "type": "enum",
+   "required": true,
+   "values": [
+    "included",
+    "excluded",
+    "unreachable_eligibility_unresolved"
+   ],
+   "codebook": "'unreachable_eligibility_unresolved' = the abstract was consistent with inclusion but the full text could not be obtained, so eligibility itself could not be confirmed. Reported separately in the flow diagram. AMENDMENT D1 (v1.2), THE PRIORITY RULE THE FORM WAS MISSING: if fulltext_reachable is in {unreachable_paywalled, unreachable_not_found} then this field MUST be 'unreachable_eligibility_unresolved' and MUST NOT be 'included', however clear the abstract is; it may be 'excluded' only where stage1_decision='exclude'. An 'included' record must carry an EVIDENCED trivial_baseline code, and the mandatory 14-term full-text search cannot be run without the full text, so coding an unreachable record 'included' would admit an unevidenced negative into the primary endpoint's denominator."
+  },
+  {
+   "name": "exclusion_code",
+   "type": "enum",
+   "required": false,
+   "values": [
+    "E-SEG",
+    "E-2D",
+    "E-PROJ",
+    "E-DERIV",
+    "E-NOCLF",
+    "E-NOMET",
+    "E-TYPE",
+    "E-NONMED",
+    "E-LANG",
+    "E-DUP"
+   ],
    "requires_quote": true,
    "quote_field": "exclusion_quote",
-   "codebook": "Exactly one code, the FIRST that applies in the listed order, so two screeners meeting the same paper produce the same code."},
-  {"name": "exclusion_quote", "type": "string", "required": false},
-
-  {"name": "evaluation_unit_reported", "type": "enum", "required": true,
-   "values": ["slice", "patient", "both", "volume_or_scan_not_patient", "lesion", "other", "unclear"],
-   "requires_quote": true, "quote_field": "evaluation_unit_quote",
-   "codebook": "The unit over which the reported metric was computed, i.e. what one row of the score vector is. 'slice' includes 2D slice, B-scan, frame, and 2.5D centre-slice. 'volume_or_scan_not_patient' is for per-scan metrics where a patient may contribute several scans and the paper does not aggregate to patient — do NOT collapse this into 'patient'; it is a distinct and common case. 'both' requires the same metric to be reported at two units. AMBIGUOUS CASE: if the paper says only 'n images' and never defines whether an image is a slice or a volume, code 'unclear' — this is a substantive finding, not a coding failure."},
-  {"name": "evaluation_unit_quote", "type": "string", "required": true},
-
-  {"name": "headline_unit", "type": "enum", "required": true,
-   "values": ["slice", "patient", "volume_or_scan", "lesion", "other", "na_only_one_unit_reported", "unclear"],
-   "requires_quote": true, "quote_field": "headline_unit_quote",
-   "codebook": "Applies when evaluation_unit_reported='both'. The headline is the unit of the number in the abstract's results sentence (rule A5). If both units appear in the abstract, the headline is whichever is stated first. If only one unit is reported anywhere, code 'na_only_one_unit_reported'."},
-  {"name": "headline_unit_quote", "type": "string", "required": false},
-
-  {"name": "split_unit", "type": "enum", "required": true,
-   "values": ["patient_subject", "slice_or_image", "scan_or_study", "site_or_centre", "external_cohort_only", "random_unit_not_stated", "no_held_out_test_set", "unclear"],
-   "requires_quote": true, "quote_field": "split_quote",
-   "codebook": "The unit at which train/test (or CV folds) were separated. CRITICAL DISTINCTION: 'patient_subject' requires the paper to SAY so — e.g. 'split at the patient level', 'patient-wise', 'subject-disjoint', 'no patient appeared in more than one fold'. 'random_unit_not_stated' is for the very common 'the dataset was randomly split 80/20' with no unit named; do NOT upgrade this to patient-level because the sentence mentions patients elsewhere. If the paper splits at patient level but never verifies disjointness, still code 'patient_subject' and set split_disjointness_verified=false."},
-  {"name": "split_quote", "type": "string", "required": true},
-  {"name": "split_disjointness_verified", "type": "enum", "values": ["stated_and_checked", "stated_only", "not_stated", "na"], "required": true},
-
-  {"name": "trivial_baseline", "type": "object", "required": true,
-   "requires_quote": true, "quote_field": "trivial_baseline_quote",
-   "codebook": "THE PRIMARY FIELD. Each sub-flag is independent; set every one that applies. A flag is true only if the paper reports a MEASURED value for that baseline on the same metric. An assertion with no number (e.g. 'AUC of 0.5 represents chance') is FALSE for every flag — record it in chance_asserted_without_measurement instead.",
+   "codebook": "Exactly one code, the FIRST that applies in the listed order, so two screeners meeting the same paper produce the same code."
+  },
+  {
+   "name": "exclusion_quote",
+   "type": "string",
+   "required": false
+  },
+  {
+   "name": "evaluation_unit_reported",
+   "type": "enum",
+   "required": true,
+   "values": [
+    "slice",
+    "patient",
+    "both",
+    "volume_or_scan_not_patient",
+    "lesion",
+    "other",
+    "unclear",
+    "not_applicable"
+   ],
+   "requires_quote": true,
+   "quote_field": "evaluation_unit_quote",
+   "codebook": "The unit over which the reported metric was computed, i.e. what one row of the score vector is. 'slice' includes 2D slice, B-scan, frame, and 2.5D centre-slice. 'volume_or_scan_not_patient' is for per-scan metrics where a patient may contribute several scans and the paper does not aggregate to patient — do NOT collapse this into 'patient'; it is a distinct and common case. 'both' requires the same metric to be reported at two units. AMBIGUOUS CASE: if the paper says only 'n images' and never defines whether an image is a slice or a volume, code 'unclear' — this is a substantive finding, not a coding failure. AMENDMENT D3 (v1.2): 'not_applicable' where final_inclusion is not 'included' — and ONLY there. AMENDMENT D5 (v1.2): where the Abstract and the Methods/Results contradict on the unit, the Methods/Results govern."
+  },
+  {
+   "name": "evaluation_unit_quote",
+   "type": "string",
+   "required": true
+  },
+  {
+   "name": "headline_unit",
+   "type": "enum",
+   "required": true,
+   "values": [
+    "slice",
+    "patient",
+    "volume_or_scan",
+    "lesion",
+    "other",
+    "na_only_one_unit_reported",
+    "unclear",
+    "not_applicable"
+   ],
+   "requires_quote": true,
+   "quote_field": "headline_unit_quote",
+   "codebook": "Applies when evaluation_unit_reported='both'. The headline is the unit of the number in the abstract's results sentence (rule A5). If both units appear in the abstract, the headline is whichever is stated first. If only one unit is reported anywhere, code 'na_only_one_unit_reported'. AMENDMENT D14 (v1.2): 'unclear' applies ONLY where two or more units are reported and the headline cannot be attributed to one of them; where exactly one unit is reported, 'na_only_one_unit_reported' applies even if that unit is itself coded 'unclear' in evaluation_unit_reported. AMENDMENT D3 (v1.2): 'not_applicable' where final_inclusion is not 'included'."
+  },
+  {
+   "name": "headline_unit_quote",
+   "type": "string",
+   "required": false
+  },
+  {
+   "name": "split_unit",
+   "type": "enum",
+   "required": true,
+   "values": [
+    "patient_subject",
+    "slice_or_image",
+    "lesion_or_roi",
+    "scan_or_study",
+    "site_or_centre",
+    "external_cohort_only",
+    "random_unit_not_stated",
+    "no_held_out_test_set",
+    "unclear",
+    "not_applicable"
+   ],
+   "requires_quote": true,
+   "quote_field": "split_quote",
+   "codebook": "The unit at which train/test (or CV folds) were separated. CRITICAL DISTINCTION: 'patient_subject' requires the paper to SAY so — e.g. 'split at the patient level', 'patient-wise', 'subject-disjoint', 'no patient appeared in more than one fold'. 'random_unit_not_stated' is for the very common 'the dataset was randomly split 80/20' with no unit named; do NOT upgrade this to patient-level because the sentence mentions patients elsewhere. If the paper splits at patient level but never verifies disjointness, still code 'patient_subject' and set split_disjointness_verified=false. AMENDMENT D6 (v1.2) makes the critical distinction operational with a word list: 'patient_subject' requires a patient-naming noun INSIDE the splitting sentence — patient, subject, participant, individual, person, woman, man, child, or 'case' only where that same sentence or its own table defines a case as exactly one patient. It is NOT satisfied by: case (undefined), sample, image, scan, study, examination, lesion, dataset, record, eye, ear, vertebra, slice. AMENDMENT D7 (v1.2): a unit named in a table caption, column header or figure legend IS a named unit, so 'random_unit_not_stated' applies only where no unit is named anywhere in the split description including its tables. AMENDMENT D8 (v1.2): new level 'lesion_or_roi' for splits performed over lesions, nodules or ROIs — do not force these into 'slice_or_image'; and where the record states no split unit of its own and defers to a companion paper NOT in the sample, code 'unclear'. AMENDMENT D3 (v1.2): 'not_applicable' where final_inclusion is not 'included'."
+  },
+  {
+   "name": "split_quote",
+   "type": "string",
+   "required": true
+  },
+  {
+   "name": "split_disjointness_verified",
+   "type": "enum",
+   "values": [
+    "stated_and_checked",
+    "stated_only",
+    "not_stated",
+    "na",
+    "not_applicable"
+   ],
+   "required": true
+  },
+  {
+   "name": "trivial_baseline",
+   "type": "object",
+   "required": true,
+   "requires_quote": true,
+   "quote_field": "trivial_baseline_quote",
+   "subfield_type": "three-valued: true | false | \"not_assessable\"  (AMENDMENT D2, v1.2 — v1.0 declared these boolean and gave NO level for 'could not be assessed', so four screeners independently invented four conventions and manufactured the entire measured disagreement on the primary endpoint)",
+   "codebook": "THE PRIMARY FIELD. Each sub-flag is independent; set every one that applies. A flag is true only if the paper reports a MEASURED value for that baseline on the same metric. An assertion with no number (e.g. 'AUC of 0.5 represents chance') is FALSE for every flag — record it in chance_asserted_without_measurement instead. AMENDMENT D2 (v1.2), THE POSITIVE/NEGATIVE ASYMMETRY: (a) TRUE may rest on ANY evidence satisfying requires_quote, INCLUDING an abstract-only quote, provided the quote itself carries the MEASURED VALUE; a TRUE code is admissible and reportable on an unreachable record and is held pending eligibility resolution. (b) FALSE may be coded ONLY where the mandatory 14-term full-text search including the supplement has been run and recorded in searches_run. (c) Where neither holds, the sub-flag is 'not_assessable' — NEVER false. An abstract that NAMES a pixel-free comparator but reports no number for it is 'not_assessable', not TRUE. AMENDMENT D3 (v1.2): where final_inclusion is not 'included', all six sub-flags are 'not_applicable' and the record enters no P1 or S1 denominator.",
    "subfields": [
-    {"name": "constant_or_prevalence", "codebook": "A constant / majority-class / always-positive / prevalence predictor with a measured metric value. TRUE also for a reported no-information-rate or a measured 'random guess' arm."},
-    {"name": "positional", "codebook": "A model using slice index or relative slice position (or z-coordinate / table position / ImagePositionPatient) and no pixels, with a measured value. This is the construction our paper formalises."},
-    {"name": "acquisition_metadata", "codebook": "A model using DICOM/acquisition or administrative fields only — scanner, manufacturer, field strength, TR/TE, kVp, slice thickness, site, acquisition date, series description, release batch or source directory — with no pixels, with a measured value."},
-    {"name": "permuted_or_shuffled_label", "codebook": "The model retrained or rescored on randomised labels, with a measured value (a permutation null)."},
-    {"name": "clinical_or_demographic_only", "codebook": "A model using patient variables only — age, sex, BMI, PSA, lab values, symptoms — with no imaging, with a measured value on the same metric. Includes the 'clinical-only' arm of a clinical+radiomics nomogram. TRUE here does NOT count toward the primary endpoint; it counts toward secondary S1."},
-    {"name": "other_non_imaging", "codebook": "Any other pixel-free comparator with a measured value. Describe it in trivial_baseline_other_description."}
+    {
+     "name": "constant_or_prevalence",
+     "codebook": "A constant / majority-class / always-positive / prevalence predictor with a measured metric value. TRUE also for a reported no-information-rate or a measured 'random guess' arm."
+    },
+    {
+     "name": "positional",
+     "codebook": "A model using slice index or relative slice position (or z-coordinate / table position / ImagePositionPatient) and no pixels, with a measured value. This is the construction our paper formalises."
+    },
+    {
+     "name": "acquisition_metadata",
+     "codebook": "A model using DICOM/acquisition or administrative fields only — scanner, manufacturer, field strength, TR/TE, kVp, slice thickness, site, acquisition date, series description, release batch or source directory — with no pixels, with a measured value."
+    },
+    {
+     "name": "permuted_or_shuffled_label",
+     "codebook": "The model retrained or rescored on randomised labels, with a measured value (a permutation null)."
+    },
+    {
+     "name": "clinical_or_demographic_only",
+     "codebook": "A model using patient variables only — age, sex, BMI, PSA, lab values, symptoms — with no imaging, with a measured value on the same metric. Includes the 'clinical-only' arm of a clinical+radiomics nomogram. TRUE here does NOT count toward the primary endpoint; it counts toward secondary S1."
+    },
+    {
+     "name": "other_non_imaging",
+     "codebook": "Any other pixel-free comparator with a measured value. Describe it in trivial_baseline_other_description."
+    }
    ],
    "does_not_count": [
     "comparison against another imaging deep-learning model, another architecture, or a published imaging method",
@@ -120,46 +460,273 @@
     "transfer-learning-from-scratch comparisons",
     "a stated chance level with no measurement",
     "a baseline mentioned only as future work or only in the Discussion with no number"
-   ]},
-  {"name": "trivial_baseline_quote", "type": "string", "required": true,
-   "codebook": "If ANY sub-flag is true: quote the sentence or table cell reporting it, with location. If ALL sub-flags are false: paste the searches_run string instead and write 'no match' — the negative must be evidenced too."},
-  {"name": "trivial_baseline_other_description", "type": "string", "required": false},
-  {"name": "chance_asserted_without_measurement", "type": "boolean", "required": true},
-  {"name": "searches_run", "type": "string", "required": true,
-   "codebook": "The literal list of search terms run over the full text per reading_effort.stage_2_required_searches, plus 'supplement: yes/no/none exists'."},
-
-  {"name": "positional_distribution_reported", "type": "enum", "required": true,
-   "values": ["figure_or_table", "text_with_numbers", "text_qualitative_only", "no", "unclear"],
-   "requires_quote": true, "quote_field": "positional_distribution_quote",
-   "codebook": "Does the paper show or state how the label is distributed along the slice axis — a histogram of positive-slice position, a mean/sd of relative position, a statement that lesions concentrate in the mid-volume, or a position-stratified metric? 'text_qualitative_only' = asserted without numbers. Anatomical statements with no reference to position WITHIN the acquired stack ('lesions occur in the peripheral zone') are 'no'."},
-  {"name": "positional_distribution_quote", "type": "string", "required": false},
-
-  {"name": "dataset_name", "type": "string", "required": true, "codebook": "Named public dataset(s) verbatim (LUNA16, PI-CAI, fastMRI prostate, ADNI, BraTS, OCTA-500, ...), or 'private_single_centre' / 'private_multi_centre'. Semicolon-separate several."},
-  {"name": "dataset_public", "type": "enum", "values": ["public", "private", "mixed", "unclear"], "required": true},
-  {"name": "modality", "type": "enum", "values": ["CT", "CBCT", "MRI", "PET", "PET_CT", "SPECT", "OCT", "OCTA", "US_3D", "DBT", "multiple", "other"], "required": true},
-  {"name": "mixed_modality", "type": "boolean", "required": true},
-  {"name": "organ_or_region", "type": "string", "required": true, "codebook": "Free text from a controlled starter list: brain, breast, prostate, lung, liver, kidney, pancreas, cardiac, head_neck, spine, musculoskeletal, retina, abdomen_general, whole_body, other."},
-  {"name": "n_patients", "type": "integer_or_null", "required": true, "codebook": "Total distinct patients/subjects in the study. NULL if the paper never states a patient count — a finding in itself. Do not back-compute from slice counts."},
-  {"name": "n_patients_test", "type": "integer_or_null", "required": true},
-  {"name": "n_slices_or_images", "type": "integer_or_null", "required": true},
-  {"name": "n_positive_reported", "type": "enum", "values": ["patients_and_slices", "patients_only", "slices_only", "neither", "na"], "required": true},
-  {"name": "headline_metric", "type": "enum", "values": ["AUC", "AUPRC", "accuracy", "sensitivity", "specificity", "F1", "balanced_accuracy", "kappa", "other"], "required": true},
-  {"name": "headline_value", "type": "number_or_null", "required": true, "codebook": "On a 0-1 scale; convert percentages. NULL if only a range or a figure is given."},
-  {"name": "headline_metric_qualifier", "type": "string", "required": false, "codebook": "e.g. 'macro-averaged one-vs-rest over 7 classes'."},
-  {"name": "headline_test_set", "type": "enum", "values": ["external", "internal_held_out", "cross_validation", "unclear"], "required": true},
-  {"name": "headline_value_scope", "type": "enum", "values": ["single_modality_arm", "pooled_2D_and_3D", "pooled_multi_dataset", "unclear"], "required": true},
-  {"name": "headline_selection_rule", "type": "enum", "values": ["abstract_sentence", "abstract_multiple_took_external", "first_results_table_row", "other"], "required": true},
-  {"name": "uncertainty_interval_reported", "type": "enum", "values": ["ci_clustered_by_subject", "ci_unspecified_method", "sd_across_folds", "none", "unclear"], "required": true},
-  {"name": "input_representation", "type": "enum", "values": ["2D_slice", "2.5D_stack", "3D_volume", "patch_3D", "mixed", "unclear"], "required": true},
-  {"name": "label_broadcast_to_slices", "type": "enum", "values": ["true", "false", "unclear", "na"], "required": true},
-
-  {"name": "code_availability", "type": "enum", "values": ["public_link_works", "public_link_stated", "on_request", "none"], "required": true},
-  {"name": "screener_confidence", "type": "enum", "values": ["high", "medium", "low"], "required": true,
-   "codebook": "'low' triggers mandatory adjudication by a second screener regardless of batch."},
-  {"name": "notes", "type": "string", "required": false},
-  {"name": "flag_for_adjudication", "type": "boolean", "required": true}
+   ]
+  },
+  {
+   "name": "trivial_baseline_quote",
+   "type": "string",
+   "required": true,
+   "codebook": "If ANY sub-flag is true: quote the sentence or table cell reporting it, with location, AND the quote must contain the measured value. If ALL sub-flags are false: paste the searches_run string instead and write 'no match' — the negative must be evidenced too. AMENDMENT D2 (v1.2): if any sub-flag is 'not_assessable', state in one line which rung of the access ladder failed or which section could not be searched, so a reader can see exactly what evidence is missing."
+  },
+  {
+   "name": "trivial_baseline_other_description",
+   "type": "string",
+   "required": false
+  },
+  {
+   "name": "chance_asserted_without_measurement",
+   "type": "boolean",
+   "required": true
+  },
+  {
+   "name": "searches_run",
+   "type": "string",
+   "required": true,
+   "codebook": "The literal list of search terms run over the full text per reading_effort.stage_2_required_searches, plus 'supplement: yes/no/none exists'."
+  },
+  {
+   "name": "positional_distribution_reported",
+   "type": "enum",
+   "required": true,
+   "values": [
+    "figure_or_table",
+    "text_with_numbers",
+    "text_qualitative_only",
+    "no",
+    "unclear",
+    "not_applicable"
+   ],
+   "requires_quote": true,
+   "quote_field": "positional_distribution_quote",
+   "codebook": "Does the paper show or state how the label is distributed along the slice axis — a histogram of positive-slice position, a mean/sd of relative position, a statement that lesions concentrate in the mid-volume, or a position-stratified metric? 'text_qualitative_only' = asserted without numbers. Anatomical statements with no reference to position WITHIN the acquired stack ('lesions occur in the peripheral zone') are 'no'. AMENDMENT D9 (v1.2), THE TEST IS THE ORDERING OF THE CLASSIFICATION UNIT, NOT THE VOCABULARY: code 'figure_or_table'/'text_with_numbers' where the paper tabulates or quantifies label frequency against the ORDERED INDEX OF THE CLASSIFICATION UNIT WITHIN ONE ACQUISITION — slice index, B-scan index, frame number, or an anatomically named but strictly ordered level (vertebral level L1-L5, cervical level, rib number) WHEN that level is the scored unit. Code 'no' where the axis is an anatomical region that is NOT the unit ordering (peripheral zone, tympanic sinus, intraconal compartment, lobe, hemisphere), or where the statement is about scan geometry rather than label position (slices per scan, scan length). AMENDMENT D3 (v1.2): 'not_applicable' where final_inclusion is not 'included'."
+  },
+  {
+   "name": "positional_distribution_quote",
+   "type": "string",
+   "required": false
+  },
+  {
+   "name": "dataset_name",
+   "type": "string",
+   "required": true,
+   "codebook": "Named public dataset(s) verbatim (LUNA16, PI-CAI, fastMRI prostate, ADNI, BraTS, OCTA-500, ...), or 'private_single_centre' / 'private_multi_centre'. Semicolon-separate several."
+  },
+  {
+   "name": "dataset_public",
+   "type": "enum",
+   "values": [
+    "public",
+    "private",
+    "mixed",
+    "unclear",
+    "not_applicable"
+   ],
+   "required": true
+  },
+  {
+   "name": "modality",
+   "type": "enum",
+   "values": [
+    "CT",
+    "CBCT",
+    "MRI",
+    "PET",
+    "PET_CT",
+    "SPECT",
+    "OCT",
+    "OCTA",
+    "US_3D",
+    "DBT",
+    "multiple",
+    "other",
+    "not_applicable"
+   ],
+   "required": true,
+   "codebook": "AMENDMENT D12 (v1.2): this is the modality of the classifier's INPUT acquisition. A synthesised, reconstructed or otherwise derived OUTPUT modality never makes a record 'multiple'; mixed_modality=true requires two acquisition modalities ENTERING the model."
+  },
+  {
+   "name": "mixed_modality",
+   "type": "boolean",
+   "required": true
+  },
+  {
+   "name": "organ_or_region",
+   "type": "string",
+   "required": true,
+   "codebook": "Free text from a controlled starter list: brain, breast, prostate, lung, liver, kidney, pancreas, cardiac, head_neck, spine, musculoskeletal, retina, abdomen_general, whole_body, other."
+  },
+  {
+   "name": "n_patients",
+   "type": "integer_or_null",
+   "required": true,
+   "codebook": "Total distinct patients/subjects in the study. NULL if the paper never states a patient count — a finding in itself. Do not back-compute from slice counts."
+  },
+  {
+   "name": "n_patients_test",
+   "type": "integer_or_null",
+   "required": true
+  },
+  {
+   "name": "n_slices_or_images",
+   "type": "integer_or_null",
+   "required": true
+  },
+  {
+   "name": "n_positive_reported",
+   "type": "enum",
+   "values": [
+    "patients_and_slices",
+    "patients_only",
+    "slices_only",
+    "neither",
+    "na",
+    "not_applicable"
+   ],
+   "required": true
+  },
+  {
+   "name": "headline_metric",
+   "type": "enum",
+   "values": [
+    "AUC",
+    "AUPRC",
+    "accuracy",
+    "sensitivity",
+    "specificity",
+    "F1",
+    "balanced_accuracy",
+    "kappa",
+    "other",
+    "not_applicable"
+   ],
+   "required": true
+  },
+  {
+   "name": "headline_value",
+   "type": "number_or_null",
+   "required": true,
+   "codebook": "On a 0-1 scale; convert percentages. NULL if only a range or a figure is given."
+  },
+  {
+   "name": "headline_metric_qualifier",
+   "type": "string",
+   "required": false,
+   "codebook": "e.g. 'macro-averaged one-vs-rest over 7 classes'."
+  },
+  {
+   "name": "headline_test_set",
+   "type": "enum",
+   "values": [
+    "external",
+    "internal_held_out",
+    "cross_validation",
+    "unclear",
+    "not_applicable"
+   ],
+   "required": true
+  },
+  {
+   "name": "headline_value_scope",
+   "type": "enum",
+   "values": [
+    "single_modality_arm",
+    "pooled_2D_and_3D",
+    "pooled_multi_dataset",
+    "unclear",
+    "not_applicable"
+   ],
+   "required": true
+  },
+  {
+   "name": "headline_selection_rule",
+   "type": "enum",
+   "values": [
+    "abstract_sentence",
+    "abstract_multiple_took_external",
+    "first_results_table_row",
+    "other",
+    "not_applicable"
+   ],
+   "required": true
+  },
+  {
+   "name": "uncertainty_interval_reported",
+   "type": "enum",
+   "values": [
+    "ci_clustered_by_subject",
+    "ci_unspecified_method",
+    "sd_across_folds",
+    "none",
+    "unclear",
+    "not_applicable"
+   ],
+   "required": true
+  },
+  {
+   "name": "input_representation",
+   "type": "enum",
+   "values": [
+    "2D_slice",
+    "2.5D_stack",
+    "3D_volume",
+    "patch_3D",
+    "mixed",
+    "unclear",
+    "not_applicable"
+   ],
+   "required": true
+  },
+  {
+   "name": "label_broadcast_to_slices",
+   "type": "enum",
+   "values": [
+    "true",
+    "false",
+    "unclear",
+    "na",
+    "not_applicable"
+   ],
+   "required": true
+  },
+  {
+   "name": "code_availability",
+   "type": "enum",
+   "values": [
+    "public_link_works",
+    "public_link_stated",
+    "on_request",
+    "none",
+    "not_stated",
+    "not_applicable"
+   ],
+   "required": true,
+   "codebook": "AMENDMENT D13 (v1.2): 'none' means the paper explicitly declines to share code; 'not_stated' means the paper is silent. v1.0 forced an inference by offering only 'none', which contradicted the governing principle that 'not stated' is a real answer."
+  },
+  {
+   "_note": "AMENDMENT D3 (v1.2). not_applicable_when_not_included: evaluation_unit_reported, headline_unit, split_unit, split_disjointness_verified, trivial_baseline (all six sub-flags), positional_distribution_reported, dataset_public, modality, n_positive_reported, headline_metric, headline_test_set, headline_value_scope, headline_selection_rule, uncertainty_interval_reported, input_representation, label_broadcast_to_slices, code_availability. On a record whose final_inclusion is not 'included', each is coded 'not_applicable' and its quote field states the reason in one line. These cells enter no endpoint numerator or denominator. 'not_applicable' is NOT available on an included record."
+  },
+  {
+   "name": "screener_confidence",
+   "type": "enum",
+   "values": [
+    "high",
+    "medium",
+    "low"
+   ],
+   "required": true,
+   "codebook": "'low' triggers mandatory adjudication by a second screener regardless of batch."
+  },
+  {
+   "name": "notes",
+   "type": "string",
+   "required": false
+  },
+  {
+   "name": "flag_for_adjudication",
+   "type": "boolean",
+   "required": true
+  }
  ],
-
  "endpoints": {
   "_denominator_default": "papers with final_inclusion='included' AND fulltext_reachable not in {unreachable_paywalled, unreachable_not_found} (the complete-case set), unless a specific endpoint says otherwise",
   "primary": {
@@ -170,23 +737,57 @@
    "prespecified_direction": "none — this is an estimate, not a test"
   },
   "secondary": [
-   {"id": "S1", "statement": "Proportion reporting at least one NON-IMAGING baseline of any kind (P1 family plus clinical_or_demographic_only)."},
-   {"id": "S2", "statement": "Proportion whose headline evaluation unit is the slice (headline_unit='slice', or evaluation_unit_reported='slice' with only one unit reported)."},
-   {"id": "S3", "statement": "Among papers reporting any slice-level metric, the proportion that ALSO report a patient-level metric.", "denominator": "included papers with evaluation_unit_reported in {slice, both}"},
-   {"id": "S4", "statement": "Proportion explicitly stating a subject-level split (split_unit='patient_subject')."},
-   {"id": "S5", "statement": "Proportion reporting or discussing the positional distribution of labels (positional_distribution_reported in {figure_or_table, text_with_numbers})."},
-   {"id": "S6", "statement": "Proportion of eligible-looking papers for which full text was unreachable.", "denominator": "included plus unreachable_eligibility_unresolved"},
-   {"id": "S7", "statement": "Cross-tabulation of headline_unit against the P1 flag, with the exact-count table reported in full."},
-   {"id": "S8", "statement": "Proportion reporting a subject-clustered uncertainty interval (uncertainty_interval_reported='ci_clustered_by_subject')."},
-   {"id": "S9", "statement": "Proportion reporting n positive PATIENTS as well as n positive slices (n_positive_reported='patients_and_slices')."}
+   {
+    "id": "S1",
+    "statement": "Proportion reporting at least one NON-IMAGING baseline of any kind (P1 family plus clinical_or_demographic_only)."
+   },
+   {
+    "id": "S2",
+    "statement": "Proportion whose headline evaluation unit is the slice (headline_unit='slice', or evaluation_unit_reported='slice' with only one unit reported)."
+   },
+   {
+    "id": "S3",
+    "statement": "Among papers reporting any slice-level metric, the proportion that ALSO report a patient-level metric.",
+    "denominator": "included papers with evaluation_unit_reported in {slice, both}"
+   },
+   {
+    "id": "S4",
+    "statement": "Proportion explicitly stating a subject-level split (split_unit='patient_subject')."
+   },
+   {
+    "id": "S5",
+    "statement": "Proportion reporting or discussing the positional distribution of labels (positional_distribution_reported in {figure_or_table, text_with_numbers})."
+   },
+   {
+    "id": "S6",
+    "statement": "Proportion of eligible-looking papers for which full text was unreachable.",
+    "denominator": "included plus unreachable_eligibility_unresolved"
+   },
+   {
+    "id": "S7",
+    "statement": "Cross-tabulation of headline_unit against the P1 flag, with the exact-count table reported in full."
+   },
+   {
+    "id": "S8",
+    "statement": "Proportion reporting a subject-clustered uncertainty interval (uncertainty_interval_reported='ci_clustered_by_subject')."
+   },
+   {
+    "id": "S9",
+    "statement": "Proportion reporting n positive PATIENTS as well as n positive slices (n_positive_reported='patients_and_slices')."
+   }
   ],
   "exploratory_subgroups": {
    "_label": "EXPLORATORY. No multiplicity correction. Reported with intervals and explicitly labelled exploratory in every table.",
-   "strata": ["publication year 2019-2022 vs 2023-2026", "modality (CT vs MRI vs other)", "dataset_public (public vs private)", "venue type: clinical radiology/medical journal vs engineering/computing journal, classified from the journal's scope statement before unblinding", "evaluation_unit_reported"]
+   "strata": [
+    "publication year 2019-2022 vs 2023-2026",
+    "modality (CT vs MRI vs other)",
+    "dataset_public (public vs private)",
+    "venue type: clinical radiology/medical journal vs engineering/computing journal, classified from the journal's scope statement before unblinding",
+    "evaluation_unit_reported"
+   ]
   },
   "no_hypothesis_tests": "No significance test is pre-specified for any endpoint. All results are proportions with Wilson intervals. If a reviewer requests a test, it will be reported as post-hoc and labelled as such."
  },
-
  "missing_and_unreachable": {
   "rule_1": "An unreachable paper is NEVER silently dropped. It is reported in the flow diagram and in endpoint S6.",
   "rule_2": "Primary analysis is complete-case (reachable included papers).",
@@ -195,22 +796,64 @@
   "rule_5": "Direction of bias is stated in the paper: paywalled articles skew toward higher-tier clinical journals, which are the venues most likely to demand a comparator arm, so silent exclusion would bias P1 DOWNWARD — in the direction that flatters our thesis. This is why rule 3 is unconditional.",
   "rule_6": "Within an included and reachable paper, a field coded 'unclear' is kept as 'unclear' and reported as its own category. Fields are not imputed."
  },
-
  "agreement": {
   "overlap_set": "the 15 records at permutation positions 1-15, coded independently by all four screeners",
   "independence": "Each screener submits the overlap set as a sealed file before seeing any other screener's codes. Submission timestamps are recorded in git. No discussion of any overlap paper before all four are in.",
   "primary_statistic": "Fleiss' kappa across 4 raters on the P1 flag. Cohen's kappa is defined for two raters only, so the six pairwise Cohen's kappas are reported as a matrix alongside it, not instead of it.",
-  "fields_with_reported_agreement": ["final_inclusion", "trivial_baseline (P1 flag)", "evaluation_unit_reported", "headline_unit", "split_unit", "positional_distribution_reported"],
+  "fields_with_reported_agreement": [
+   "final_inclusion",
+   "trivial_baseline (P1 flag)",
+   "evaluation_unit_reported",
+   "headline_unit",
+   "split_unit",
+   "positional_distribution_reported"
+  ],
   "paradox_guard": "P1 is expected to be extremely skewed. Under high skew, kappa collapses toward 0 even at near-perfect agreement (the first kappa paradox). Raw percent agreement AND Gwet's AC1 are therefore PRE-SPECIFIED for every field above and reported in the same table as kappa. Reporting them is not a post-hoc rescue; it is fixed here, before any coding.",
   "interval": "bootstrap percentile 95% CI over 2000 resamples of the 15 papers, seed 20260729",
   "threshold_and_remedy": "If Fleiss' kappa on the P1 flag is below 0.60 (or, if the paradox guard triggers, if raw agreement is below 90%): a documented adjudication round is held, the codebook is amended in the changelog, and EVERY already-coded paper is re-coded under the amended codebook. Both pre- and post-reconciliation statistics are reported.",
+  "remedy_status_2026_07_29": "TRIGGERED AND EXECUTED. Pre-reconciliation Fleiss' kappa on the P1 flag = -0.015 [-0.164, 0.120], raw 65.6%, Gwet's AC1 0.479, 6/15 unanimous — below BOTH floors. Adjudication round held; rules D1-D14 adopted; codebook amended to v1.2; audit trail in paper/screen_adjudication.md; recomputation in paper/screen/analysis/adjudicate.py.",
+  "what_a_post_remedy_number_may_and_may_not_claim": "Three post-remedy numbers exist and only one of them is a reliability statistic. (1) PRE-RECONCILIATION: the four sealed files as coded under v1.0 — the honest reliability of the original round, reported first and never replaced. (2) COUNTERFACTUAL v1.2 ENCODING: the SAME four sealed files with no screener's reading of any paper altered, re-expressed under D2 and D3 alone — the two amendments that add a missing LEVEL and cannot change a reading. Each screener's own final_inclusion and own fulltext_reachable drive the transform, so genuine eligibility disagreements survive it. This is the number that answers 'was the failure a codebook defect or a screener failure?', and it is the number the floor is assessed against. It is NOT an independent re-rating. (3) POST-ADJUDICATION CONSENSUS: one code per paper; agreement on it is 1.000 BY CONSTRUCTION, is not evidence of anything, and the floor is NOT assessed against it. A genuine post-amendment reliability estimate requires a FRESH independent re-coding by four screeners under v1.2 and is an outstanding action, not something this round produced.",
   "non_overlap_quality_control": "A 20% random subsample of each screener's non-overlap batch (seed 20260729, drawn within batch) is independently re-coded by the next screener in the cycle A->B->C->D->A. Disagreement rate on the P1 flag is reported. This is the only way to detect drift outside the overlap set.",
   "low_confidence_rule": "Any record with screener_confidence='low' or flag_for_adjudication=true is adjudicated by a second screener regardless of batch; the adjudicated code is used and the disagreement is logged."
  },
-
  "changelog": [
-  {"date": "2026-07-29", "version": "0.1", "event": "Draft criteria written from the research question, before any record was read."},
-  {"date": "2026-07-29", "version": "1.0", "event": "PILOT of 10 records at permutation positions 101-110 (PMIDs 41732778, 39693092, 35052273, 39389801, 34136106, 39520662, 34924987, 41897586, 39031408, 38866884), abstracts only. Six amendments adopted: A1 (E-PROJ, en-face/projection inputs), A2 (mixed 2D/3D modality rule), A3 (multi-task segmentation+classification -> include, code classification arm), A4 (code the evaluated task, not the title verb), A5 (E-DERIV, connectivity-matrix and feature-vector inputs), A6 (modality list extended to SPECT and CBCT). Explicit warning added that reporting sensitivity/specificity/AUC does not make a segmentation paper a classification paper: 3 of 10 pilot papers did this. The 10 pilot records are PERMANENTLY EXCLUDED from the analysis sample because the protocol author has read them."},
-  {"date": "2026-07-29", "version": "1.0", "event": "FROZEN. Sampling frame executed, sample drawn, endpoints and analysis fixed before any analysis-sample record was read."}
+  {
+   "date": "2026-07-29",
+   "version": "0.1",
+   "event": "Draft criteria written from the research question, before any record was read."
+  },
+  {
+   "date": "2026-07-29",
+   "version": "1.0",
+   "event": "PILOT of 10 records at permutation positions 101-110 (PMIDs 41732778, 39693092, 35052273, 39389801, 34136106, 39520662, 34924987, 41897586, 39031408, 38866884), abstracts only. Six amendments adopted: A1 (E-PROJ, en-face/projection inputs), A2 (mixed 2D/3D modality rule), A3 (multi-task segmentation+classification -> include, code classification arm), A4 (code the evaluated task, not the title verb), A5 (E-DERIV, connectivity-matrix and feature-vector inputs), A6 (modality list extended to SPECT and CBCT). Explicit warning added that reporting sensitivity/specificity/AUC does not make a segmentation paper a classification paper: 3 of 10 pilot papers did this. The 10 pilot records are PERMANENTLY EXCLUDED from the analysis sample because the protocol author has read them."
+  },
+  {
+   "date": "2026-07-29",
+   "version": "1.0",
+   "event": "FROZEN. Sampling frame executed, sample drawn, endpoints and analysis fixed before any analysis-sample record was read."
+  },
+  {
+   "date": "2026-07-29",
+   "version": "1.1",
+   "event": "Metadata correction in build_sample.py only (scoped identifier lookup; §7 open-access counts restated 60/3/31/6). Which PMIDs are sampled and which batch each falls in were NOT affected — allocation is determined solely by permutation.txt, whose digest is unchanged. No codebook rule changed."
+  },
+  {
+   "date": "2026-07-29",
+   "version": "1.2",
+   "trigger": "The pre-registered agreement remedy (agreement.threshold_and_remedy) FIRED. Fleiss' kappa on the P1 flag over the 15 overlap papers = -0.015 [-0.164, 0.120] against a floor of 0.60; raw pairwise agreement 65.6% against the paradox-guard floor of 90%; Gwet's AC1 0.479; 6/15 unanimous. Both floors failed, so an adjudication round, a codebook amendment and a re-coding of every already-coded paper became mandatory.",
+   "diagnosis": "The disagreement was NOT about the primary flag. Restricted to the 6 overlap papers all four screeners both OBTAINED and INCLUDED, agreement on the P1 flag is 100%, Gwet's AC1 = 1.000, and all four screeners produce IDENTICAL vectors on all six trivial_baseline sub-flags on all six papers. Across all 145 coded records, not one sub-flag in the P1 family (constant/prevalence, positional, acquisition-metadata, permuted-label) is coded true by any screener. The measured disagreement was concentrated in REACHABILITY and ELIGIBILITY: on 9 of the 15 overlap papers the four screeners recorded the same evidence and differed only in the placeholder the form forced them to type for 'could not be assessed' — S1 wrote false, S2 wrote null, S3 wrote the string 'unclear', S4 wrote false. That is a codebook defect, not a screener error.",
+   "event": "AMENDMENTS D1-D14 adopted, each logged in eligibility.ambiguous_case_rules with the specific disagreement it resolves. New levels: trivial_baseline sub-flags become THREE-VALUED (true/false/not_assessable, D2); 'not_applicable' added to every descriptive field and available ONLY where final_inclusion is not 'included' (D3); 'lesion_or_roi' added to split_unit (D8); 'not_stated' added to code_availability (D13). New decision rules: unreachable dominates included (D1); positive/negative evidentiary asymmetry on trivial_baseline (D2); access ladder not climbed for stage-1 exclusions (D4); Methods govern over Abstract on a factual contradiction (D5); patient-naming-noun word list for split_unit (D6); a unit named in a table caption is a named unit (D7); split deferred to an unsampled companion paper is 'unclear' (D8); the positional-distribution test is the ordering of the classification unit, not the vocabulary (D9); E-SEG's 'no categorical class decision' qualifier binds, so a human-reader class decision gives E-NOCLF (D10); trigger stated for stage1_decision='include_provisional' (D11); modality is the modality of the INPUT (D12); headline_unit 'unclear' vs 'na_only_one_unit_reported' (D14).",
+   "effect_on_agreement": "Counterfactual v1.2 encoding, same four sealed files, no reading altered, D2 and D3 only: P1 flag raw agreement 65.6% -> 95.6% [0.867, 1.000], Fleiss' kappa -0.015 -> 0.932 [0.777, 1.000], Gwet's AC1 0.479 -> 0.934 [0.800, 1.000], unanimous 6/15 -> 14/15; the six pairwise Cohen's kappas move from {0.000, 0.000, undefined, 0.390, 0.000, 0.000} to {0.898, 0.898, 1.000, 1.000, 0.898, 0.898}. Both floors are met. Collapsing 'not_applicable' and 'not_assessable' into one not-coded category gives 100% and kappa 1.000. Every other agreement field also improves from D2/D3 alone: evaluation_unit 76.7->87.8%, headline_unit 76.7->87.8%, split_unit 64.4->76.7%, positional_distribution 82.2->87.8%.",
+   "effect_on_endpoints": "The primary endpoint is UNCHANGED: P1 = 0/35 complete-case, bounding interval [0.0%, 36.4%] over the 55 eligible-looking papers, which remains the headline because unreachability (36.4%) exceeds the §7 15% threshold. Two secondaries move by one record each, in OPPOSITE directions: S4 (explicit subject-level split) 13/35 -> 12/35 because D6 refuses to upgrade 'cases' to patient-level in PMID 42130124; S5 (positional distribution reported) 0/35 -> 1/35 because D9 codes PMID 42130124's vertebral-level fracture table as a positional distribution. S5 moving off zero makes the literature look BETTER on the very endpoint the paper accuses it of ignoring, and is adopted for that reason rather than despite it.",
+   "not_changed": "No rule was altered to improve a number. The sampling frame, the permutation, the sample, the four sealed screener files, the primary endpoint definition, the Wilson interval method, the bounding-analysis rules and the 15% threshold are all untouched. The sealed batch files were read but never written."
+  },
+  {
+   "date": "2026-07-29",
+   "version": "1.3",
+   "trigger": "The pre-registered ACCESS constraint. missing_and_unreachable.rule_4 puts the bounding interval in place of the point estimate whenever unreachable papers exceed 15% of the eligible set. The first pass returned 20/55 = 36.4%, so the reportable primary figure became [0.0%, 36.4%]. That bound is unaffected by sample size and narrows only when full texts are recovered, so a second, harder pass over screen_protocol.md sec.7 was run against every record coded unreachable_* in any batch.",
+   "event": "ACCESS-RECOVERY PASS. NO CODEBOOK RULE WAS CHANGED and no sealed batch file was edited. The five-rung ladder was re-run on all 20 unreachable records; 4 were recovered and fully re-coded, including the mandatory 14-term full-text search on each. Recoveries and the rung that worked: 38591974 (rung 1, publisher CC BY version of record); 36170844 (rung 1, publisher CC BY-NC accepted manuscript); 36200353 (rung 4, Authorea PREPRINT of the same work, flagged as such and reserved for the version-of-record sensitivity analysis); 39846055 (rung 4, University of Southern Queensland institutional repository accepted manuscript). New records live in paper/screen/access_recovery.json and are applied as an analysis-time overlay by paper/screen/analysis/recompute_with_recovery.py, which prints the as-sealed and post-recovery numbers side by side.",
+   "consequence": "Unreachable 20 -> 16. One recovery (36170844) proved INELIGIBLE on full text -- a U-Net segmentation study with no fitted classifier and no negative class in the data, coded E-NOCLF under amendment D10 -- so it leaves the eligible denominator rather than moving into it, and the denominator falls 55 -> 54. S6 unreachable 20/55 = 36.4% [24.9%, 49.6%] -> 16/54 = 29.6% [19.1%, 42.8%]. P1 bounding interval [0.0%, 36.4%] -> [0.0%, 29.6%], width 36.4 pp -> 29.6 pp. P1 complete case 0/35 -> 0/38, still exactly zero. THE 15% THRESHOLD IS STILL BREACHED at 29.6%, so rule_4 still binds and the bounding interval REMAINS the headline number; enlarging the sample would not change that.",
+   "honesty_note": "Three still-unreachable records (37222638 bronze OA at Wiley, 42153825 CC BY at RSNA, 40147601 CC BY-NC-ND gold at Elsevier) are demonstrably open access and are unreachable ONLY because this execution environment is refused by those publishers (HTTP 403 to every scripted client; the domains are also blocked by the environment's browsing policy). They are counted as unreachable because no full text was read, and the environment cause is disclosed rather than charged to the literature. Recovering all three elsewhere would give 13/54 = 24.1%, still above 15%. No infringing source was used at any point; where a paper was reachable only through one, it stayed unreachable."
+  }
  ]
 }

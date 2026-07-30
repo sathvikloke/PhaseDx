@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="1250" viewBox="0 0 1180 1250" font-family="Helvetica,Arial,sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#222222"/></marker></defs>
+<rect width="1180" height="1250" fill="#ffffff"/>
+<text x="70" y="32" font-size="17" font-weight="bold" fill="#111111">PhaseDx prevalence screen &#8212; pooled flow, pre-registered analysis set</text>
+<text x="70" y="52" font-size="11.5" fill="#555555">Analysis sample (positions 1&#8211;100) + reserve blocks R1&#8211;R3 (positions 111&#8211;260), drawn under the pre-registered extension rule. Counts from paper/screen/analysis/pooled_final.json.</text>
+<rect x="70" y="78" width="500" height="96" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="102" font-size="13" font-weight="bold" fill="#111111">Records identified from a database</text>
+<text x="82" y="120" font-size="12.5" fill="#111111">PubMed, one frozen Boolean query, n = 9,979</text>
+<text x="82" y="137" font-size="12.5" fill="#111111">run 2026-07-29; SHA-256 d611def0785f...</text>
+<text x="82" y="154" font-size="12.5" fill="#111111">registers n = 0; other methods n = 0</text>
+<rect x="640" y="78" width="470" height="96" rx="3" fill="#f7f7f7" stroke="#222222" stroke-width="1.2"/>
+<text x="652" y="102" font-size="13" font-weight="bold" fill="#111111">Removed before screening</text>
+<text x="652" y="120" font-size="12.5" fill="#111111">duplicates n = 0 (PMID-unique frame)</text>
+<text x="652" y="137" font-size="12.5" fill="#111111">automation tools n = 0</text>
+<text x="652" y="154" font-size="12.5" fill="#111111">other reasons n = 0</text>
+<line x1="570" y1="108" x2="640" y2="108" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="34" y="126" font-size="12" font-weight="bold" fill="#888888" text-anchor="middle" transform="rotate(-90 34 126)">Identification</text>
+<rect x="70" y="210" width="500" height="96" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="234" font-size="13" font-weight="bold" fill="#111111">Randomly sampled for screening</text>
+<text x="82" y="252" font-size="12.5" fill="#111111">n = 250  (permutation positions 1&#8211;100, 111&#8211;260)</text>
+<text x="82" y="269" font-size="12.5" fill="#111111">seed 20260729; blocks never truncated part-way</text>
+<text x="82" y="286" font-size="12.5" fill="#111111">extension rule stopped after block R3</text>
+<rect x="640" y="210" width="470" height="96" rx="3" fill="#f7f7f7" stroke="#222222" stroke-width="1.2"/>
+<text x="652" y="234" font-size="13" font-weight="bold" fill="#111111">Frame records not sampled</text>
+<text x="652" y="252" font-size="12.5" fill="#111111">never drawn n = 9,579</text>
+<text x="652" y="269" font-size="12.5" fill="#111111">pilot, excluded a priori n = 10</text>
+<text x="652" y="286" font-size="12.5" fill="#111111">reserve beyond position 260 n = 90 (R4 = 50, post-hoc)</text>
+<line x1="570" y1="240" x2="640" y2="240" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="320" y1="174" x2="320" y2="210" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="34" y="258" font-size="12" font-weight="bold" fill="#888888" text-anchor="middle" transform="rotate(-90 34 258)">Sampling</text>
+<rect x="70" y="342" width="500" height="58" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="366" font-size="13" font-weight="bold" fill="#111111">Records screened (title and abstract)</text>
+<text x="82" y="384" font-size="12.5" fill="#111111">n = 250</text>
+<rect x="640" y="342" width="470" height="93" rx="3" fill="#f7f7f7" stroke="#222222" stroke-width="1.2"/>
+<text x="652" y="366" font-size="13" font-weight="bold" fill="#111111">Excluded at title/abstract</text>
+<text x="652" y="384" font-size="12.5" fill="#111111">n = 79</text>
+<text x="652" y="401" font-size="12.5" fill="#111111">   E-SEG 33;  E-DERIV 16;  E-NONMED 9;  E-NOCLF 8</text>
+<text x="652" y="418" font-size="12.5" fill="#111111">   E-2D 8;  E-TYPE 4;  E-PROJ 1</text>
+<line x1="570" y1="372" x2="640" y2="372" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="320" y1="306" x2="320" y2="342" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<rect x="70" y="436" width="500" height="58" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="460" font-size="13" font-weight="bold" fill="#111111">Reports sought for retrieval</text>
+<text x="82" y="478" font-size="12.5" fill="#111111">n = 171</text>
+<rect x="640" y="436" width="470" height="96" rx="3" fill="#fff4f4" stroke="#222222" stroke-width="1.2"/>
+<text x="652" y="460" font-size="13" font-weight="bold" fill="#111111">Reports NOT retrieved &#8212; full text unreachable</text>
+<text x="652" y="478" font-size="12.5" fill="#111111">n = 44</text>
+<text x="652" y="495" font-size="12.5" fill="#111111">NOT excluded: eligibility unresolved, carried</text>
+<text x="652" y="512" font-size="12.5" fill="#111111">into both bounding analyses (protocol &#167;7)</text>
+<line x1="570" y1="466" x2="640" y2="466" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="320" y1="400" x2="320" y2="436" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<rect x="70" y="568" width="500" height="58" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="592" font-size="13" font-weight="bold" fill="#111111">Reports assessed for eligibility</text>
+<text x="82" y="610" font-size="12.5" fill="#111111">n = 127</text>
+<rect x="640" y="568" width="470" height="161" rx="3" fill="#f7f7f7" stroke="#222222" stroke-width="1.2"/>
+<text x="652" y="592" font-size="13" font-weight="bold" fill="#111111">Excluded at full text, by reason  (n = 36)</text>
+<text x="652" y="610" font-size="12.5" fill="#111111">E-DERIV  n = 16   ← inside the query, outside the failure mode</text>
+<text x="652" y="627" font-size="12.5" fill="#111111">E-2D  n = 6</text>
+<text x="652" y="644" font-size="12.5" fill="#111111">E-SEG  n = 6</text>
+<text x="652" y="661" font-size="12.5" fill="#111111">E-NOCLF  n = 5</text>
+<text x="652" y="678" font-size="12.5" fill="#111111">E-PROJ  n = 2</text>
+<text x="652" y="695" font-size="12.5" fill="#111111">E-TYPE  n = 1</text>
+<text x="652" y="712" font-size="12.5" fill="#111111">total excluded at both stages n = 115</text>
+<line x1="570" y1="598" x2="640" y2="598" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="320" y1="494" x2="320" y2="568" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="34" y="600" font-size="12" font-weight="bold" fill="#888888" text-anchor="middle" transform="rotate(-90 34 600)">Screening</text>
+<rect x="70" y="760" width="500" height="96" rx="3" fill="#f2f7f2" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="784" font-size="13" font-weight="bold" fill="#111111">STUDIES INCLUDED AND REACHABLE</text>
+<text x="82" y="802" font-size="12.5" fill="#111111">n = 91  &#8212; the complete-case denominator</text>
+<text x="82" y="819" font-size="12.5" fill="#111111">pre-registered target was n = 75: MET</text>
+<text x="82" y="836" font-size="12.5" fill="#111111">79 of 91 carry a fully evidenced 14-term search</text>
+<line x1="320" y1="626" x2="320" y2="760" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="34" y="808" font-size="12" font-weight="bold" fill="#888888" text-anchor="middle" transform="rotate(-90 34 808)">Included</text>
+<rect x="640" y="760" width="470" height="96" rx="3" fill="#fff4f4" stroke="#222222" stroke-width="1.2"/>
+<text x="652" y="784" font-size="13" font-weight="bold" fill="#111111">ELIGIBLE-LOOKING SET (the bounding denominator)</text>
+<text x="652" y="802" font-size="12.5" fill="#111111">n = 135 = 91 included + 44 unreachable</text>
+<text x="652" y="819" font-size="12.5" fill="#111111">S6 unreachable = 32.6% [25.3%, 40.9%]</text>
+<text x="652" y="836" font-size="12.5" fill="#111111">&#8250; 15% threshold: the BOUND is the headline</text>
+<rect x="70" y="890" width="1040" height="118" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.8"/>
+<text x="82" y="916" font-size="14" font-weight="bold" fill="#111111">PRIMARY ENDPOINT P1 &#8212; papers reporting a measured zero-image baseline</text>
+<text x="82" y="939" font-size="13" fill="#111111">HEADLINE (protocol &#167;7, censoring &#8250; 15%): bounding interval <tspan font-weight="bold">[0.0%, 32.6%]</tspan> over 135 eligible papers</text>
+<text x="82" y="959" font-size="13" fill="#111111">complete case (reported, NOT the headline): 0/91 = 0.0% [0.0%, 4.1%] Wilson</text>
+<text x="82" y="979" font-size="13" fill="#111111">lower bound (all unreachable negative): 0/135 = 0.0% [0.0%, 2.8%]  &#183;  upper bound (all unreachable positive): 44/135 = 32.6%</text>
+<text x="82" y="999" font-size="13" fill="#111111">censoring-free: across 345 independently coded records over 300 distinct papers, the four zero-image sub-flags are TRUE 0 times.</text>
+<text x="70" y="1045" font-size="12.5" font-weight="bold" fill="#111111">By block &#8212; the access rate does not improve with sample size</text>
+<text x="82" y="1065" font-size="12" fill="#555555" text-anchor="start" font-weight="bold">block</text>
+<text x="250" y="1065" font-size="12" fill="#555555" text-anchor="end" font-weight="bold">screened</text>
+<text x="350" y="1065" font-size="12" fill="#555555" text-anchor="end" font-weight="bold">included</text>
+<text x="470" y="1065" font-size="12" fill="#555555" text-anchor="end" font-weight="bold">unreachable</text>
+<text x="620" y="1065" font-size="12" fill="#555555" text-anchor="end" font-weight="bold">unreachable % of eligible</text>
+<text x="700" y="1065" font-size="12" fill="#555555" text-anchor="end" font-weight="bold">P1</text>
+<text x="82" y="1083" font-size="12" fill="#333333" text-anchor="start">main</text>
+<text x="250" y="1083" font-size="12" fill="#333333" text-anchor="end">100</text>
+<text x="350" y="1083" font-size="12" fill="#333333" text-anchor="end">38</text>
+<text x="470" y="1083" font-size="12" fill="#333333" text-anchor="end">21</text>
+<text x="620" y="1083" font-size="12" fill="#333333" text-anchor="end">35.6%</text>
+<text x="700" y="1083" font-size="12" fill="#333333" text-anchor="end">0/38</text>
+<text x="82" y="1101" font-size="12" fill="#333333" text-anchor="start">R1</text>
+<text x="250" y="1101" font-size="12" fill="#333333" text-anchor="end">50</text>
+<text x="350" y="1101" font-size="12" fill="#333333" text-anchor="end">17</text>
+<text x="470" y="1101" font-size="12" fill="#333333" text-anchor="end">9</text>
+<text x="620" y="1101" font-size="12" fill="#333333" text-anchor="end">34.6%</text>
+<text x="700" y="1101" font-size="12" fill="#333333" text-anchor="end">0/17</text>
+<text x="82" y="1119" font-size="12" fill="#333333" text-anchor="start">R2</text>
+<text x="250" y="1119" font-size="12" fill="#333333" text-anchor="end">50</text>
+<text x="350" y="1119" font-size="12" fill="#333333" text-anchor="end">17</text>
+<text x="470" y="1119" font-size="12" fill="#333333" text-anchor="end">5</text>
+<text x="620" y="1119" font-size="12" fill="#333333" text-anchor="end">22.7%</text>
+<text x="700" y="1119" font-size="12" fill="#333333" text-anchor="end">0/17</text>
+<text x="82" y="1137" font-size="12" fill="#333333" text-anchor="start">R3</text>
+<text x="250" y="1137" font-size="12" fill="#333333" text-anchor="end">50</text>
+<text x="350" y="1137" font-size="12" fill="#333333" text-anchor="end">19</text>
+<text x="470" y="1137" font-size="12" fill="#333333" text-anchor="end">9</text>
+<text x="620" y="1137" font-size="12" fill="#333333" text-anchor="end">32.1%</text>
+<text x="700" y="1137" font-size="12" fill="#333333" text-anchor="end">0/19</text>
+<text x="82" y="1155" font-size="12" fill="#888888" text-anchor="start">R4 (post-hoc)</text>
+<text x="250" y="1155" font-size="12" fill="#888888" text-anchor="end">50</text>
+<text x="350" y="1155" font-size="12" fill="#888888" text-anchor="end">23</text>
+<text x="470" y="1155" font-size="12" fill="#888888" text-anchor="end">12</text>
+<text x="620" y="1155" font-size="12" fill="#888888" text-anchor="end">34.3%</text>
+<text x="700" y="1155" font-size="12" fill="#888888" text-anchor="end">0/23</text>
+<text x="82" y="1177" font-size="11.5" fill="#555555">Block R4 (positions 261&#8211;310) lies BEYOND the pre-registered stopping point and is a post-hoc extension; with it the flow is 300 screened, 114 included, 56 unreachable (32.9%), P1 bound [0.0%, 32.9%].</text>
+</svg>

@@ -1,77 +1,177 @@
 # Audit results — zero-image null models against published medical imaging benchmarks
 
 Run 2026-07-29, revised later the same day after RSNA ICH was reached and every
-comparator's peer-review status was re-checked (§2.3, §3.7, §3.8). Tool:
-`pipeline/s14_trivialbaselines.py`. **The tool was not modified in the revision pass**;
-its self-test was re-run afterwards and all checks pass. The `--relpos-col` option
-described in §7 was added in the earlier pass of the same day. Label-table preparation
+comparator's peer-review status was re-checked (§2.3, §3.7, §3.8), and **revised again the
+same evening to re-anchor the audit on its peer-review-independent result and to replace
+the categorical headline with a continuous one** (§0, §1, §2.0, §2.1, §3.7, §4, §4bis).
+Tool: `pipeline/s14_trivialbaselines.py`. **The tool has not been modified in either
+revision pass**; its self-test is re-run after each and all checks pass. The `--relpos-col`
+option described in §7 was added in the first pass of the day. Label-table preparation
 scripts: `pipeline/audit_prep/`. Machine-readable results:
 `pipeline_out/trivial_baselines/*.json`, one card per run in `*.md`. Every number added in
-the revision pass is reproduced by a logged script under `pipeline_out/audit_logs/`:
+a revision pass is reproduced by a logged script under `pipeline_out/audit_logs/`:
 
 | log | produces |
 |---|---|
 | `rsna_ich_prep.log` | the ordering test and the built ICH slice table (§3.7) |
-| `rsna_ich_burduja_conditions.log` | rows 16–21, full 752,802-slice file |
+| `rsna_ich_burduja_conditions.log` | the split-geometry replication, full 752,802-slice file |
 | `rsna_ich_s14_card.log` | the s14 harness card, seeded 1,500-patient subsample |
+| `rsna_ich_s14_card_full.log` | **the s14 harness card on the FULL 752,802-slice / 18,938-patient file** — bin sweep, metadata baselines, permutation calibration (§3.7) |
+| `rsna_ich_unit_collapse.log` | **the flagship: all 18,938 patients, both units, all six labels, independent implementation** (§0, §3.7, §4) |
 | `rsna_pe_position_test.log` | the RSNA-STR PE negative (§3.8) |
+
+Two artefacts were added in the second revision pass and are the sources for §0 and §4bis:
+
+| artefact | what it is |
+|---|---|
+| `pipeline/audit_prep/rsna_ich_unit_collapse.py` → `pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json` | a from-scratch recomputation of the slice-to-patient collapse on the full cohort, sharing no code with `s14`: its own fold assignment, its own binning, `sklearn`'s AUROC rather than ours, its own clustered bootstrap |
+| `pipeline/audit_prep/trivial_fraction_distribution.py` → `paper/trivial_fraction_distribution.{json,md}` | the trivial fraction over every (benchmark, published comparator) pair, with intervals, summarised as a distribution; re-fits nothing, reads every value from a named artefact |
 
 ---
 
 ## 0. Headline, stated before any table
 
-**Seven benchmarks were audited on eight label files, producing twenty-one rows. Eighteen
-rows carry a defensible published comparator: six are MATCHED, nine are PARTIAL, three
-are NOT MATCHED. The remaining three rows are NON-COMPARABLE and are not scored.** All
-six MATCHED rows come from a single benchmark — fastMRI Prostate under Rempe et al.'s
-protocol. Every other benchmark audited either resisted the null outright or was matched
-only in part.
+### 0.1 The result that needs no published comparator, and it is the largest thing here
 
-Two things changed in this run, and the second one is uncomfortable.
+On the RSNA 2019 Intracranial Haemorrhage official training file — **752,802 slices,
+21,744 series, 18,938 patients** — a model that never sees a pixel produces **one** score
+vector, a 20-bin estimate of P(haemorrhage | relative slice position) fitted on the
+training slices of a subject-disjoint 5-fold split and applied out of fold. Read that one
+vector at two units:
 
-**One: RSNA 2019 Intracranial Haemorrhage was reached**, having been recorded as
-unreachable in the previous run. It is the benchmark whose official metric is per-slice
-and whose organisers stated on the record that the released fields could not determine
-whether an image contains haemorrhage. On the organisers' own file, a model that never
-sees a pixel reaches **slice AUROC 0.738** against a published, peer-reviewed 0.9843 on
-the same metric, the same unit and the same cohort — and then falls to **0.462 at the
-patient level**, below chance, on 18,938 patients. See §3.7.
+| unit | AUROC | 95% CI (2,000 patient-clustered bootstrap replicates) |
+|---|---|---|
+| **slice** — the unit this benchmark's own official metric uses | **0.737** | [0.735, 0.740] |
+| **patient** — mean-aggregated within patient | **0.453** | [0.445, 0.461] |
+| patient — max-aggregated ("take the most suspicious slice") | 0.500 | — |
 
-**Two: a peer-review audit of every comparator (§2.3) found that the only MATCHED rows in
-the entire audit rest on a preprint.** Rempe et al. was re-queried on 2026-07-29 and is
-still arXiv-only, two years after posting. Meanwhile two comparators were being
-under-cited: LUNA16's is a *Medical Image Analysis* 2017 paper and DeepLesion's is a CVPR
-2018 paper, both cited here previously by their arXiv numbers. Stated plainly:
+**Nothing changes between the first two rows except the unit at which the ranking is
+performed, and the difference is 0.284 AUROC.** The patient-level interval lies entirely
+below 0.5. The same score vector that looks like a working triage tool at the slice level
+is worse than a coin toss at the level a patient is actually treated at.
+
+This is the number the paper should lead with, for four reasons.
+
+1. **No published comparator enters it.** Both columns are our own computation on a public
+   label file. There is no reproduction dispute available, and no comparator's peer-review
+   status can touch it.
+2. **It is the whole cohort.** 18,938 patients — roughly 400× the 46-patient prostate test
+   arm that carried this claim before, and 12.6× the seeded 1,500-patient subsample the
+   earlier revision used.
+3. **It was verified rather than carried forward, by four routes.**
+   `rsna_ich_unit_collapse.py` shares no code with the released harness — its own fold
+   assignment and seed, its own binning, `sklearn`'s AUROC, its own clustered bootstrap.
+
+   | route | cohort | slice AUROC | patient AUROC |
+   |---|---|---|---|
+   | s14 harness (the released tool), 5-fold subject CV | seeded 1,500-patient subsample | 0.7313 [0.723, 0.739] | 0.4616 [0.431, 0.491] |
+   | independent implementation, different folds | same subsample | 0.7311 [0.723, 0.739] | 0.4580 [0.420, 0.486] |
+   | **independent implementation** | **all 18,938 patients** | **0.7374 [0.7351, 0.7398]** | **0.4533 [0.4454, 0.4613]** |
+   | **s14 harness (the released tool)** | **all 18,938 patients** | **0.7376 [0.7352, 0.7399]** | **0.4561 [0.4478, 0.4640]** |
+   | split-geometry replication, 200 re-draws at the published paper's own geometry | all 18,938 patients | 0.7381 [0.727, 0.750] | — |
+
+   Four routes, one answer, agreeing to 0.003 AUROC at both units. The six-label table below
+   comes from the independent implementation, which is the only route run on all six labels;
+   the harness was run on `any`, and supplies the bin sweep, the metadata baselines and the
+   permutation calibration.
+4. **It holds on every label, not just the convenient one.** All six official labels
+   collapse: `any` 0.737→0.453, epidural 0.712→0.492, intraparenchymal 0.751→0.480,
+   intraventricular 0.805→0.497, subarachnoid 0.690→0.485, subdural 0.720→0.476. The gap
+   runs 0.205–0.307. [→ `pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json`]
+
+Controls, run on the same path: the within-series label permutation null — which destroys
+the position–label link and preserves prevalence, clustering and stack depth — sits at
+**0.502** at the slice level, so the excess is 0.236 (harness on the same full cohort: null
+0.505, excess 0.233). The constant predictor scores 0.492 slice / 0.501 patient in the
+independent implementation and **0.498 / 0.500** in the harness. That last number matters: on
+the seeded 1,500-patient subsample the harness raised a protocol warning because the constant
+predictor scored 0.487, 0.013 off chance, an artefact of pooling out of fold across folds with
+different training prevalence. **On the full cohort that deviation falls to 0.002 and the
+warning does not fire** — the full-cohort card carries no warning beyond the standing metadata
+caveat. Moving to the whole cohort removed the one protocol blemish on this row.
+
+### 0.2 The audit is a distribution, not a verdict count
+
+The audit previously led with a count — six MATCHED, nine PARTIAL, three NOT MATCHED. That
+headline is weak in two independent ways. It throws away the information in the PARTIAL
+rows, where a benchmark at 0.61 and a benchmark at 0.31 are recorded identically; and it
+makes the paper's strength hostage to one threshold and, through it, to one preprint,
+because the only rows crossing the MATCHED threshold have a preprint comparator. **The
+headline is now the distribution of the trivial fraction; the categorical verdict is kept
+as a secondary column and is not deleted.**
+[→ `paper/trivial_fraction_distribution.md`]
+
+| set of (benchmark, comparator) rows | n | min | Q1 | **median** | Q3 | max |
+|---|---|---|---|---|---|---|
+| **peer-reviewed comparator, strongest system per benchmark-arm** | 9 | −0.002 | 0.437 | **0.469** | 0.490 | 0.613 |
+| peer-reviewed comparator, all rows | 18 | −0.002 | 0.455 | 0.485 | 0.514 | 0.889 |
+| strongest system per benchmark-arm, any comparator | 11 | −0.002 | 0.452 | 0.480 | 0.562 | 0.981 |
+| all rows | 24 | −0.002 | 0.469 | 0.512 | 0.910 | 1.655 |
+| **preprint comparator (Rempe et al.) only** | 6 | 0.973 | 1.020 | 1.142 | 1.518 | 1.655 |
+
+Read the first line. **Against peer-reviewed numbers, on the same metric and the same
+evaluation unit, the median *share* of the published margin over chance that a pixel-blind
+model reaches is 0.469 — a little under half.** The distribution is tight rather than diffuse: eight of
+those nine rows fall between 0.395 and 0.613, and the ninth is LUNA16 at −0.002. That is a
+stronger and far more defensible sentence than "one benchmark matched", and it survives
+losing the preprint entirely.
+
+The six RSNA ICH subtype rows are the core of it, because they are against a peer-reviewed
+comparator on the identical cohort, metric and unit: 0.395, 0.437, 0.469, 0.490, 0.510,
+0.613 against Burduja et al.'s BiLSTM column; 0.410, 0.451, 0.480, 0.500, 0.515, 0.615
+against their plain ResNeXt column in the same table. Roughly **40–60% of the published
+margin over chance, per subtype, in peer-reviewed work, with no pixels.**
+
+The preprint line is reported at equal prominence and must always be labelled: all six
+values above 0.97 come from one arXiv-only comparator, four of them exceed 1 (the other two
+are 0.973 and 0.981), and they are the only rows in the audit anywhere near 1. Note also what
+those four mean — a fraction of 1.655 is the baseline exceeding Rempe et al.'s weakest
+reported arm, not the audit finding 165% of anything.
+
+### 0.3 The rest of the run, unchanged in substance
+
+**RSNA 2019 Intracranial Haemorrhage was reached**, having been recorded as unreachable in
+the previous run. It is the benchmark whose official metric is per-slice and whose
+organisers stated on the record that the released fields could not determine whether an
+image contains haemorrhage. See §3.7.
+
+**A peer-review audit of every comparator (§2.3) found that the only MATCHED rows in the
+entire audit rest on a preprint.** Rempe et al. was re-queried on 2026-07-29 and is still
+arXiv-only, two years after posting. Meanwhile two comparators were being under-cited:
+LUNA16's is a *Medical Image Analysis* 2017 paper and DeepLesion's is a CVPR 2018 paper,
+both cited here previously by their arXiv numbers. Stated plainly:
 
 > **Every peer-reviewed comparison in this audit is PARTIAL or NOT MATCHED. The only
 > MATCHED rows rest on a preprint comparator.**
 
-That distribution is the finding, and it changes the framing the paper can support:
+That is why the headline moved. It changes the framing the paper can support:
 
 * **The claim "trivial baselines match published performance on medical imaging
   benchmarks" is not supported as a general statement, and is not supported against the
   peer-reviewed literature at all.** It is supported for one benchmark, strongly and
   reproducibly, whose comparator is a preprint. Against peer-reviewed numbers the
-  supportable claim is quantitative rather than absolute: a pixel-blind model reaches
-  **40–62%** of the margin over chance on RSNA ICH, **48–89%** on DeepLesion, and
-  essentially none on LUNA16 and PI-CAI.
+  supportable claim is quantitative rather than absolute, and it is §0.2's distribution.
 * **What generalises further than the match is the gap between the slice-level and the
-  patient-level number.** On four of the seven benchmarks a pixel-blind positional model
-  scores 0.73–0.87 at the slice level and falls to chance or below at the patient level:
-  **RSNA ICH 0.731 → 0.462**, fastMRI Prostate T2 0.854 → 0.506, DWI 0.851 → 0.424,
-  fastMRI+ knee meniscus 0.873 → 0.510. Duke breast reaches 0.823 at the slice level and
-  cannot be evaluated at the patient level at all, because all 922 patients are positive —
-  a fifth way the same protocol problem shows up. Crucially this did *not* depend on
-  whether the published number was matched, so it is not hostage to any comparability
-  argument. It is the most defensible general claim the audit supports, and **RSNA ICH is
-  now the flagship instance**: 18,938 patients rather than the 46–199 of the fastMRI
-  cohorts. See the qualification about bin choice in §4.
+  patient-level number**, and that is §0.1. It also appears on fastMRI Prostate T2
+  0.854 → 0.506, DWI 0.851 → 0.424, and fastMRI+ knee meniscus 0.873 → 0.510. Duke breast
+  reaches 0.823 at the slice level and cannot be evaluated at the patient level at all,
+  because all 922 patients are positive — a further way the same protocol problem shows up.
+  Crucially none of this depends on whether a published number was matched, so it is not
+  hostage to any comparability argument. See the qualification about bin choice in §4.
   **It is not universal.** DeepLesion stays high at both units (pelvis 0.977 slice, 0.954
   patient) because its labels are anatomical regions, and LUNA16 is at chance at both
   (0.534 slice, 0.581 patient). Both exceptions must be reported alongside the rule.
-* **Two benchmarks are clean.** LUNA16 is decisively unmatched on its own metric (CPM
-  0.0020 against a published >0.95 sensitivity at <1 FP/scan) and PI-CAI is unmatched at
-  its own evaluation unit. Both belong in the paper at equal prominence.
+* **Two benchmarks are clean, and this is reported at equal prominence with the hits.**
+  LUNA16's positional baseline scores **sensitivity 0.0006 at 1 FP/scan and CPM 0.0020**
+  on the challenge's own metric, *below* a random-score reference of 0.0027, against a
+  published >0.95 sensitivity — a trivial fraction of **−0.002**, the one value in the
+  whole distribution at zero. PI-CAI's positional baseline is **exactly 0.500** at every
+  bin setting, which is the correct registration of "inapplicable" rather than a computed
+  result, and its best zero-image model reaches 0.692 against a published 0.91 at the unit
+  its own authors report. **A measure that always fires measures nothing.** These two rows
+  are what make the other nine believable, and they demonstrate that the trivial fraction
+  discriminates between benchmarks rather than condemning all of them. See §4bis for what
+  that does and does not establish about specificity.
 * **Two of the three largest per-slice benchmarks publish a label file from which the
   slice cannot be located.** For RSNA ICH the ordering was recoverable from a third-party
   pixel-free mirror and is verified here by a run-length test (§3.7). For RSNA-STR
@@ -85,15 +185,21 @@ That distribution is the finding, and it changes the framing the paper can suppo
 
 ---
 
-## 1. How a verdict is assigned
+## 1. The measure, and the verdict that is now secondary to it
 
 The comparison statistic is the tool's trivial fraction,
 
 > trivial fraction = (best zero-image baseline − chance) / (published − chance)
 
-with chance = 0.5 for AUROC and the majority-class rate for multi-class accuracy. Its
-interval propagates uncertainty in the *baseline only*; the published number enters as a
-constant, so the interval is too narrow as a statement about the ratio.
+with chance = 0.5 for AUROC and the majority-class rate for multi-class accuracy. **It is a
+continuous measure and is reported as one.** Its interval propagates uncertainty in the
+*baseline only*; the published number enters as a constant, so the interval is too narrow
+as a statement about the ratio. §4bis exercises the definition at its extremes and states
+where it stops meaning anything.
+
+The categorical verdict is retained, unchanged, as a **secondary** column. It is a coarse
+summary of the measure, not a substitute for it, and it exists so that this revision can be
+reconciled against the previous one rather than replacing it silently.
 
 | verdict | rule |
 |---|---|
@@ -106,11 +212,57 @@ A MATCHED verdict licenses exactly one sentence: *this published evaluation prot
 certifies a number that a model with no access to the pixels also reaches.* It does not
 license "the model learned nothing". Every card repeats this.
 
+**Why the verdict is being demoted, in one concrete case.**
+`trivial_fraction_distribution.py` applies the rule above mechanically, and it disagrees
+with the hand-assigned verdicts in the previous revision on exactly two rows: PI-CAI's,
+whose trivial fractions are 0.467 and 0.532. Those are ≥ 0.30, so the *written* rule
+returns PARTIAL, while §2.1 recorded NOT MATCHED on the strength of a cohort caveat the
+rule has no slot for. Both readings are defensible; neither is hidden. The point is that a
+threshold-plus-judgement verdict flipped while the underlying fraction did not move at all.
+Both are shown in §2.1. That is the argument for leading with the number.
+
 ---
 
 ## 2. Results — one row per (dataset, published number)
 
+### 2.0 The distribution, before the rows
+
+Generated by `pipeline/audit_prep/trivial_fraction_distribution.py`, which re-fits nothing
+and reads every value from a named artefact
+[→ `paper/trivial_fraction_distribution.{json,md}`].
+
+**Rows are not independent.** A single benchmark contributes several rows when a paper
+reports several systems in one table: Rempe et al.'s Table II has three arms, Burduja et
+al.'s Table 3 has two model columns across six labels. The primary reading is therefore the
+*strongest published system per benchmark-arm*, which is the conservative choice — a
+stronger comparator makes the denominator larger and the fraction smaller.
+
+| set | n | min | Q1 | **median** | Q3 | max | ≤0.05 | 0.30–0.70 | ≥1 |
+|---|---|---|---|---|---|---|---|---|---|
+| **peer-reviewed comparator, strongest system per benchmark-arm** | 9 | −0.002 | 0.437 | **0.469** | 0.490 | 0.613 | 1 | 8 | 0 |
+| peer-reviewed comparator, all rows | 18 | −0.002 | 0.455 | 0.485 | 0.514 | 0.889 | 1 | 16 | 0 |
+| strongest system per benchmark-arm, any comparator | 11 | −0.002 | 0.452 | 0.480 | 0.562 | 0.981 | 1 | 8 | 0 |
+| all rows | 24 | −0.002 | 0.469 | 0.512 | 0.910 | 1.655 | 1 | 16 | 4 |
+| preprint comparator (Rempe et al.) only | 6 | 0.973 | 1.020 | 1.142 | 1.518 | 1.655 | 0 | 0 | 4 |
+
+Verdict counts, kept as the secondary summary they now are:
+
+| set | MATCHED | PARTIAL | NOT MATCHED |
+|---|---|---|---|
+| all rows | 6 | 17 | 1 |
+| **peer-reviewed comparators only** | **0** | 17 | 1 |
+
+The distribution and the verdict count are two summaries of the same 24 numbers. The
+distribution is the one that survives deleting the preprint: strike Rempe et al. and the
+verdict count loses every MATCHED row it had, while the peer-reviewed distribution does not
+move at all, because none of its rows were ever near the threshold.
+
 ### 2.1 Scored rows
+
+Two RSNA ICH row-sets are shown. **Rows 16–21 are the primary ones** and were recomputed on
+the full cohort in the second revision pass; rows 16v–21v are the split-geometry
+replication that was previously primary, retained as a robustness check. They agree to
+within 0.002 AUROC.
 
 | # | dataset | published number | source | our best zero-image baseline | trivial fraction [CI] | verdict |
 |---|---|---|---|---|---|---|
@@ -124,32 +276,59 @@ license "the model learned nothing". Every card repeats this.
 | 8 | DeepLesion | **0.862** 8-class accuracy | same table, "Baseline: Multi-scale ImageNet feature" | 0.557 [0.524, 0.578] | 0.513 [0.460, 0.546] | **PARTIAL** |
 | 9 | DeepLesion | **0.597** 8-class accuracy | same table, "Baseline: Location feature" (*their own* image-derived location baseline) | 0.557 [0.524, 0.578] | 0.889 [0.799, 0.947] | **PARTIAL** (see §5) |
 | 10 | LUNA16 (FP-reduction track) | **">95% sensitivity at <1.0 FP/scan"** | Setio et al. 2017, LUNA16 challenge summary, arXiv:1612.08012 (combined solutions) | **CPM 0.0020**; sensitivity 0.0006 at 1 FP/scan | ≈0 | **NOT MATCHED** |
-| 11 | PI-CAI | **0.91** (95% CI 0.87–0.94) case-level AUROC, AI system | Saha et al., *Lancet Oncol* 2024;25:879-887, [DOI](https://doi.org/10.1016/S1470-2045(24)00220-1) | **0.692** [0.626, 0.755] metadata CART, case level | 0.467 [0.307, 0.622] | **NOT MATCHED** ¹ |
-| 12 | PI-CAI | **0.86** (0.83–0.89) case-level AUROC, 62 radiologists PI-RADS 2.1 | same | 0.692 [0.626, 0.755] | 0.532 [0.350, 0.708] | **NOT MATCHED** ¹ |
+| 11 | PI-CAI | **0.91** (95% CI 0.87–0.94) case-level AUROC, AI system | Saha et al., *Lancet Oncol* 2024;25:879-887, [DOI](https://doi.org/10.1016/S1470-2045(24)00220-1) | **0.692** [0.626, 0.755] metadata CART, case level | 0.467 [0.307, 0.623] | **NOT MATCHED** ¹ (rule: PARTIAL) |
+| 12 | PI-CAI | **0.86** (0.83–0.89) case-level AUROC, 62 radiologists PI-RADS 2.1 | same | 0.692 [0.626, 0.755] | 0.532 [0.350, 0.710] | **NOT MATCHED** ¹ (rule: PARTIAL) |
+| 16 | RSNA ICH, **any haemorrhage** | **0.9843** slice ROC AUC | Burduja, Ionescu & Verga, *Sensors* 2020;20(19):5611, [DOI](https://doi.org/10.3390/s20195611), Table 3, ResNeXt-101 32×8d + BiLSTM | **0.737** [0.735, 0.740] positional 20-bin | 0.490 [0.485, 0.495] | **PARTIAL** ² |
+| 17 | RSNA ICH, epidural | 0.9851 slice ROC AUC | same table, same row | 0.712 [0.700, 0.725] | 0.437 [0.411, 0.464] | **PARTIAL** ² |
+| 18 | RSNA ICH, intraparenchymal | 0.9927 slice ROC AUC | same | 0.751 [0.747, 0.755] | 0.510 [0.502, 0.518] | **PARTIAL** ² |
+| 19 | RSNA ICH, intraventricular | 0.9970 slice ROC AUC | same | **0.805** [0.802, 0.808] | 0.613 [0.607, 0.620] | **PARTIAL** ² |
+| 20 | RSNA ICH, subarachnoid | 0.9821 slice ROC AUC | same | 0.690 [0.686, 0.695] | 0.395 [0.386, 0.404] | **PARTIAL** ² |
+| 21 | RSNA ICH, subdural | 0.9682 slice ROC AUC | same | 0.720 [0.717, 0.723] | 0.469 [0.463, 0.476] | **PARTIAL** ² |
 
-| 16 | RSNA ICH, **any haemorrhage** | **0.9843** slice ROC AUC | Burduja, Ionescu & Verga, *Sensors* 2020;20(19):5611, [DOI](https://doi.org/10.3390/s20195611), Table 3, ResNeXt-101 32×8d + BiLSTM | **0.738** [0.727, 0.750] positional 20-bin | 0.492 | **PARTIAL** ² |
-| 17 | RSNA ICH, epidural | 0.9851 slice ROC AUC | same table, same row | 0.719 [0.649, 0.776] | 0.451 | **PARTIAL** ² |
-| 18 | RSNA ICH, intraparenchymal | 0.9927 slice ROC AUC | same | 0.753 [0.732, 0.772] | 0.513 | **PARTIAL** ² |
-| 19 | RSNA ICH, intraventricular | 0.9970 slice ROC AUC | same | **0.806** [0.791, 0.820] | 0.615 | **PARTIAL** ² |
-| 20 | RSNA ICH, subarachnoid | 0.9821 slice ROC AUC | same | 0.692 [0.665, 0.710] | 0.398 | **PARTIAL** ² |
-| 21 | RSNA ICH, subdural | 0.9682 slice ROC AUC | same | 0.721 [0.707, 0.735] | 0.472 | **PARTIAL** ² |
+*Second published system in the same table.* Burduja et al.'s Table 3 also reports a plain
+ResNeXt-101 32×8d without the bidirectional LSTM, on the same metric, unit and cohort.
+Against that column the six fractions are, in the same order: **0.500, 0.451, 0.515, 0.615,
+0.410, 0.480**. Both columns are reported for the same reason rows 1–3 report three arms of
+Rempe et al.'s table; the BiLSTM column is treated as primary because it is the stronger
+system and therefore the harder denominator.
+
+*Split-geometry replication (previously primary, now a robustness check).*
+
+| # | dataset | our zero-image baseline, their 744-scan split geometry | trivial fraction | agreement with the primary row |
+|---|---|---|---|---|
+| 16v | RSNA ICH, any | 0.738 [0.727, 0.750] | 0.492 | +0.001 |
+| 17v | RSNA ICH, epidural | 0.719 [0.649, 0.776] | 0.451 | +0.006 |
+| 18v | RSNA ICH, intraparenchymal | 0.753 [0.732, 0.772] | 0.513 | +0.001 |
+| 19v | RSNA ICH, intraventricular | 0.806 [0.791, 0.820] | 0.615 | +0.001 |
+| 20v | RSNA ICH, subarachnoid | 0.692 [0.665, 0.710] | 0.398 | +0.002 |
+| 21v | RSNA ICH, subdural | 0.721 [0.707, 0.735] | 0.472 | +0.002 |
 
 ¹ Rows 11–12 carry a cohort caveat that would justify calling them NON-COMPARABLE; see
 §3.5. They are scored as NOT MATCHED because the caveat cuts *against* the null (our
 baseline had the easier cohort and still lost), so scoring them is the conservative
-choice. Rows 7–9 use the majority class (0.236) as the chance anchor, not 0.5.
+choice. **The written verdict rule in §1, applied mechanically, returns PARTIAL for both**
+— 0.467 and 0.532 are ≥ 0.30 — and both readings are shown here rather than one being
+quietly preferred. The trivial fraction itself is identical under either. Rows 7–9 use the
+majority class (0.236) as the chance anchor, not 0.5.
 
-² **The interval on rows 16–21 is a different object from the one on rows 1–12 and must
-not be read as the same thing.** Rows 1–12 carry a patient-clustered bootstrap interval
-on a fixed split. Rows 16–21 carry a 2.5–97.5 percentile interval over **200 random
-re-draws of the held-out split**, because Burduja et al. publish the *geometry* of their
-split (744 held-out scans, 24,290 slices) but not the draw itself, so a single draw would
-make the comparison hostage to a seed. The spread is therefore split-to-split variation,
-not sampling error, and it is narrow: sd 0.006 on the `any` arm. Rows 16–21 come from
-`pipeline/audit_prep/rsna_ich_burduja_conditions.py` on the full 752,802-slice file. The
-s14 harness card for this benchmark (bin sweep, patient-level unit, metadata baselines,
-permutation calibration) is reported separately in §3.7 and was run on a seeded
-patient-level subsample for the reason given there.
+² **Rows 16–21 were recomputed on the full cohort in the second revision pass and their
+interval is now the same object as rows 1–12's.** They come from
+`pipeline/audit_prep/rsna_ich_unit_collapse.py` on all 752,802 slices / 18,938 patients:
+5-fold subject-disjoint CV, pooled out of fold, 95% percentile interval from 2,000
+bootstrap replicates **resampling patients**, so a patient drawn twice contributes all of
+their slices twice. The naive slice-resampled interval is reported alongside in the JSON
+and is 1.5–2.0× too narrow on these six rows, which is the concrete size of the error Rule
+3 of the protocol exists to prevent.
+
+Rows 16v–21v are the earlier estimator and are retained because they match the published
+paper's split *geometry* rather than ours: Burduja et al. publish that geometry (744
+held-out scans, 24,290 slices) but not the draw, so that script repeats the draw 200 times
+and its interval is split-to-split spread, **not** sampling error. The two estimators
+differ by at most 0.006 in trivial fraction. Two further routes agree: the s14 harness run on
+the **full** file gives 0.7376 [0.7352, 0.7399] and a trivial fraction of 0.491 [0.486, 0.495]
+on the `any` arm [→ `rsna_ich_any_slice_full.json`], and the same harness on a seeded
+1,500-patient subsample gives 0.731 [0.723, 0.739]. Four routes, one answer — see §3.7 for the
+table.
 
 ### 2.2 Non-comparable rows — audited, but no defensible published comparator
 
@@ -247,8 +426,8 @@ own text says otherwise, verbatim: *"Among the labeled samples, we randomly sele
 training seeds to predict pseudo-labels, 25% as the validation set, and the other 50% as
 the test set. There is no patient-level overlap between all subsets."*
 
-So the reported row is **not** the official-split number. `pipeline/audit_prep/
-deeplesion_yan_conditions.py` rebuilds their partition — a random patient-disjoint
+So the reported row is **not** the official-split number.
+`pipeline/audit_prep/deeplesion_yan_conditions.py` rebuilds their partition — a random patient-disjoint
 25/25/50 split of the 9,816 type-labelled rows, fitting on the 25% seed set only —
 and repeats it over 200 draws so the comparison is not hostage to one seed. Mean seed
 size 2,454 rows, mean test size 4,900 (they report 4,927). Under those conditions the
@@ -422,27 +601,71 @@ MIT-licensed, pixel-free tabular file.
   official competition metric, placing it, in their words, "in the top 30 ranking from a total of 1345
   participants" — so it is not a
   weak system being cherry-picked as an easy target.
-* **The harness card was run on a seeded subsample, and the reason is mundane.** The full
-  752,802-row file drove the machine into swap exhaustion (11.9 GB of 13.3 GB swap in
-  use) and the run was killed twice rather than left to thrash. The s14 card at
-  `pipeline_out/trivial_baselines/rsna_ich_any_slice.json` is therefore computed on a
-  seeded random sample of 1,500 of the 18,938 patients (58,794 slices, seed 20260729;
-  slice prevalence 0.14651 against the full file's 0.14338). **The scored rows 16–21 do
-  not depend on that subsample** — they come from the full file via
-  `rsna_ich_burduja_conditions.py`. The two agree: 0.731 [0.723, 0.739] on the subsample
-  against 0.738 [0.727, 0.750] on the full file.
-* **Not a binning artefact.** Bin sweep on the slice unit: 5→0.707, 10→0.725, 20→0.731,
-  50→0.740, and a fit-free centrality score −|relpos − 0.5| reaches 0.730 with no
-  training data at all.
-* **Permutation-calibrated.** The positional baseline's own permutation null is 0.501 and
-  its excess over that null is 0.231. The harness also flags that the constant predictor
-  scored 0.487 rather than 0.500 under pooled out-of-fold evaluation, which is the floor
-  of what any pooled number here can mean; the effect is 0.013 and does not touch the
-  conclusion.
-* **Acquisition metadata is nearly inert here, unlike DeepLesion.** The metadata tree
-  reaches 0.506. The only metadata column that carries anything is the number of slices
-  in the series (0.573 slice / 0.599 patient). `plane` and `rescale_slope` are
-  single-valued in this cohort and score exactly 0.487/0.500.
+* **The full cohort is now used for the headline, twice, and the number was verified rather
+  than carried forward.** The first pass ran the s14 harness on a seeded 1,500-patient
+  subsample because the full 752,802-row file drove the machine into swap exhaustion. The
+  second pass did two things. It wrote a **separate implementation**,
+  `pipeline/audit_prep/rsna_ich_unit_collapse.py`, sharing no code with `s14`: its own fold
+  assignment (balanced on the patient-level label, seed 20260729 rather than 0), its own
+  binning, `sklearn.metrics.roc_auc_score` rather than our midrank routine for the point
+  estimates, and its own patient-clustered bootstrap. Inside that bootstrap the AUROC is
+  evaluated from per-patient count vectors over the distinct score values instead of
+  re-ranking 750k rows on every replicate — exact midrank arithmetic, not an approximation,
+  asserted equal to the `sklearn` value before any resampling is done — which is what makes
+  2,000 replicates on the whole cohort cheap. And it then **re-ran the s14 harness itself on
+  the full file**, successfully, in 30 minutes at a peak of 2.0 GB resident
+  [→ `pipeline_out/trivial_baselines/rsna_ich_any_slice_full.json`;
+  `pipeline_out/audit_logs/rsna_ich_s14_card_full.log`]. The earlier swap exhaustion was a
+  machine-state problem, not a property of the file, and the note claiming otherwise is
+  withdrawn.
+
+  | route | cohort | slice | patient |
+  |---|---|---|---|
+  | s14 harness, 5-fold subject CV | seeded 1,500-patient subsample | 0.7313 [0.723, 0.739] | 0.4616 [0.431, 0.491] |
+  | independent implementation, 5-fold subject CV | same subsample, different folds | 0.7311 [0.723, 0.739] | 0.4580 [0.420, 0.486] |
+  | **independent implementation**, 5-fold subject CV, 2,000 boot | **all 18,938 patients** | **0.7374 [0.7351, 0.7398]** | **0.4533 [0.4454, 0.4613]** |
+  | **s14 harness**, 5-fold subject CV, 1,000 boot | **all 18,938 patients** | **0.7376 [0.7352, 0.7399]** | **0.4561 [0.4478, 0.4640]** |
+  | split-geometry replication, 200 re-draws | all 18,938 patients | 0.7381 [0.727, 0.750] | — |
+
+  Four routes, agreeing to 0.003 at both units. The subsample was not misleading; the full
+  cohort tightens the intervals by about 3× and moves the patient-level number further below
+  chance. The six-label table in §4 comes from the independent implementation, the only route
+  run on all six labels.
+* **The patient-level interval now excludes chance.** On the subsample it was [0.431,
+  0.491]; on the full cohort it is [0.445, 0.461] (independent) / [0.448, 0.464] (harness),
+  entirely below 0.5 either way. The max-aggregated reading — "score the patient by their
+  most suspicious slice", which is what a triage system would actually do — is **0.5000**,
+  i.e. exactly chance, in both. Both aggregations are reported.
+* **Not a binning artefact, on the full cohort.** Bin sweep on the slice unit: 5→0.716,
+  10→0.733, 20→0.738, 50→0.745, and a fit-free centrality score −|relpos − 0.5| reaches
+  **0.735** with no training data at all. Apparent (training) slice AUROC is 0.7379 against a
+  held-out 0.7376, so the null model is not itself overfitting.
+* **Permutation-calibrated on the full cohort.** The positional baseline's own null — labels
+  shuffled *within each series*, which destroys the position–label link and preserves
+  prevalence, subject clustering, series depth and all metadata — sits at **0.5047** over 20
+  draws (harness; range 0.5023–0.5065) and **0.5018** in the independent implementation, so
+  the excess is 0.233–0.236. **The protocol warning that fired on the subsample no longer
+  fires:** the constant predictor scored 0.487 there (0.013 off chance, from pooling out of
+  fold across folds of differing training prevalence) and scores **0.4981** on the full
+  cohort, a deviation of 0.002. The full-cohort card carries no warning beyond the standing
+  metadata caveat.
+* **The permutation null at the patient level is above 0.5, not at it, and that matters.**
+  It is 0.523 (independent) / 0.561 (harness) for `any`. So the patient-level 0.453–0.456 is
+  not merely below chance, it is 0.07–0.10 below the value the *same estimator* reaches when
+  there is nothing to find. The positional baseline is anti-predictive at patient level:
+  patients with more mid-stack slices are not the patients with haemorrhage. This is also why
+  the harness reports each baseline against its own permutation null rather than against 0.5.
+* **Acquisition metadata is nearly inert here, unlike DeepLesion.** On the full cohort the
+  metadata tree reaches 0.524 slice / 0.534 patient against a null of 0.498. The only
+  metadata column that carries anything is the number of slices in the series (0.572 slice /
+  0.591 patient); `rescale_intercept` gives 0.538/0.559; `plane` and `rescale_slope` are
+  single-valued in this cohort and score exactly 0.498/0.500. The combined position+metadata
+  tree reaches 0.718 slice — *below* position alone at 0.738 — against a null of 0.718, an
+  excess of exactly zero. That null is the metadata-block permutation, which scrambles
+  metadata while leaving the position–label link intact, so a zero excess is the harness
+  correctly registering that **metadata adds nothing to position on this benchmark**, and
+  that the combined tree's 0.718 is the positional signal alone, slightly degraded by
+  spending tree depth on inert columns.
 
 ### 3.8 RSNA-STR Pulmonary Embolism 2020 — NOT REACHED, and the reason is now a measurement rather than a guess
 
@@ -496,6 +719,35 @@ label file, so it depends on no published number and none of the comparability o
 in §3 apply to it. It is reported for all eight dataset-arms, including the two that do
 not show the effect.
 
+**The RSNA ICH block is the headline and is reported first, on the full cohort, at both
+units with the same estimator and the same interval construction.**
+[→ `pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json`;
+`pipeline_out/audit_logs/rsna_ich_unit_collapse.log`]
+
+| RSNA ICH label | slice prev. | patient prev. | **slice** AUROC | **patient** AUROC (mean-agg) | patient (max-agg) | gap |
+|---|---|---|---|---|---|---|
+| **any** | 0.1434 | 0.4041 | **0.7374** [0.7351, 0.7398] | **0.4533** [0.4454, 0.4613] | 0.5001 | **0.284** |
+| epidural | 0.0042 | 0.0164 | 0.7122 [0.6996, 0.7249] | 0.4921 [0.4613, 0.5244] | 0.4856 | 0.220 |
+| intraparenchymal | 0.0480 | 0.2468 | 0.7514 [0.7474, 0.7553] | 0.4804 [0.4708, 0.4900] | 0.5025 | 0.271 |
+| intraventricular | 0.0348 | 0.1744 | 0.8048 [0.8017, 0.8081] | 0.4974 [0.4870, 0.5077] | 0.4948 | 0.307 |
+| subarachnoid | 0.0474 | 0.1822 | 0.6905 [0.6859, 0.6948] | 0.4855 [0.4749, 0.4960] | 0.5045 | 0.205 |
+| subdural | 0.0627 | 0.1782 | 0.7195 [0.7166, 0.7227] | 0.4764 [0.4657, 0.4870] | 0.4996 | 0.243 |
+
+752,802 slices, 21,744 series, **18,938 patients**; 5-fold subject-disjoint CV pooled out of
+fold; 95% percentile intervals from 2,000 bootstrap replicates resampling **patients**. One
+score vector per row, read at three units. Four of the six patient-level intervals lie
+wholly below 0.5; the other two contain it; none reaches 0.55. The max-aggregated column
+is the reading a deployed triage tool would use, and it runs 0.486–0.505 across the six
+labels — chance, on every one of them.
+
+*The naive slice-resampled interval, which this audit computes and refuses to use:* on the
+`any` row it is [0.7360, 0.7387], width 0.0027, against the clustered width of 0.0048. The
+wrong interval is **1.76×** too narrow here, and 1.51–1.99× across the six labels. That is
+the concrete size of the error Rule 3 of the protocol exists to prevent, measured on a
+published label file rather than argued from theory.
+
+The remaining benchmarks, on their own cards:
+
 | dataset | zero-image positional, **slice** AUROC | zero-image positional, **patient** AUROC | position-stratified slice AUROC (the remedy) |
 |---|---|---|---|
 | fastMRI Prostate T2 | 0.854 [0.812, 0.891] | **0.506** [0.381, 0.632] | **0.546** (5 strata) |
@@ -506,40 +758,153 @@ not show the effect.
 | DeepLesion, pelvis vs rest | 0.977 [0.969, 0.984] | 0.954 [0.939, 0.967] | — |
 | PI-CAI (case level) | not applicable | metadata only, 0.692 [0.626, 0.755] | — |
 | LUNA16 candidates | 0.534 [0.514, 0.558] | 0.581 [0.538, 0.613] | — |
-| **RSNA ICH, any haemorrhage** | **0.731** [0.723, 0.739] | **0.462** [0.431, 0.491] | — |
 
-Three benchmarks show the collapse outright — fastMRI Prostate (both arms), fastMRI+
-knee (both label definitions), and now **RSNA ICH, which is by far the largest and the
-most consequential**: 0.731 at the slice level and 0.462 at the patient level, i.e.
-*below* chance, on 752,802 slices from 18,938 patients. Duke breast is a fourth variant
-of the same protocol problem: 0.823 at the slice level, and no patient-level number is
-computable at all because every patient in the cohort is positive. DeepLesion does not
+Three benchmarks show the collapse outright — **RSNA ICH on all six of its labels**, fastMRI
+Prostate (both arms) and fastMRI+ knee (both label definitions). Duke breast is a fourth
+variant of the same protocol problem: 0.823 at the slice level, and no patient-level number
+is computable at all because every patient in the cohort is positive. DeepLesion does not
 collapse, and should not: its labels are anatomical regions, so they *are* patient-level
 facts about where lesions were found, and position predicts them at both units. LUNA16 is
 at chance at both units. PI-CAI has no slice-level structure to collapse. Stating all six
 outcomes is what makes the first three credible.
 
-**RSNA ICH is the single most useful row in this table** and it should lead the paper.
-The other collapses are on cohorts of 46 to 199 subjects. This one is on 18,938 patients,
-on the benchmark whose official metric is per-slice, whose organisers stated on the record
-that the metadata could not do this, and against a published slice-level number on the
-identical file. It needs no comparability argument at all: both columns are our own
-computation on one label file.
+**RSNA ICH is the single most useful result in this document** and it should lead the paper.
+The other collapses are on cohorts of 46 to 199 subjects. This one is on 18,938 patients —
+roughly 400× the prostate test arm — on the benchmark whose official metric is per-slice and
+whose organisers stated on the record that the metadata could not do this. **It needs no
+comparability argument and no published comparator at all**: every column is our own
+computation on one public label file, so no reproduction dispute and no comparator's
+peer-review status can reach it. It is also the only row here that has been computed twice
+by two implementations sharing no code (§3.7).
 
-**One honest qualification on the ICH patient-level number.** The collapse is bin-robust
-at the slice level (0.707→0.740 over 5→50 bins) but *not* at the patient level, where the
-sweep runs 5→0.425, 10→0.435, 20→0.462, 50→**0.652**. At 50 bins over volumes of 20–60
-slices the bin index is nearly the raw slice index, so the per-patient aggregate starts
-tracking volume length, and volume length is itself weakly predictive here (0.599 patient
-AUROC on its own). The honest statement is that the *positional* signal collapses at the
-patient level while a separate and weaker *volume-size* signal does not, and that the
-50-bin patient number is measuring the latter. The 20-bin setting is the pre-specified
-one and is what the table reports.
+**One honest qualification on the ICH patient-level number, confirmed rather than removed by
+the full-cohort rerun.** The collapse is bin-robust at the slice level (0.716→0.745 over 5→50
+bins on the full cohort) but *not* at the patient level, where the full-cohort sweep runs
+5→0.437, 10→0.445, 20→0.456, 50→**0.632** [→ `rsna_ich_any_slice_full.json`,
+`positional_bin_sweep`; the subsample gave 0.425 / 0.435 / 0.462 / 0.652]. At 50 bins over
+volumes of 20–60 slices the bin index is nearly the raw slice index, so the per-patient
+aggregate starts tracking volume length, and volume length is itself weakly predictive here
+(0.591 patient AUROC on its own, full cohort). The honest statement is that the *positional*
+signal collapses at the patient level while a separate and weaker *volume-size* signal does
+not, and that the 50-bin patient number is measuring the latter. The 20-bin setting is the
+pre-specified one and is what the tables report. Any paper quoting the patient-level collapse
+must quote this sweep with it.
 
 The remedy column is the constructive half. Stratifying the slice-level AUROC by
 relative position collapses the fastMRI Prostate null from 0.854 to 0.546 and from 0.851
 to 0.539 — within noise of chance. That is the metric the paper should ask reviewers to
 require.
+
+---
+
+## 4bis. The trivial fraction as a measure: specificity, extremes, and where it stops meaning anything
+
+### 4bis.1 It discriminates — the non-firing rows are evidence, not an appendix
+
+A measure that returns a large number on every benchmark measures nothing, and the two
+benchmarks where the zero-image family does not fire are therefore reported at the same
+prominence as the ones where it does.
+
+**LUNA16 is the strongest negative.** Scored on the competition's own metric rather than a
+convenient one, the identical 20-bin positional estimator reaches **sensitivity 0.0006 at 1
+false positive per scan and CPM 0.0020**, against a random-score reference CPM of **0.0027**
+and a published combined-solution sensitivity above 0.95. The trivial fraction is
+**−0.002**: the baseline is not merely worse than the published system, it is *below the
+random-score reference on the published scale*. As an AUROC on 754,975 candidates from 888
+scans it is 0.534 at the slice level and 0.581 at the patient level — and, tellingly, it
+does **not** collapse between units, because there is nothing there to collapse.
+
+**PI-CAI's positional baseline is exactly 0.500 at every bin setting.** That is the correct
+registration of "inapplicable" — the marksheet has one row per case and no slice index — not
+a computed near-chance result, and the audit says so rather than reporting 0.500 as a
+finding. Its metadata CART reaches 0.692 [0.626, 0.755] against a published 0.91, a fraction
+of 0.467. **PI-CAI is the paper's positive example**: a benchmark evaluating at the unit it
+should, with no slice-level number to attack.
+
+Three things follow, and only three.
+
+1. **The measure has a floor and can reach it.** One of nine peer-reviewed head-to-heads
+   sits at −0.002. The other eight cluster in 0.395–0.613. That spread is what makes the
+   eight credible.
+2. **The two behaviours are not the same kind of null.** LUNA16 is a benchmark where
+   position genuinely carries nothing about the label. PI-CAI is a benchmark that does not
+   expose the axis the baseline needs. Reporting both as "NOT MATCHED" loses that
+   distinction; reporting the fractions and the reasons keeps it.
+3. **This is not a validation of the measure's specificity in any statistical sense.** Two
+   negatives out of nine rows is an existence proof that it can fail to fire, nothing more.
+   No claim about false-positive rate is made or supportable from n = 9.
+
+Two further rows behave the way a well-behaved measure should and are worth naming for the
+same reason. DeepLesion's fraction against Yan et al.'s own image-derived location baseline
+is **0.889** — our pixel-free position nearly reproduces their image-derived position, which
+is exactly what should happen and is a sanity check rather than a scandal. And the fraction
+against their full method is 0.480, i.e. the measure separates "reproduces the location
+baseline" from "reproduces the published system" on the same benchmark, at the same time.
+
+### 4bis.2 The definition at its extremes, exercised rather than asserted
+
+Run on the tool's own `trivial_fraction()`; the full table is in
+`paper/trivial_fraction_distribution.md` and the JSON, with baseline CI = baseline ± 0.02
+throughout.
+
+| case | baseline | chance | published | value | clipped | behaviour |
+|---|---|---|---|---|---|---|
+| published far above chance | 0.7374 | 0.500 | 0.9843 | 0.4902 | 0.4902 | the ordinary case |
+| **published just above chance** (headroom 0.021) | 0.600 | 0.500 | 0.521 | **4.7619** | 1.0000 | **unstable — see below** |
+| published exactly at chance | 0.600 | 0.500 | 0.500 | **undefined** | — | refused, with a reason string |
+| published *below* chance | 0.600 | 0.500 | 0.450 | **undefined** | — | refused |
+| baseline above published | 0.854 | 0.500 | 0.714 | 1.6542 | 1.0000 | reported unclipped in `value` |
+| baseline exactly at chance | 0.500 | 0.500 | 0.900 | 0.0000 | 0.0000 | exact zero |
+| baseline *below* chance | 0.4533 | 0.500 | 0.9843 | −0.0964 | 0.0000 | negative, kept |
+| baseline equals published | 0.900 | 0.500 | 0.900 | 1.0000 | 1.0000 | exact one |
+| published near-perfect | 0.7374 | 0.500 | 1.0000 | 0.4748 | 0.4748 | stable |
+| non-AUROC anchor (AP, prevalence 0.1434) | 0.260 | 0.1434 | 0.600 | 0.2554 | 0.2554 | anchor moves with the metric |
+
+**It behaves correctly at both ends the audit actually visits.** A published number at or
+below chance yields `None` with an explanatory reason rather than a huge or negative number;
+a baseline that exceeds the published number yields a value above 1 that is left unclipped
+in `value`, with the clipped copy kept separately for plotting only; a baseline below chance
+yields a negative value that is likewise kept. Nothing is silently coerced.
+
+**The one real fragility is a small denominator, and it must be stated as a limit.** At a
+published number 0.021 above chance the fraction is 4.76 with an interval entirely above 1 —
+arithmetically correct and practically meaningless, because dividing by 0.021 amplifies
+everything. The tool guards this with `min_headroom = 0.02`, but that threshold is arbitrary
+and, being a floating-point comparison, 0.521 slips past it by one unit in the last place.
+**In this audit the guard is never load-bearing**: the smallest denominator anywhere in the
+24 rows is **0.214** (fastMRI Prostate against Rempe et al.'s R = 16 arm, published 0.714
+against an AUROC anchor of 0.5), ten times the guard threshold; the smallest among the
+peer-reviewed rows is 0.36 (PI-CAI, published 0.86) and the smallest non-AUROC one is 0.361
+(DeepLesion, published 0.597 against a majority-class anchor of 0.236). The limit is
+therefore recorded as a caveat on the *measure*, not on these results, and a paper reporting
+a trivial fraction against a published number near chance should report the two margins
+instead of their ratio.
+
+### 4bis.3 The limits that travel with every fraction, restated
+
+These are the tool's own, and they must appear wherever a fraction does.
+
+* The published number must be on the **same metric, the same evaluation unit and a
+  comparable test set**. A slice-level baseline against a patient-level publication is
+  meaningless. This is the constraint that excluded RSNA-STR PE (§3.8) and that makes the
+  PI-CAI rows arguable (§3.5).
+* **It is not a decomposition.** The baseline and the published model may exploit the same
+  shortcut, different shortcuts, or overlapping ones. A fraction of 0.9 does not license
+  "the model learned nothing"; it licenses "this evaluation protocol certifies a number that
+  a pixel-blind model also reaches".
+* **The interval is too narrow as a statement about the ratio.** It propagates uncertainty
+  in the baseline only; the published number enters as a fixed constant because its sampling
+  distribution is almost never available. On the RSNA ICH rows the baseline interval is
+  ±0.002, so essentially all of the real uncertainty in those fractions is uncertainty about
+  the published constant, and none of it is shown.
+* **The baseline is fitted on the training rows of the same table.** Where the published
+  model was trained on a different or larger set the comparison is approximate, and §3 says
+  for each row exactly how approximate.
+* **The fraction says nothing about the patient level.** All 24 rows are against
+  slice-level, lesion-level or case-level published numbers, at the unit each paper reports.
+  The patient-level trivial fractions on RSNA ICH are all negative (−0.005 to −0.096),
+  which is arithmetically true and rhetorically useless; §4 reports the patient-level
+  AUROCs directly instead, and that is the right way to report them.
 
 ---
 
@@ -646,13 +1011,35 @@ and reproduce to four decimal places (T2 0.8542 [0.8123, 0.8913]; DWI 0.8514 [0.
    much of a slice-level medical imaging benchmark can be reached without the pixels: a
    label-file audit of seven public benchmarks"*. The strong version survives only for
    fastMRI Prostate, whose comparator is a preprint (§2.3).
-2. **Lead with the unit-of-evaluation collapse (§4), not with the match, and lead the
-   collapse with RSNA ICH.** It is the only result that holds across benchmarks and it
-   needs no published comparator, so it cannot be attacked on comparability. RSNA ICH
-   gives it a cohort of 18,938 patients on the most-cited slice-level benchmark in the
-   field, which the fastMRI cohorts of 46–199 subjects cannot.
-3. **Give LUNA16 and PI-CAI first-class space.** Two of seven benchmarks resisted the
-   null. A paper that reports that is much harder to dismiss than one that does not.
+2. **Lead with the unit-of-evaluation collapse (§0.1, §4), not with the match, and lead the
+   collapse with RSNA ICH on the full cohort.** It is the only result that holds across
+   benchmarks and it needs no published comparator, so it cannot be attacked on
+   comparability. RSNA ICH gives it 18,938 patients — 400× the prostate arm — on the
+   most-cited slice-level benchmark in the field, computed twice by two implementations
+   sharing no code, on all six of its labels. **The single sentence is: 0.737 [0.735, 0.740]
+   at the slice level, 0.453 [0.445, 0.461] at the patient level, same score vector.**
+2a. **Replace the verdict count with the distribution (§0.2, §2.0).** "Six MATCHED, nine
+   PARTIAL, three NOT MATCHED" discards the information the continuous statistic exists to
+   carry and stakes the paper on a threshold that only a preprint's rows cross. The
+   defensible headline is: *against peer-reviewed comparators, on the same metric and unit,
+   the median trivial fraction is 0.469 (IQR 0.437–0.490, range −0.002 to 0.613)*, with the
+   six RSNA ICH subtype rows spanning 0.395–0.613 — roughly 40–60% of the published margin
+   over chance, per subtype, with no pixels. Keep the verdict as a secondary column; the
+   PI-CAI disagreement between the mechanical rule and the hand-assigned verdict (§1, §2.1)
+   is itself the argument for the demotion and should be reported, not resolved.
+3. **Give LUNA16 and PI-CAI first-class space (§4bis.1).** Two of seven benchmarks resisted
+   the null: LUNA16 at a trivial fraction of −0.002 on the challenge's own metric, below its
+   own random-score reference, and PI-CAI at exactly 0.500 for the positional arm, which is
+   an "inapplicable" rather than a result. A paper that reports that is much harder to
+   dismiss than one that does not — and it is the only evidence in the paper that the
+   measure discriminates rather than always firing. State plainly that two negatives out of
+   nine rows is an existence proof, not a specificity estimate.
+3d. **Carry the measure's limits wherever the measure goes (§4bis.2, §4bis.3).** In
+   particular: the fraction is undefined when the published number is at or below chance;
+   it explodes when the denominator is small (4.76 at a headroom of 0.021), though the
+   smallest denominator in this audit is 0.214 and the guard is never load-bearing; the
+   interval propagates baseline uncertainty only, which on the RSNA ICH rows means almost
+   all the real uncertainty is invisible; and it is not a decomposition.
 3a. **Never present a MATCHED row without saying its comparator is a preprint.** This is
    now the paper's largest exposure. A reviewer who checks the six MATCHED rows will find
    they all trace to one arXiv posting that has not been peer-reviewed in two years. Say

@@ -1,0 +1,187 @@
+{
+ "_generated_by": "recompute_with_recovery.py",
+ "before": {
+  "n_screened": 100,
+  "n_included_reachable": 35,
+  "n_eligible_unreachable": 20,
+  "n_excluded": 45,
+  "n_eligible": 55,
+  "S6_unreachable": {
+   "k": 20,
+   "n": 55,
+   "pct": 36.36363636363637,
+   "ci": [
+    24.930531530307253,
+    49.577238500158735
+   ]
+  },
+  "P1_complete_case": {
+   "k": 0,
+   "n": 35,
+   "pct": 0.0,
+   "ci": [
+    6.938893903907228e-16,
+    9.890099232440402
+   ]
+  },
+  "P1_lower": {
+   "k": 0,
+   "n": 55,
+   "pct": 0.0,
+   "ci": [
+    0.0,
+    6.528490111708638
+   ]
+  },
+  "P1_upper": {
+   "k": 20,
+   "n": 55,
+   "pct": 36.36363636363637,
+   "ci": [
+    24.930531530307253,
+    49.577238500158735
+   ]
+  },
+  "S1_complete_case": {
+   "k": 3,
+   "n": 35,
+   "pct": 8.571428571428571,
+   "ci": [
+    2.958236826696982,
+    22.379273965896495
+   ]
+  },
+  "S1_upper": {
+   "k": 23,
+   "n": 55,
+   "pct": 41.81818181818181,
+   "ci": [
+    29.73776575351035,
+    54.96689626476924
+   ]
+  },
+  "threshold_breached": true
+ },
+ "after": {
+  "n_screened": 100,
+  "n_included_reachable": 38,
+  "n_eligible_unreachable": 16,
+  "n_excluded": 46,
+  "n_eligible": 54,
+  "S6_unreachable": {
+   "k": 16,
+   "n": 54,
+   "pct": 29.629629629629626,
+   "ci": [
+    19.137425132179782,
+    42.82757290115303
+   ]
+  },
+  "P1_complete_case": {
+   "k": 0,
+   "n": 38,
+   "pct": 0.0,
+   "ci": [
+    0.0,
+    9.180986822558395
+   ]
+  },
+  "P1_lower": {
+   "k": 0,
+   "n": 54,
+   "pct": 0.0,
+   "ci": [
+    0.0,
+    6.64135880908964
+   ]
+  },
+  "P1_upper": {
+   "k": 16,
+   "n": 54,
+   "pct": 29.629629629629626,
+   "ci": [
+    19.137425132179782,
+    42.82757290115303
+   ]
+  },
+  "S1_complete_case": {
+   "k": 3,
+   "n": 38,
+   "pct": 7.894736842105263,
+   "ci": [
+    2.721459550698772,
+    20.799371457771453
+   ]
+  },
+  "S1_upper": {
+   "k": 19,
+   "n": 54,
+   "pct": 35.18518518518518,
+   "ci": [
+    23.82301110811473,
+    48.51516927976369
+   ]
+  },
+  "threshold_breached": true
+ },
+ "recovered": [
+  {
+   "record_id": "38591974",
+   "position": 77,
+   "rung": "rung 1 -- publisher's own open-access article (Radiology, marked Open Access, CC BY per Crossref/Unpaywall/OpenAlex)",
+   "version": "version_of_record",
+   "status_change": [
+    "eligible_unreachable",
+    "included_reachable"
+   ]
+  },
+  {
+   "record_id": "36200353",
+   "position": 89,
+   "rung": "rung 4 -- preprint version of the same work, on Authorea (Wiley's preprint server), doi:10.22541/au.164972524.42674152/v1, posted 2022-04-12",
+   "version": "preprint",
+   "status_change": [
+    "eligible_unreachable",
+    "included_reachable"
+   ]
+  },
+  {
+   "record_id": "39846055",
+   "position": 99,
+   "rung": "rung 4 -- author's institutional repository: University of Southern Queensland Repository, located via the CORE aggregator (core.ac.uk/download/654320307.pdf), accepted-manuscript PDF, 16 pages",
+   "version": "accepted_manuscript",
+   "status_change": [
+    "eligible_unreachable",
+    "included_reachable"
+   ]
+  },
+  {
+   "record_id": "36170844",
+   "position": 95,
+   "rung": "rung 1 -- publisher's own open-access PDF (Karger, CC BY-NC 4.0), 14 pages",
+   "version": "accepted_manuscript",
+   "status_change": [
+    "eligible_unreachable",
+    "excluded"
+   ]
+  }
+ ],
+ "still_unreachable": [
+  "41617832",
+  "39423605",
+  "42489954",
+  "37222638",
+  "38083399",
+  "40903384",
+  "38082966",
+  "41740680",
+  "39107903",
+  "39699671",
+  "37276106",
+  "31634769",
+  "42153825",
+  "40081198",
+  "41559509",
+  "40147601"
+ ]
+}

@@ -1,0 +1,249 @@
+{
+  "_what": "Round-2 search for PUBLISHED slice/lesion-level vs patient/slide-level rank inversions, 2026-07-29. Extends paper/published_inversions.json, which was built when WebSearch was unavailable. Every number below was read from the source named in source_url or from the Europe PMC fullTextXML of the stated PMCID, and is reproduced verbatim from the table indicated.",
+
+  "_search_limitation": "WebSearch was STILL unavailable this session: every call failed with 'API Error: 400 output_config.effort xhigh is not supported when thinking is disabled on this model'. WebFetch worked and was used for challenge leaderboards and for arXiv/ar5iv. Systematic searching was therefore done through the Europe PMC REST API (full-text search over open-access articles) and the GitHub REST API. Kaggle is JavaScript-rendered and could not be read by WebFetch; Kaggle discussion write-ups remain unsearched.",
+
+  "_corpus": {
+    "unique_pmcids_harvested": 3462,
+    "fulltext_xml_retrieved_and_scanned": 2934,
+    "pass1_prior_session": {"queries": 10, "pmcids": 979, "fulltext": 822},
+    "pass2_this_session": {"queries": 54, "new_pmcids": 2137, "fulltext": 1820,
+      "note": "query phrasings deliberately disjoint from pass 1"},
+    "pass3_this_session": {"queries": 11, "new_pmcids": 53, "fulltext": 44,
+      "note": "benchmarks whose official scoring bundles a fine-unit and a coarse-unit metric"},
+    "pass4_this_session": {"queries": 7, "new_pmcids": 291, "fulltext": 248,
+      "note": "CAMELYON16 / PI-CAI / LUNA16 / DeepLesion saturation harvest"}
+  },
+
+  "_methodological_addition": {
+    "problem": "The pass-1 scanner (paper/screen/inversion_scan.py) only detected the TWO-SEPARATE-TABLES layout, where the evaluation unit appears in each table CAPTION. It could not see the two commoner layouts, so its near-zero yield understated coverage rather than the literature.",
+    "scanner_2_single_table": "One table, two column GROUPS ('Per-lesion | Per-patient'), same metric at both units. Proper colspan/rowspan expansion. Found 18 such tables in 2642 papers; only 1 had >=2 comparable methods.",
+    "scanner_3_bundled": "Fine-unit metric vs coarse-unit metric where the metric CHANGES with the unit. Weaker evidence because unit and metric are confounded, reported separately for that reason.",
+    "scanner_4_benchmark_anchored": "Detection-benchmark comparison tables label columns with the bare metric ('AUC', 'FROC', 'AP') and define the unit only in the methods text, so header-driven scanning misses them entirely. Unit assignment is instead taken from the benchmark's own published metric definition, and applied only to papers that mention that benchmark. THIS is the scan that produced every new case below.",
+    "tie_handling": "top_changed_strict requires the maximum at BOTH units to be unique. This suppresses the pass-1 false positive PMC9954686, whose coarse column was saturated at 1.00 with eight-way ties.",
+    "tau_convention": "tau_a = (concordant - discordant) / (n choose 2). Ties are counted in neither numerator term, so tau_a is attenuated where values tie; this is stated per case."
+  },
+
+  "new_cases": [
+    {
+      "id": "ruan_camelyon16_13methods",
+      "rank": 1,
+      "kind": "peer-reviewed paper reproducing the CAMELYON16 board for 13 methods at BOTH units in one table",
+      "citation": "Ruan J, Zhu Z, Wu C, Ye G, et al. A fast and effective detection framework for whole-slide histopathology image analysis. PLoS One 2021;16(5):e0251521.",
+      "doi": "10.1371/journal.pone.0251521",
+      "pmid": "33979398",
+      "pmcid": "PMC8115773",
+      "licence": "CC BY",
+      "table": "Table 4, 'Detection performance comparison with Camelyon16.' Columns: Team | AUC | FROC",
+      "fine_unit": "lesion (FROC, average sensitivity vs false positives per image)",
+      "coarse_unit": "whole-slide image (AUC)",
+      "n_methods": 13,
+      "concordant": 62, "discordant": 15, "ties": 1, "total_pairs": 78,
+      "tau_a": 0.603,
+      "top1_changes": true,
+      "headline": "The winner changes with the unit. By slide-level AUC the best is 'HMS and MIT' (0.9935); by lesion-level FROC the best is 'Fast ScanNet-16' (0.8533), which is only 3rd by AUC (0.9875). The authors' own method is 2nd by AUC (0.9920) but 4th by FROC (0.7373).",
+      "largest_movements": {
+        "Radboud Uni.": "AUC rank 13 (last, 0.7786) -> FROC rank 7 (0.5748)",
+        "DeepCare, Inc.": "AUC rank 8 (0.8833) -> FROC rank 13 (last, 0.2430)",
+        "Fast ScanNet-16": "AUC rank 3 -> FROC rank 1"
+      },
+      "paired_values": {
+        "HMS and MIT":            {"auc": 0.9935, "froc": 0.8074},
+        "Our method":             {"auc": 0.9920, "froc": 0.7373},
+        "Fast ScanNet-16":        {"auc": 0.9875, "froc": 0.8533},
+        "HMS, Gordon Center, MGH":{"auc": 0.9763, "froc": 0.7600},
+        "Human performance":      {"auc": 0.9660, "froc": 0.7325},
+        "CUHK":                   {"auc": 0.9415, "froc": 0.7030},
+        "EXB Research":           {"auc": 0.9156, "froc": 0.5111},
+        "DeepCare, Inc.":         {"auc": 0.8833, "froc": 0.2430},
+        "Middle East Tech. Uni.": {"auc": 0.8632, "froc": 0.3822},
+        "NLP LOGIX Co.":          {"auc": 0.8298, "froc": 0.3859},
+        "Smart Imaging Tech. Co.":{"auc": 0.8207, "froc": 0.3385},
+        "Univ. of Toronto":       {"auc": 0.8149, "froc": 0.3822},
+        "Radboud Uni.":           {"auc": 0.7786, "froc": 0.5748}
+      },
+      "verbatim_quotes": [
+        "Lesion-based evaluation The second evaluation task is to test the detection/ localization performance, which is summarized using free-response operating characteristic (FROC) curves.",
+        "The FROC curve is defined as the plot of sensitivity versus the average number of false positives per image.",
+        "The label of the patch-based training sample of Fast ScanNet was pixel-level and our classifier used patch level, it is not difficult to understand that the former performed well in FROC of the pixel-level detection."
+      ],
+      "why_it_matters": "The third quote is the authors explaining the inversion mechanistically: the method that wins at the fine unit is the one trained at the fine unit. That is precisely the claim -- the evaluation unit selects the method optimised for that unit -- stated in print by authors who were not arguing for it.",
+      "caveats": [
+        "Unit and metric are confounded: AUC is not definable at lesion level. The confound is entailed by the unit change, as in CAMELYON16 generally.",
+        "No confidence intervals published, so individual reorderings cannot be separated from sampling noise from this table alone.",
+        "Middle East Tech. Uni. and Univ. of Toronto tie at FROC 0.3822, which attenuates tau_a."
+      ]
+    },
+
+    {
+      "id": "jarkman_camelyon16_reversal_with_CIs",
+      "rank": 2,
+      "kind": "single study, 4 model variants, both units, 95% CIs published, near-complete reversal",
+      "citation": "Jarkman S, Karlberg M, Pocievičiūtė M, Bodén A, et al. Generalization of Deep Learning in Digital Pathology: Experience in Breast Cancer Metastasis Detection. Cancers 2022;14(21):5424.",
+      "doi": "10.3390/cancers14215424",
+      "pmid": "36358842",
+      "pmcid": "PMC9659028",
+      "licence": "CC BY",
+      "table": "Table 4. Columns are grouped by dataset (LocalSentinel, LocalAxillary, CAMELYON16, CAMELYON17), each with AUC (95% CI) and FROC (95% CI).",
+      "fine_unit": "lesion (FROC)",
+      "coarse_unit": "whole-slide image (AUC)",
+      "n_methods": 4,
+      "on_CAMELYON16": {
+        "concordant": 1, "discordant": 5, "total_pairs": 6, "tau_a": -0.667,
+        "top1_changes": true,
+        "paired_values": {
+          "Base":             {"auc": 0.969, "auc_ci": "0.926-0.998", "froc": 0.838, "froc_ci": "0.757-0.913"},
+          "Base (only NST)":  {"auc": 0.976, "auc_ci": "0.936-0.999", "froc": 0.820, "froc_ci": "0.732-0.902"},
+          "Local":            {"auc": 0.981, "auc_ci": "0.953-1.000", "froc": 0.825, "froc_ci": "0.746-0.900"},
+          "Local (only NST)": {"auc": 0.988, "auc_ci": "0.965-1.000", "froc": 0.817, "froc_ci": "0.730-0.896"}
+        },
+        "headline": "On CAMELYON16 the AUC ordering is almost exactly the REVERSE of the FROC ordering. Best by slide AUC is 'Local (only NST)' (0.988), which is LAST by lesion FROC (0.817); best by FROC is 'Base' (0.838), which is LAST by AUC (0.969)."
+      },
+      "on_LocalSentinel": {
+        "concordant": 6, "discordant": 0, "total_pairs": 6, "tau_a": 1.0,
+        "top1_changes": false,
+        "note": "On the same paper's own local sentinel-node cohort the two units agree PERFECTLY. Same four models, same two metrics, opposite conclusion about whether the unit matters."
+      },
+      "verbatim_quotes": [
+        "A deep learning model for breast cancer metastases detection in sentinel lymph nodes, trained on CAMELYON multicenter data, was used as a base model, and achieved an AUC of 0.969 (95% CI 0.926–0.998) and FROC of 0.838 (95% CI 0.757–0.913) on CAMELYON16 test data.",
+        "The generalization performance of the base model was evaluated with receiver operating curve–area under curve (ROC-AUC) and free-response operating characteristic (FROC), which are described in more detail below.",
+        "The model was retrained with addition of local data, resulting in about a 4% increase for both AUC and FROC for sentinel nodes, and an increase of 11% in AUC and 49% in FROC for axillary nodes."
+      ],
+      "why_it_matters_for_the_trap": "This is the single most useful located case for the methodological trap, because it publishes 95% CIs on BOTH units. The reversal is real in the point estimates and NOT separable from sampling noise: on CAMELYON16 the AUC extremes are 0.988 (0.965-1.000) vs 0.969 (0.926-0.998) and the FROC extremes are 0.838 (0.757-0.913) vs 0.817 (0.730-0.896) -- both pairs overlap almost completely. The within-unit interval width (~0.16 on FROC) dwarfs the between-unit rank movement. The honest reading is that this benchmark cannot rank these four variants at EITHER unit, which is exactly the alternative hypothesis our analysis must be able to report.",
+      "caveats": [
+        "Only 4 model variants, and they are variants of two base models rather than independent architectures.",
+        "The third quote shows AUC and FROC move together across cohorts even where they disagree on ranking within a cohort.",
+        "Unit and metric confounded, as for all FROC-vs-AUC comparisons."
+      ]
+    },
+
+    {
+      "id": "guo_camelyon16_with_CIs",
+      "rank": 3,
+      "kind": "single study, 6 entries incl. a pathologist, both units, 95% CIs published",
+      "citation": "Guo Z, Liu H, Ni H, Wang X, et al. A Fast and Refined Cancer Regions Segmentation Framework in Whole-slide Breast Pathological Images. Sci Rep 2019;9:882.",
+      "doi": "10.1038/s41598-018-37492-9",
+      "pmid": "30696894",
+      "pmcid": "PMC6351543",
+      "licence": "CC BY",
+      "table": "Table 5, 'Comparison results of our methods and the Camelyon16 methods.' Columns: Team | Architecture | AUC (%) | FROC (%), both with 95% CIs.",
+      "n_methods": 6,
+      "concordant": 8, "discordant": 6, "ties": 1, "total_pairs": 15,
+      "tau_a": 0.133,
+      "top1_changes": true,
+      "paired_values": {
+        "HMS and MIT (GoogLeNet)":        {"auc": 99.4, "auc_ci": "98.3-99.9", "froc": 80.7, "froc_ci": "73.2-88.9"},
+        "HMS and MGH (ResNet)":           {"auc": 97.6, "auc_ci": "94.1-99.9", "froc": 76.0, "froc_ci": "69.2-85.7"},
+        "Pathologist":                    {"auc": 96.6, "auc_ci": "92.7-99.8", "froc": 72.4, "froc_ci": "64.3-80.4"},
+        "Our method (v3_DCNN-1280)":      {"auc": 96.6, "auc_ci": "92.2-99.6", "froc": 82.9, "froc_ci": "75.0-91.0"},
+        "Our method (v3_DCNN-768+1280)":  {"auc": 96.3, "auc_ci": "91.8-99.5", "froc": 83.5, "froc_ci": "75.5-91.1"},
+        "CULab (VGG-16)":                 {"auc": 94.0, "auc_ci": "88.8-98.0", "froc": 70.3, "froc_ci": "60.5-79.9"}
+      },
+      "headline": "Best by slide-level AUC is HMS and MIT (99.4). Best by lesion-level FROC is the authors' own ensemble (83.5), which ranks 5th of 6 by AUC (96.3). tau_a = 0.133 -- the two units barely agree.",
+      "verbatim_quotes": [
+        "Experimental results show that our approach achieves a higher FROC score 83.5% with the champion's method of Camelyon16 challenge 80.7%.",
+        "On Camelyon16 dataset, our framework achieves FROC score 83.5%, which is higher than 80.7% from the champion's method of Camelyon16 challenge.",
+        "In tumor localization task, we use the maximum probability within every lesion region to be the prediction of each region and calculate the FROC metric."
+      ],
+      "why_it_matters": "The claim of beating the CAMELYON16 champion is made on the lesion unit only. On the slide unit the same table shows the champion ahead by 3.1 points. The paper is a worked example of the unit choice determining the headline claim -- and the CIs (FROC 83.5 [75.5-91.1] vs 80.7 [73.2-88.9]) overlap heavily, so neither ordering is established.",
+      "caveats": [
+        "Two rows are both labelled 'Our method', so an automated name-keyed scan collapses them; the values above are read from the raw table.",
+        "Pathologist and Our method (v3_DCNN-1280) tie at AUC 96.6, attenuating tau_a.",
+        "Unit and metric confounded."
+      ]
+    }
+  ],
+
+  "negative_controls_new": [
+    {
+      "id": "chen_camcsa_11methods",
+      "citation": "Chen Y, Wu H, Huang Z, Zhang Z, et al. Cross-slide augmentation for whole slide image classification based on class activation map. Sci Rep 2025;15. PMCID PMC12657889.",
+      "doi": "10.1038/s41598-025-26113-x",
+      "pmid": "41298545",
+      "licence": "CC BY-NC-ND",
+      "table": "Table 1, 'Comparison of WSI classification and location performance between CAMCSA and other methods on the Camelyon16 dataset.' Columns: Methods | ACC | AUC | FROC",
+      "n_methods": 11,
+      "concordant": 53, "discordant": 2, "total_pairs": 55, "tau_a": 0.927,
+      "top1_changes": false,
+      "finding": "A large, modern, 11-method CAMELYON16 comparison at both units in which the ranking is almost entirely PRESERVED. CAMCSA is best at both units (AUC 0.9793, FROC 0.4808). Only 2 of 55 pairs invert (MHIM-MIL vs CAMCSA/without CAM, and Trans-MIL vs CAMCSA/without CAM and CSA).",
+      "why_it_matters": "This is the strongest counter-example found. It must be reported alongside the positive cases: reporting both units does NOT reliably produce an inversion, and any claim that the unit 'changes which method wins' has to be probabilistic, not universal."
+    },
+    {
+      "id": "lgi1_encephalitis_preserved",
+      "note": "Retained from pass 1. Discrimination between LGI1 antibody encephalitis and GABA-B receptor antibody encephalitis based on ResNet18. Vis Comput Ind Biomed Art 2023;6:17. PMCID PMC10435436. Ranking preserved at both units on AUC and accuracy."
+    }
+  ],
+
+  "benchmark_level_evidence": [
+    {
+      "id": "picai_ranking_formula",
+      "kind": "an official benchmark whose ranking is an AVERAGE of a fine-unit and a coarse-unit score",
+      "benchmark": "PI-CAI (Prostate Imaging: Cancer AI), hidden test cohort of 1000 unseen scans, 293 algorithms submitted",
+      "source_url": "https://pi-cai.grand-challenge.org/AI/",
+      "verbatim_quotes": [
+        "Patient-level diagnosis performance is evaluated using the Area Under Receiver Operating Characteristic (AUROC) metric.",
+        "Lesion-level detection performance is evaluated using the Average Precision (AP) metric.",
+        "Overall Ranking Score = (AP + AUROC) / 2"
+      ],
+      "why_it_matters": "A major prostate-MRI benchmark -- the same organ as two of our cohorts -- treats the lesion-level and patient-level scores as two separate axes and averages them. Averaging is only necessary if the two axes can disagree; the formula is an institutional admission that the unit changes the ranking. A team's rank is a function of the weighting chosen between units, and the 50/50 weight is a convention, not a measurement.",
+      "limitation": "The per-team AUROC and AP values are on a JavaScript-rendered leaderboard that WebFetch could not read, and the grand-challenge evaluation API returned no data without authentication. The PI-CAI Lancet Oncology paper (PMC11587881, doi 10.1016/s1470-2045(24)00220-1) reports only the ENSEMBLE of the top five algorithms, not per-algorithm numbers: 'Once trained, these models were ensembled with equal weighting into a single AI system.' So the PI-CAI reordering could NOT be measured, only shown to be anticipated by the organisers.",
+      "next_step_if_wanted": "Ask the PI-CAI organisers for the per-algorithm AUROC and AP table, or read the leaderboard in a real browser. With 293 submissions and published CIs this would be by far the largest and best-powered two-unit ranking available anywhere."
+    },
+    {
+      "id": "camelyon16_17_unit_change_between_editions",
+      "kind": "a benchmark family that CHANGED its evaluation unit between editions",
+      "source_urls": ["https://camelyon16.grand-challenge.org/Results/", "https://camelyon17.grand-challenge.org/Evaluation/"],
+      "camelyon16": "Two separate leaderboards over the same submissions: 'Teams are ranked based on area under ROC curve (AUC)' (whole-slide-image classification) and a tumour-localization board scored by FROC.",
+      "camelyon17": "For the evaluation of the results we use five class quadratic weighted kappa where the classes are the pN-stages.",
+      "why_it_matters": "CAMELYON16 scored slides, CAMELYON17 scores PATIENTS (pN-stage). Same organisers, same disease, successive editions, coarser unit.",
+      "caveat": "NOT a clean natural experiment: the task also changed (binary slide metastasis -> 5-class patient pN-stage), so teams are not scored on the same predictions and the two leaderboards cannot be compared entry-by-entry. Cite as motivation for the unit question, not as an inversion."
+    },
+    {
+      "id": "luna16_single_unit",
+      "kind": "checked and NEGATIVE",
+      "source_url": "https://luna16.grand-challenge.org/Evaluation/",
+      "finding": "LUNA16 does not rank at two units. Both tracks use one score: 'the average sensitivity at 7 predefined false positive rates' of '1/8, 1/4, 1/2, 1, 2, 4, and 8 FPs per scan'. Sensitivity is per-nodule and the false-positive rate is per-scan, but these are two axes of ONE FROC metric, not two rankings. Confidence intervals are bootstrapped 'using (scan-level) sampling with replacement'.",
+      "note": "The scan-level bootstrap is worth citing on its own: LUNA16 already clusters its resampling by scan, which is the analogue of the subject-clustered bootstrap in pipeline/s04_stats.py."
+    }
+  ],
+
+  "adjacent_evidence_new": [
+    {
+      "id": "nasopharyngeal_split_axis",
+      "axis": "SPLIT unit, not evaluation unit -- second citation alongside Yagis et al.",
+      "citation": "Deep Convolutional Neural Network for Nasopharyngeal Carcinoma Discrimination on MRI by Comparison of Hierarchical and Simple Layered Convolutional Neural Networks. Diagnostics 2022;12(10):2478.",
+      "doi": "10.3390/diagnostics12102478",
+      "pmcid": "PMC9601165",
+      "finding": "Table 1 ('Evaluation metrics of each model by using an image-level splitter') vs Table 2 ('... using the patient-level splitter'), 7 models. On accuracy, precision and F1 the top-ranked model changes (ResNet101-Weight -> ResNet50-Weight) with 5 of 21 pairs discordant; on AUC the top is preserved with 3 of 21 discordant.",
+      "note": "Found by the pass-1 scanner but never adjudicated into the pass-1 file. It is the SPLIT axis, so it belongs with Yagis et al. and must not be presented as an evaluation-unit inversion."
+    }
+  ],
+
+  "priority3_public_prediction_files": {
+    "status": "SEARCHED THIS SESSION, NEGATIVE",
+    "method": "GitHub REST API repository search plus full recursive git-tree listing of the leading solution repositories, filtering for files matching (oof|pred|submission|sub_|valid|prob|logit) with a data extension (.csv/.npy/.npz/.pkl/.parquet/.feather/.txt/.json). Only metadata was listed; nothing was downloaded.",
+    "repos_checked": [
+      {"repo": "i-pan/kaggle-rsna-pe", "note": "2nd place RSNA-STR PE", "licence": "Apache-2.0", "files": 218, "prediction_files": 0},
+      {"repo": "GuanshuoXu/RSNA-STR-Pulmonary-Embolism-Detection", "licence": "MIT", "files": 505, "prediction_files": 0},
+      {"repo": "darraghdog/rsnastr", "licence": "none stated", "files": 55, "prediction_files": 0},
+      {"repo": "SeuTao/RSNA2019_Intracranial-Hemorrhage-Detection", "note": "1st place RSNA ICH", "licence": "none stated", "prediction_files": 0}
+    ],
+    "conclusion": "The leading published Kaggle solutions ship training and inference CODE but not out-of-fold or test-set PREDICTION files. A two-unit recomputation from published predictions is therefore not possible for RSNA-STR PE or RSNA ICH without re-running the models. Kaggle test labels are withheld in both competitions, so even obtaining another team's test predictions would not permit patient-level rescoring; only the RSNA-STR PE public TRAINING set carries both image-level and exam-level labels.",
+    "residual_gap": "Kaggle discussion write-ups are JavaScript-rendered and WebFetch cannot read them. Some 'solution' threads report both image-level and exam-level validation scores in prose. This remains the one genuinely unsearched arm."
+  },
+
+  "rarity_finding": {
+    "claim": "Papers that report BOTH evaluation units for TWO OR MORE methods are rare enough to be counted.",
+    "same_metric_at_both_units": "Of 2642 full texts scanned by the single-table scanner, 18 tables presented both a fine-unit and a coarse-unit column for the SAME metric; only 1 of those (PMC9326101) carried >=2 comparable model rows. The other 17 were reader studies, meta-analyses or single-model tables.",
+    "bundled_metric": "Of 2686 full texts, 9 tables paired a fine-unit metric with a coarse-unit metric under a unit-labelled header; 1 yielded a comparison.",
+    "benchmark_anchored": "Of 350 papers mentioning CAMELYON / PI-CAI / LUNA16, only 7 published a table with both a lesion-level and a slide/patient-level metric for >=3 methods.",
+    "interpretation": "The phenomenon is under-documented rather than absent. Most papers report ONE unit, so the ranking at the other unit is simply unknown and unrecoverable from the publication. That is the gap this paper fills, and it can be stated with a denominator."
+  },
+
+  "verification_of_pass1_cases": {
+    "camelyon16": "CONFIRMED against https://camelyon16.grand-challenge.org/Results/. Slide board: HMS/MGH Method 1 3rd at 0.9650. Lesion board: HMS/MGH Method 2 3rd at 0.7289. The two methods from the same group reverse order between units, as recorded. The 'Apr-1-deadline top-five' second_headline was NOT re-verified; the live page now shows the complete board.",
+    "rsna_str_pe": "CONFIRMED independently from ar5iv (https://ar5iv.labs.arxiv.org/html/2109.07029). All six architectures match Table 4 (ImageNet column, image level) and Table 2 (Mean AUC, exam level). Recomputed tau_a = 7/15 = 0.467 and Spearman rho = 0.543, both matching the recorded values, with 4 of 15 pairs discordant.",
+    "adni_slice_scan": "CONFIRMED from PMC13027363 Table 8. All five architectures and all three columns match, including the signed deltas. Recomputed tau_a = -0.600 and rho = -0.800, matching.",
+    "acute_pancreatitis": "CONFIRMED from PMC13115216 Tables 3, 4, 5 and 7. Slice (Table 5) and patient (Table 3) accuracies match; Table 7 CIs match (ViT 89.19 [75.3-96.4], Swin 78.38 [62.8-89.2]); Table 4 Swin/ViT tie at 85.14 confirmed. ONE CORRECTION: ResNet50 and Swin are TIED at 78.38% patient accuracy, so the recorded patient_rank 3 for Swin and 4 for ResNet50 impose an order that the data do not support. Recomputed tau_a = 0.300 and 3/10 discordant are unaffected, but tau_b = 0.316 and the tie should be stated."
+  }
+}

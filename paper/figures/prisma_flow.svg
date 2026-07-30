@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1009" viewBox="0 0 1120 1009" font-family="Helvetica,Arial,sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#222222"/></marker></defs>
+<rect width="1120" height="1009" fill="#ffffff"/>
+<text x="70" y="32" font-size="17" font-weight="bold" fill="#111111">PRISMA 2020 flow, adapted for a random-sample meta-research screen</text>
+<text x="70" y="52" font-size="11.5" font-weight="normal" fill="#555555">PhaseDx prevalence screen. Every count is produced by paper/screen/analysis/prisma_flow.py from the files it names.</text>
+<rect x="70" y="78" width="470" height="92" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="104" font-size="13" font-weight="bold" fill="#111111">Records identified from a database</text>
+<text x="82" y="121" font-size="13" font-weight="normal" fill="#111111">PubMed, n = 9,979</text>
+<text x="82" y="138" font-size="13" font-weight="normal" fill="#111111">one frozen Boolean query, run 2026-07-29</text>
+<text x="82" y="155" font-size="13" font-weight="normal" fill="#111111">Registers n = 0; other methods n = 0</text>
+<rect x="610" y="78" width="450" height="92" rx="3" fill="#f7f7f7" stroke="#222222" stroke-width="1.2"/>
+<text x="622" y="104" font-size="13" font-weight="bold" fill="#111111">Records removed before screening</text>
+<text x="622" y="121" font-size="13" font-weight="normal" fill="#111111">Duplicates removed n = 0 (PMID-unique frame)</text>
+<text x="622" y="138" font-size="13" font-weight="normal" fill="#111111">Removed by automation tools n = 0</text>
+<text x="622" y="155" font-size="13" font-weight="normal" fill="#111111">Removed for other reasons n = 0</text>
+<line x1="540" y1="108" x2="610" y2="108" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="34" y="124.0" font-size="12" font-weight="bold" fill="#888888" text-anchor="middle" transform="rotate(-90 34 124.0)">Identification</text>
+<rect x="70" y="206" width="470" height="75" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="232" font-size="13" font-weight="bold" fill="#111111">Records randomly sampled for screening</text>
+<text x="82" y="249" font-size="13" font-weight="normal" fill="#111111">n = 100  (permutation positions 1-100)</text>
+<text x="82" y="266" font-size="13" font-weight="normal" fill="#111111">seed 20260729; frame SHA-256 d611def0785f...</text>
+<rect x="610" y="206" width="450" height="92" rx="3" fill="#f7f7f7" stroke="#222222" stroke-width="1.2"/>
+<text x="622" y="232" font-size="13" font-weight="bold" fill="#111111">Frame records not sampled</text>
+<text x="622" y="249" font-size="13" font-weight="normal" fill="#111111">never drawn n = 9,579</text>
+<text x="622" y="266" font-size="13" font-weight="normal" fill="#111111">pilot, excluded a priori n = 10</text>
+<text x="622" y="283" font-size="13" font-weight="normal" fill="#111111">pre-specified reserve, NOT activated n = 290</text>
+<line x1="540" y1="236" x2="610" y2="236" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="305.0" y1="170" x2="305.0" y2="206" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<rect x="70" y="334" width="470" height="58" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="360" font-size="12" font-weight="bold" fill="#111111">Records screened (title and abstract)</text>
+<text x="82" y="377" font-size="12" font-weight="normal" fill="#111111">n = 100</text>
+<rect x="610" y="334" width="450" height="143" rx="3" fill="#f7f7f7" stroke="#222222" stroke-width="1.2"/>
+<text x="622" y="360" font-size="12" font-weight="bold" fill="#111111">Records excluded at screening</text>
+<text x="622" y="377" font-size="12" font-weight="normal" fill="#111111">n = 21</text>
+<text x="622" y="394" font-size="12" font-weight="normal" fill="#111111">    E-SEG  n = 8   segmentation/delineation evaluated, no class decision</text>
+<text x="622" y="411" font-size="12" font-weight="normal" fill="#111111">    E-DERIV  n = 7   input is a derived feature vector, not an image</text>
+<text x="622" y="428" font-size="12" font-weight="normal" fill="#111111">    E-NOCLF  n = 4   no fitted classifier, or no negative class</text>
+<text x="622" y="445" font-size="12" font-weight="normal" fill="#111111">    E-NONMED  n = 1   not human medical imaging</text>
+<text x="622" y="462" font-size="12" font-weight="normal" fill="#111111">    E-TYPE  n = 1   not primary research of the eligible type</text>
+<line x1="540" y1="364" x2="610" y2="364" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="305.0" y1="298" x2="305.0" y2="334" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="34" y="363.0" font-size="12" font-weight="bold" fill="#888888" text-anchor="middle" transform="rotate(-90 34 363.0)">Screening</text>
+<rect x="70" y="513" width="470" height="75" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="539" font-size="13" font-weight="bold" fill="#111111">Reports sought for retrieval</text>
+<text x="82" y="556" font-size="13" font-weight="normal" fill="#111111">n = 79</text>
+<text x="82" y="573" font-size="13" font-weight="normal" fill="#111111">five-rung access ladder, protocol section 7</text>
+<rect x="610" y="513" width="450" height="75" rx="3" fill="#f7f7f7" stroke="#222222" stroke-width="1.2"/>
+<text x="622" y="539" font-size="13" font-weight="bold" fill="#111111">Reports not retrieved</text>
+<text x="622" y="556" font-size="13" font-weight="normal" fill="#111111">n = 16</text>
+<text x="622" y="573" font-size="13" font-weight="normal" fill="#111111">paywalled after all five rungs; no infringing source used</text>
+<line x1="540" y1="543" x2="610" y2="543" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="305.0" y1="477" x2="305.0" y2="513" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<rect x="70" y="624" width="470" height="58" rx="3" fill="#ffffff" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="650" font-size="12" font-weight="bold" fill="#111111">Reports assessed for eligibility (full text)</text>
+<text x="82" y="667" font-size="12" font-weight="normal" fill="#111111">n = 63</text>
+<rect x="610" y="624" width="450" height="160" rx="3" fill="#f7f7f7" stroke="#222222" stroke-width="1.2"/>
+<text x="622" y="650" font-size="12" font-weight="bold" fill="#111111">Reports excluded at full text</text>
+<text x="622" y="667" font-size="12" font-weight="normal" fill="#111111">n = 25</text>
+<text x="622" y="684" font-size="12" font-weight="normal" fill="#111111">    E-SEG  n = 10   segmentation/delineation evaluated, no class decision</text>
+<text x="622" y="701" font-size="12" font-weight="normal" fill="#111111">    E-DERIV  n = 10   input is a derived feature vector, not an image</text>
+<text x="622" y="718" font-size="12" font-weight="normal" fill="#111111">    E-NOCLF  n = 1   no fitted classifier, or no negative class</text>
+<text x="622" y="735" font-size="12" font-weight="normal" fill="#111111">    E-2D  n = 2   inherently 2D acquisition</text>
+<text x="622" y="752" font-size="12" font-weight="normal" fill="#111111">    E-NONMED  n = 1   not human medical imaging</text>
+<text x="622" y="769" font-size="12" font-weight="normal" fill="#111111">    E-PROJ  n = 1   volume collapsed to a projection before the model</text>
+<line x1="540" y1="654" x2="610" y2="654" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<line x1="305.0" y1="588" x2="305.0" y2="624" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<rect x="70" y="820" width="470" height="75" rx="3" fill="#eaf1fb" stroke="#222222" stroke-width="1.2"/>
+<text x="82" y="846" font-size="13" font-weight="bold" fill="#111111">Studies included in the review</text>
+<text x="82" y="863" font-size="13" font-weight="normal" fill="#111111">n = 38   (the complete-case denominator)</text>
+<text x="82" y="880" font-size="13" font-weight="normal" fill="#111111">eligible-looking set n = 54; unreachable 16/54 = 29.6%</text>
+<line x1="305.0" y1="784" x2="305.0" y2="820" stroke="#222222" stroke-width="1.2" marker-end="url(#a)"/>
+<text x="34" y="857.5" font-size="12" font-weight="bold" fill="#888888" text-anchor="middle" transform="rotate(-90 34 857.5)">Included</text>
+<text x="70" y="925" font-size="11.5" font-weight="normal" fill="#555555">Censoring exceeds the pre-registered 15% threshold, so protocol section 7 makes the bounding interval, not the</text>
+<text x="70" y="941" font-size="11.5" font-weight="normal" fill="#555555">complete-case point estimate, the headline for the primary endpoint. The pre-registered target of 75 included</text>
+<text x="70" y="957" font-size="11.5" font-weight="normal" fill="#555555">studies was not reached and the extension rule into the reserve was triggered but not executed. Both are</text>
+<text x="70" y="973" font-size="11.5" font-weight="normal" fill="#555555">protocol deviations and are reported as such, not absorbed.</text>
+</svg>

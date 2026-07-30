@@ -1,0 +1,537 @@
+{
+  "_schema": "phasedx.screen.access_recovery.v1",
+  "_what_this_is": "Second pass over the ACCESS failure declared in paper/FINDINGS.md sec.1.4. The pre-registered protocol (paper/screen_protocol.md sec.7) puts the bounding interval in place of the point estimate whenever unreachable papers exceed 15% of the eligible set; the first pass returned 20/55 = 36.4%, so the headline became [0.0%, 36.4%]. That bound narrows only when full texts are recovered, never when the sample grows. This file records a re-run of the five-rung access ladder against every record coded unreachable_* in any of the four sealed batch files, and the full re-coding of every record the re-run reached.",
+  "_does_not_edit_sealed_files": "screen_batch_{A,B,C,D}.json are the screeners' sealed, git-timestamped submissions and are NOT modified. This file is an overlay applied at analysis time by paper/screen/analysis/recompute_with_recovery.py, which reports both the as-sealed and the post-recovery numbers side by side.",
+  "_run_utc": "2026-07-29T13:00:00Z",
+  "_operator": "access-recovery pass, agent-executed, single operator",
+  "_sources_permitted": "PubMed Central / Europe PMC; publisher OA HTML and PDF; publisher-registered Crossref text-mining endpoints; Unpaywall and OpenAlex OA locations; institutional and subject repositories via CORE and OpenAIRE; preprint servers; the Internet Archive Wayback Machine as a public archive of pages that are themselves openly licensed.",
+  "_sources_refused": "Sci-Hub, LibGen and every other unauthorised full-text source. No record below was obtained from one, and no record is reported as reachable because one of them holds it. Bot-detection and Cloudflare challenges were NOT circumvented: where a publisher's live site refused this environment, that is recorded as an environment limitation and the record stays unreachable unless a legitimate alternate copy existed.",
+  "_ladder_rerun_summary": {
+    "records_coded_unreachable_before": 20,
+    "denominator_eligible_looking_before": 55,
+    "unreachable_rate_before": "36.4%",
+    "recovered": 4,
+    "still_unreachable": 16,
+    "note": "One recovered record (36170844) turns out on full text to be INELIGIBLE, so it leaves the eligible denominator entirely rather than moving from the unreachable column to the reachable column. That shrinks the denominator and is reported as such, not hidden."
+  },
+  "records": [
+    {
+      "record_id": "38591974",
+      "permutation_position": 77,
+      "batch": "batch_C",
+      "original_screener_id": "S3",
+      "recoded_utc": "2026-07-29T13:05:00Z",
+      "citation": "Pan Z, Hu G, Zhu Z, et al. Predicting Invasiveness of Lung Adenocarcinoma at Chest CT with Deep Learning Ternary Classification Models. Radiology 2024;311(1):e232057. doi:10.1148/radiol.232057",
+      "access_rung_succeeded": "rung 1 -- publisher's own open-access article (Radiology, marked Open Access, CC BY per Crossref/Unpaywall/OpenAlex)",
+      "access_channel_note": "pubs.rsna.org returns HTTP 403 to every client available in this environment (curl, WebFetch) and the domain is blocked by this environment's browsing policy, so the live publisher site could not serve it. The identical publisher-rendered OA article page was retrieved from the Internet Archive Wayback Machine, snapshot 20240415092258 of https://pubs.rsna.org/doi/10.1148/radiol.232057. This is a public archive of a page the publisher itself publishes open access; it is not an unauthorised source.",
+      "access_rungs_tried_and_failed": [
+        "PMC / Europe PMC: no PMC record (idconv: 'Identifier not found in PMC'); Europe PMC inEPMC=N",
+        "publisher live site pubs.rsna.org: HTTP 403 via curl and WebFetch; domain blocked by browsing policy",
+        "Crossref registers only a similarity-checking link for this DOI, no text-mining endpoint",
+        "HKU Scholars Hub (hub.hku.hk/handle/10722/350431, the submittedVersion OpenAlex lists): HTTP 403",
+        "CORE aggregator: a HKU record exists (core.ac.uk/download/688987634.pdf) but the file itself returns HTTP 404",
+        "Internet Archive Scholar: session-verification challenge, not circumvented"
+      ],
+      "fulltext_reachable": "oa_pmc_or_publisher",
+      "fulltext_version_used": "version_of_record",
+      "supplement_status": "NOT OBTAINED. Appendix S1 and Tables S1-S3 are cited throughout the main text; https://pubs.rsna.org/doi/suppl/10.1148/radiol.232057 has no Wayback snapshot (404) and the live URL 403s. The 14-term search below therefore covers the complete main text and NOT the supplement. Under the codebook's evidence rule this makes the all-false trivial_baseline code EVIDENCED FOR THE MAIN TEXT ONLY; flag_for_adjudication is set on that ground alone.",
+      "stage1_decision": "go_to_fulltext",
+      "final_inclusion": "included",
+      "exclusion_code": null,
+      "exclusion_quote": null,
+      "evaluation_unit_reported": "lesion",
+      "evaluation_unit_quote": "\"model 6 achieved accuracy of 88% (851 of 966 nodules [95% CI: 86, 90]), 90% (871 of 966 nodules [95% CI: 88, 92]), and 87% (842 of 966 nodules [95% CI: 85, 89]) for preinvasive, minimally invasive, and invasive lesions\" (Results, Overall Diagnostic Performance of the Models). Every denominator is a nodule count, never a patient count.",
+      "headline_unit": "na_only_one_unit_reported",
+      "headline_unit_quote": "No patient-level or slice-level metric is reported anywhere; all six models are scored per nodule.",
+      "split_unit": "lesion_or_roi",
+      "split_quote": "\"A total of 4929 nodules from 4483 patients (mean age, 50.1 years +/- 9.5 [SD]; 2806 female) were divided into training (n = 3384), validation (n = 579), and internal (n = 966) test sets\" (Results, Data Set Characteristics). 3384 + 579 + 966 = 4929, i.e. the split is over NODULES, not patients. With 4929 nodules from 4483 patients, roughly 446 patients contribute more than one nodule, so a patient can appear on both sides of the internal split. THIS IS THE EXACT QUESTION S3 FLAGGED AND COULD NOT SETTLE FROM THE ABSTRACT; the full text settles it against the paper.",
+      "split_disjointness_verified": "not_stated",
+      "trivial_baseline": {
+        "constant_or_prevalence": false,
+        "positional": false,
+        "acquisition_metadata": false,
+        "permuted_or_shuffled_label": false,
+        "clinical_or_demographic_only": false,
+        "other_non_imaging": false
+      },
+      "trivial_baseline_quote": "All 14 terms run over the complete main text. The only two 'baseline' hits are (i) \"Baseline: Flowchart of the radiomics-based model (model 1)\" (Fig 1 legend) -- 'baseline' here names the first model in an upgrade chain, and that model is a RADIOMICS model, which uses pixels and is excluded by the codebook's does_not_count list; and (ii) \"Table 1: Baseline Characteristics of Patients and Pulmonary Nodules in the Data Sets\" -- a demographic table, not a model. No constant/majority/prevalence arm, no positional arm, no acquisition-metadata arm, no permutation null anywhere in the main text.",
+      "trivial_baseline_other_description": null,
+      "chance_asserted_without_measurement": false,
+      "searches_run": "baseline; chance; random; majority; prevalence; constant; trivial; metadata; clinical-only; clinical model; position; location; slice index; permut -- all 14 terms run over the COMPLETE MAIN TEXT of the version of record. SUPPLEMENT NOT SEARCHED (Appendix S1 unobtainable, see supplement_status). Hits: baseline x2 (radiomics model 1 in the Fig 1 upgrade chain; Table 1 demographic 'Baseline Characteristics'), random x3 (random-forest analogy in Discussion x2; a cited randomised trial in the reference list), location x1 (site-navigation boilerplate in the archived page chrome, not article text). Zero hits for chance, majority, prevalence, constant, trivial, metadata, clinical-only, clinical model, slice index, permut.",
+      "positional_distribution_reported": "no",
+      "positional_distribution_quote": "The classification unit is the nodule, not a slice within a stack, and the paper never tabulates or discusses label frequency against position along the acquisition axis. The single 'location' hit is page navigation boilerplate.",
+      "dataset_name": "multicentre private lung-nodule cohort + external pGGN cohort (Peking Union Medical College Hospital and collaborating centres)",
+      "dataset_public": "private",
+      "modality": "CT",
+      "mixed_modality": false,
+      "organ_or_region": "lung",
+      "n_patients": 4483,
+      "n_patients_test": 281,
+      "n_slices_or_images": 4929,
+      "n_positive_reported": "neither",
+      "headline_metric": "accuracy",
+      "headline_value": 0.85,
+      "headline_metric_qualifier": "Abstract Results sentence: \"For classifying minimally invasive adenocarcinoma, the accuracy was 85% and 79%, sensitivity was 75% and 63%, and specificity was 89% and 85% for the model with adjudication (model 6) and the model without (model 3), respectively.\" 85% is model 6 on the external test set.",
+      "headline_test_set": "external",
+      "headline_value_scope": "single_modality_arm",
+      "headline_selection_rule": "abstract_sentence",
+      "uncertainty_interval_reported": "ci_unspecified_method",
+      "uncertainty_quote": "\"The 95% CI and the standard error for comparison of diagnostic indexes were obtained from 1000 rounds of bootstrap replications\" (Statistical Analysis). The resampling unit is not stated and every reported denominator is a nodule, so the interval is NOT clustered by subject even though patients contribute multiple nodules.",
+      "input_representation": "3D_volume",
+      "input_quote": "\"the model based on the traditional three-dimensional DenseNet (27) framework sequentially underwent three modifications\" (Materials and Methods, model development).",
+      "label_broadcast_to_slices": "na",
+      "code_availability": "public_link_stated",
+      "code_quote": "\"The complete computer code used for modeling and data analysis of the models is publicly available at Github (https://github.com/zhjtwx/infliltration_rad.git)\" (Statistical Analysis).",
+      "screener_confidence": "medium",
+      "flag_for_adjudication": true,
+      "notes": "RECOVERED from unreachable_paywalled. S3's original code was unreachable_eligibility_unresolved with every field 'unclear' and searches_run 'NOT RUN'. The full text confirms eligibility and, more usefully, resolves the leakage question S3 explicitly flagged: the split is at the nodule level over a cohort where ~10% of patients contribute more than one nodule. No zero-image baseline in the main text. Confidence is medium and the adjudication flag is set SOLELY because Appendix S1 could not be obtained, so the negative on the primary endpoint is evidenced for the main text but not for the supplement.",
+      "_changes_vs_sealed": {
+        "fulltext_reachable": [
+          "unreachable_paywalled",
+          "oa_pmc_or_publisher"
+        ],
+        "final_inclusion": [
+          "unreachable_eligibility_unresolved",
+          "included"
+        ],
+        "split_unit": [
+          "unclear",
+          "lesion_or_roi"
+        ],
+        "trivial_baseline": [
+          "all six sub-flags 'unclear'",
+          "all six sub-flags false"
+        ],
+        "positional_distribution_reported": [
+          "unclear",
+          "no"
+        ],
+        "status_for_analysis": [
+          "eligible_unreachable",
+          "included_reachable"
+        ]
+      },
+      "_retrieval_urls": [
+        "https://web.archive.org/web/20240415092258if_/https://pubs.rsna.org/doi/10.1148/radiol.232057"
+      ]
+    },
+    {
+      "record_id": "36200353",
+      "permutation_position": 89,
+      "batch": "batch_D",
+      "original_screener_id": "S4",
+      "recoded_utc": "2026-07-29T13:10:00Z",
+      "citation": "Hua H, Li S, Xu Y, et al. Differentiation of eosinophilic and non-eosinophilic chronic rhinosinusitis on preoperative computed tomography using deep learning. Clin Otolaryngol 2023;48(2):330-338. doi:10.1111/coa.13988",
+      "access_rung_succeeded": "rung 4 -- preprint version of the same work, on Authorea (Wiley's preprint server), doi:10.22541/au.164972524.42674152/v1, posted 2022-04-12",
+      "access_channel_note": "Europe PMC indexes the preprint as PPR481155 and links it to the published record as 'Preprint of'. www.authorea.com returns HTTP 403 to every client available here, so the preprint PDF was retrieved from the Internet Archive Wayback Machine snapshot 20240413100529 of the Authorea PDF redirect, which resolves to Authorea's own CDN copy. The PDF's own footer reads: \"Posted on Authorea 12 Apr 2022 ... This a preprint and has not been peer reviewed. Data may be preliminary.\"",
+      "access_rungs_tried_and_failed": [
+        "PMC / Europe PMC: no PMC record for the published article; Unpaywall and OpenAlex both report is_oa=False, oa_status=closed",
+        "publisher live site onlinelibrary.wiley.com: HTTP 403; no Wayback snapshot of the article page",
+        "Crossref registers only a similarity-checking link for 10.1111/coa.13988",
+        "CORE and OpenAIRE: no repository copy",
+        "www.authorea.com live: HTTP 403"
+      ],
+      "fulltext_reachable": "preprint_version_only",
+      "fulltext_version_used": "preprint",
+      "version_divergence_warning": "THE PREPRINT IS NOT THE VERSION OF RECORD. The published article is Clin Otolaryngol 2023;48(2):330-338 and may differ. Per protocol sec.7 this record is reported separately and must appear in the version-of-record sensitivity analysis. The preprint carries no supplement.",
+      "stage1_decision": "go_to_fulltext",
+      "final_inclusion": "included",
+      "exclusion_code": null,
+      "exclusion_quote": null,
+      "evaluation_unit_reported": "both",
+      "evaluation_unit_quote": "\"we evaluated the performances of the models trained using each image and each patient as a unit\" (Abstract, Methods) and \"When trained using a single image as a unit, the areas under the curve (AUCs) of the efficientnet b0, resnet50, inception resnet v2, and Xception networks were 0.84, 0.86, 0.83, and 0.86, respectively. When trained using each patient as a unit, the AUCs of the four neural networks increased to 0.89, 0.90, 0.88, and 0.90, respectively\" (Results 3.3). The SAME metric is reported at both units, which is what 'both' requires.",
+      "headline_unit": "slice",
+      "headline_unit_quote": "Abstract Results sentence gives the image-as-unit numbers first: \"The average area under the curve and mean accuracy values of the four networks were 0.848 and 0.762 for models trained using a single image as a unit, while the corresponding values for models trained using each patient as a unit were 0.853 and 0.893, respectively.\" Rule A5 takes whichever unit is stated first; that is the single image, i.e. the axial CT slice.",
+      "split_unit": "patient_subject",
+      "split_quote": "\"The dataset of the classification model comprised 56,892 images, including ECRS (343 patients and 22,671 images) and NECRS (535 patients and 34,221 images). Patients in each category were allocated to the training and validation cohorts at a ratio of 4:1.\" (Methods 2.3). The allocation sentence names patients as the unit allocated, so this meets the codebook's 'the paper must SAY so' test. NOTE the segmentation arm is split differently -- \"1,365 images were used to construct datasets, which were randomly divided into the training and validation cohorts at a ratio of 4:1\" -- but per amendment A3 only the classification arm is coded.",
+      "split_disjointness_verified": "stated_only",
+      "trivial_baseline": {
+        "constant_or_prevalence": false,
+        "positional": false,
+        "acquisition_metadata": false,
+        "permuted_or_shuffled_label": false,
+        "clinical_or_demographic_only": false,
+        "other_non_imaging": false
+      },
+      "trivial_baseline_quote": "All 14 terms run over the complete preprint text. Zero hits for baseline, chance, majority, constant, trivial, metadata, clinical-only, clinical model, location, slice index, permut. The single 'prevalence' hit is epidemiological -- \"with a prevalence rate of 8% in the general population\" -- not a prevalence predictor. All four 'position' hits are the European Position Paper on Rhinosinusitis and the CT window position in HU. The comparison the paper does make is image-unit vs patient-unit training, and both arms are image models.",
+      "trivial_baseline_other_description": null,
+      "chance_asserted_without_measurement": false,
+      "searches_run": "baseline; chance; random; majority; prevalence; constant; trivial; metadata; clinical-only; clinical model; position; location; slice index; permut -- all 14 terms run over the COMPLETE preprint full text. The preprint has no supplement. Hits: random x4 (random selection of HPF fields for eosinophil counting; random selection of 1,365 segmentation images; random division of the segmentation cohort; a cited randomised trial), prevalence x1 (disease prevalence 8%), position x4 (European Position Paper x2; CT soft-tissue and bone window position in HU x2). Zero hits for the other eleven terms.",
+      "positional_distribution_reported": "text_qualitative_only",
+      "positional_distribution_quote": "\"Since all sinus CT slices did not show between-disease differences and we sought to achieve accurate classification, we constructed two datasets using each patient and each image as a unit\" (Methods 2.3), and in the Discussion \"This confirms the hypothesis that not all slices show between-disease differences.\" This is an explicit, unquantified statement that class-discriminative signal is NOT uniform across slices of one acquisition. No histogram, no per-position metric, no numbers -- hence text_qualitative_only, not figure_or_table.",
+      "dataset_name": "private single-centre sinus CT cohort (Renmin Hospital of Wuhan University)",
+      "dataset_public": "private",
+      "modality": "CT",
+      "mixed_modality": false,
+      "organ_or_region": "head_neck",
+      "n_patients": 878,
+      "n_patients_test": null,
+      "n_slices_or_images": 56892,
+      "n_positive_reported": "patients_and_slices",
+      "n_positive_quote": "\"ECRS (343 patients and 22,671 images) and NECRS (535 patients and 34,221 images)\" -- both counts given for both classes.",
+      "headline_metric": "AUC",
+      "headline_value": 0.848,
+      "headline_metric_qualifier": "Abstract Results: mean AUC 0.848 across the four networks for the image-as-unit models (patient-as-unit mean AUC 0.853). Per-network image-unit AUCs 0.84/0.86/0.83/0.86; patient-unit 0.89/0.90/0.88/0.90.",
+      "headline_test_set": "internal_held_out",
+      "headline_test_set_note": "There is a 4:1 training/validation split and NO third held-out test set; the reported numbers are validation-cohort numbers. Coded internal_held_out as the nearest level, with the absence of a separate test set recorded here.",
+      "headline_value_scope": "single_modality_arm",
+      "headline_selection_rule": "abstract_sentence",
+      "uncertainty_interval_reported": "none",
+      "input_representation": "2D_slice",
+      "input_quote": "\"Exported CT images were saved in the DICOM format and converted to the PNG format for segmentation and classification model training; additionally, the slices of axial CT images with lesions were used to build the dataset\" (Methods 2.2). Acquisition is volumetric (64-slice spiral CT), the classifier input is a single axial slice -- eligible under I3, since the slice comes from a volumetric acquisition and retains a slice axis (this is not E-PROJ).",
+      "label_broadcast_to_slices": "true",
+      "label_broadcast_quote": "The histological ECRS/NECRS label is a per-patient diagnosis from surgical specimens, and in the image-as-unit arm \"each image was labeled and input into the classification network for learning\" (Methods 2.3), i.e. one patient-level label copied onto every one of that patient's slices.",
+      "code_availability": "none",
+      "screener_confidence": "medium",
+      "flag_for_adjudication": true,
+      "notes": "RECOVERED as a PREPRINT, not the version of record; the adjudication flag is set on that ground. S4's original code (unreachable, abstract-only) called headline_unit='slice' and evaluation_unit='both' from the abstract alone and both survive the full text. The full text adds three things the abstract could not: the split is explicitly at the PATIENT level (S4 endpoint), n positives are given for both patients and images (S9), and the authors state qualitatively that not all slices carry between-disease signal (S5b). This is the most thesis-relevant record in the recovered set -- the authors independently run the image-unit vs patient-unit contrast this paper's whole argument is about, and conclude \"labeling each patient to build a dataset for classification may be more reliable than labeling each medical image\" -- but they do NOT run any zero-image baseline, so the primary flag stays false.",
+      "_changes_vs_sealed": {
+        "fulltext_reachable": [
+          "unreachable_paywalled",
+          "preprint_version_only"
+        ],
+        "final_inclusion": [
+          "included (invalid under amendment D1; analysis had forced it to eligible_unreachable)",
+          "included (now valid -- full text in hand)"
+        ],
+        "split_unit": [
+          "unclear",
+          "patient_subject"
+        ],
+        "trivial_baseline": [
+          "all false but UNEVIDENCED (abstract-only search)",
+          "all false and EVIDENCED (full-text 14-term search)"
+        ],
+        "positional_distribution_reported": [
+          "unclear",
+          "text_qualitative_only"
+        ],
+        "n_positive_reported": [
+          "was not resolvable",
+          "patients_and_slices"
+        ],
+        "status_for_analysis": [
+          "eligible_unreachable",
+          "included_reachable"
+        ]
+      },
+      "_retrieval_urls": [
+        "https://web.archive.org/web/20240413100529id_/https://www.authorea.com/doi/pdf/10.22541/au.164972524.42674152/v1",
+        "https://web.archive.org/web/20240413100529id_/https://d197for5662m48.cloudfront.net/documents/publicationstatus/81048/preprint_pdf/fbce0affaaad8f04c4502ceb1f9fae42.pdf"
+      ]
+    },
+    {
+      "record_id": "39846055",
+      "permutation_position": 99,
+      "batch": "batch_D",
+      "original_screener_id": "S4",
+      "recoded_utc": "2026-07-29T13:15:00Z",
+      "citation": "Wei S, Yang W, Wang E, Wang S, Li Y. A 3D decoupling Alzheimer's disease prediction network based on structural MRI. Health Inf Sci Syst 2025;13(1):17. doi:10.1007/s13755-024-00333-3",
+      "access_rung_succeeded": "rung 4 -- author's institutional repository: University of Southern Queensland Repository, located via the CORE aggregator (core.ac.uk/download/654320307.pdf), accepted-manuscript PDF, 16 pages",
+      "access_channel_note": "Located by CORE title search; the DOI on the CORE record matches 10.1007/s13755-024-00333-3 exactly. The corresponding author is at USQ, so this is the author's own institutional deposit.",
+      "access_rungs_tried_and_failed": [
+        "PMC: PMC11748674 EXISTS but is under embargo. PMC states verbatim: 'This article has a delayed release (embargo) and will be available in PMC on December 01, 2026.' The NCBI id converter reports live=false and the PMC OA full-text API returns an empty full_text field. Unpaywall's 'green' OA location for this DOI is the PubMed abstract page, which is not a full text -- Unpaywall is wrong here and the record would have stayed unreachable on that hint alone.",
+        "publisher link.springer.com: serves abstract plus 'This is a preview of subscription content'",
+        "Europe PMC: inEPMC=N, no full text",
+        "Wayback snapshot of the Springer page (20250122192714): abstract and paywall preview only"
+      ],
+      "fulltext_reachable": "repository_or_accepted_manuscript",
+      "fulltext_version_used": "accepted_manuscript",
+      "supplement_status": "No supplement exists for this article.",
+      "stage1_decision": "go_to_fulltext",
+      "final_inclusion": "included",
+      "exclusion_code": null,
+      "exclusion_quote": null,
+      "evaluation_unit_reported": "patient",
+      "evaluation_unit_quote": "\"the selected dataset comprises 170 AD, 156 pMCI, 202 sMCI, and 206 NC records from ADNI-1\" (Methods 2.1) read against \"Table 1: Demographic information of subjects included in this study\", whose ADNI-1 AD row gives Gender (Male/Female) 88/82 = 170. The record count and the subject count coincide exactly, so one record is one subject and accuracy is a per-subject proportion.",
+      "headline_unit": "na_only_one_unit_reported",
+      "headline_unit_quote": "No slice-level or scan-level metric appears anywhere; the model consumes the whole 3D volume and emits one label per subject.",
+      "split_unit": "unclear",
+      "split_quote": "THE PAPER NEVER DESCRIBES A TRAIN/TEST SPLIT AT ALL. Zero occurrences of 'split', 'fold', 'cross-validation', 'test set', 'training set', or any train:test ratio in the full accepted manuscript. The closest statement is \"Data from the AD, MCI, and NC categories used in the experiments are evenly distributed to ensure unbiased training results. This allocation guarantees an equal representation of each category in the training phase\" (Methods 2.2), which describes CLASS BALANCE, not a data partition. Section 3.1 'The Experimental Settings' describes only hardware, block repetitions and an early-stopping rule. Coded 'unclear' rather than 'random_unit_not_stated' because there is no split sentence to classify -- this absence is itself the finding.",
+      "split_disjointness_verified": "not_stated",
+      "trivial_baseline": {
+        "constant_or_prevalence": false,
+        "positional": false,
+        "acquisition_metadata": false,
+        "permuted_or_shuffled_label": false,
+        "clinical_or_demographic_only": false,
+        "other_non_imaging": false
+      },
+      "trivial_baseline_quote": "All 14 terms run over the complete accepted manuscript. The six 'baseline' hits are ALL the same ARCHITECTURAL ABLATION: \"The 'Baseline' model in Fig. 7 means that the proposed network does not take the MSD block and SA block into consideration, and relies solely on the cross-entropy loss function for the classification task.\" That is a network-component ablation on the same image input, explicitly excluded by the codebook's does_not_count list, and one further hit is a cited paper's title. No constant/majority/prevalence arm, no slice-index arm, no acquisition-metadata arm, no permutation null.",
+      "trivial_baseline_other_description": null,
+      "chance_asserted_without_measurement": false,
+      "searches_run": "baseline; chance; random; majority; prevalence; constant; trivial; metadata; clinical-only; clinical model; position; location; slice index; permut -- all 14 terms run over the COMPLETE accepted-manuscript full text; no supplement exists. Hits: baseline x6 (five are the Fig. 7 MSD/SA architectural ablation, one is a reference title), random x2 (random rotation and random masking as data augmentation), constant x1 (\"SCyi is initialized as an all-zero vector, and constantly updated during training\"), position x12 (all are convolution-kernel coordinates, spatial position encoding in the self-attention block, or 'tag position scores' in the clustering loss -- none is slice index along the acquisition axis), location x5 (anatomical pathology locations in Figs 10-12, and second-order attention pooling to spatial locations). Zero hits for chance, majority, prevalence, trivial, metadata, clinical-only, clinical model, slice index, permut.",
+      "positional_distribution_reported": "no",
+      "positional_distribution_quote": "The classification unit is the whole 3D volume, so there is no ordered within-acquisition unit whose label frequency could be tabulated. Every 'position' hit is a network-internal coordinate, not a slice index.",
+      "dataset_name": "ADNI-1, ADNI-2, AIBL, OASIS",
+      "dataset_public": "public",
+      "modality": "MRI",
+      "mixed_modality": false,
+      "organ_or_region": "brain",
+      "n_patients": 1413,
+      "n_patients_note": "ADNI-1 734 (170 AD + 156 pMCI + 202 sMCI + 206 NC) + ADNI-2 679 (102 + 101 + 329 + 147) = 1413 records/subjects; AIBL contributes a further 74 AD, 80 MCI, 85 NC after quality filtering; OASIS is used for a third comparison table.",
+      "n_patients_test": null,
+      "n_slices_or_images": null,
+      "n_positive_reported": "patients_only",
+      "headline_metric": "accuracy",
+      "headline_value": 0.985,
+      "headline_metric_qualifier": "Abstract Results: \"The accuracy of our model is 0.985 for the Alzheimer's Disease Neuroimaging Initiative (ADNI) dataset and 0.963 for the Australian Imaging, Biomarker & Lifestyle (AIBL) dataset.\" 0.985 is AD vs NC on ADNI (Table 2, 'Our model', ACC column).",
+      "headline_test_set": "unclear",
+      "headline_test_set_note": "Coded 'unclear' because no partition of any kind is described; it cannot be established that the reported accuracy comes from held-out data.",
+      "headline_value_scope": "single_modality_arm",
+      "headline_selection_rule": "abstract_sentence",
+      "uncertainty_interval_reported": "none",
+      "input_representation": "3D_volume",
+      "input_quote": "\"a number of volumetric patches are obtained from the combined feature representations of 3D sMRI images\" and the four-stage 3D convolution description in Methods 2.3 / Results 3.1.",
+      "label_broadcast_to_slices": "false",
+      "code_availability": "none",
+      "screener_confidence": "medium",
+      "flag_for_adjudication": false,
+      "notes": "RECOVERED from unreachable_paywalled via the author's institutional repository. S4's original note was accurate on every point it could check and explicitly identified the pattern of interest: 'An accuracy of 0.985 for NC vs AD on ADNI with no stated split unit is the pattern of interest.' The full text confirms it and sharpens it -- there is no split description at all, not merely an unnamed unit. No zero-image baseline: the only thing called a 'baseline' is an architectural ablation of the authors' own network.",
+      "_changes_vs_sealed": {
+        "fulltext_reachable": [
+          "unreachable_paywalled",
+          "repository_or_accepted_manuscript"
+        ],
+        "final_inclusion": [
+          "included (invalid under amendment D1; analysis had forced it to eligible_unreachable)",
+          "included (now valid -- full text in hand)"
+        ],
+        "evaluation_unit_reported": [
+          "unclear",
+          "patient"
+        ],
+        "headline_unit": [
+          "unclear",
+          "na_only_one_unit_reported"
+        ],
+        "trivial_baseline": [
+          "all false but UNEVIDENCED (abstract-only search)",
+          "all false and EVIDENCED (full-text 14-term search)"
+        ],
+        "positional_distribution_reported": [
+          "unclear",
+          "no"
+        ],
+        "status_for_analysis": [
+          "eligible_unreachable",
+          "included_reachable"
+        ]
+      },
+      "_retrieval_urls": [
+        "https://core.ac.uk/download/654320307.pdf"
+      ]
+    },
+    {
+      "record_id": "36170844",
+      "permutation_position": 95,
+      "batch": "batch_D",
+      "original_screener_id": "S4",
+      "recoded_utc": "2026-07-29T13:20:00Z",
+      "citation": "Tang Y, Gao X, Wang W, et al. Automated Detection of Epiretinal Membranes in OCT Images Using Deep Learning. Ophthalmic Res 2023;66(1):238-247. doi:10.1159/000525929",
+      "access_rung_succeeded": "rung 1 -- publisher's own open-access PDF (Karger, CC BY-NC 4.0), 14 pages",
+      "access_channel_note": "karger.com serves a Cloudflare bot challenge to every client available here, including the Crossref-registered text-mining PDF endpoint, and the domain is blocked by this environment's browsing policy. The publisher's own OA PDF was retrieved from the Internet Archive Wayback Machine, snapshot 20220930002537 of https://www.karger.com/Article/Pdf/525929. The PDF carries the licence on its face: \"This article is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC) ... (c) 2022 The Author(s). Published by S. Karger AG, Basel\".",
+      "access_rungs_tried_and_failed": [
+        "PMC / Europe PMC: no PMC record",
+        "karger.com live site and Crossref TDM PDF endpoint: Cloudflare 'Just a moment...' challenge, NOT circumvented",
+        "CORE and OpenAIRE: no repository copy"
+      ],
+      "fulltext_reachable": "oa_pmc_or_publisher",
+      "fulltext_version_used": "accepted_manuscript",
+      "version_note": "The archived PDF is Karger's own OA copy but is stamped \"Accepted, unedited article not yet assigned to an issue\", so it is the accepted manuscript rather than the paginated version of record (Ophthalmic Res 2023;66(1):238-247). Coded accepted_manuscript on that ground.",
+      "supplement_status": "No supplement.",
+      "stage1_decision": "go_to_fulltext",
+      "final_inclusion": "excluded",
+      "exclusion_code": "E-NOCLF",
+      "exclusion_quote": "The fitted deep-learning model is a U-Net that outputs SEGMENTATION MASKS, and no classifier is fitted: \"the utilized U-Net was composed of one encoder and one decoder ... the decoder utilized the representations in the latent space, applied up samplings to restore the size, and finally generated masks as outputs\" (Deep learning algorithm). The reported 'image-level accuracy' is a derived segmentation-success rate, defined as \"Imagei = 1 if at least one ERM region was correctly identified in the ith image, otherwise Imagei = 0 when no regions were correctly identified\" (Performance evaluation). The only genuine categorical ERM / non-ERM decisions in the study are made by HUMAN READERS -- one senior and one junior clinician annotating with and without algorithmic assistance -- which is exactly the case amendment D10 (v1.2) assigns to E-NOCLF rather than E-SEG. The authors themselves draw the contrast with classification work: \"they only classify OCT images and return a label as ERM or normal without any visualized segmentations of ERM in OCT images. Unlike these previous studies, this study directly identifies and locates ERM regions in OCT images\" (Discussion).",
+      "exclusion_secondary_note": "Two further independent grounds, either of which would exclude on its own. (1) THERE IS NO NEGATIVE CLASS IN THE DATA: \"OCT images were retrospectively collected from a total of 404 ERM patients\" and \"The presences of ERM were confirmed by two experienced ophthalmologists in all images\" -- every image is ERM-positive, so no binary classification is possible even in principle. (2) NO CLASSIFICATION METRIC: zero occurrences of AUC, area under, sensitivity or specificity anywhere in the full text; only ACCimage and ACCregion, both defined off the segmentation output. E-SEG was the near alternative and is the reason for the adjudication flag; amendment D10 was followed because a categorical decision WAS evaluated, by humans rather than by a fitted model.",
+      "evaluation_unit_reported": "not_applicable",
+      "headline_unit": "not_applicable",
+      "split_unit": "not_applicable",
+      "split_disjointness_verified": "not_applicable",
+      "split_observed_note": "For the record, the split IS at the patient level: \"we randomly divided the images (n = 468) randomly into one training cohort (n = 422, 90%) and another independent validation cohort (n = 46, 10%) based on patients. This approach ensured that no images from the same individual appeared in both training and validation datasets.\" Not coded, because the record is excluded.",
+      "trivial_baseline": {
+        "constant_or_prevalence": false,
+        "positional": false,
+        "acquisition_metadata": false,
+        "permuted_or_shuffled_label": false,
+        "clinical_or_demographic_only": false,
+        "other_non_imaging": false
+      },
+      "trivial_baseline_quote": "All 14 terms run over the complete full text; the four 'random' hits are the random patient-wise train/validation division and the random division of the validation set for the reader experiment. Zero hits for the other thirteen terms. Recorded for completeness only -- the record is excluded, so these flags do not enter P1 or S1.",
+      "chance_asserted_without_measurement": false,
+      "searches_run": "baseline; chance; random; majority; prevalence; constant; trivial; metadata; clinical-only; clinical model; position; location; slice index; permut -- all 14 terms run over the COMPLETE full text; no supplement exists. Only 'random' returns hits (x4, all data-division). Thirteen of fourteen terms return zero hits.",
+      "positional_distribution_reported": "not_applicable",
+      "dataset_name": "private single-centre OCT cohort (Affiliated Hospital of Southwest Medical University)",
+      "dataset_public": "private",
+      "modality": "OCT",
+      "mixed_modality": false,
+      "organ_or_region": "eye_retina",
+      "n_patients": 404,
+      "n_slices_or_images": 468,
+      "input_representation": "2D_slice",
+      "input_quote": "\"All subjects were examined using a Cirrus TM HD-OCT instrument (5000Angioplex, version 9.5) from Zeiss, Germany. The type of OCT image acquired is HD.\" One HD B-scan per eye (468 images / 468 eyes), and the Discussion notes \"3D-OCT images are not easy to obtain\" while citing a separate study that did use 3D-OCT. This is a line scan, not a volume, so E-2D/E-PROJ considerations also point away from eligibility -- but the operative code is E-NOCLF.",
+      "code_availability": "none",
+      "screener_confidence": "high",
+      "flag_for_adjudication": true,
+      "notes": "RECOVERED AND REVERSED. S4 had coded this 'included' from the abstract alone (the analysis pipeline had already forced it to eligible_unreachable under amendment D1) and flagged low confidence with exactly the right two doubts: whether the B-scans come from a volumetric stack, and whether there is a held-out test set. The full text answers a third question S4 could not ask: there is no classifier at all. THIS RECORD LEAVES THE ELIGIBLE DENOMINATOR. That is the honest consequence of reading it and it moves the arithmetic in the direction that makes our own censoring look worse per-capita, not better -- the denominator shrinks from 55 to 54. The adjudication flag is set on the E-NOCLF vs E-SEG choice, which is a reporting distinction in the flow diagram and not a denominator distinction.",
+      "_changes_vs_sealed": {
+        "fulltext_reachable": [
+          "unreachable_paywalled",
+          "oa_pmc_or_publisher"
+        ],
+        "final_inclusion": [
+          "included (forced to eligible_unreachable by amendment D1)",
+          "excluded"
+        ],
+        "exclusion_code": [
+          null,
+          "E-NOCLF"
+        ],
+        "status_for_analysis": [
+          "eligible_unreachable",
+          "excluded"
+        ]
+      },
+      "_retrieval_urls": [
+        "https://web.archive.org/web/20220930002537if_/https://www.karger.com/Article/Pdf/525929"
+      ]
+    }
+  ],
+  "still_unreachable": [
+    {
+      "record_id": "41617832",
+      "position": 2,
+      "venue": "Eur Radiol",
+      "year": "2026",
+      "verdict": "closed",
+      "evidence": "Unpaywall is_oa=False oa_status=closed; OpenAlex is_oa=False; no PMC/Europe PMC record; Crossref registers no text-mining link; no repository copy in CORE or OpenAIRE; no Wayback snapshot of the Springer article page. Genuinely paywalled, not an environment artefact."
+    },
+    {
+      "record_id": "39423605",
+      "position": 3,
+      "venue": "Comput Biol Chem",
+      "year": "2024",
+      "verdict": "closed",
+      "evidence": "Unpaywall/OpenAlex/Semantic Scholar all closed; Elsevier's own TDM endpoint returns coredata with openaccess=0 and no body without a subscriber key; no repository copy; no Wayback snapshot."
+    },
+    {
+      "record_id": "42489954",
+      "position": 8,
+      "venue": "Brain Topogr",
+      "year": "2026",
+      "verdict": "closed",
+      "evidence": "Unpaywall/OpenAlex closed; no PMC; no repository copy; no Wayback snapshot. NOTE: on the abstract alone this looks likely to be E-DERIV (functional-connectivity graph input), but that is not codeable without the full text and is not coded."
+    },
+    {
+      "record_id": "37222638",
+      "position": 13,
+      "venue": "J Magn Reson Imaging",
+      "year": "2024",
+      "verdict": "OA but unreachable from here",
+      "evidence": "Unpaywall reports BRONZE OA with a publisher PDF at onlinelibrary.wiley.com/doi/pdfdirect/10.1002/jmri.28787. Wiley returns HTTP 403 to every client available here and the domain is blocked by this environment's browsing policy. The one Wayback snapshot of the article page (20240428125605) contains the abstract and reference list ONLY -- no Methods, no Results body. Reachable in principle by a screener on an unblocked network; NOT reachable here. Its abstract does describe a clinical-variables-only comparator model (AUC 0.741/0.772/0.675), which would bear on secondary endpoint S1, but S1 requires the same evidence standard and the full text was not obtained."
+    },
+    {
+      "record_id": "38083399",
+      "position": 18,
+      "venue": "Annu Int Conf IEEE EMBC",
+      "year": "2023",
+      "verdict": "closed",
+      "evidence": "IEEE conference proceeding; Unpaywall/OpenAlex/S2 all closed; no repository or preprint copy; the Wayback snapshots of ieeexplore.ieee.org/document/10340650 are the JS-driven abstract shell only."
+    },
+    {
+      "record_id": "40903384",
+      "position": 24,
+      "venue": "Radiography (Lond)",
+      "year": "2025",
+      "verdict": "closed",
+      "evidence": "Unpaywall/OpenAlex closed; Elsevier TDM coredata openaccess=0; no repository copy; no Wayback snapshot."
+    },
+    {
+      "record_id": "38082966",
+      "position": 27,
+      "venue": "Annu Int Conf IEEE EMBC",
+      "year": "2023",
+      "verdict": "closed",
+      "evidence": "As 38083399: IEEE proceeding, closed everywhere, Wayback holds only the abstract shell."
+    },
+    {
+      "record_id": "41740680",
+      "position": 35,
+      "venue": "J Neurosci Methods",
+      "year": "2026",
+      "verdict": "closed",
+      "evidence": "Unpaywall/OpenAlex closed; Elsevier TDM coredata openaccess=0; no repository copy; no Wayback snapshot."
+    },
+    {
+      "record_id": "39107903",
+      "position": 39,
+      "venue": "Dentomaxillofac Radiol",
+      "year": "2024",
+      "verdict": "closed",
+      "evidence": "Unpaywall/OpenAlex/S2 closed; no PMC; no repository copy; no Wayback snapshot of the OUP article page."
+    },
+    {
+      "record_id": "39699671",
+      "position": 48,
+      "venue": "Eur Radiol",
+      "year": "2025",
+      "verdict": "closed",
+      "evidence": "Unpaywall/OpenAlex closed; no PMC; no repository copy; Wayback holds only the PubMed abstract page."
+    },
+    {
+      "record_id": "37276106",
+      "position": 52,
+      "venue": "IEEE Trans Nanobioscience",
+      "year": "2023",
+      "verdict": "closed",
+      "evidence": "Unpaywall/OpenAlex/S2 closed; no repository or preprint copy; Wayback holds only the PubMed abstract page."
+    },
+    {
+      "record_id": "31634769",
+      "position": 55,
+      "venue": "Med Hypotheses",
+      "year": "2020",
+      "verdict": "closed",
+      "evidence": "Unpaywall/OpenAlex closed; Elsevier TDM coredata openaccess=0; no repository copy; Wayback holds only the PubMed abstract page."
+    },
+    {
+      "record_id": "42153825",
+      "position": 64,
+      "venue": "Radiology",
+      "year": "2026",
+      "verdict": "OA but unreachable from here",
+      "evidence": "Unpaywall and OpenAlex both report HYBRID OA with a CC BY licence at the publisher. pubs.rsna.org returns HTTP 403 to every available client and is blocked by this environment's browsing policy; the article is from 2026 and has NO Wayback snapshot; Crossref registers only a similarity-checking link; no repository copy. Genuinely open access, genuinely not retrievable here. This is the single most recoverable record on the list for a screener on an unblocked network."
+    },
+    {
+      "record_id": "40081198",
+      "position": 73,
+      "venue": "Comput Methods Programs Biomed",
+      "year": "2025",
+      "verdict": "closed",
+      "evidence": "Unpaywall/OpenAlex closed; Elsevier TDM coredata openaccess=0; no repository copy; no Wayback snapshot."
+    },
+    {
+      "record_id": "41559509",
+      "position": 85,
+      "venue": "J Imaging Inform Med",
+      "year": "2026",
+      "verdict": "closed",
+      "evidence": "Unpaywall/OpenAlex closed; no PMC; no repository copy; no Wayback snapshot of the Springer page."
+    },
+    {
+      "record_id": "40147601",
+      "position": 91,
+      "venue": "Neuroimage",
+      "year": "2025",
+      "verdict": "OA but unreachable from here",
+      "evidence": "GOLD OA, CC BY-NC-ND. Elsevier's own text-mining endpoint confirms it without a key -- coredata returns openaccess=1, openaccessArticle=true, openaccessType=Full, openaccessUserLicense=http://creativecommons.org/licenses/by-nc-nd/4.0/ -- but that endpoint serves metadata only and the article BODY needs an Elsevier API key. www.sciencedirect.com returns HTTP 403 and is blocked by this environment's browsing policy; the DOAJ record's fulltext link points back to ScienceDirect; no Wayback snapshot; no repository copy in CORE or OpenAIRE. Genuinely open access, genuinely not retrievable here."
+    }
+  ],
+  "_environment_limitation_statement": "Three of the sixteen still-unreachable records -- 37222638, 42153825 and 40147601 -- are demonstrably open access under a publisher-declared licence and are unreachable ONLY because this execution environment cannot fetch from Wiley, RSNA or Elsevier (HTTP 403 to every scripted client, and those domains are blocked by the environment's browsing policy). They are NOT paywalled. Reporting them as 'unreachable' without saying so would misattribute an environment limitation to the literature, and reporting them as 'reachable' without having read them would be an unevidenced code. They are therefore counted as unreachable, and this paragraph is the disclosure. A screener on an unblocked network should be able to recover all three, which would take the unreachable count from 16 to 13 and the rate from 29.6% to 24.1% -- still above the 15% threshold, so the bounding interval remains the headline either way.",
+  "_reproducing_this": {
+    "how": "Every recovered full text is re-fetchable from the URLs in each record's _retrieval_urls. Retrieved texts are NOT committed: three of the four are under publisher copyright or a NonCommercial licence, and redistributing them is not ours to do. The URLs plus the verbatim quotes in each field are the audit trail.",
+    "what_to_check": "Each quoted string appears verbatim in the corresponding retrieved document, and the 14-term hit counts in searches_run reproduce exactly. Terms: baseline; chance; random; majority; prevalence; constant; trivial; metadata; clinical-only; clinical model; position; location; slice index; permut.",
+    "recompute": "python paper/screen/analysis/recompute_with_recovery.py -- prints the as-sealed and post-recovery numbers side by side and writes recovery_out.json."
+  }
+}

@@ -1,0 +1,87 @@
+# LaTeX build artefacts.
+#
+# Everything here is regenerable from the .tex sources by pdfLaTeX/BibTeX/latexmk.
+# The generated PDFs are ignored too: a committed PDF goes stale silently, and a
+# stale manuscript PDF is worse than no PDF. Rebuild rather than commit.
+#
+# NOT ignored, and must stay tracked: *.tex, references.bib, figures/*.pdf,
+# make_figures.py, README.md. The figures are inputs to the build, not outputs of it.
+
+## Core latex/pdflatex
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+## Intermediate documents
+*.dvi
+*.xdv
+*-converted-to.*
+
+## Generated PDFs (regenerate; never commit)
+main.pdf
+supplement.pdf
+cover_letter.pdf
+
+## Bibliography (BibTeX / biber)
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+*.brf
+
+## Index / glossary / nomenclature
+*.idx
+*.ilg
+*.ind
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.nlo
+*.nls
+
+## Cross-referencing and hyperref
+*.brf
+*.upa
+*.upb
+
+## latexmk
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+## algorithms / listings / todonotes / minted, if ever added
+*.alg
+*.loa
+*.lol
+*.tdo
+_minted*
+*.pyg
+
+## Editor and OS noise
+*.swp
+*~
+.DS_Store
+.vscode/
+.texpadtmp/
+*.sublime-workspace
+
+## Overleaf round-trip leftovers
+*.zip
+output/

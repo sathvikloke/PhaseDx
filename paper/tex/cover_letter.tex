@@ -1,0 +1,209 @@
+% ============================================================================
+%  COVER LETTER -- Radiology: Artificial Intelligence (RSNA)
+%
+%  THIS FILE COMPILES ON ITS OWN. Engine: pdfLaTeX. One pass is enough.
+%  Only standard packages. No graphics, no bibliography.
+%
+%  BEFORE SENDING: fill in the two placeholders marked <<< >>> below
+%  (submission date; archival DOI once minted).
+% ============================================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{empty}
+\setlength{\emergencystretch}{2em}
+
+\begin{document}
+
+\noindent
+\textbf{Sathvik Loke}\\
+Illinois Mathematics and Science Academy\\
+1500 Sullivan Road, Aurora, IL 60506, USA\\
+\texttt{sloke@imsa.edu}
+
+\vspace{1.2em}
+
+\noindent
+<<< SUBMISSION DATE >>>
+
+\vspace{1.2em}
+
+\noindent
+The Editor\\
+\emph{Radiology: Artificial Intelligence}\\
+Radiological Society of North America
+
+\vspace{1.2em}
+
+\noindent Dear Editor,
+
+We submit for your consideration \textbf{``What a slice-level benchmark certifies
+without the pixels: a label-file audit of seven public benchmarks, and a
+protocol-frozen random-sample screen of how often the check is reported''} as an
+Original Research article.
+
+\subsection*{What is already known, stated first}
+
+The central construction in this paper --- fitting a model to slice position alone,
+with no image data, and comparing it with a published slice-level number --- is
+\textbf{prior art}, and the manuscript says so in its introduction rather than in a
+late discussion paragraph. We would rather you learn this from us than from a
+reviewer.
+
+\begin{itemize}
+\item A Kaggle notebook by the user OsciiArt, ``Baseline with no image'' (RSNA-STR
+Pulmonary Embolism Detection, October 2020, gold medal), bins the label rate against
+relative slice position on the training set, applies it to the test set with no
+pixels, and scores 0.33 on the public leaderboard against 0.44 for a constant
+predictor. That is the same construction, four years earlier.
+\item Yan et al.\ (CVPR 2018), in the paper that defines the DeepLesion lesion-type
+task, report a ``Baseline: Location feature'' row at 59.7\% against their full
+method's 90.5\%. A location-only baseline on that benchmark is theirs.
+\item Badgeley et al.\ (\emph{npj Digital Medicine} 2019;2:31) showed metadata-driven
+performance in hip-fracture classification collapsing to AUC 0.52 on a
+confounder-balanced test set, with scanner model predictable at AUC 1.00.
+\item Zech et al.\ (\emph{PLOS Medicine} 2018) and Geirhos et al.\ (\emph{Nature
+Machine Intelligence} 2020) established shortcut learning as the framing.
+\item Yagis et al.\ (2021) and Tampu et al.\ (2022) measured the inflation caused by
+slice-level evaluation.
+\item Ong Ly et al.\ (\emph{npj Digital Medicine} 2024) is the closest competitor:
+thirteen datasets, and a released estimator.
+\item Maier-Hein et al.\ (\emph{Nature Communications} 2018;9:5217) already showed
+that challenge rankings are unstable, and that Kendall's $\tau$ in the 0.74--0.85
+range is enough for critical changes in ranking. This caps what anyone may claim
+about rank inversion, and it caps what we claim.
+\end{itemize}
+
+\subsection*{What is new}
+
+Five things, and we have tried to size each of them honestly.
+
+\textbf{1. A patient-level result that needs no published comparator to be read.} On
+the RSNA 2019 Intracranial Haemorrhage benchmark --- 18{,}938 patients, 752{,}802
+slices, 21{,}744 series --- a zero-image positional baseline reaches slice-level AUROC
+0.737 [0.735, 0.740] and patient-level AUROC \textbf{0.453} [0.445, 0.461] from the
+identical score vector. All six official labels collapse, by 0.205 to 0.307. The
+patient-level permutation null on the same data is 0.523, so 0.456 is below what this
+estimator reaches when there is by construction nothing to find. The result was
+verified by four independent routes agreeing to 0.003, one of them an independent
+reimplementation sharing no code, with its own folds, own seed, \texttt{sklearn}
+AUROC and own bootstrap. Because the comparison is between two units of the same score
+vector, this result does not depend on any published number being correct.
+
+\textbf{2. Subject-clustered statistics, and the concrete cost of ignoring
+clustering.} On the same data the naive slice-resampled interval is 1.5--2.0 times too
+narrow; on simulated data with a closed-form true AUC, a nominal 95\% naive interval
+covers the truth 46.5\% of the time against 91.5\% for the clustered one.
+
+\textbf{3. A prevalence measurement with a defensible denominator.} A protocol-frozen
+random-sample screen of a 9{,}979-record PubMed frame (SHA-256 \texttt{d611def0\ldots},
+seed 20260729, both re-derivable offline), 250 records screened under a pre-specified
+extension rule, four independent screeners on a fifteen-paper overlap set. Among 91
+included and readable papers, \emph{no} paper reports a zero-image baseline with a
+measured value. Because unreachability reached 32.6\% --- above the pre-specified 15\%
+threshold --- \textbf{the protocol converts the headline from a point estimate to a
+bounding interval of [0.0\%, 32.6\%]}, and we report it that way rather than promoting
+the more flattering complete-case figure. The most robust form of the statement needs
+no denominator at all: across 345 independently coded records covering 300 distinct
+sampled papers, not one positive code appears on any zero-image sub-flag.
+
+\textbf{4. A released tool.} \texttt{trivialbaselines}, MIT licensed, depending on
+\texttt{numpy} and \texttt{pandas} and nothing else. A benchmark can be audited by
+someone who will never be granted its images, on a laptop, in one command.
+
+\textbf{5. The formalisation and the slice-versus-patient contrast.} What the prior
+literature measures is the cost of a \emph{wrong}, leaky split. Every number in this
+paper was obtained under a \emph{correct}, patient-disjoint split. Stating that
+distinction explicitly is necessary, because without it a reviewer would reasonably
+reject the work as redundant with Yagis and Tampu.
+
+\subsection*{What we do not claim}
+
+We would rather declare the boundaries than have them found.
+
+\textbf{Our pre-specified rank-inversion test is a null, and is reported as one.} Zero
+of 447 sign-flipping method pairs survive on any of five cohorts. One cohort looked
+spectacular --- Spearman $\rho = -0.31$ with 121 of 210 pairs flipping --- until the
+noise floor was applied: split-half Kendall's $\tau$ at patient level is $-0.42$, so
+two disjoint halves of subjects rank the methods worse than unrelated. The verdict is
+\textsc{cannot rank}, and the near-miss is kept in the paper because it is the clearest
+demonstration of why a noise floor is necessary. What does survive is narrower and is
+stated narrowly: with architecture held fixed, aggregation to the patient unit shifts
+the magnitude-versus-phase difference by $+0.028$ AUC [0.015, 0.041], $p = 0.001$,
+positive for 6 of 6 architectures. \emph{The interaction is supported; the individual
+sign flip is not.}
+
+\textbf{Two of nine benchmark-arms do not fire, and are reported at equal
+prominence.} LUNA16 returns a trivial fraction of $-0.002$, below its own random-score
+reference, and PI-CAI's positional baseline lands on exactly 0.500. Two negatives out
+of nine is an existence proof that the measure can fail to fire; it is not a
+specificity estimate and we do not offer it as one.
+
+\textbf{Every claim is about an evaluation protocol, never about what a model
+learned.} We could not reproduce the pipeline of the benchmark we audit most closely
+--- its protocol run on our data gives 0.616 against a reported 0.809 --- so we make
+no claim about that implementation.
+
+\textbf{The screen is not registered.} No OSF, PROSPERO or other deposit was made
+before screening. The protocol, codebook, frame, permutation and sample were committed
+to a public repository before any analysis-sample record was coded, which is a weaker
+and different guarantee; any deposit made now is retrospective and is labelled so. We
+therefore describe the screen as \emph{protocol-frozen} rather than
+\emph{pre-registered} throughout, and use the latter word only with an explicit
+qualifier. Supplementary Section~S7 gives the timeline, the digests, and a list of what
+the git evidence does \emph{not} establish. Supplementary Section~S6 is a PRISMA 2020
+checklist adapted for meta-research in which eight items are marked \emph{not done},
+including four protocol deviations that no amount of rewriting closes.
+
+\textbf{We make no regulatory claim.} A scoping sample of 30 cleared radiology AI
+510(k) summaries is reported in Supplementary Section~S5 because we ran it, and its
+result is negative for the hypothesis it was designed to test: the evaluation unit is
+determinable in 28 of 30, no summary reports a slice-level metric, and the aggregation
+step we recommend is already the regulatory requirement. We state that plainly rather
+than omitting the analysis.
+
+\subsection*{Fit with the journal}
+
+The audience for this work is the reader who evaluates or reviews imaging AI. The
+practical output is a seven-rule reporting protocol with a one-page checklist, each
+rule written because a concrete failure was measured, and a tool that lets a reviewer
+run the check on a benchmark's published label file in one command --- with no images,
+no data-use agreement and no GPU. We believe that is squarely within \emph{Radiology:
+Artificial Intelligence}'s remit.
+
+\subsection*{Declarations}
+
+The manuscript is original, is not under consideration elsewhere, and has not been
+published in whole or in part. All four authors have approved the submission and meet
+the ICMJE authorship criteria. No patient data were newly collected; every dataset used
+is a public research release accessed under its own terms, and no unauthorised source
+was used to obtain any full text at any stage. Funding and competing-interest
+statements are supplied on the title page. All code, the frozen protocol and codebook,
+the sampling frame with its digest, the seeded permutation, the sealed screener
+submissions and every analysis output are released at
+<<< REPOSITORY URL / ARCHIVAL DOI >>>.
+
+We suggest that reviewers with expertise in \emph{neuroradiology and head CT triage},
+\emph{meta-research and reporting standards}, and \emph{benchmark and challenge design}
+would be best placed to assess this work. We have no reviewer exclusions to request.
+
+Thank you for considering the manuscript.
+
+\vspace{1.5em}
+
+\noindent Yours sincerely,
+
+\vspace{2.5em}
+
+\noindent
+\textbf{Sathvik Loke}\\
+on behalf of Sathvik Loke, Ethan Johnson, Neeraj Movva and Aditya Raut
+
+\end{document}

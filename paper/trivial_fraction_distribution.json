@@ -1,0 +1,1104 @@
+{
+  "tool": "trivial_fraction_distribution",
+  "version": "1.0",
+  "generated_utc": "2026-07-29T18:50:12+00:00",
+  "definition": "(best zero-image baseline - chance) / (published - chance)",
+  "row_independence_warning": "rows are NOT independent: one benchmark contributes several rows when a paper reports several systems in one table. Read the per-benchmark summary, which uses each benchmark's STRONGEST published comparator, as the primary distribution.",
+  "summaries": [
+    {
+      "set": "all rows",
+      "n": 24,
+      "min": -0.0022168267708223377,
+      "q25": 0.46854876485635255,
+      "median": 0.5115259042706813,
+      "q75": 0.9104114907204564,
+      "max": 1.6552985041029058,
+      "n_at_or_below_0.05": 1,
+      "n_in_0.30_to_0.70": 16,
+      "n_at_or_above_1": 4
+    },
+    {
+      "set": "strongest published comparator per benchmark-arm",
+      "n": 11,
+      "min": -0.0022168267708223377,
+      "q25": 0.4524587907491736,
+      "median": 0.4798923605920168,
+      "q75": 0.56178494900959,
+      "max": 0.9812572849806698,
+      "n_at_or_below_0.05": 1,
+      "n_in_0.30_to_0.70": 8,
+      "n_at_or_above_1": 0
+    },
+    {
+      "set": "peer-reviewed comparators, all rows",
+      "n": 18,
+      "min": -0.0022168267708223377,
+      "q25": 0.45526568179992916,
+      "median": 0.48501614947310423,
+      "q75": 0.5143060545904228,
+      "max": 0.889443059019119,
+      "n_at_or_below_0.05": 1,
+      "n_in_0.30_to_0.70": 16,
+      "n_at_or_above_1": 0
+    },
+    {
+      "set": "peer-reviewed comparators, strongest per benchmark-arm",
+      "n": 9,
+      "min": -0.0022168267708223377,
+      "q25": 0.43742442845010576,
+      "median": 0.4689006354590563,
+      "q75": 0.4901399383541916,
+      "max": 0.6133795689473812,
+      "n_at_or_below_0.05": 1,
+      "n_in_0.30_to_0.70": 8,
+      "n_at_or_above_1": 0
+    },
+    {
+      "set": "preprint comparator (Rempe et al.) only",
+      "n": 6,
+      "min": 0.9733167858244681,
+      "q25": 1.0202207628314837,
+      "median": 1.141749578577111,
+      "q75": 1.5180246526317087,
+      "max": 1.6552985041029058,
+      "n_at_or_below_0.05": 0,
+      "n_in_0.30_to_0.70": 0,
+      "n_at_or_above_1": 4
+    }
+  ],
+  "verdict_counts": {
+    "MATCHED": 6,
+    "PARTIAL": 17,
+    "NOT MATCHED": 1,
+    "UNDEFINED": 0
+  },
+  "verdict_counts_peer_reviewed_only": {
+    "MATCHED": 0,
+    "PARTIAL": 17,
+    "NOT MATCHED": 1,
+    "UNDEFINED": 0
+  },
+  "verdict_rule": "applied mechanically; see verdict() docstring for the two PI-CAI rows where the mechanical rule and the earlier hand-assigned verdict in paper/audit_results.md disagree",
+  "extremes_check": [
+    {
+      "case": "published far above chance, baseline mid-range",
+      "baseline": 0.7374,
+      "chance": 0.5,
+      "published": 0.9843,
+      "value": 0.49019202973363635,
+      "value_clipped": 0.49019202973363635,
+      "ci": [
+        0.44889531282263073,
+        0.531488746644642
+      ],
+      "reason": null
+    },
+    {
+      "case": "published just above chance (headroom 0.021)",
+      "baseline": 0.6,
+      "chance": 0.5,
+      "published": 0.521,
+      "value": 4.7619047619047565,
+      "value_clipped": 1.0,
+      "ci": [
+        3.8095238095238044,
+        5.714285714285709
+      ],
+      "reason": null
+    },
+    {
+      "case": "published exactly at chance",
+      "baseline": 0.6,
+      "chance": 0.5,
+      "published": 0.5,
+      "value": null,
+      "value_clipped": null,
+      "ci": null,
+      "reason": "published (0.500) is at or below chance (0.500); the fraction is undefined"
+    },
+    {
+      "case": "published BELOW chance",
+      "baseline": 0.6,
+      "chance": 0.5,
+      "published": 0.45,
+      "value": null,
+      "value_clipped": null,
+      "ci": null,
+      "reason": "published (0.450) is at or below chance (0.500); the fraction is undefined"
+    },
+    {
+      "case": "baseline ABOVE published",
+      "baseline": 0.854,
+      "chance": 0.5,
+      "published": 0.714,
+      "value": 1.6542056074766356,
+      "value_clipped": 1.0,
+      "ci": [
+        1.560747663551402,
+        1.7476635514018695
+      ],
+      "reason": null
+    },
+    {
+      "case": "baseline exactly at chance",
+      "baseline": 0.5,
+      "chance": 0.5,
+      "published": 0.9,
+      "value": 0.0,
+      "value_clipped": 0.0,
+      "ci": [
+        -0.050000000000000044,
+        0.050000000000000044
+      ],
+      "reason": null
+    },
+    {
+      "case": "baseline BELOW chance",
+      "baseline": 0.4533,
+      "chance": 0.5,
+      "published": 0.9843,
+      "value": -0.09642783398719806,
+      "value_clipped": 0.0,
+      "ci": [
+        -0.13772455089820368,
+        -0.05513111707619245
+      ],
+      "reason": null
+    },
+    {
+      "case": "baseline exactly equals published",
+      "baseline": 0.9,
+      "chance": 0.5,
+      "published": 0.9,
+      "value": 1.0,
+      "value_clipped": 1.0,
+      "ci": [
+        0.95,
+        1.05
+      ],
+      "reason": null
+    },
+    {
+      "case": "published near-perfect",
+      "baseline": 0.7374,
+      "chance": 0.5,
+      "published": 1.0,
+      "value": 0.4748000000000001,
+      "value_clipped": 0.4748000000000001,
+      "ci": [
+        0.4348000000000001,
+        0.5148000000000001
+      ],
+      "reason": null
+    },
+    {
+      "case": "non-AUROC chance anchor (average precision, prevalence 0.1434)",
+      "baseline": 0.26,
+      "chance": 0.1434,
+      "published": 0.6,
+      "value": 0.2553657468243539,
+      "value_clipped": 0.2553657468243539,
+      "ci": [
+        0.21156373193166889,
+        0.299167761717039
+      ],
+      "reason": null
+    }
+  ],
+  "rows": [
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "any",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.737374772144935,
+      "baseline_ci": [
+        0.7350661517958363,
+        0.7398236389888124
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9843,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": true,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.4901399383541916,
+      "trivial_fraction_ci": [
+        0.48537301630360596,
+        0.49519644639440935
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "any",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.737374772144935,
+      "baseline_ci": [
+        0.7350661517958363,
+        0.7398236389888124
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9752,
+      "published_system": "ResNeXt-101 (no LSTM)",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.4995260356585332,
+      "trivial_fraction_ci": [
+        0.494667827853191,
+        0.5046793749764572
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "epidural",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.7121945902411463,
+      "baseline_ci": [
+        0.6995635293296317,
+        0.7248833695186538
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9851,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": true,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.43742442845010576,
+      "trivial_fraction_ci": [
+        0.41138637256159916,
+        0.4635814667463489
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "epidural",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.7121945902411463,
+      "baseline_ci": [
+        0.6995635293296317,
+        0.7248833695186538
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9703,
+      "published_system": "ResNeXt-101 (no LSTM)",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.4511898580504917,
+      "trivial_fraction_ci": [
+        0.4243324034225637,
+        0.4781700393762573
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "intraparenchymal",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.7513707751336752,
+      "baseline_ci": [
+        0.7473956378214693,
+        0.7552886620869778
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9927,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": true,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.5101903290717987,
+      "trivial_fraction_ci": [
+        0.5021222606484054,
+        0.5181422002983108
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "intraparenchymal",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.7513707751336752,
+      "baseline_ci": [
+        0.7473956378214693,
+        0.7552886620869778
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9883,
+      "published_system": "ResNeXt-101 (no LSTM)",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.5147875796307091,
+      "trivial_fraction_ci": [
+        0.5066468110208261,
+        0.5228111040077366
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "intraventricular",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.8048496457668485,
+      "baseline_ci": [
+        0.8017200160981176,
+        0.8081475746190557
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.997,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": true,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.6133795689473812,
+      "trivial_fraction_ci": [
+        0.6070825273603976,
+        0.6200152406822047
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "intraventricular",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.8048496457668485,
+      "baseline_ci": [
+        0.8017200160981176,
+        0.8081475746190557
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9953,
+      "published_system": "ResNeXt-101 (no LSTM)",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.6154848491153816,
+      "trivial_fraction_ci": [
+        0.6091661944238191,
+        0.622143296222604
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "subarachnoid",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.6904556102816904,
+      "baseline_ci": [
+        0.6859245916174315,
+        0.6947947340470144
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9821,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": true,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.3950541594724963,
+      "trivial_fraction_ci": [
+        0.38565565570925425,
+        0.4040546236196109
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "subarachnoid",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.6904556102816904,
+      "baseline_ci": [
+        0.6859245916174315,
+        0.6947947340470144
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9644,
+      "published_system": "ResNeXt-101 (no LSTM)",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.4101111332508407,
+      "trivial_fraction_ci": [
+        0.4003544177808602,
+        0.41945463834413094
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "subdural",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.7195392775219301,
+      "baseline_ci": [
+        0.7166460032006181,
+        0.7226824917528
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9682,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": true,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.4689006354590563,
+      "trivial_fraction_ci": [
+        0.46272106621234116,
+        0.47561403620845794
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "subdural",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.7195392775219301,
+      "baseline_ci": [
+        0.7166460032006181,
+        0.7226824917528
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "5-fold subject-disjoint CV, pooled out of fold, 2,000 patient-clustered bootstrap reps, all 18,938 patients",
+      "published": 0.9576,
+      "published_system": "ResNeXt-101 (no LSTM)",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.47976240717205015,
+      "trivial_fraction_ci": [
+        0.47343969230904304,
+        0.4866313193898601
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "any (their split geometry)",
+      "estimator_variant_of": "RSNA ICH / any",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.7381,
+      "baseline_ci": [
+        0.727,
+        0.75
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "200 random re-draws of their 744-scan held-out split; the interval is split-to-split spread, NOT sampling error",
+      "published": 0.9843,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/audit_logs/rsna_ich_burduja_conditions.log",
+      "trivial_fraction": 0.49163741482552137,
+      "trivial_fraction_ci": [
+        0.46871773693991325,
+        0.5162089613875698
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "epidural (their split geometry)",
+      "estimator_variant_of": "RSNA ICH / epidural",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.7186,
+      "baseline_ci": [
+        0.649,
+        0.776
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "200 random re-draws of their 744-scan held-out split; the interval is split-to-split spread, NOT sampling error",
+      "published": 0.9851,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/audit_logs/rsna_ich_burduja_conditions.log",
+      "trivial_fraction": 0.45062873634302214,
+      "trivial_fraction_ci": [
+        0.3071531642960215,
+        0.5689548546691404
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "intraparenchymal (their split geometry)",
+      "estimator_variant_of": "RSNA ICH / intraparenchymal",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.7527,
+      "baseline_ci": [
+        0.732,
+        0.772
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "200 random re-draws of their 744-scan held-out split; the interval is split-to-split spread, NOT sampling error",
+      "published": 0.9927,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/audit_logs/rsna_ich_burduja_conditions.log",
+      "trivial_fraction": 0.5128881672417293,
+      "trivial_fraction_ci": [
+        0.47087477166632835,
+        0.5520600771260402
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "intraventricular (their split geometry)",
+      "estimator_variant_of": "RSNA ICH / intraventricular",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.8058,
+      "baseline_ci": [
+        0.791,
+        0.82
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "200 random re-draws of their 744-scan held-out split; the interval is split-to-split spread, NOT sampling error",
+      "published": 0.997,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/audit_logs/rsna_ich_burduja_conditions.log",
+      "trivial_fraction": 0.615291750503018,
+      "trivial_fraction_ci": [
+        0.585513078470825,
+        0.6438631790744466
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "subarachnoid (their split geometry)",
+      "estimator_variant_of": "RSNA ICH / subarachnoid",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.692,
+      "baseline_ci": [
+        0.665,
+        0.71
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "200 random re-draws of their 744-scan held-out split; the interval is split-to-split spread, NOT sampling error",
+      "published": 0.9821,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/audit_logs/rsna_ich_burduja_conditions.log",
+      "trivial_fraction": 0.39825762289981326,
+      "trivial_fraction_ci": [
+        0.34225264467952715,
+        0.43559427504667075
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "RSNA ICH",
+      "arm": "subdural (their split geometry)",
+      "estimator_variant_of": "RSNA ICH / subdural",
+      "metric": "slice ROC AUC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.7211,
+      "baseline_ci": [
+        0.707,
+        0.735
+      ],
+      "baseline_model": "positional 20-bin",
+      "estimator": "200 random re-draws of their 744-scan held-out split; the interval is split-to-split spread, NOT sampling error",
+      "published": 0.9682,
+      "published_system": "ResNeXt-101+BiLSTM",
+      "primary_comparator": false,
+      "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+      "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+      "n_subjects": 18938,
+      "n_rows": 752802,
+      "source": "pipeline_out/audit_logs/rsna_ich_burduja_conditions.log",
+      "trivial_fraction": 0.4722340879965826,
+      "trivial_fraction_ci": [
+        0.4421187526697992,
+        0.5019222554463905
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "fastMRI Prostate",
+      "arm": "T2",
+      "metric": "slice AUROC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.8542338798780218,
+      "baseline_ci": [
+        0.8122745419483839,
+        0.8913268950199627
+      ],
+      "baseline_model": "positional 20bin",
+      "estimator": "the authors' own in-file split, patient-clustered bootstrap",
+      "published": 0.861,
+      "published_system": "image + k-space (gold standard)",
+      "primary_comparator": true,
+      "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+      "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+      "n_subjects": 312,
+      "n_rows": 9508,
+      "source": "pipeline_out/trivial_baselines/fastmri_prostate_t2_published.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.9812572849806698,
+      "trivial_fraction_ci": [
+        0.8650264319899831,
+        1.0840080194458799
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "MATCHED"
+    },
+    {
+      "benchmark": "fastMRI Prostate",
+      "arm": "T2",
+      "metric": "slice AUROC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.8542338798780218,
+      "baseline_ci": [
+        0.8122745419483839,
+        0.8913268950199627
+      ],
+      "baseline_model": "positional 20bin",
+      "estimator": "the authors' own in-file split, patient-clustered bootstrap",
+      "published": 0.809,
+      "published_system": "PCA x2 magnitude + phase",
+      "primary_comparator": false,
+      "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+      "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+      "n_subjects": 312,
+      "n_rows": 9508,
+      "source": "pipeline_out/trivial_baselines/fastmri_prostate_t2_published.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 1.146387960770297,
+      "trivial_fraction_ci": [
+        1.0105972231339282,
+        1.2664300809707527
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "MATCHED"
+    },
+    {
+      "benchmark": "fastMRI Prostate",
+      "arm": "T2",
+      "metric": "slice AUROC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.8542338798780218,
+      "baseline_ci": [
+        0.8122745419483839,
+        0.8913268950199627
+      ],
+      "baseline_model": "positional 20bin",
+      "estimator": "the authors' own in-file split, patient-clustered bootstrap",
+      "published": 0.714,
+      "published_system": "R=16 PCA coil combination",
+      "primary_comparator": false,
+      "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+      "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+      "n_subjects": 312,
+      "n_rows": 9508,
+      "source": "pipeline_out/trivial_baselines/fastmri_prostate_t2_published.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 1.6552985041029058,
+      "trivial_fraction_ci": [
+        1.4592268315345043,
+        1.8286303505605734
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "MATCHED"
+    },
+    {
+      "benchmark": "fastMRI Prostate",
+      "arm": "DWI",
+      "metric": "slice AUROC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.851367359682633,
+      "baseline_ci": [
+        0.8162168651359343,
+        0.8873186891637881
+      ],
+      "baseline_model": "positional 20bin",
+      "estimator": "the authors' own in-file split, patient-clustered bootstrap",
+      "published": 0.861,
+      "published_system": "image + k-space (gold standard)",
+      "primary_comparator": true,
+      "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+      "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+      "n_subjects": 312,
+      "n_rows": 9490,
+      "source": "pipeline_out/trivial_baselines/fastmri_prostate_dwi_published.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.9733167858244681,
+      "trivial_fraction_ci": [
+        0.875946994836383,
+        1.072904956132377
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "MATCHED"
+    },
+    {
+      "benchmark": "fastMRI Prostate",
+      "arm": "DWI",
+      "metric": "slice AUROC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.851367359682633,
+      "baseline_ci": [
+        0.8162168651359343,
+        0.8873186891637881
+      ],
+      "baseline_model": "positional 20bin",
+      "estimator": "the authors' own in-file split, patient-clustered bootstrap",
+      "published": 0.809,
+      "published_system": "PCA x2 magnitude + phase",
+      "primary_comparator": false,
+      "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+      "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+      "n_subjects": 312,
+      "n_rows": 9490,
+      "source": "pipeline_out/trivial_baselines/fastmri_prostate_dwi_published.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 1.1371111963839253,
+      "trivial_fraction_ci": [
+        1.023355550601729,
+        1.2534585409831327
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "MATCHED"
+    },
+    {
+      "benchmark": "fastMRI Prostate",
+      "arm": "DWI",
+      "metric": "slice AUROC",
+      "unit": "slice",
+      "chance": 0.5,
+      "baseline": 0.851367359682633,
+      "baseline_ci": [
+        0.8162168651359343,
+        0.8873186891637881
+      ],
+      "baseline_model": "positional 20bin",
+      "estimator": "the authors' own in-file split, patient-clustered bootstrap",
+      "published": 0.714,
+      "published_system": "R=16 PCA coil combination",
+      "primary_comparator": false,
+      "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+      "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+      "n_subjects": 312,
+      "n_rows": 9490,
+      "source": "pipeline_out/trivial_baselines/fastmri_prostate_dwi_published.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 1.6419035499188461,
+      "trivial_fraction_ci": [
+        1.477648902504366,
+        1.8099004166532155
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "MATCHED"
+    },
+    {
+      "benchmark": "DeepLesion",
+      "arm": "8-class lesion type",
+      "metric": "8-class accuracy",
+      "unit": "lesion",
+      "chance": 0.2361,
+      "baseline": 0.5571,
+      "baseline_ci": [
+        0.5243,
+        0.5778
+      ],
+      "baseline_model": "positional 20-bin on published normalised z",
+      "estimator": "200 random patient-disjoint 25/25/50 partitions; the interval is partition-to-partition spread",
+      "published": 0.905,
+      "published_system": "triplet + type + location + size",
+      "primary_comparator": true,
+      "comparator": "Yan et al., CVPR 2018, Table 1",
+      "peer_reviewed": "peer-reviewed (IEEE/CVF conference proceedings)",
+      "n_subjects": null,
+      "n_rows": 9816,
+      "source": "paper/audit_results.md section 3.2 (pipeline/audit_prep/deeplesion_yan_conditions.py)",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.4798923605920168,
+      "trivial_fraction_ci": [
+        0.4308566302885334,
+        0.5108386903872029
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "DeepLesion",
+      "arm": "8-class lesion type",
+      "metric": "8-class accuracy",
+      "unit": "lesion",
+      "chance": 0.2361,
+      "baseline": 0.5571,
+      "baseline_ci": [
+        0.5243,
+        0.5778
+      ],
+      "baseline_model": "positional 20-bin on published normalised z",
+      "estimator": "200 random patient-disjoint 25/25/50 partitions; the interval is partition-to-partition spread",
+      "published": 0.862,
+      "published_system": "multi-scale ImageNet feature",
+      "primary_comparator": false,
+      "comparator": "Yan et al., CVPR 2018, Table 1",
+      "peer_reviewed": "peer-reviewed (IEEE/CVF conference proceedings)",
+      "n_subjects": null,
+      "n_rows": 9816,
+      "source": "paper/audit_results.md section 3.2 (pipeline/audit_prep/deeplesion_yan_conditions.py)",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.512861479469564,
+      "trivial_fraction_ci": [
+        0.46045694200351495,
+        0.5459338552484423
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "DeepLesion",
+      "arm": "8-class lesion type",
+      "metric": "8-class accuracy",
+      "unit": "lesion",
+      "chance": 0.2361,
+      "baseline": 0.5571,
+      "baseline_ci": [
+        0.5243,
+        0.5778
+      ],
+      "baseline_model": "positional 20-bin on published normalised z",
+      "estimator": "200 random patient-disjoint 25/25/50 partitions; the interval is partition-to-partition spread",
+      "published": 0.597,
+      "published_system": "their own image-derived Location feature baseline",
+      "primary_comparator": false,
+      "comparator": "Yan et al., CVPR 2018, Table 1",
+      "peer_reviewed": "peer-reviewed (IEEE/CVF conference proceedings)",
+      "n_subjects": null,
+      "n_rows": 9816,
+      "source": "paper/audit_results.md section 3.2 (pipeline/audit_prep/deeplesion_yan_conditions.py)",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.889443059019119,
+      "trivial_fraction_ci": [
+        0.7985591576614021,
+        0.9467996674979219
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "PI-CAI",
+      "arm": "case level",
+      "metric": "case AUROC",
+      "unit": "case/patient",
+      "chance": 0.5,
+      "baseline": 0.691672192749779,
+      "baseline_ci": [
+        0.6258677219026975,
+        0.7554459200792638
+      ],
+      "baseline_model": "metadata tree",
+      "estimator": "the benchmark's own official 5-fold splits, clustered bootstrap; DIFFERENT COHORT from the published number (see audit_results 3.5)",
+      "published": 0.91,
+      "published_system": "AI system",
+      "primary_comparator": true,
+      "comparator": "Saha et al., Lancet Oncology 2024;25:879-887",
+      "peer_reviewed": "peer-reviewed (journal)",
+      "n_subjects": 1476,
+      "n_rows": 1500,
+      "source": "pipeline_out/trivial_baselines/picai_case_level.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.4674931530482414,
+      "trivial_fraction_ci": [
+        0.30699444366511575,
+        0.623038829461619
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "PI-CAI",
+      "arm": "case level",
+      "metric": "case AUROC",
+      "unit": "case/patient",
+      "chance": 0.5,
+      "baseline": 0.691672192749779,
+      "baseline_ci": [
+        0.6258677219026975,
+        0.7554459200792638
+      ],
+      "baseline_model": "metadata tree",
+      "estimator": "the benchmark's own official 5-fold splits, clustered bootstrap; DIFFERENT COHORT from the published number (see audit_results 3.5)",
+      "published": 0.86,
+      "published_system": "62 radiologists, PI-RADS 2.1",
+      "primary_comparator": false,
+      "comparator": "Saha et al., Lancet Oncology 2024;25:879-887",
+      "peer_reviewed": "peer-reviewed (journal)",
+      "n_subjects": 1476,
+      "n_rows": 1500,
+      "source": "pipeline_out/trivial_baselines/picai_case_level.json",
+      "estimator_variant_of": null,
+      "trivial_fraction": 0.532422757638275,
+      "trivial_fraction_ci": [
+        0.3496325608408263,
+        0.7095720002201773
+      ],
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "PARTIAL"
+    },
+    {
+      "benchmark": "LUNA16",
+      "arm": "FP-reduction track",
+      "metric": "sensitivity at 1 FP/scan",
+      "unit": "candidate",
+      "chance": 0.0027,
+      "baseline": 0.0006,
+      "baseline_ci": null,
+      "baseline_model": "positional 20-bin, scored on the challenge metric",
+      "estimator": "scan-disjoint 5-fold, out of fold; CPM 0.0020 against a random-score reference CPM of 0.0027",
+      "published": 0.95,
+      "published_system": "combined challenge solutions",
+      "primary_comparator": true,
+      "comparator": "Setio et al., Medical Image Analysis 2017;42:1-13",
+      "peer_reviewed": "peer-reviewed (journal)",
+      "n_subjects": 888,
+      "n_rows": 754975,
+      "source": "paper/audit_results.md section 3.6 (pipeline/audit_prep/luna16_cpm.py)",
+      "estimator_variant_of": null,
+      "trivial_fraction": -0.0022168267708223377,
+      "trivial_fraction_ci": null,
+      "trivial_fraction_undefined_reason": null,
+      "verdict": "NOT MATCHED"
+    }
+  ]
+}

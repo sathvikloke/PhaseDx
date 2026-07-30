@@ -1,9 +1,12 @@
 # Pre-registered protocol: how often does the published literature check whether a 3D imaging benchmark is solvable without pixels?
 
-**Status: FROZEN, 2026-07-29.** The sampling frame has been executed, the sample drawn, and
-every endpoint fixed. No record in the analysis sample has been read by the protocol author.
-Amendments go in the changelog (§12) and in `paper/screen_frame.json`; nothing is edited
-silently.
+**Status: FROZEN 2026-07-29 at v1.0; AMENDED to v1.2 on 2026-07-29 by the pre-registered
+agreement remedy (§6), which was triggered.** The sampling frame has been executed, the sample
+drawn, and every endpoint fixed. No record in the analysis sample has been read by the protocol
+author. Amendments go in the changelog (§12) and in `paper/screen_frame.json`; nothing is edited
+silently. The v1.2 amendment adds fourteen decision rules D1–D14 and four missing enum levels;
+it changes no endpoint definition, no interval method, no threshold and no sampling decision.
+The paper-by-paper audit trail is `paper/screen_adjudication.md`.
 
 **Companion files**
 
@@ -15,6 +18,8 @@ silently.
 | `paper/screen/permutation.txt` | the seeded permutation of the frame |
 | `paper/screen/reproduce_frame.py` | `--verify` re-derives both SHA-256 digests offline; `--refetch` re-runs the query live |
 | `paper/screen/build_sample.py` | rebuilds `screen_sample.json` from the permutation; `--check` diffs against the committed file |
+| `paper/screen_adjudication.md` | the v1.2 adjudication round: every overlap paper, every disagreement, the rule that decides it |
+| `paper/screen/analysis/adjudicate.py` | recomputes agreement pre- and post-amendment and the endpoint effect; writes `adjudication_out.json` |
 
 ---
 
@@ -296,6 +301,60 @@ paradox guard applies, if raw agreement falls below 90% — a documented adjudic
 held, the codebook is amended in the changelog, and **every already-coded paper is re-coded**.
 Both pre- and post-reconciliation statistics are reported.
 
+### 6.1 The remedy fired, and what it found (added v1.2, 2026-07-29)
+
+Pre-reconciliation, the P1 flag gave Fleiss' κ = **−0.015** [−0.164, 0.120], raw pairwise
+agreement **65.6%**, Gwet's AC1 0.479, 6/15 unanimous. Both floors failed, so the remedy became
+mandatory and was executed. `paper/screen_adjudication.md` is the audit trail.
+
+**The failure was not about the primary flag.** Restricted to the six overlap papers all four
+screeners both *obtained* and *included*, agreement on the P1 flag is 100%, AC1 = 1.000, and all
+four screeners produce identical vectors on **all six** `trivial_baseline` sub-flags on **all
+six** papers. Across all 145 coded records not one sub-flag in the P1 family is coded true by
+anyone. The measured disagreement lived in **reachability and eligibility**: on 9 of the 15
+overlap papers the four screeners recorded the same evidence and differed only in the
+placeholder the form forced them to type for "could not be assessed" — S1 wrote `false`, S2
+wrote `null`, S3 wrote the string `"unclear"`, S4 wrote `false`. `trivial_baseline` was declared
+boolean with no third level. That is a codebook defect, not a screener error, and fourteen rules
+D1–D14 now close it and the thirteen other gaps the adjudication exposed.
+
+**Three post-remedy numbers exist and only one is a reliability statistic.** This distinction is
+fixed here so that no later reader mistakes a construction for a measurement.
+
+1. **Pre-reconciliation** — the four sealed files as coded under v1.0. The honest reliability of
+   the original round. Reported first, never replaced.
+2. **Counterfactual v1.2 encoding** — the *same* four sealed files, with **no screener's reading
+   of any paper altered**, re-expressed under D2 and D3 alone: the two amendments that add a
+   missing *level* and cannot change a reading. Each screener's own `final_inclusion` and own
+   `fulltext_reachable` drive the transform, so genuine eligibility disagreements survive it.
+   This answers "was the failure a codebook defect or a screener failure?", and **this is the
+   number the floor is assessed against.** It is not an independent re-rating.
+3. **Post-adjudication consensus** — one code per paper. Agreement on it is 1.000 *by
+   construction*, is not evidence of anything, and the floor is **not** assessed against it.
+
+A genuine post-amendment reliability estimate needs a **fresh independent re-coding by four
+screeners under v1.2**. That is an outstanding action, not something this round produced, and
+the paper says so.
+
+**Result.** Under (2) the P1 flag gives raw **95.6%** [0.867, 1.000], Fleiss' κ = **0.932**
+[0.777, 1.000], AC1 **0.934** [0.800, 1.000], 14/15 unanimous; the six pairwise Cohen's κ move
+from {0.000, 0.000, undefined, 0.390, 0.000, 0.000} to {0.898, 0.898, 1.000, 1.000, 0.898,
+0.898}. **Both floors are met.** Every other agreement field improves on D2/D3 alone —
+`evaluation_unit_reported` 76.7→87.8%, `headline_unit` 76.7→87.8%, `split_unit` 64.4→76.7%,
+`positional_distribution_reported` 82.2→87.8%. The single remaining non-unanimous P1 cell is
+PMID 42489954, a genuine eligibility disagreement that the transform correctly preserves.
+
+The `headline_unit` and `positional_distribution_reported` columns of the six-paper restricted
+table are a textbook instance of the paradox this protocol guarded against in advance: 5/6
+unanimous, raw 91.7%, AC1 0.909, and κ = −0.043. Pre-specifying AC1 in §6 was worth it.
+
+**Effect on the endpoints.** The primary is **unchanged**: P1 = 0/35 complete-case, headline
+bounding interval **[0.0%, 36.4%]** over the 55 eligible-looking papers. Two secondaries move by
+one record each, in opposite directions: S4 falls 13/35 → 12/35 (D6 refuses to upgrade "cases"
+to patient-level), and S5 rises **0/35 → 1/35** (D9 codes a vertebral-level fracture table as a
+positional distribution). S5 moving off zero makes the literature look *better* on the very
+endpoint this paper accuses it of ignoring. It is adopted for that reason, not despite it.
+
 **Outside the overlap set**, where disagreement is invisible by construction, a **20% random
 subsample of each screener's batch** (seed 20260729, drawn within batch) is re-coded
 independently by the next screener in the cycle A→B→C→D→A, and the disagreement rate on the P1
@@ -462,4 +521,7 @@ should happen before screening begins.
 | 2026-07-29 | 0.3 | Frame executed: 9,979 hits, all PMIDs frozen. Seed 20260729 fixed; permutation drawn and frozen. |
 | 2026-07-29 | 0.4 | Pilot of 10 records (positions 101–110). Six amendments A1–A6 adopted; codes `E-PROJ` and `E-DERIV` created; modality list extended to SPECT and CBCT. Pilot records permanently excluded from analysis. |
 | 2026-07-29 | **1.0** | **FROZEN.** Extraction form, agreement plan, paywall handling, endpoints and analysis fixed. No analysis-sample record read. |
+| 2026-07-29 | **1.2** | **The §6 agreement remedy fired and was executed.** Fleiss' κ on the P1 flag = −0.015 (floor 0.60) and raw agreement 65.6% (paradox-guard floor 90%), so a documented adjudication round, a codebook amendment and a re-coding of every already-coded paper became mandatory. Diagnosis: the disagreement was **not** about the primary flag — on the 6 overlap papers all four screeners obtained and included, P1 agreement is 100% and all six sub-flags are identical across all four screeners; across all 145 records no P1-family sub-flag is coded true by anyone. The disagreement was in **reachability and eligibility**, and on 9 of 15 overlap papers it was purely the placeholder the form forced for "could not be assessed" (`trivial_baseline` was declared boolean with no third level). Fourteen rules **D1–D14** adopted, each logged in `screen_frame.json` with the specific disagreement it resolves; four missing enum levels added (`not_assessable` on the six sub-flags, `not_applicable` on every descriptive field and available only where `final_inclusion≠included`, `lesion_or_roi` on `split_unit`, `not_stated` on `code_availability`). Counterfactual v1.2 encoding of the *same sealed files*: P1 κ −0.015→**0.932** [0.777, 1.000], raw 65.6%→**95.6%**, AC1 0.479→0.934, unanimous 6/15→14/15 — **both floors met**. Endpoints: **P1 unchanged at 0/35, headline bounding interval [0.0%, 36.4%]**; S4 13/35→12/35; S5 **0/35→1/35**. Nothing in the frame, the permutation, the sample, the four sealed screener files, the endpoint definitions, the interval method or the 15% threshold was altered. Audit trail: `paper/screen_adjudication.md`. |
 | 2026-07-29 | 1.1 | **Metadata correction, no change to the sample.** The first build read identifiers with `iter("ArticleId")`, which also walks each record's embedded reference list, so 229/400 DOIs and 276/400 PMCIDs were taken from a cited paper instead of the article — PMID 40335658, a 2025 *Eur Radiol* paper, had been given a 1985 *JBJS* DOI, and `oa_status` was wrong wherever the PMCID was. Fixed to scoped lookups (`PubmedData/ArticleIdList` direct child, `ELocationID` fallback) in `build_sample.py`, which now carries a seeded 25-DOI Crossref title-match regression test: 25/25 agree. §7 open-access counts were restated (60 PMC / 3 CC / 31 closed / 6 unknown; previously 65/3/27/5). **Which PMIDs are sampled and which batch each falls in were never affected** — allocation is determined solely by `permutation.txt`, whose digest is unchanged. |
+| 2026-07-29 | **1.3** | **The §7 access ladder was re-run, harder. No rule changed; no sealed file edited.** The 15% censoring threshold in §7 had fired at **20/55 = 36.4%**, making `[0.0%, 36.4%]` the reportable primary figure. That bound narrows only when full texts are recovered, so all five rungs were worked again against **every** record coded `unreachable_*`. **Four of twenty recovered**, each then coded in full including the mandatory 14-term full-text search: **38591974** (rung 1, *Radiology* CC BY version of record), **36170844** (rung 1, Karger CC BY-NC accepted manuscript), **36200353** (rung 4, Authorea **preprint** of the same work — flagged, and reserved for the version-of-record sensitivity analysis), **39846055** (rung 4, University of Southern Queensland institutional repository accepted manuscript). Records: `paper/screen/access_recovery.json`, applied as an analysis-time overlay by `paper/screen/analysis/recompute_with_recovery.py`, which prints as-sealed and post-recovery numbers side by side. **Consequence:** unreachable 20→16; one recovery (36170844) proved *ineligible* on full text — a U-Net segmentation study with no fitted classifier and no negative class in the data, `E-NOCLF` under D10 — so it **leaves** the eligible set and the denominator falls 55→54. **S6 36.4% [24.9%, 49.6%] → 29.6% [19.1%, 42.8%]; headline bounding interval [0.0%, 36.4%] → [0.0%, 29.6%]** (width 36.4 pp → 29.6 pp). **P1 complete-case 0/35 → 0/38, still exactly zero**, and no P1-family sub-flag is true anywhere across 149 codes. **29.6% is still above 15%, so §7 still binds and the bound remains the headline** — and no increase in sample size can change that. **Disclosure:** three still-unreachable records (37222638 bronze at Wiley, 42153825 CC BY at RSNA, 40147601 CC BY-NC-ND gold at Elsevier) are demonstrably **open access** and unreachable only because this environment is refused by those publishers (HTTP 403 to every scripted client; domains also blocked by the environment's browsing policy). They are counted unreachable because no full text was read, and the cause is disclosed rather than charged to the literature; recovering all three elsewhere gives 13/54 = 24.1%, still above 15%. **No infringing source was used at any point**; where a paper was reachable only through one, it stayed unreachable. |
+| 2026-07-30 | **1.4** | **The §3.1 extension rule was executed to its stopping point, and one v1.3 number is corrected against us. No rule changed; no sealed file edited; no endpoint, interval method or threshold altered.** Reserve blocks were screened in permutation order, fifty records at a time, none truncated part-way: **R1** positions 111–160, **R2** 161–210, **R3** 211–260. The running included total went 38 → 55 → 72 → **91**, so the rule **stopped at position 260**, the pre-registered target of 75 is **met**, and the complete-case zero-count upper bound is **4.1%**, better than the 4.9% §3.1 asked for. A fourth block, **R4** at positions 261–310, was screened *after* the rule had already stopped; continuing past a fired stopping rule is a data-dependent continuation, so R4 is reported everywhere as a **labelled post-hoc extension** and is never pooled into the pre-registered denominator. Reserve records are single-coded and therefore contribute no agreement information. **CORRECTION.** The v1.3 figure S6 = 16/54 = 29.6% was wrong. It was computed by `recompute_with_recovery.py` and inherited by `prisma_flow.py` *before* the v1.2 re-code, and neither applies rule **D1** — *unreachable dominates included; an unreachable record may be coded `excluded` only if `stage1_decision='exclude'`*. Five records (33937792, 42162744, 35641181, 35787928, 41874622) carry a full-text exclusion code although `fulltext_reachable = unreachable_paywalled` and `stage1_decision = go_to_fulltext`, i.e. they were excluded at full text without the full text. `screen_recoded.json` applies D1 and gives **38 included / 21 unreachable / 59 eligible, S6 = 35.6%** for the analysis sample. **The access recovery therefore narrowed censoring 36.4% → 35.6%, not 36.4% → 29.6%.** `paper/prisma_flow.json`, `paper/prisma_flow.md` and `paper/figures/prisma_flow.svg` are marked SUPERSEDED in place; regenerating them requires `prisma_flow.py` to apply D1. **POOLED RESULT (pre-registered set = analysis sample + R1 + R2 + R3):** 250 screened, 79 excluded at title/abstract, 171 sought, **44 unreachable**, 127 assessed, 36 excluded at full text, **91 included**; eligible-looking 135; **S6 = 44/135 = 32.6% [25.3%, 40.9%]**, still more than double the §7 threshold, so **the bounding interval remains the headline: P1 ∈ [0.0%, 32.6%]**, complete case 0/91 = 0.0% [0.0%, 4.1%], evidence-restricted 0/79 = 0.0% [0.0%, 4.6%]. **The extension did not reduce censoring and could not**: block-wise unreachable rates were 35.6%, 34.6%, 22.7%, 32.1%. **P1 is still exactly zero**, and across **345 coded records covering 300 distinct sampled papers** no P1-family sub-flag is true anywhere. Secondaries on the pooled set: S1 5/91, S2 17/91, S3 6/19, S4 29/91 (κ 0.637), S5 1/91, S8 2/91, S9 11/91. Analysis: `paper/screen/analysis/pool_final.py` → `pooled_final.json`; flow figure `paper/screen/analysis/flow_figure.py` → `paper/figures/prisma_flow_pooled.svg`. **Outstanding, and stated rather than absorbed:** a fresh independent four-screener re-code under v1.2 (§6.1) has not been run; the §6 20% within-batch cross-check outside the overlap set has not been run; and the §8 venue classification from journal scope statements has not been done, so the reported venue subgroup is a provisional keyword heuristic. |

@@ -1,0 +1,3615 @@
+{
+ "_generated_by": "paper/screen/analysis/adjudicate.py",
+ "_protocol": "paper/screen_protocol.md v1.2; paper/screen_frame.json v1.2",
+ "_inputs": [
+  "paper/screen_batch_A.json",
+  "paper/screen_batch_B.json",
+  "paper/screen_batch_C.json",
+  "paper/screen_batch_D.json"
+ ],
+ "_sealed_files_modified": false,
+ "_seed": 20260729,
+ "_nboot": 2000,
+ "pre_reconciliation_v10": {
+  "final_inclusion": {
+   "pa": 0.8666666666666667,
+   "fleiss_kappa": 0.7849462365591399,
+   "gwet_ac1": 0.8067632850241546,
+   "fleiss_pe": 0.38,
+   "gwet_pe": 0.31,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 3,
+   "category_counts": {
+    "excluded": 22,
+    "included": 28,
+    "unreachable_eligibility_unresolved": 10
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.7333333333333333,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.5437262357414447,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.6019900497512437,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.33999999999999997,
+     0.5555555555555556,
+     2000
+    ],
+    "gwet_pe": [
+     0.23000000000000004,
+     0.3322222222222222,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    },
+    "S1-S3": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    },
+    "S1-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    }
+   },
+   "mean_pairwise_cohen": 0.7902097902097903,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 12,
+   "unanimous_frac": 0.8,
+   "per_paper": {
+    "36776294": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "41617832": [
+     "included",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "included"
+    ],
+    "39423605": [
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved"
+    ],
+    "42130124": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "36789248": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "40335658": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "40194851": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "42489954": [
+     "excluded",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "excluded"
+    ],
+    "39061744": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "31093705": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "36016875": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "36072854": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "37222638": [
+     "included",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "included"
+    ],
+    "40239684": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "41068276": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ]
+   }
+  },
+  "fulltext_obtained": {
+   "pa": 0.888888888888889,
+   "fleiss_kappa": 0.7685185185185186,
+   "gwet_ac1": 0.7863247863247864,
+   "fleiss_pe": 0.52,
+   "gwet_pe": 0.48,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 2,
+   "category_counts": {
+    "False": 24,
+    "True": 36
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.7555555555555556,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.48372615039281674,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.5338512763596005,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.5,
+     0.7005555555555556,
+     2000
+    ],
+    "gwet_pe": [
+     0.2994444444444444,
+     0.5,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.5871559633027524
+    },
+    "S1-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S1-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8648648648648649
+    },
+    "S2-S3": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.5871559633027524
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.7058823529411765
+    },
+    "S3-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8648648648648649
+    }
+   },
+   "mean_pairwise_cohen": 0.7683206682127351,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 12,
+   "unanimous_frac": 0.8,
+   "per_paper": {
+    "36776294": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "41617832": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "39423605": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "42130124": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "36789248": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "40335658": [
+     "False",
+     "True",
+     "False",
+     "False"
+    ],
+    "40194851": [
+     "False",
+     "True",
+     "False",
+     "False"
+    ],
+    "42489954": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "39061744": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "31093705": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "36016875": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "36072854": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "37222638": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "40239684": [
+     "False",
+     "True",
+     "False",
+     "True"
+    ],
+    "41068276": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ]
+   }
+  },
+  "P1_flag": {
+   "pa": 0.6555555555555556,
+   "fleiss_kappa": -0.01472995090016368,
+   "gwet_ac1": 0.4785534062237174,
+   "fleiss_pe": 0.6605555555555556,
+   "gwet_pe": 0.33944444444444444,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 2,
+   "category_counts": {
+    "False": 47,
+    "NOT_ASSESSABLE": 13
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.5,
+     0.8,
+     2000
+    ],
+    "fleiss_kappa": [
+     -0.16402116402116373,
+     0.12000000000000001,
+     2000
+    ],
+    "gwet_ac1": [
+     0.11877394636015316,
+     0.7398843930635839,
+     2000
+    ],
+    "fleiss_pe": [
+     0.5672222222222222,
+     0.7938888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.20611111111111113,
+     0.43277777777777776,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.0
+    },
+    "S1-S3": {
+     "percent_agreement": 0.4,
+     "cohen_kappa": 0.0
+    },
+    "S1-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": NaN
+    },
+    "S2-S3": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.3902439024390243
+    },
+    "S2-S4": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.0
+    },
+    "S3-S4": {
+     "percent_agreement": 0.4,
+     "cohen_kappa": 0.0
+    }
+   },
+   "mean_pairwise_cohen": 0.07804878048780486,
+   "n_pairwise_kappa_defined": 5,
+   "unanimous_items": 6,
+   "unanimous_frac": 0.4,
+   "per_paper": {
+    "36776294": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "41617832": [
+     "False",
+     "NOT_ASSESSABLE",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "39423605": [
+     "False",
+     "NOT_ASSESSABLE",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "42130124": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36789248": [
+     "False",
+     "False",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "40335658": [
+     "False",
+     "False",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "40194851": [
+     "False",
+     "False",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "42489954": [
+     "False",
+     "NOT_ASSESSABLE",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "39061744": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "31093705": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36016875": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36072854": [
+     "False",
+     "False",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "37222638": [
+     "False",
+     "NOT_ASSESSABLE",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "40239684": [
+     "False",
+     "False",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "41068276": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ]
+   }
+  },
+  "evaluation_unit_reported": {
+   "pa": 0.7666666666666667,
+   "fleiss_kappa": 0.6846846846846848,
+   "gwet_ac1": 0.7137014314928426,
+   "fleiss_pe": 0.26,
+   "gwet_pe": 0.18500000000000003,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 5,
+   "category_counts": {
+    "lesion": 8,
+    "other": 6,
+    "patient": 20,
+    "slice": 6,
+    "unclear": 20
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.6333333333333333,
+     0.9,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.46472019464720193,
+     0.828203292770222,
+     2000
+    ],
+    "gwet_ac1": [
+     0.5484864032837352,
+     0.8500624739691796,
+     2000
+    ],
+    "fleiss_pe": [
+     0.22055555555555556,
+     0.418888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.15875,
+     0.245,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.5588235294117646
+    },
+    "S1-S3": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.625
+    },
+    "S1-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.8125
+    },
+    "S2-S3": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.5879120879120878
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.7413793103448276
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.819277108433735
+    }
+   },
+   "mean_pairwise_cohen": 0.6908153393504025,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 8,
+   "unanimous_frac": 0.5333333333333333,
+   "per_paper": {
+    "36776294": [
+     "lesion",
+     "lesion",
+     "lesion",
+     "lesion"
+    ],
+    "41617832": [
+     "patient",
+     "patient",
+     "unclear",
+     "patient"
+    ],
+    "39423605": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "42130124": [
+     "other",
+     "other",
+     "other",
+     "other"
+    ],
+    "36789248": [
+     "unclear",
+     "slice",
+     "slice",
+     "slice"
+    ],
+    "40335658": [
+     "unclear",
+     "patient",
+     "unclear",
+     "unclear"
+    ],
+    "40194851": [
+     "patient",
+     "patient",
+     "patient",
+     "patient"
+    ],
+    "42489954": [
+     "patient",
+     "patient",
+     "unclear",
+     "patient"
+    ],
+    "39061744": [
+     "patient",
+     "patient",
+     "patient",
+     "patient"
+    ],
+    "31093705": [
+     "lesion",
+     "lesion",
+     "lesion",
+     "lesion"
+    ],
+    "36016875": [
+     "patient",
+     "slice",
+     "slice",
+     "slice"
+    ],
+    "36072854": [
+     "unclear",
+     "other",
+     "unclear",
+     "unclear"
+    ],
+    "37222638": [
+     "patient",
+     "patient",
+     "patient",
+     "patient"
+    ],
+    "40239684": [
+     "unclear",
+     "other",
+     "unclear",
+     "unclear"
+    ],
+    "41068276": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ]
+   }
+  },
+  "headline_unit": {
+   "pa": 0.7666666666666667,
+   "fleiss_kappa": 0.4254445964432286,
+   "gwet_ac1": 0.60710944808232,
+   "fleiss_pe": 0.5938888888888889,
+   "gwet_pe": 0.4061111111111111,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 2,
+   "category_counts": {
+    "na_only_one_unit_reported": 43,
+    "unclear": 17
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.6333333333333333,
+     0.9,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.08496732026143852,
+     0.6825396825396827,
+     2000
+    ],
+    "gwet_ac1": [
+     0.327217125382263,
+     0.8373983739837398,
+     2000
+    ],
+    "fleiss_pe": [
+     0.5022222222222222,
+     0.768888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.2311111111111111,
+     0.495,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.24999999999999978
+    },
+    "S1-S3": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.5714285714285715
+    },
+    "S1-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.7000000000000001
+    },
+    "S2-S3": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.19354838709677433
+    },
+    "S2-S4": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.24999999999999978
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.5714285714285715
+    }
+   },
+   "mean_pairwise_cohen": 0.4227342549923195,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 8,
+   "unanimous_frac": 0.5333333333333333,
+   "per_paper": {
+    "36776294": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "41617832": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "unclear",
+     "na_only_one_unit_reported"
+    ],
+    "39423605": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "42130124": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "36789248": [
+     "unclear",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "40335658": [
+     "unclear",
+     "na_only_one_unit_reported",
+     "unclear",
+     "unclear"
+    ],
+    "40194851": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "42489954": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "unclear",
+     "na_only_one_unit_reported"
+    ],
+    "39061744": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "31093705": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "36016875": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "36072854": [
+     "unclear",
+     "na_only_one_unit_reported",
+     "unclear",
+     "unclear"
+    ],
+    "37222638": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "40239684": [
+     "unclear",
+     "na_only_one_unit_reported",
+     "unclear",
+     "unclear"
+    ],
+    "41068276": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "unclear"
+    ]
+   }
+  },
+  "split_unit": {
+   "pa": 0.6444444444444444,
+   "fleiss_kappa": 0.4976452119309261,
+   "gwet_ac1": 0.585814134092674,
+   "fleiss_pe": 0.29222222222222227,
+   "gwet_pe": 0.14155555555555555,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 6,
+   "category_counts": {
+    "no_held_out_test_set": 1,
+    "patient_subject": 13,
+    "random_unit_not_stated": 6,
+    "site_or_centre": 1,
+    "slice_or_image": 13,
+    "unclear": 26
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.4888888888888889,
+     0.8,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.2671009771986971,
+     0.6917497733454215,
+     2000
+    ],
+    "gwet_ac1": [
+     0.3789029535864979,
+     0.7596795727636849,
+     2000
+    ],
+    "fleiss_pe": [
+     0.24499999999999997,
+     0.4688888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.11744444444444443,
+     0.23870370370370372,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.5333333333333333,
+     "cohen_kappa": 0.38235294117647056
+    },
+    "S1-S3": {
+     "percent_agreement": 0.6,
+     "cohen_kappa": 0.4230769230769231
+    },
+    "S1-S4": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.5283018867924528
+    },
+    "S2-S3": {
+     "percent_agreement": 0.6,
+     "cohen_kappa": 0.4444444444444445
+    },
+    "S2-S4": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.5535714285714286
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.707792207792208
+    }
+   },
+   "mean_pairwise_cohen": 0.5065899719756546,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 6,
+   "unanimous_frac": 0.4,
+   "per_paper": {
+    "36776294": [
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image"
+    ],
+    "41617832": [
+     "patient_subject",
+     "patient_subject",
+     "unclear",
+     "patient_subject"
+    ],
+    "39423605": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "42130124": [
+     "patient_subject",
+     "patient_subject",
+     "random_unit_not_stated",
+     "random_unit_not_stated"
+    ],
+    "36789248": [
+     "random_unit_not_stated",
+     "slice_or_image",
+     "random_unit_not_stated",
+     "random_unit_not_stated"
+    ],
+    "40335658": [
+     "unclear",
+     "no_held_out_test_set",
+     "unclear",
+     "unclear"
+    ],
+    "40194851": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "42489954": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "39061744": [
+     "patient_subject",
+     "patient_subject",
+     "patient_subject",
+     "patient_subject"
+    ],
+    "31093705": [
+     "slice_or_image",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "36016875": [
+     "patient_subject",
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image"
+    ],
+    "36072854": [
+     "unclear",
+     "slice_or_image",
+     "unclear",
+     "patient_subject"
+    ],
+    "37222638": [
+     "patient_subject",
+     "site_or_centre",
+     "unclear",
+     "patient_subject"
+    ],
+    "40239684": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "41068276": [
+     "random_unit_not_stated",
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image"
+    ]
+   }
+  },
+  "positional_distribution_reported": {
+   "pa": 0.8222222222222223,
+   "fleiss_kappa": 0.6479647964796481,
+   "gwet_ac1": 0.7621701969528056,
+   "fleiss_pe": 0.495,
+   "gwet_pe": 0.2525,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 3,
+   "category_counts": {
+    "figure_or_table": 1,
+    "no": 34,
+    "unclear": 25
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.6777777777777777,
+     0.9333333333333333,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.32356257046223214,
+     0.8699891657638137,
+     2000
+    ],
+    "gwet_ac1": [
+     0.4894561598224193,
+     0.9118942731277533,
+     2000
+    ],
+    "fleiss_pe": [
+     0.4650000000000001,
+     0.6538888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.18555555555555556,
+     0.49944444444444447,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.4999999999999999
+    },
+    "S1-S3": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.75
+    },
+    "S1-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.75
+    },
+    "S2-S3": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.4827586206896551
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.7058823529411765
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.736842105263158
+    }
+   },
+   "mean_pairwise_cohen": 0.6542471798156649,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 10,
+   "unanimous_frac": 0.6666666666666666,
+   "per_paper": {
+    "36776294": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "41617832": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "39423605": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "42130124": [
+     "figure_or_table",
+     "no",
+     "no",
+     "no"
+    ],
+    "36789248": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "40335658": [
+     "unclear",
+     "no",
+     "unclear",
+     "unclear"
+    ],
+    "40194851": [
+     "unclear",
+     "no",
+     "unclear",
+     "no"
+    ],
+    "42489954": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "39061744": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "31093705": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "36016875": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "36072854": [
+     "no",
+     "no",
+     "unclear",
+     "no"
+    ],
+    "37222638": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "40239684": [
+     "unclear",
+     "no",
+     "unclear",
+     "unclear"
+    ],
+    "41068276": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ]
+   }
+  }
+ },
+ "counterfactual_v12_encoding": {
+  "final_inclusion": {
+   "pa": 0.8666666666666667,
+   "fleiss_kappa": 0.7849462365591399,
+   "gwet_ac1": 0.8067632850241546,
+   "fleiss_pe": 0.38,
+   "gwet_pe": 0.31,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 3,
+   "category_counts": {
+    "excluded": 22,
+    "included": 28,
+    "unreachable_eligibility_unresolved": 10
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.7333333333333333,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.5437262357414447,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.6019900497512437,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.33999999999999997,
+     0.5555555555555556,
+     2000
+    ],
+    "gwet_pe": [
+     0.23000000000000004,
+     0.3322222222222222,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    },
+    "S1-S3": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    },
+    "S1-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    }
+   },
+   "mean_pairwise_cohen": 0.7902097902097903,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 12,
+   "unanimous_frac": 0.8,
+   "per_paper": {
+    "36776294": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "41617832": [
+     "included",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "included"
+    ],
+    "39423605": [
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved"
+    ],
+    "42130124": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "36789248": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "40335658": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "40194851": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "42489954": [
+     "excluded",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "excluded"
+    ],
+    "39061744": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "31093705": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "36016875": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "36072854": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "37222638": [
+     "included",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "included"
+    ],
+    "40239684": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "41068276": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ]
+   }
+  },
+  "fulltext_obtained": {
+   "pa": 0.888888888888889,
+   "fleiss_kappa": 0.7685185185185186,
+   "gwet_ac1": 0.7863247863247864,
+   "fleiss_pe": 0.52,
+   "gwet_pe": 0.48,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 2,
+   "category_counts": {
+    "False": 24,
+    "True": 36
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.7555555555555556,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.48372615039281674,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.5338512763596005,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.5,
+     0.7005555555555556,
+     2000
+    ],
+    "gwet_pe": [
+     0.2994444444444444,
+     0.5,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.5871559633027524
+    },
+    "S1-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S1-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8648648648648649
+    },
+    "S2-S3": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.5871559633027524
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.7058823529411765
+    },
+    "S3-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8648648648648649
+    }
+   },
+   "mean_pairwise_cohen": 0.7683206682127351,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 12,
+   "unanimous_frac": 0.8,
+   "per_paper": {
+    "36776294": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "41617832": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "39423605": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "42130124": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "36789248": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "40335658": [
+     "False",
+     "True",
+     "False",
+     "False"
+    ],
+    "40194851": [
+     "False",
+     "True",
+     "False",
+     "False"
+    ],
+    "42489954": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "39061744": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "31093705": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "36016875": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "36072854": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "37222638": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "40239684": [
+     "False",
+     "True",
+     "False",
+     "True"
+    ],
+    "41068276": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ]
+   }
+  },
+  "P1_flag": {
+   "pa": 0.9555555555555556,
+   "fleiss_kappa": 0.9317406143344711,
+   "gwet_ac1": 0.9341021416803956,
+   "fleiss_pe": 0.3488888888888889,
+   "gwet_pe": 0.32555555555555554,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 3,
+   "category_counts": {
+    "False": 24,
+    "not_applicable": 22,
+    "not_assessable": 14
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.8666666666666667,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.7769516728624537,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.8003327787021631,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.3355555555555555,
+     0.52,
+     2000
+    ],
+    "gwet_pe": [
+     0.24333333333333335,
+     0.33333333333333337,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8979591836734694
+    },
+    "S1-S3": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8979591836734694
+    },
+    "S1-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8979591836734694
+    },
+    "S3-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8979591836734694
+    }
+   },
+   "mean_pairwise_cohen": 0.9319727891156463,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 14,
+   "unanimous_frac": 0.9333333333333333,
+   "per_paper": {
+    "36776294": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "41617832": [
+     "not_assessable",
+     "not_assessable",
+     "not_assessable",
+     "not_assessable"
+    ],
+    "39423605": [
+     "not_assessable",
+     "not_assessable",
+     "not_assessable",
+     "not_assessable"
+    ],
+    "42130124": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36789248": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "40335658": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "40194851": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "42489954": [
+     "not_applicable",
+     "not_assessable",
+     "not_assessable",
+     "not_applicable"
+    ],
+    "39061744": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "31093705": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36016875": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36072854": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "37222638": [
+     "not_assessable",
+     "not_assessable",
+     "not_assessable",
+     "not_assessable"
+    ],
+    "40239684": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "41068276": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ]
+   }
+  },
+  "P1_flag_collapsed": {
+   "pa": 1.0,
+   "fleiss_kappa": 1.0,
+   "gwet_ac1": 1.0,
+   "fleiss_pe": 0.52,
+   "gwet_pe": 0.48,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 2,
+   "category_counts": {
+    "False": 24,
+    "NOT_CODED": 36
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     1.0,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     1.0,
+     1.0,
+     1998
+    ],
+    "gwet_ac1": [
+     1.0,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.5022222222222222,
+     0.768888888888889,
+     1998
+    ],
+    "gwet_pe": [
+     0.2311111111111111,
+     0.49777777777777776,
+     1998
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S1-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S1-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S3-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    }
+   },
+   "mean_pairwise_cohen": 1.0,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 15,
+   "unanimous_frac": 1.0,
+   "per_paper": {
+    "36776294": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "41617832": [
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED"
+    ],
+    "39423605": [
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED"
+    ],
+    "42130124": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36789248": [
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED"
+    ],
+    "40335658": [
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED"
+    ],
+    "40194851": [
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED"
+    ],
+    "42489954": [
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED"
+    ],
+    "39061744": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "31093705": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36016875": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36072854": [
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED"
+    ],
+    "37222638": [
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED"
+    ],
+    "40239684": [
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED",
+     "NOT_CODED"
+    ],
+    "41068276": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ]
+   }
+  },
+  "evaluation_unit_reported": {
+   "pa": 0.8777777777777778,
+   "fleiss_kappa": 0.8158995815899581,
+   "gwet_ac1": 0.8590647021140294,
+   "fleiss_pe": 0.33611111111111114,
+   "gwet_pe": 0.13277777777777777,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 6,
+   "category_counts": {
+    "lesion": 8,
+    "not_applicable": 32,
+    "other": 4,
+    "patient": 9,
+    "slice": 3,
+    "unclear": 4
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.7444444444444444,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.565217391304348,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.6922562301388191,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.22388888888888886,
+     0.6111111111111112,
+     2000
+    ],
+    "gwet_pe": [
+     0.11766666666666667,
+     0.24296296296296296,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.7039473684210527
+    },
+    "S1-S3": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.7039473684210527
+    },
+    "S1-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.9050632911392406
+    },
+    "S2-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.8026315789473685
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.8026315789473685
+    }
+   },
+   "mean_pairwise_cohen": 0.8197035309793471,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 12,
+   "unanimous_frac": 0.8,
+   "per_paper": {
+    "36776294": [
+     "lesion",
+     "lesion",
+     "lesion",
+     "lesion"
+    ],
+    "41617832": [
+     "patient",
+     "not_applicable",
+     "not_applicable",
+     "patient"
+    ],
+    "39423605": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "42130124": [
+     "other",
+     "other",
+     "other",
+     "other"
+    ],
+    "36789248": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "40335658": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "40194851": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "42489954": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "39061744": [
+     "patient",
+     "patient",
+     "patient",
+     "patient"
+    ],
+    "31093705": [
+     "lesion",
+     "lesion",
+     "lesion",
+     "lesion"
+    ],
+    "36016875": [
+     "patient",
+     "slice",
+     "slice",
+     "slice"
+    ],
+    "36072854": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "37222638": [
+     "patient",
+     "not_applicable",
+     "not_applicable",
+     "patient"
+    ],
+    "40239684": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "41068276": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ]
+   }
+  },
+  "headline_unit": {
+   "pa": 0.8777777777777778,
+   "fleiss_kappa": 0.761646803900325,
+   "gwet_ac1": 0.8356369069854315,
+   "fleiss_pe": 0.4872222222222222,
+   "gwet_pe": 0.2563888888888889,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 3,
+   "category_counts": {
+    "na_only_one_unit_reported": 27,
+    "not_applicable": 32,
+    "unclear": 1
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.7444444444444444,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.47308132875143166,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.6168582375478927,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.45722222222222225,
+     0.6422222222222222,
+     2000
+    ],
+    "gwet_pe": [
+     0.20333333333333334,
+     0.5,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.736842105263158
+    },
+    "S1-S3": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.736842105263158
+    },
+    "S1-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.875
+    },
+    "S2-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6250000000000001
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6250000000000001
+    }
+   },
+   "mean_pairwise_cohen": 0.7664473684210527,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 12,
+   "unanimous_frac": 0.8,
+   "per_paper": {
+    "36776294": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "41617832": [
+     "na_only_one_unit_reported",
+     "not_applicable",
+     "not_applicable",
+     "na_only_one_unit_reported"
+    ],
+    "39423605": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "42130124": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "36789248": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "40335658": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "40194851": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "42489954": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "39061744": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "31093705": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "36016875": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "36072854": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "37222638": [
+     "na_only_one_unit_reported",
+     "not_applicable",
+     "not_applicable",
+     "na_only_one_unit_reported"
+    ],
+    "40239684": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "41068276": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "unclear"
+    ]
+   }
+  },
+  "split_unit": {
+   "pa": 0.7666666666666667,
+   "fleiss_kappa": 0.6373056994818654,
+   "gwet_ac1": 0.7219463753723935,
+   "fleiss_pe": 0.35666666666666663,
+   "gwet_pe": 0.16083333333333333,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 5,
+   "category_counts": {
+    "not_applicable": 32,
+    "patient_subject": 11,
+    "random_unit_not_stated": 3,
+    "slice_or_image": 11,
+    "unclear": 3
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.6222222222222222,
+     0.9222222222222223,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.43000838222967314,
+     0.8243902439024392,
+     2000
+    ],
+    "gwet_ac1": [
+     0.5293558355122414,
+     0.9013968775677895,
+     2000
+    ],
+    "fleiss_pe": [
+     0.255,
+     0.6138888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.11888888888888888,
+     0.24000000000000002,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.4863013698630137
+    },
+    "S1-S3": {
+     "percent_agreement": 0.6,
+     "cohen_kappa": 0.39999999999999997
+    },
+    "S1-S4": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.6103896103896103
+    },
+    "S2-S3": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8863636363636364
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6917808219178083
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.7972972972972974
+    }
+   },
+   "mean_pairwise_cohen": 0.6453554559718944,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 9,
+   "unanimous_frac": 0.6,
+   "per_paper": {
+    "36776294": [
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image"
+    ],
+    "41617832": [
+     "patient_subject",
+     "not_applicable",
+     "not_applicable",
+     "patient_subject"
+    ],
+    "39423605": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "42130124": [
+     "patient_subject",
+     "patient_subject",
+     "random_unit_not_stated",
+     "random_unit_not_stated"
+    ],
+    "36789248": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "40335658": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "40194851": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "42489954": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "39061744": [
+     "patient_subject",
+     "patient_subject",
+     "patient_subject",
+     "patient_subject"
+    ],
+    "31093705": [
+     "slice_or_image",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "36016875": [
+     "patient_subject",
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image"
+    ],
+    "36072854": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "37222638": [
+     "patient_subject",
+     "not_applicable",
+     "not_applicable",
+     "patient_subject"
+    ],
+    "40239684": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "41068276": [
+     "random_unit_not_stated",
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image"
+    ]
+   }
+  },
+  "positional_distribution_reported": {
+   "pa": 0.8777777777777778,
+   "fleiss_kappa": 0.7832512315270935,
+   "gwet_ac1": 0.8494868871151653,
+   "fleiss_pe": 0.4361111111111111,
+   "gwet_pe": 0.18796296296296297,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 4,
+   "category_counts": {
+    "figure_or_table": 1,
+    "no": 23,
+    "not_applicable": 32,
+    "unclear": 4
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.7555555555555556,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.5547945205479451,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.68,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.3783333333333333,
+     0.6227777777777779,
+     2000
+    ],
+    "gwet_pe": [
+     0.14351851851851852,
+     0.4444444444444445,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6590909090909092
+    },
+    "S1-S3": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6590909090909092
+    },
+    "S1-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8943661971830986
+    },
+    "S2-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.7619047619047619
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.7619047619047619
+    }
+   },
+   "mean_pairwise_cohen": 0.7893929231957402,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 12,
+   "unanimous_frac": 0.8,
+   "per_paper": {
+    "36776294": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "41617832": [
+     "unclear",
+     "not_applicable",
+     "not_applicable",
+     "unclear"
+    ],
+    "39423605": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "42130124": [
+     "figure_or_table",
+     "no",
+     "no",
+     "no"
+    ],
+    "36789248": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "40335658": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "40194851": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "42489954": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "39061744": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "31093705": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "36016875": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "36072854": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "37222638": [
+     "unclear",
+     "not_applicable",
+     "not_applicable",
+     "unclear"
+    ],
+    "40239684": [
+     "not_applicable",
+     "not_applicable",
+     "not_applicable",
+     "not_applicable"
+    ],
+    "41068276": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ]
+   }
+  }
+ },
+ "restricted_to_core": {
+  "pmids": [
+   "36776294",
+   "42130124",
+   "39061744",
+   "31093705",
+   "36016875",
+   "41068276"
+  ],
+  "n": 6,
+  "by_field": {
+   "final_inclusion": {
+    "pa": 1.0,
+    "fleiss_kappa": NaN,
+    "gwet_ac1": 1.0,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 1,
+    "bootstrap_ci95": {
+     "pa": [
+      1.0,
+      1.0,
+      2000
+     ],
+     "gwet_ac1": [
+      1.0,
+      1.0,
+      2000
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     }
+    },
+    "mean_pairwise_cohen": NaN,
+    "n_pairwise_kappa_defined": 0,
+    "unanimous_items": 6,
+    "unanimous_frac": 1.0,
+    "per_paper": {
+     "36776294": [
+      "included",
+      "included",
+      "included",
+      "included"
+     ],
+     "42130124": [
+      "included",
+      "included",
+      "included",
+      "included"
+     ],
+     "39061744": [
+      "included",
+      "included",
+      "included",
+      "included"
+     ],
+     "31093705": [
+      "included",
+      "included",
+      "included",
+      "included"
+     ],
+     "36016875": [
+      "included",
+      "included",
+      "included",
+      "included"
+     ],
+     "41068276": [
+      "included",
+      "included",
+      "included",
+      "included"
+     ]
+    }
+   },
+   "fulltext_obtained": {
+    "pa": 1.0,
+    "fleiss_kappa": NaN,
+    "gwet_ac1": 1.0,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 1,
+    "bootstrap_ci95": {
+     "pa": [
+      1.0,
+      1.0,
+      2000
+     ],
+     "gwet_ac1": [
+      1.0,
+      1.0,
+      2000
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     }
+    },
+    "mean_pairwise_cohen": NaN,
+    "n_pairwise_kappa_defined": 0,
+    "unanimous_items": 6,
+    "unanimous_frac": 1.0,
+    "per_paper": {
+     "36776294": [
+      "True",
+      "True",
+      "True",
+      "True"
+     ],
+     "42130124": [
+      "True",
+      "True",
+      "True",
+      "True"
+     ],
+     "39061744": [
+      "True",
+      "True",
+      "True",
+      "True"
+     ],
+     "31093705": [
+      "True",
+      "True",
+      "True",
+      "True"
+     ],
+     "36016875": [
+      "True",
+      "True",
+      "True",
+      "True"
+     ],
+     "41068276": [
+      "True",
+      "True",
+      "True",
+      "True"
+     ]
+    }
+   },
+   "P1_flag": {
+    "pa": 1.0,
+    "fleiss_kappa": NaN,
+    "gwet_ac1": 1.0,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 1,
+    "bootstrap_ci95": {
+     "pa": [
+      1.0,
+      1.0,
+      2000
+     ],
+     "gwet_ac1": [
+      1.0,
+      1.0,
+      2000
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     }
+    },
+    "mean_pairwise_cohen": NaN,
+    "n_pairwise_kappa_defined": 0,
+    "unanimous_items": 6,
+    "unanimous_frac": 1.0,
+    "per_paper": {
+     "36776294": [
+      "False",
+      "False",
+      "False",
+      "False"
+     ],
+     "42130124": [
+      "False",
+      "False",
+      "False",
+      "False"
+     ],
+     "39061744": [
+      "False",
+      "False",
+      "False",
+      "False"
+     ],
+     "31093705": [
+      "False",
+      "False",
+      "False",
+      "False"
+     ],
+     "36016875": [
+      "False",
+      "False",
+      "False",
+      "False"
+     ],
+     "41068276": [
+      "False",
+      "False",
+      "False",
+      "False"
+     ]
+    }
+   },
+   "evaluation_unit_reported": {
+    "pa": 0.9166666666666666,
+    "fleiss_kappa": 0.8923766816143497,
+    "gwet_ac1": 0.8966630785791172,
+    "fleiss_pe": 0.22569444444444445,
+    "gwet_pe": 0.1935763888888889,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 5,
+    "category_counts": {
+     "lesion": 8,
+     "other": 4,
+     "patient": 5,
+     "slice": 3,
+     "unclear": 4
+    },
+    "bootstrap_ci95": {
+     "pa": [
+      0.75,
+      1.0,
+      2000
+     ],
+     "fleiss_kappa": [
+      0.645320197044335,
+      1.0,
+      1995
+     ],
+     "gwet_ac1": [
+      0.6712328767123288,
+      1.0,
+      2000
+     ],
+     "fleiss_pe": [
+      0.22569444444444445,
+      0.5555555555555556,
+      1995
+     ],
+     "gwet_pe": [
+      0.16927083333333334,
+      0.4444444444444445,
+      1995
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.7857142857142858
+     },
+     "S1-S3": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.7857142857142858
+     },
+     "S1-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.7857142857142858
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": 1.0
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": 1.0
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": 1.0
+     }
+    },
+    "mean_pairwise_cohen": 0.8928571428571429,
+    "n_pairwise_kappa_defined": 6,
+    "unanimous_items": 5,
+    "unanimous_frac": 0.8333333333333334,
+    "per_paper": {
+     "36776294": [
+      "lesion",
+      "lesion",
+      "lesion",
+      "lesion"
+     ],
+     "42130124": [
+      "other",
+      "other",
+      "other",
+      "other"
+     ],
+     "39061744": [
+      "patient",
+      "patient",
+      "patient",
+      "patient"
+     ],
+     "31093705": [
+      "lesion",
+      "lesion",
+      "lesion",
+      "lesion"
+     ],
+     "36016875": [
+      "patient",
+      "slice",
+      "slice",
+      "slice"
+     ],
+     "41068276": [
+      "unclear",
+      "unclear",
+      "unclear",
+      "unclear"
+     ]
+    }
+   },
+   "headline_unit": {
+    "pa": 0.9166666666666666,
+    "fleiss_kappa": -0.043478260869567936,
+    "gwet_ac1": 0.909433962264151,
+    "fleiss_pe": 0.9201388888888891,
+    "gwet_pe": 0.07986111111111108,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 2,
+    "category_counts": {
+     "na_only_one_unit_reported": 23,
+     "unclear": 1
+    },
+    "bootstrap_ci95": {
+     "pa": [
+      0.75,
+      1.0,
+      2000
+     ],
+     "fleiss_kappa": [
+      -0.14285714285714285,
+      -0.043478260869567936,
+      1340
+     ],
+     "gwet_ac1": [
+      0.68,
+      1.0,
+      2000
+     ],
+     "fleiss_pe": [
+      0.78125,
+      0.9201388888888891,
+      1340
+     ],
+     "gwet_pe": [
+      0.07986111111111108,
+      0.21875,
+      1340
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     },
+     "S3-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     }
+    },
+    "mean_pairwise_cohen": 0.0,
+    "n_pairwise_kappa_defined": 3,
+    "unanimous_items": 5,
+    "unanimous_frac": 0.8333333333333334,
+    "per_paper": {
+     "36776294": [
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported"
+     ],
+     "42130124": [
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported"
+     ],
+     "39061744": [
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported"
+     ],
+     "31093705": [
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported"
+     ],
+     "36016875": [
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported"
+     ],
+     "41068276": [
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "na_only_one_unit_reported",
+      "unclear"
+     ]
+    }
+   },
+   "split_unit": {
+    "pa": 0.638888888888889,
+    "fleiss_kappa": 0.46391752577319595,
+    "gwet_ac1": 0.5343283582089553,
+    "fleiss_pe": 0.3263888888888889,
+    "gwet_pe": 0.22453703703703706,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 4,
+    "category_counts": {
+     "patient_subject": 7,
+     "random_unit_not_stated": 3,
+     "slice_or_image": 11,
+     "unclear": 3
+    },
+    "bootstrap_ci95": {
+     "pa": [
+      0.4444444444444444,
+      0.8333333333333334,
+      2000
+     ],
+     "fleiss_kappa": [
+      0.019354838709677455,
+      0.7318435754189945,
+      2000
+     ],
+     "gwet_ac1": [
+      0.2493827160493826,
+      0.7926565874730022,
+      2000
+     ],
+     "fleiss_pe": [
+      0.27083333333333337,
+      0.6458333333333333,
+      2000
+     ],
+     "gwet_pe": [
+      0.1550925925925926,
+      0.32986111111111116,
+      2000
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 0.5,
+      "cohen_kappa": 0.25
+     },
+     "S1-S3": {
+      "percent_agreement": 0.3333333333333333,
+      "cohen_kappa": 0.07692307692307689
+     },
+     "S1-S4": {
+      "percent_agreement": 0.3333333333333333,
+      "cohen_kappa": 0.07692307692307689
+     },
+     "S2-S3": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.7499999999999999
+     },
+     "S2-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.7499999999999999
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": 1.0
+     }
+    },
+    "mean_pairwise_cohen": 0.483974358974359,
+    "n_pairwise_kappa_defined": 6,
+    "unanimous_items": 2,
+    "unanimous_frac": 0.3333333333333333,
+    "per_paper": {
+     "36776294": [
+      "slice_or_image",
+      "slice_or_image",
+      "slice_or_image",
+      "slice_or_image"
+     ],
+     "42130124": [
+      "patient_subject",
+      "patient_subject",
+      "random_unit_not_stated",
+      "random_unit_not_stated"
+     ],
+     "39061744": [
+      "patient_subject",
+      "patient_subject",
+      "patient_subject",
+      "patient_subject"
+     ],
+     "31093705": [
+      "slice_or_image",
+      "unclear",
+      "unclear",
+      "unclear"
+     ],
+     "36016875": [
+      "patient_subject",
+      "slice_or_image",
+      "slice_or_image",
+      "slice_or_image"
+     ],
+     "41068276": [
+      "random_unit_not_stated",
+      "slice_or_image",
+      "slice_or_image",
+      "slice_or_image"
+     ]
+    }
+   },
+   "positional_distribution_reported": {
+    "pa": 0.9166666666666666,
+    "fleiss_kappa": -0.043478260869567936,
+    "gwet_ac1": 0.909433962264151,
+    "fleiss_pe": 0.9201388888888891,
+    "gwet_pe": 0.07986111111111108,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 2,
+    "category_counts": {
+     "figure_or_table": 1,
+     "no": 23
+    },
+    "bootstrap_ci95": {
+     "pa": [
+      0.75,
+      1.0,
+      2000
+     ],
+     "fleiss_kappa": [
+      -0.14285714285714285,
+      -0.043478260869567936,
+      1297
+     ],
+     "gwet_ac1": [
+      0.68,
+      1.0,
+      2000
+     ],
+     "fleiss_pe": [
+      0.78125,
+      0.9201388888888891,
+      1297
+     ],
+     "gwet_pe": [
+      0.07986111111111108,
+      0.21875,
+      1297
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     },
+     "S1-S3": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     },
+     "S1-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     }
+    },
+    "mean_pairwise_cohen": 0.0,
+    "n_pairwise_kappa_defined": 3,
+    "unanimous_items": 5,
+    "unanimous_frac": 0.8333333333333334,
+    "per_paper": {
+     "36776294": [
+      "no",
+      "no",
+      "no",
+      "no"
+     ],
+     "42130124": [
+      "figure_or_table",
+      "no",
+      "no",
+      "no"
+     ],
+     "39061744": [
+      "no",
+      "no",
+      "no",
+      "no"
+     ],
+     "31093705": [
+      "no",
+      "no",
+      "no",
+      "no"
+     ],
+     "36016875": [
+      "no",
+      "no",
+      "no",
+      "no"
+     ],
+     "41068276": [
+      "no",
+      "no",
+      "no",
+      "no"
+     ]
+    }
+   }
+  },
+  "six_subflag_vector": {
+   "pa": 1.0,
+   "fleiss_kappa": 1.0,
+   "gwet_ac1": 1.0,
+   "fleiss_pe": 0.7222222222222223,
+   "gwet_pe": 0.2777777777777778,
+   "n_items": 6,
+   "n_raters": 4,
+   "n_categories": 2,
+   "category_counts": {
+    "(False, False, False, False, False, False)": 20,
+    "(False, False, False, False, True, False)": 4
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     1.0,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     1.0,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     1.0,
+     1.0,
+     1339
+    ],
+    "fleiss_pe": [
+     0.5,
+     0.7222222222222223,
+     1339
+    ],
+    "gwet_pe": [
+     0.2777777777777778,
+     0.5,
+     1339
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S1-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S1-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S3-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    }
+   },
+   "mean_pairwise_cohen": 1.0,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 6,
+   "unanimous_frac": 1.0
+  }
+ },
+ "adjudicated_codes": {
+  "36776294": {
+   "final_inclusion": "included",
+   "fulltext": "oa_pmc_or_publisher",
+   "P1": "False",
+   "eval_unit": "lesion",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "lesion_or_roi",
+   "pos_dist": "no",
+   "rule": "D8 (new split_unit level lesion_or_roi)",
+   "changed_from": "all four coded slice_or_image by forced mapping; no agreement effect",
+   "note": "unanimous on every agreement field; the change is a more accurate level, not a dispute"
+  },
+  "41617832": {
+   "final_inclusion": "unreachable_eligibility_unresolved",
+   "fulltext": "unreachable_paywalled",
+   "P1": "not_assessable",
+   "eval_unit": "not_applicable",
+   "headline_unit": "not_applicable",
+   "split_unit": "not_applicable",
+   "pos_dist": "not_applicable",
+   "rule": "D1 (unreachable dominates included); D2; D3",
+   "changed_from": "S1, S4 (coded included)",
+   "note": "S1/S4 also coded clinical_or_demographic_only=TRUE, but the abstract names the clinical arm without reporting its value; the codebook already says an assertion with no number is FALSE for every flag, so under D2 this is not_assessable, not TRUE"
+  },
+  "39423605": {
+   "final_inclusion": "unreachable_eligibility_unresolved",
+   "fulltext": "unreachable_paywalled",
+   "P1": "not_assessable",
+   "eval_unit": "not_applicable",
+   "headline_unit": "not_applicable",
+   "split_unit": "not_applicable",
+   "pos_dist": "not_applicable",
+   "rule": "D2; D3",
+   "changed_from": "none (unanimous on final_inclusion)",
+   "note": "the only divergence was the placeholder written into the sub-flags"
+  },
+  "42130124": {
+   "final_inclusion": "included",
+   "fulltext": "oa_pmc_or_publisher",
+   "P1": "False",
+   "eval_unit": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "pos_dist": "figure_or_table",
+   "rule": "D6 (patient-naming noun required) for split_unit; D9 (unit-ordering test) for pos_dist",
+   "changed_from": "S1, S2 on split_unit; S2, S3, S4 on positional_distribution",
+   "note": "TIGHTENS split (removes a paper from S4) and LOOSENS pos_dist (adds a paper to S5) -- the two adjudications move the headline numbers in opposite directions"
+  },
+  "36789248": {
+   "final_inclusion": "excluded",
+   "fulltext": "oa_pmc_or_publisher",
+   "P1": "not_applicable",
+   "eval_unit": "not_applicable",
+   "headline_unit": "not_applicable",
+   "split_unit": "not_applicable",
+   "pos_dist": "not_applicable",
+   "rule": "D3",
+   "changed_from": "S2, S3, S4 (coded slice / real design values)",
+   "note": "exclusion code E-DERIV unanimous"
+  },
+  "40335658": {
+   "final_inclusion": "excluded",
+   "fulltext": "not_attempted_excluded_at_stage1",
+   "P1": "not_applicable",
+   "eval_unit": "not_applicable",
+   "headline_unit": "not_applicable",
+   "split_unit": "not_applicable",
+   "pos_dist": "not_applicable",
+   "rule": "D10 (exclusion code -> E-NOCLF); D4 (fulltext on a stage-1 exclusion); D3; D12",
+   "changed_from": "S1, S3, S4 on exclusion_code (E-SEG -> E-NOCLF); S1, S3, S4 on fulltext_reachable; S4 on modality",
+   "note": "S2 was right: E-SEG is qualified \"with NO categorical class decision evaluated\", and a class decision WAS evaluated -- by human readers, which fails I2, i.e. E-NOCLF"
+  },
+  "40194851": {
+   "final_inclusion": "excluded",
+   "fulltext": "not_attempted_excluded_at_stage1",
+   "P1": "not_applicable",
+   "eval_unit": "not_applicable",
+   "headline_unit": "not_applicable",
+   "split_unit": "not_applicable",
+   "pos_dist": "not_applicable",
+   "rule": "D4; D3",
+   "changed_from": "S1, S3 on fulltext_reachable",
+   "note": "E-DERIV unanimous; all divergence was in placeholder conventions"
+  },
+  "42489954": {
+   "final_inclusion": "unreachable_eligibility_unresolved",
+   "fulltext": "unreachable_paywalled",
+   "P1": "not_assessable",
+   "eval_unit": "not_applicable",
+   "headline_unit": "not_applicable",
+   "split_unit": "not_applicable",
+   "pos_dist": "not_applicable",
+   "rule": "v1.0 stage1_decision rule + D1 + D11",
+   "changed_from": "S1, S4 (coded excluded E-DERIV)",
+   "note": "decided by the EXISTING rule, not a new one: stage-1 exclusion is permitted only when the code is unambiguous from the abstract, all four coded stage1_decision=go_to_fulltext, and S1 and S4 both recorded low confidence and asked for adjudication in their own notes"
+  },
+  "39061744": {
+   "final_inclusion": "included",
+   "fulltext": "oa_pmc_or_publisher",
+   "P1": "False",
+   "eval_unit": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "pos_dist": "no",
+   "rule": "none needed",
+   "changed_from": "none",
+   "note": "unanimous on every agreement field AND on all six sub-flags (clinical_or_demographic_only TRUE, S1 endpoint only)"
+  },
+  "31093705": {
+   "final_inclusion": "included",
+   "fulltext": "oa_pmc_or_publisher",
+   "P1": "False",
+   "eval_unit": "lesion",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "pos_dist": "no",
+   "rule": "D8 (methods deferred to an unsampled companion paper -> unclear)",
+   "changed_from": "S1 (coded slice_or_image)",
+   "note": "the new lesion_or_roi level exists, but this paper states no split unit at all: it defers to Part I, which is not in the sample"
+  },
+  "36016875": {
+   "final_inclusion": "included",
+   "fulltext": "oa_pmc_or_publisher",
+   "P1": "False",
+   "eval_unit": "slice",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "pos_dist": "no",
+   "rule": "D5 (Methods govern over Abstract on a factual contradiction)",
+   "changed_from": "S1 (coded patient / patient_subject from the abstract)",
+   "note": "Abstract says \"70% of cases\"; Methods split 2,458 image units against only 119 patients, which is arithmetically incompatible with a patient-level split"
+  },
+  "36072854": {
+   "final_inclusion": "excluded",
+   "fulltext": "oa_pmc_or_publisher",
+   "P1": "not_applicable",
+   "eval_unit": "not_applicable",
+   "headline_unit": "not_applicable",
+   "split_unit": "not_applicable",
+   "pos_dist": "not_applicable",
+   "rule": "D3",
+   "changed_from": "S2, S4 (coded real design values on an excluded record)",
+   "note": "E-SEG unanimous"
+  },
+  "37222638": {
+   "final_inclusion": "unreachable_eligibility_unresolved",
+   "fulltext": "unreachable_paywalled",
+   "P1": "not_assessable",
+   "eval_unit": "not_applicable",
+   "headline_unit": "not_applicable",
+   "split_unit": "not_applicable",
+   "pos_dist": "not_applicable",
+   "rule": "D1; D2 (positive/negative asymmetry); D3",
+   "changed_from": "S1, S4 on final_inclusion; S3 on clinical_or_demographic_only",
+   "note": "clinical_or_demographic_only = TRUE IS RECORDED and held pending eligibility resolution: the abstract itself reports three measured AUCs for a pixel-free clinical arm (0.741 / 0.772 / 0.675). Under D2 a POSITIVE may rest on an abstract quote that carries the value; only a NEGATIVE requires the full-text search"
+  },
+  "40239684": {
+   "final_inclusion": "excluded",
+   "fulltext": "not_attempted_excluded_at_stage1",
+   "P1": "not_applicable",
+   "eval_unit": "not_applicable",
+   "headline_unit": "not_applicable",
+   "split_unit": "not_applicable",
+   "pos_dist": "not_applicable",
+   "rule": "D4; D3",
+   "changed_from": "S1, S3 on fulltext_reachable",
+   "note": "E-SEG unanimous"
+  },
+  "41068276": {
+   "final_inclusion": "included",
+   "fulltext": "oa_pmc_or_publisher",
+   "P1": "False",
+   "eval_unit": "unclear",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "pos_dist": "no",
+   "rule": "D7 (a unit named in a table caption is a named unit); D14 (headline_unit)",
+   "changed_from": "S1 on split_unit; S4 on headline_unit",
+   "note": "Table 2 is headed \"Distribution of MRI images by dataset split\", so the unit IS named -- random_unit_not_stated is for when it is not named anywhere"
+  }
+ },
+ "endpoints_before": {
+  "n_complete_case": 35,
+  "n_unreachable": 20,
+  "n_eligible": 55,
+  "n_excluded": 45,
+  "P1_complete_case": {
+   "k": 0,
+   "n": 35,
+   "pct": 0.0,
+   "wilson95": [
+    0.0,
+    9.89
+   ]
+  },
+  "P1_lower_bound": {
+   "k": 0,
+   "n": 55,
+   "pct": 0.0,
+   "wilson95": [
+    0.0,
+    6.53
+   ]
+  },
+  "P1_upper_bound": {
+   "k": 20,
+   "n": 55,
+   "pct": 36.36,
+   "wilson95": [
+    24.93,
+    49.58
+   ]
+  },
+  "S2_headline_slice": {
+   "k": 8,
+   "n": 35,
+   "pct": 22.86,
+   "wilson95": [
+    12.07,
+    39.02
+   ]
+  },
+  "S4_patient_split": {
+   "k": 13,
+   "n": 35,
+   "pct": 37.14,
+   "wilson95": [
+    23.17,
+    53.66
+   ]
+  },
+  "S5_positional_distribution": {
+   "k": 0,
+   "n": 35,
+   "pct": 0.0,
+   "wilson95": [
+    0.0,
+    9.89
+   ]
+  },
+  "S6_unreachable": {
+   "k": 20,
+   "n": 55,
+   "pct": 36.36,
+   "wilson95": [
+    24.93,
+    49.58
+   ]
+  }
+ },
+ "endpoints_after": {
+  "n_complete_case": 35,
+  "n_unreachable": 20,
+  "n_eligible": 55,
+  "n_excluded": 45,
+  "P1_complete_case": {
+   "k": 0,
+   "n": 35,
+   "pct": 0.0,
+   "wilson95": [
+    0.0,
+    9.89
+   ]
+  },
+  "P1_lower_bound": {
+   "k": 0,
+   "n": 55,
+   "pct": 0.0,
+   "wilson95": [
+    0.0,
+    6.53
+   ]
+  },
+  "P1_upper_bound": {
+   "k": 20,
+   "n": 55,
+   "pct": 36.36,
+   "wilson95": [
+    24.93,
+    49.58
+   ]
+  },
+  "S2_headline_slice": {
+   "k": 8,
+   "n": 35,
+   "pct": 22.86,
+   "wilson95": [
+    12.07,
+    39.02
+   ]
+  },
+  "S4_patient_split": {
+   "k": 12,
+   "n": 35,
+   "pct": 34.29,
+   "wilson95": [
+    20.83,
+    50.85
+   ]
+  },
+  "S5_positional_distribution": {
+   "k": 1,
+   "n": 35,
+   "pct": 2.86,
+   "wilson95": [
+    0.51,
+    14.53
+   ]
+  },
+  "S6_unreachable": {
+   "k": 20,
+   "n": 55,
+   "pct": 36.36,
+   "wilson95": [
+    24.93,
+    49.58
+   ]
+  }
+ },
+ "floor": {
+  "kappa_floor": 0.6,
+  "raw_floor_under_paradox_guard": 0.9,
+  "pre_kappa": -0.01472995090016368,
+  "pre_raw": 0.6555555555555556,
+  "pre_met": false,
+  "post_kappa": 0.9317406143344711,
+  "post_raw": 0.9555555555555556,
+  "post_collapsed_kappa": 1.0,
+  "post_collapsed_raw": 1.0,
+  "adjudicated_raw": 1.0,
+  "adjudicated_kappa": "undefined -- one category, and 1.000 BY CONSTRUCTION; not a reliability statistic and the floor is NOT assessed against it"
+ },
+ "p1_true_records_anywhere": [],
+ "clinical_only_true_records": [
+  "37222638",
+  "38337016",
+  "38784688",
+  "39061744",
+  "39200968",
+  "39513126",
+  "41617832"
+ ]
+}

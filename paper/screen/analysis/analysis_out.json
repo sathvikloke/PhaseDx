@@ -1,0 +1,4402 @@
+{
+ "_generated_by": "paper/screen/analysis/pool_and_agree.py",
+ "_inputs": [
+  "paper/screen_batch_A.json",
+  "paper/screen_batch_B.json",
+  "paper/screen_batch_C.json",
+  "paper/screen_batch_D.json"
+ ],
+ "_protocol": "paper/screen_protocol.md v1.1; paper/screen_frame.json v1.0",
+ "_seed": 20260729,
+ "_nboot": 2000,
+ "flow": {
+  "records_screened": 100,
+  "included_and_reachable": 35,
+  "eligible_but_unreachable": 20,
+  "excluded": 45,
+  "eligible_looking": 55,
+  "exclusion_codes": {
+   "E-DERIV": 17,
+   "E-SEG": 19,
+   "E-2D": 2,
+   "E-TYPE": 1,
+   "E-NOCLF": 3,
+   "E-PROJ": 1,
+   "E-NONMED": 2
+  },
+  "protocol_target_included": 75,
+  "target_met": false,
+  "extension_rule_triggered": true
+ },
+ "agreement": {
+  "final_inclusion_as_coded": {
+   "pa": 0.8666666666666667,
+   "fleiss_kappa": 0.7849462365591399,
+   "gwet_ac1": 0.8067632850241546,
+   "fleiss_pe": 0.38,
+   "gwet_pe": 0.31,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 3,
+   "category_counts": {
+    "excluded": 22,
+    "included": 28,
+    "unreachable_eligibility_unresolved": 10
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.7333333333333333,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.5437262357414447,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.6019900497512437,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.33999999999999997,
+     0.5555555555555556,
+     2000
+    ],
+    "gwet_pe": [
+     0.23000000000000004,
+     0.3322222222222222,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    },
+    "S1-S3": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    },
+    "S1-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.6853146853146854
+    }
+   },
+   "mean_pairwise_cohen": 0.7902097902097903,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 12,
+   "unanimous_frac": 0.8,
+   "per_paper": {
+    "36776294": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "41617832": [
+     "included",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "included"
+    ],
+    "39423605": [
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved"
+    ],
+    "42130124": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "36789248": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "40335658": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "40194851": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "42489954": [
+     "excluded",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "excluded"
+    ],
+    "39061744": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "31093705": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "36016875": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ],
+    "36072854": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "37222638": [
+     "included",
+     "unreachable_eligibility_unresolved",
+     "unreachable_eligibility_unresolved",
+     "included"
+    ],
+    "40239684": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "41068276": [
+     "included",
+     "included",
+     "included",
+     "included"
+    ]
+   }
+  },
+  "status_canonical": {
+   "pa": 0.9555555555555556,
+   "fleiss_kappa": 0.9317406143344711,
+   "gwet_ac1": 0.9341021416803956,
+   "fleiss_pe": 0.3488888888888889,
+   "gwet_pe": 0.32555555555555554,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 3,
+   "category_counts": {
+    "eligible_unreachable": 14,
+    "excluded": 22,
+    "included_reachable": 24
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.8666666666666667,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.7769516728624537,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.8003327787021631,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.3355555555555555,
+     0.52,
+     2000
+    ],
+    "gwet_pe": [
+     0.24333333333333335,
+     0.33333333333333337,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8979591836734694
+    },
+    "S1-S3": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8979591836734694
+    },
+    "S1-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S2-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8979591836734694
+    },
+    "S3-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8979591836734694
+    }
+   },
+   "mean_pairwise_cohen": 0.9319727891156463,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 14,
+   "unanimous_frac": 0.9333333333333333,
+   "per_paper": {
+    "36776294": [
+     "included_reachable",
+     "included_reachable",
+     "included_reachable",
+     "included_reachable"
+    ],
+    "41617832": [
+     "eligible_unreachable",
+     "eligible_unreachable",
+     "eligible_unreachable",
+     "eligible_unreachable"
+    ],
+    "39423605": [
+     "eligible_unreachable",
+     "eligible_unreachable",
+     "eligible_unreachable",
+     "eligible_unreachable"
+    ],
+    "42130124": [
+     "included_reachable",
+     "included_reachable",
+     "included_reachable",
+     "included_reachable"
+    ],
+    "36789248": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "40335658": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "40194851": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "42489954": [
+     "excluded",
+     "eligible_unreachable",
+     "eligible_unreachable",
+     "excluded"
+    ],
+    "39061744": [
+     "included_reachable",
+     "included_reachable",
+     "included_reachable",
+     "included_reachable"
+    ],
+    "31093705": [
+     "included_reachable",
+     "included_reachable",
+     "included_reachable",
+     "included_reachable"
+    ],
+    "36016875": [
+     "included_reachable",
+     "included_reachable",
+     "included_reachable",
+     "included_reachable"
+    ],
+    "36072854": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "37222638": [
+     "eligible_unreachable",
+     "eligible_unreachable",
+     "eligible_unreachable",
+     "eligible_unreachable"
+    ],
+    "40239684": [
+     "excluded",
+     "excluded",
+     "excluded",
+     "excluded"
+    ],
+    "41068276": [
+     "included_reachable",
+     "included_reachable",
+     "included_reachable",
+     "included_reachable"
+    ]
+   }
+  },
+  "P1_flag_three_valued": {
+   "pa": 0.6555555555555556,
+   "fleiss_kappa": -0.01472995090016368,
+   "gwet_ac1": 0.4785534062237174,
+   "fleiss_pe": 0.6605555555555556,
+   "gwet_pe": 0.33944444444444444,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 2,
+   "category_counts": {
+    "False": 47,
+    "NOT_ASSESSABLE": 13
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.5,
+     0.8,
+     2000
+    ],
+    "fleiss_kappa": [
+     -0.16402116402116373,
+     0.12000000000000001,
+     2000
+    ],
+    "gwet_ac1": [
+     0.11877394636015316,
+     0.7398843930635839,
+     2000
+    ],
+    "fleiss_pe": [
+     0.5672222222222222,
+     0.7938888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.20611111111111113,
+     0.43277777777777776,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.0
+    },
+    "S1-S3": {
+     "percent_agreement": 0.4,
+     "cohen_kappa": 0.0
+    },
+    "S1-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": NaN
+    },
+    "S2-S3": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.3902439024390243
+    },
+    "S2-S4": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.0
+    },
+    "S3-S4": {
+     "percent_agreement": 0.4,
+     "cohen_kappa": 0.0
+    }
+   },
+   "mean_pairwise_cohen": 0.07804878048780486,
+   "n_pairwise_kappa_defined": 5,
+   "unanimous_items": 6,
+   "unanimous_frac": 0.4,
+   "per_paper": {
+    "36776294": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "41617832": [
+     "False",
+     "NOT_ASSESSABLE",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "39423605": [
+     "False",
+     "NOT_ASSESSABLE",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "42130124": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36789248": [
+     "False",
+     "False",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "40335658": [
+     "False",
+     "False",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "40194851": [
+     "False",
+     "False",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "42489954": [
+     "False",
+     "NOT_ASSESSABLE",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "39061744": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "31093705": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36016875": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36072854": [
+     "False",
+     "False",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "37222638": [
+     "False",
+     "NOT_ASSESSABLE",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "40239684": [
+     "False",
+     "False",
+     "NOT_ASSESSABLE",
+     "False"
+    ],
+    "41068276": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ]
+   }
+  },
+  "P1_flag_naive_truthy": {
+   "pa": 0.7,
+   "fleiss_kappa": -0.17647058823529377,
+   "gwet_ac1": 0.5973154362416107,
+   "fleiss_pe": 0.7449999999999999,
+   "gwet_pe": 0.255,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 2,
+   "category_counts": {
+    "False": 51,
+    "True": 9
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.5666666666666667,
+     0.8333333333333334,
+     2000
+    ],
+    "fleiss_kappa": [
+     -0.27659574468085113,
+     -0.09090909090908979,
+     2000
+    ],
+    "gwet_ac1": [
+     0.343986543313709,
+     0.8032786885245902,
+     2000
+    ],
+    "fleiss_pe": [
+     0.6605555555555556,
+     0.8472222222222221,
+     2000
+    ],
+    "gwet_pe": [
+     0.1527777777777778,
+     0.33944444444444444,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": NaN
+    },
+    "S1-S3": {
+     "percent_agreement": 0.4,
+     "cohen_kappa": 0.0
+    },
+    "S1-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": NaN
+    },
+    "S2-S3": {
+     "percent_agreement": 0.4,
+     "cohen_kappa": 0.0
+    },
+    "S2-S4": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": NaN
+    },
+    "S3-S4": {
+     "percent_agreement": 0.4,
+     "cohen_kappa": 0.0
+    }
+   },
+   "mean_pairwise_cohen": 0.0,
+   "n_pairwise_kappa_defined": 3,
+   "unanimous_items": 6,
+   "unanimous_frac": 0.4,
+   "per_paper": {
+    "36776294": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "41617832": [
+     "False",
+     "False",
+     "True",
+     "False"
+    ],
+    "39423605": [
+     "False",
+     "False",
+     "True",
+     "False"
+    ],
+    "42130124": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36789248": [
+     "False",
+     "False",
+     "True",
+     "False"
+    ],
+    "40335658": [
+     "False",
+     "False",
+     "True",
+     "False"
+    ],
+    "40194851": [
+     "False",
+     "False",
+     "True",
+     "False"
+    ],
+    "42489954": [
+     "False",
+     "False",
+     "True",
+     "False"
+    ],
+    "39061744": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "31093705": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36016875": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "36072854": [
+     "False",
+     "False",
+     "True",
+     "False"
+    ],
+    "37222638": [
+     "False",
+     "False",
+     "True",
+     "False"
+    ],
+    "40239684": [
+     "False",
+     "False",
+     "True",
+     "False"
+    ],
+    "41068276": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ]
+   }
+  },
+  "evaluation_unit_reported": {
+   "pa": 0.7666666666666667,
+   "fleiss_kappa": 0.6846846846846848,
+   "gwet_ac1": 0.7137014314928426,
+   "fleiss_pe": 0.26,
+   "gwet_pe": 0.18500000000000003,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 5,
+   "category_counts": {
+    "lesion": 8,
+    "other": 6,
+    "patient": 20,
+    "slice": 6,
+    "unclear": 20
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.6333333333333333,
+     0.9,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.46472019464720193,
+     0.828203292770222,
+     2000
+    ],
+    "gwet_ac1": [
+     0.5484864032837352,
+     0.8500624739691796,
+     2000
+    ],
+    "fleiss_pe": [
+     0.22055555555555556,
+     0.418888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.15875,
+     0.245,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.5588235294117646
+    },
+    "S1-S3": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.625
+    },
+    "S1-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.8125
+    },
+    "S2-S3": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.5879120879120878
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.7413793103448276
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.819277108433735
+    }
+   },
+   "mean_pairwise_cohen": 0.6908153393504025,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 8,
+   "unanimous_frac": 0.5333333333333333,
+   "per_paper": {
+    "36776294": [
+     "lesion",
+     "lesion",
+     "lesion",
+     "lesion"
+    ],
+    "41617832": [
+     "patient",
+     "patient",
+     "unclear",
+     "patient"
+    ],
+    "39423605": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "42130124": [
+     "other",
+     "other",
+     "other",
+     "other"
+    ],
+    "36789248": [
+     "unclear",
+     "slice",
+     "slice",
+     "slice"
+    ],
+    "40335658": [
+     "unclear",
+     "patient",
+     "unclear",
+     "unclear"
+    ],
+    "40194851": [
+     "patient",
+     "patient",
+     "patient",
+     "patient"
+    ],
+    "42489954": [
+     "patient",
+     "patient",
+     "unclear",
+     "patient"
+    ],
+    "39061744": [
+     "patient",
+     "patient",
+     "patient",
+     "patient"
+    ],
+    "31093705": [
+     "lesion",
+     "lesion",
+     "lesion",
+     "lesion"
+    ],
+    "36016875": [
+     "patient",
+     "slice",
+     "slice",
+     "slice"
+    ],
+    "36072854": [
+     "unclear",
+     "other",
+     "unclear",
+     "unclear"
+    ],
+    "37222638": [
+     "patient",
+     "patient",
+     "patient",
+     "patient"
+    ],
+    "40239684": [
+     "unclear",
+     "other",
+     "unclear",
+     "unclear"
+    ],
+    "41068276": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ]
+   }
+  },
+  "headline_unit": {
+   "pa": 0.7666666666666667,
+   "fleiss_kappa": 0.4254445964432286,
+   "gwet_ac1": 0.60710944808232,
+   "fleiss_pe": 0.5938888888888889,
+   "gwet_pe": 0.4061111111111111,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 2,
+   "category_counts": {
+    "na_only_one_unit_reported": 43,
+    "unclear": 17
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.6333333333333333,
+     0.9,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.08496732026143852,
+     0.6825396825396827,
+     2000
+    ],
+    "gwet_ac1": [
+     0.327217125382263,
+     0.8373983739837398,
+     2000
+    ],
+    "fleiss_pe": [
+     0.5022222222222222,
+     0.768888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.2311111111111111,
+     0.495,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.24999999999999978
+    },
+    "S1-S3": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.5714285714285715
+    },
+    "S1-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.7000000000000001
+    },
+    "S2-S3": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.19354838709677433
+    },
+    "S2-S4": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.24999999999999978
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.5714285714285715
+    }
+   },
+   "mean_pairwise_cohen": 0.4227342549923195,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 8,
+   "unanimous_frac": 0.5333333333333333,
+   "per_paper": {
+    "36776294": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "41617832": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "unclear",
+     "na_only_one_unit_reported"
+    ],
+    "39423605": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "42130124": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "36789248": [
+     "unclear",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "40335658": [
+     "unclear",
+     "na_only_one_unit_reported",
+     "unclear",
+     "unclear"
+    ],
+    "40194851": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "42489954": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "unclear",
+     "na_only_one_unit_reported"
+    ],
+    "39061744": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "31093705": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "36016875": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "36072854": [
+     "unclear",
+     "na_only_one_unit_reported",
+     "unclear",
+     "unclear"
+    ],
+    "37222638": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported"
+    ],
+    "40239684": [
+     "unclear",
+     "na_only_one_unit_reported",
+     "unclear",
+     "unclear"
+    ],
+    "41068276": [
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "na_only_one_unit_reported",
+     "unclear"
+    ]
+   }
+  },
+  "split_unit": {
+   "pa": 0.6444444444444444,
+   "fleiss_kappa": 0.4976452119309261,
+   "gwet_ac1": 0.585814134092674,
+   "fleiss_pe": 0.29222222222222227,
+   "gwet_pe": 0.14155555555555555,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 6,
+   "category_counts": {
+    "no_held_out_test_set": 1,
+    "patient_subject": 13,
+    "random_unit_not_stated": 6,
+    "site_or_centre": 1,
+    "slice_or_image": 13,
+    "unclear": 26
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.4888888888888889,
+     0.8,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.2671009771986971,
+     0.6917497733454215,
+     2000
+    ],
+    "gwet_ac1": [
+     0.3789029535864979,
+     0.7596795727636849,
+     2000
+    ],
+    "fleiss_pe": [
+     0.24499999999999997,
+     0.4688888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.11744444444444443,
+     0.23870370370370372,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.5333333333333333,
+     "cohen_kappa": 0.38235294117647056
+    },
+    "S1-S3": {
+     "percent_agreement": 0.6,
+     "cohen_kappa": 0.4230769230769231
+    },
+    "S1-S4": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.5283018867924528
+    },
+    "S2-S3": {
+     "percent_agreement": 0.6,
+     "cohen_kappa": 0.4444444444444445
+    },
+    "S2-S4": {
+     "percent_agreement": 0.6666666666666666,
+     "cohen_kappa": 0.5535714285714286
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.707792207792208
+    }
+   },
+   "mean_pairwise_cohen": 0.5065899719756546,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 6,
+   "unanimous_frac": 0.4,
+   "per_paper": {
+    "36776294": [
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image"
+    ],
+    "41617832": [
+     "patient_subject",
+     "patient_subject",
+     "unclear",
+     "patient_subject"
+    ],
+    "39423605": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "42130124": [
+     "patient_subject",
+     "patient_subject",
+     "random_unit_not_stated",
+     "random_unit_not_stated"
+    ],
+    "36789248": [
+     "random_unit_not_stated",
+     "slice_or_image",
+     "random_unit_not_stated",
+     "random_unit_not_stated"
+    ],
+    "40335658": [
+     "unclear",
+     "no_held_out_test_set",
+     "unclear",
+     "unclear"
+    ],
+    "40194851": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "42489954": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "39061744": [
+     "patient_subject",
+     "patient_subject",
+     "patient_subject",
+     "patient_subject"
+    ],
+    "31093705": [
+     "slice_or_image",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "36016875": [
+     "patient_subject",
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image"
+    ],
+    "36072854": [
+     "unclear",
+     "slice_or_image",
+     "unclear",
+     "patient_subject"
+    ],
+    "37222638": [
+     "patient_subject",
+     "site_or_centre",
+     "unclear",
+     "patient_subject"
+    ],
+    "40239684": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "41068276": [
+     "random_unit_not_stated",
+     "slice_or_image",
+     "slice_or_image",
+     "slice_or_image"
+    ]
+   }
+  },
+  "positional_distribution_reported": {
+   "pa": 0.8222222222222223,
+   "fleiss_kappa": 0.6479647964796481,
+   "gwet_ac1": 0.7621701969528056,
+   "fleiss_pe": 0.495,
+   "gwet_pe": 0.2525,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 3,
+   "category_counts": {
+    "figure_or_table": 1,
+    "no": 34,
+    "unclear": 25
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.6777777777777777,
+     0.9333333333333333,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.32356257046223214,
+     0.8699891657638137,
+     2000
+    ],
+    "gwet_ac1": [
+     0.4894561598224193,
+     0.9118942731277533,
+     2000
+    ],
+    "fleiss_pe": [
+     0.4650000000000001,
+     0.6538888888888889,
+     2000
+    ],
+    "gwet_pe": [
+     0.18555555555555556,
+     0.49944444444444447,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.4999999999999999
+    },
+    "S1-S3": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.75
+    },
+    "S1-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.75
+    },
+    "S2-S3": {
+     "percent_agreement": 0.7333333333333333,
+     "cohen_kappa": 0.4827586206896551
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.7058823529411765
+    },
+    "S3-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.736842105263158
+    }
+   },
+   "mean_pairwise_cohen": 0.6542471798156649,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 10,
+   "unanimous_frac": 0.6666666666666666,
+   "per_paper": {
+    "36776294": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "41617832": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "39423605": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "42130124": [
+     "figure_or_table",
+     "no",
+     "no",
+     "no"
+    ],
+    "36789248": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "40335658": [
+     "unclear",
+     "no",
+     "unclear",
+     "unclear"
+    ],
+    "40194851": [
+     "unclear",
+     "no",
+     "unclear",
+     "no"
+    ],
+    "42489954": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "39061744": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "31093705": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "36016875": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ],
+    "36072854": [
+     "no",
+     "no",
+     "unclear",
+     "no"
+    ],
+    "37222638": [
+     "unclear",
+     "unclear",
+     "unclear",
+     "unclear"
+    ],
+    "40239684": [
+     "unclear",
+     "no",
+     "unclear",
+     "unclear"
+    ],
+    "41068276": [
+     "no",
+     "no",
+     "no",
+     "no"
+    ]
+   }
+  },
+  "fulltext_obtained": {
+   "pa": 0.888888888888889,
+   "fleiss_kappa": 0.7685185185185186,
+   "gwet_ac1": 0.7863247863247864,
+   "fleiss_pe": 0.52,
+   "gwet_pe": 0.48,
+   "n_items": 15,
+   "n_raters": 4,
+   "n_categories": 2,
+   "category_counts": {
+    "False": 24,
+    "True": 36
+   },
+   "bootstrap_ci95": {
+    "pa": [
+     0.7555555555555556,
+     1.0,
+     2000
+    ],
+    "fleiss_kappa": [
+     0.48372615039281674,
+     1.0,
+     2000
+    ],
+    "gwet_ac1": [
+     0.5338512763596005,
+     1.0,
+     2000
+    ],
+    "fleiss_pe": [
+     0.5,
+     0.7005555555555556,
+     2000
+    ],
+    "gwet_pe": [
+     0.2994444444444444,
+     0.5,
+     2000
+    ]
+   },
+   "pairwise_cohen": {
+    "S1-S2": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.5871559633027524
+    },
+    "S1-S3": {
+     "percent_agreement": 1.0,
+     "cohen_kappa": 1.0
+    },
+    "S1-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8648648648648649
+    },
+    "S2-S3": {
+     "percent_agreement": 0.8,
+     "cohen_kappa": 0.5871559633027524
+    },
+    "S2-S4": {
+     "percent_agreement": 0.8666666666666667,
+     "cohen_kappa": 0.7058823529411765
+    },
+    "S3-S4": {
+     "percent_agreement": 0.9333333333333333,
+     "cohen_kappa": 0.8648648648648649
+    }
+   },
+   "mean_pairwise_cohen": 0.7683206682127351,
+   "n_pairwise_kappa_defined": 6,
+   "unanimous_items": 12,
+   "unanimous_frac": 0.8,
+   "per_paper": {
+    "36776294": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "41617832": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "39423605": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "42130124": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "36789248": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "40335658": [
+     "False",
+     "True",
+     "False",
+     "False"
+    ],
+    "40194851": [
+     "False",
+     "True",
+     "False",
+     "False"
+    ],
+    "42489954": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "39061744": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "31093705": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "36016875": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "36072854": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ],
+    "37222638": [
+     "False",
+     "False",
+     "False",
+     "False"
+    ],
+    "40239684": [
+     "False",
+     "True",
+     "False",
+     "True"
+    ],
+    "41068276": [
+     "True",
+     "True",
+     "True",
+     "True"
+    ]
+   }
+  },
+  "_restricted_to_core": {
+   "pmids": [
+    "36776294",
+    "42130124",
+    "39061744",
+    "31093705",
+    "36016875",
+    "41068276"
+   ],
+   "n": 6,
+   "_meaning": "papers all four screeners obtained AND included; the analysis-relevant denominator, and the only set on which these fields are defined",
+   "final_inclusion_as_coded": {
+    "pa": 1.0,
+    "fleiss_kappa": NaN,
+    "gwet_ac1": 1.0,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 1,
+    "note": "one category observed; kappa and AC1 are 0/0 -- perfect agreement",
+    "bootstrap_ci95": {
+     "pa": [
+      1.0,
+      1.0,
+      2000
+     ],
+     "gwet_ac1": [
+      1.0,
+      1.0,
+      2000
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     }
+    },
+    "mean_pairwise_cohen": NaN,
+    "n_pairwise_kappa_defined": 0,
+    "unanimous_items": 6,
+    "unanimous_frac": 1.0
+   },
+   "status_canonical": {
+    "pa": 1.0,
+    "fleiss_kappa": NaN,
+    "gwet_ac1": 1.0,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 1,
+    "note": "one category observed; kappa and AC1 are 0/0 -- perfect agreement",
+    "bootstrap_ci95": {
+     "pa": [
+      1.0,
+      1.0,
+      2000
+     ],
+     "gwet_ac1": [
+      1.0,
+      1.0,
+      2000
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     }
+    },
+    "mean_pairwise_cohen": NaN,
+    "n_pairwise_kappa_defined": 0,
+    "unanimous_items": 6,
+    "unanimous_frac": 1.0
+   },
+   "P1_flag_three_valued": {
+    "pa": 1.0,
+    "fleiss_kappa": NaN,
+    "gwet_ac1": 1.0,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 1,
+    "note": "one category observed; kappa and AC1 are 0/0 -- perfect agreement",
+    "bootstrap_ci95": {
+     "pa": [
+      1.0,
+      1.0,
+      2000
+     ],
+     "gwet_ac1": [
+      1.0,
+      1.0,
+      2000
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     }
+    },
+    "mean_pairwise_cohen": NaN,
+    "n_pairwise_kappa_defined": 0,
+    "unanimous_items": 6,
+    "unanimous_frac": 1.0
+   },
+   "P1_flag_naive_truthy": {
+    "pa": 1.0,
+    "fleiss_kappa": NaN,
+    "gwet_ac1": 1.0,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 1,
+    "note": "one category observed; kappa and AC1 are 0/0 -- perfect agreement",
+    "bootstrap_ci95": {
+     "pa": [
+      1.0,
+      1.0,
+      2000
+     ],
+     "gwet_ac1": [
+      1.0,
+      1.0,
+      2000
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     }
+    },
+    "mean_pairwise_cohen": NaN,
+    "n_pairwise_kappa_defined": 0,
+    "unanimous_items": 6,
+    "unanimous_frac": 1.0
+   },
+   "evaluation_unit_reported": {
+    "pa": 0.9166666666666666,
+    "fleiss_kappa": 0.8923766816143497,
+    "gwet_ac1": 0.8966630785791172,
+    "fleiss_pe": 0.22569444444444445,
+    "gwet_pe": 0.1935763888888889,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 5,
+    "category_counts": {
+     "lesion": 8,
+     "other": 4,
+     "patient": 5,
+     "slice": 3,
+     "unclear": 4
+    },
+    "bootstrap_ci95": {
+     "pa": [
+      0.75,
+      1.0,
+      2000
+     ],
+     "fleiss_kappa": [
+      0.645320197044335,
+      1.0,
+      1995
+     ],
+     "gwet_ac1": [
+      0.6712328767123288,
+      1.0,
+      2000
+     ],
+     "fleiss_pe": [
+      0.22569444444444445,
+      0.5555555555555556,
+      1995
+     ],
+     "gwet_pe": [
+      0.16927083333333334,
+      0.4444444444444445,
+      1995
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.7857142857142858
+     },
+     "S1-S3": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.7857142857142858
+     },
+     "S1-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.7857142857142858
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": 1.0
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": 1.0
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": 1.0
+     }
+    },
+    "mean_pairwise_cohen": 0.8928571428571429,
+    "n_pairwise_kappa_defined": 6,
+    "unanimous_items": 5,
+    "unanimous_frac": 0.8333333333333334
+   },
+   "headline_unit": {
+    "pa": 0.9166666666666666,
+    "fleiss_kappa": -0.043478260869567936,
+    "gwet_ac1": 0.909433962264151,
+    "fleiss_pe": 0.9201388888888891,
+    "gwet_pe": 0.07986111111111108,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 2,
+    "category_counts": {
+     "na_only_one_unit_reported": 23,
+     "unclear": 1
+    },
+    "bootstrap_ci95": {
+     "pa": [
+      0.75,
+      1.0,
+      2000
+     ],
+     "fleiss_kappa": [
+      -0.14285714285714285,
+      -0.043478260869567936,
+      1340
+     ],
+     "gwet_ac1": [
+      0.68,
+      1.0,
+      2000
+     ],
+     "fleiss_pe": [
+      0.78125,
+      0.9201388888888891,
+      1340
+     ],
+     "gwet_pe": [
+      0.07986111111111108,
+      0.21875,
+      1340
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     },
+     "S3-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     }
+    },
+    "mean_pairwise_cohen": 0.0,
+    "n_pairwise_kappa_defined": 3,
+    "unanimous_items": 5,
+    "unanimous_frac": 0.8333333333333334
+   },
+   "split_unit": {
+    "pa": 0.638888888888889,
+    "fleiss_kappa": 0.46391752577319595,
+    "gwet_ac1": 0.5343283582089553,
+    "fleiss_pe": 0.3263888888888889,
+    "gwet_pe": 0.22453703703703706,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 4,
+    "category_counts": {
+     "patient_subject": 7,
+     "random_unit_not_stated": 3,
+     "slice_or_image": 11,
+     "unclear": 3
+    },
+    "bootstrap_ci95": {
+     "pa": [
+      0.4444444444444444,
+      0.8333333333333334,
+      2000
+     ],
+     "fleiss_kappa": [
+      0.019354838709677455,
+      0.7318435754189945,
+      2000
+     ],
+     "gwet_ac1": [
+      0.2493827160493826,
+      0.7926565874730022,
+      2000
+     ],
+     "fleiss_pe": [
+      0.27083333333333337,
+      0.6458333333333333,
+      2000
+     ],
+     "gwet_pe": [
+      0.1550925925925926,
+      0.32986111111111116,
+      2000
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 0.5,
+      "cohen_kappa": 0.25
+     },
+     "S1-S3": {
+      "percent_agreement": 0.3333333333333333,
+      "cohen_kappa": 0.07692307692307689
+     },
+     "S1-S4": {
+      "percent_agreement": 0.3333333333333333,
+      "cohen_kappa": 0.07692307692307689
+     },
+     "S2-S3": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.7499999999999999
+     },
+     "S2-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.7499999999999999
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": 1.0
+     }
+    },
+    "mean_pairwise_cohen": 0.483974358974359,
+    "n_pairwise_kappa_defined": 6,
+    "unanimous_items": 2,
+    "unanimous_frac": 0.3333333333333333
+   },
+   "positional_distribution_reported": {
+    "pa": 0.9166666666666666,
+    "fleiss_kappa": -0.043478260869567936,
+    "gwet_ac1": 0.909433962264151,
+    "fleiss_pe": 0.9201388888888891,
+    "gwet_pe": 0.07986111111111108,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 2,
+    "category_counts": {
+     "figure_or_table": 1,
+     "no": 23
+    },
+    "bootstrap_ci95": {
+     "pa": [
+      0.75,
+      1.0,
+      2000
+     ],
+     "fleiss_kappa": [
+      -0.14285714285714285,
+      -0.043478260869567936,
+      1297
+     ],
+     "gwet_ac1": [
+      0.68,
+      1.0,
+      2000
+     ],
+     "fleiss_pe": [
+      0.78125,
+      0.9201388888888891,
+      1297
+     ],
+     "gwet_pe": [
+      0.07986111111111108,
+      0.21875,
+      1297
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     },
+     "S1-S3": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     },
+     "S1-S4": {
+      "percent_agreement": 0.8333333333333334,
+      "cohen_kappa": 0.0
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     }
+    },
+    "mean_pairwise_cohen": 0.0,
+    "n_pairwise_kappa_defined": 3,
+    "unanimous_items": 5,
+    "unanimous_frac": 0.8333333333333334
+   },
+   "fulltext_obtained": {
+    "pa": 1.0,
+    "fleiss_kappa": NaN,
+    "gwet_ac1": 1.0,
+    "n_items": 6,
+    "n_raters": 4,
+    "n_categories": 1,
+    "note": "one category observed; kappa and AC1 are 0/0 -- perfect agreement",
+    "bootstrap_ci95": {
+     "pa": [
+      1.0,
+      1.0,
+      2000
+     ],
+     "gwet_ac1": [
+      1.0,
+      1.0,
+      2000
+     ]
+    },
+    "pairwise_cohen": {
+     "S1-S2": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S1-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S3": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S2-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     },
+     "S3-S4": {
+      "percent_agreement": 1.0,
+      "cohen_kappa": NaN
+     }
+    },
+    "mean_pairwise_cohen": NaN,
+    "n_pairwise_kappa_defined": 0,
+    "unanimous_items": 6,
+    "unanimous_frac": 1.0
+   }
+  }
+ },
+ "pooling_rule": "majority of the 4 independent codes on the 15 overlap papers; ties broken AGAINST our own thesis",
+ "pooling_log": {
+  "36776294": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "lesion",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    },
+    "S2": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "lesion",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "lesion",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    },
+    "S4": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "lesion",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    }
+   }
+  },
+  "41617832": {
+   "tie_status": false,
+   "tie_P1": true,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "included",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "unclear"
+    },
+    "S2": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "unreachable_eligibility_unresolved",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "unclear"
+    },
+    "S3": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "unreachable_eligibility_unresolved",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S4": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "included",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "unclear"
+    }
+   }
+  },
+  "39423605": {
+   "tie_status": false,
+   "tie_P1": true,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "unreachable_eligibility_unresolved",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S2": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "unreachable_eligibility_unresolved",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S3": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "unreachable_eligibility_unresolved",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S4": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "unreachable_eligibility_unresolved",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    }
+   }
+  },
+  "42130124": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": true,
+   "codes": {
+    "S1": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "other",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "figure_or_table"
+    },
+    "S2": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "other",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "other",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "random_unit_not_stated",
+     "pos_dist": "no"
+    },
+    "S4": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "other",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "random_unit_not_stated",
+     "pos_dist": "no"
+    }
+   }
+  },
+  "36789248": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "random_unit_not_stated",
+     "pos_dist": "no"
+    },
+    "S2": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "slice",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "slice",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "random_unit_not_stated",
+     "pos_dist": "no"
+    },
+    "S4": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "slice",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "random_unit_not_stated",
+     "pos_dist": "no"
+    }
+   }
+  },
+  "40335658": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S2": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "not_attempted_excluded_at_stage1",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "no_held_out_test_set",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S4": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    }
+   }
+  },
+  "40194851": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S2": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "not_attempted_excluded_at_stage1",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S4": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "no"
+    }
+   }
+  },
+  "42489954": {
+   "tie_status": true,
+   "tie_P1": true,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S2": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "unreachable_eligibility_unresolved",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S3": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "unreachable_eligibility_unresolved",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S4": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    }
+   }
+  },
+  "39061744": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "no"
+    },
+    "S2": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "no"
+    },
+    "S4": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "no"
+    }
+   }
+  },
+  "31093705": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "lesion",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    },
+    "S2": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "lesion",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "lesion",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "no"
+    },
+    "S4": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "lesion",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "no"
+    }
+   }
+  },
+  "36016875": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "no"
+    },
+    "S2": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "slice",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "slice",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    },
+    "S4": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "slice",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    }
+   }
+  },
+  "36072854": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "no"
+    },
+    "S2": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "other",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S4": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "patient_subject",
+     "pos_dist": "no"
+    }
+   }
+  },
+  "37222638": {
+   "tie_status": false,
+   "tie_P1": true,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "included",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "unclear"
+    },
+    "S2": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "unreachable_eligibility_unresolved",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "site_or_centre",
+     "pos_dist": "unclear"
+    },
+    "S3": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "unreachable_eligibility_unresolved",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S4": {
+     "status": "eligible_unreachable",
+     "final_inclusion": "included",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "patient",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "patient_subject",
+     "pos_dist": "unclear"
+    }
+   }
+  },
+  "40239684": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "unreachable_paywalled",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S2": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "not_attempted_excluded_at_stage1",
+     "P1": "False",
+     "eval_unit": "other",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "unclear",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "unreachable_paywalled",
+     "P1": "NOT_ASSESSABLE",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    },
+    "S4": {
+     "status": "excluded",
+     "final_inclusion": "excluded",
+     "fulltext": "not_attempted_excluded_at_stage1",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "unclear",
+     "pos_dist": "unclear"
+    }
+   }
+  },
+  "41068276": {
+   "tie_status": false,
+   "tie_P1": false,
+   "tie_eval_unit": false,
+   "tie_split": false,
+   "codes": {
+    "S1": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "random_unit_not_stated",
+     "pos_dist": "no"
+    },
+    "S2": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    },
+    "S3": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "na_only_one_unit_reported",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    },
+    "S4": {
+     "status": "included_reachable",
+     "final_inclusion": "included",
+     "fulltext": "oa_pmc_or_publisher",
+     "P1": "False",
+     "eval_unit": "unclear",
+     "headline_unit": "unclear",
+     "split_unit": "slice_or_image",
+     "pos_dist": "no"
+    }
+   }
+  }
+ },
+ "endpoints": {
+  "P1_complete_case": {
+   "k": 0,
+   "n": 35,
+   "pct": 0.0,
+   "wilson95": [
+    6.938893903907228e-16,
+    9.890099232440402
+   ],
+   "note": "PRIMARY. Any measured zero-image baseline: constant/prevalence, positional, acquisition-metadata or permuted-label."
+  },
+  "P1_lower_bound": {
+   "k": 0,
+   "n": 55,
+   "pct": 0.0,
+   "wilson95": [
+    0.0,
+    6.528490111708638
+   ],
+   "note": "all unreachable coded as NOT reporting one"
+  },
+  "P1_upper_bound": {
+   "k": 20,
+   "n": 55,
+   "pct": 36.36363636363637,
+   "wilson95": [
+    24.930531530307253,
+    49.577238500158735
+   ],
+   "note": "all unreachable coded as reporting one -- HEADLINE, because unreachable exceeds the protocol sec.7 15% threshold"
+  },
+  "S1_any_non_imaging": {
+   "k": 3,
+   "n": 35,
+   "pct": 8.571428571428571,
+   "wilson95": [
+    2.958236826696982,
+    22.379273965896495
+   ],
+   "note": ""
+  },
+  "S1_lower_bound": {
+   "k": 3,
+   "n": 55,
+   "pct": 5.454545454545454,
+   "wilson95": [
+    1.872321555468448,
+    14.853060544053792
+   ],
+   "note": ""
+  },
+  "S1_upper_bound": {
+   "k": 23,
+   "n": 55,
+   "pct": 41.81818181818181,
+   "wilson95": [
+    29.73776575351035,
+    54.96689626476924
+   ],
+   "note": ""
+  },
+  "S2_headline_slice": {
+   "k": 8,
+   "n": 35,
+   "pct": 22.857142857142858,
+   "wilson95": [
+    12.065879834191687,
+    39.01731689199025
+   ],
+   "note": ""
+  },
+  "S3_slice_also_patient": {
+   "k": 3,
+   "n": 9,
+   "pct": 33.33333333333333,
+   "wilson95": [
+    12.05838183869109,
+    64.57978644196037
+   ],
+   "note": ""
+  },
+  "S4_patient_split": {
+   "k": 13,
+   "n": 35,
+   "pct": 37.142857142857146,
+   "wilson95": [
+    23.165819503365707,
+    53.663063156404675
+   ],
+   "note": ""
+  },
+  "S4_lower_bound": {
+   "k": 13,
+   "n": 55,
+   "pct": 23.636363636363637,
+   "wilson95": [
+    14.366655869733187,
+    36.34836618916773
+   ],
+   "note": ""
+  },
+  "S4_upper_bound": {
+   "k": 33,
+   "n": 55,
+   "pct": 60.0,
+   "wilson95": [
+    46.81279921012138,
+    71.88150276753689
+   ],
+   "note": ""
+  },
+  "S5_positional_distribution": {
+   "k": 0,
+   "n": 35,
+   "pct": 0.0,
+   "wilson95": [
+    6.938893903907228e-16,
+    9.890099232440402
+   ],
+   "note": ""
+  },
+  "S5b_incl_qualitative": {
+   "k": 0,
+   "n": 35,
+   "pct": 0.0,
+   "wilson95": [
+    6.938893903907228e-16,
+    9.890099232440402
+   ],
+   "note": ""
+  },
+  "S5_upper_bound": {
+   "k": 20,
+   "n": 55,
+   "pct": 36.36363636363637,
+   "wilson95": [
+    24.930531530307253,
+    49.577238500158735
+   ],
+   "note": ""
+  },
+  "S6_unreachable": {
+   "k": 20,
+   "n": 55,
+   "pct": 36.36363636363637,
+   "wilson95": [
+    24.930531530307253,
+    49.577238500158735
+   ],
+   "note": ""
+  },
+  "S8_clustered_ci": {
+   "k": 1,
+   "n": 35,
+   "pct": 2.857142857142857,
+   "wilson95": [
+    0.5061491855444202,
+    14.533087233613672
+   ],
+   "note": ""
+  },
+  "S9_positive_patients_and_slices": {
+   "k": 3,
+   "n": 35,
+   "pct": 8.571428571428571,
+   "wilson95": [
+    2.958236826696982,
+    22.379273965896495
+   ],
+   "note": ""
+  },
+  "ANY_slice_level_metric": {
+   "k": 9,
+   "n": 35,
+   "pct": 25.71428571428571,
+   "wilson95": [
+    14.163027069060446,
+    42.069306843839165
+   ],
+   "note": ""
+  },
+  "sub_patient_eval_unit": {
+   "k": 18,
+   "n": 35,
+   "pct": 51.42857142857142,
+   "wilson95": [
+    35.56880459586856,
+    67.00576399749026
+   ],
+   "note": ""
+  }
+ },
+ "S7_headline_unit_by_P1": {
+  "only_lesion": {
+   "n": 5,
+   "P1_true": 0
+  },
+  "only_other": {
+   "n": 2,
+   "P1_true": 0
+  },
+  "only_patient": {
+   "n": 11,
+   "P1_true": 0
+  },
+  "only_slice": {
+   "n": 6,
+   "P1_true": 0
+  },
+  "only_unclear": {
+   "n": 3,
+   "P1_true": 0
+  },
+  "only_volume_or_scan_not_patient": {
+   "n": 4,
+   "P1_true": 0
+  },
+  "slice": {
+   "n": 2,
+   "P1_true": 0
+  },
+  "patient": {
+   "n": 1,
+   "P1_true": 0
+  },
+  "unclear": {
+   "n": 1,
+   "P1_true": 0
+  }
+ },
+ "distributions_complete_case": {
+  "evaluation_unit_reported": {
+   "lesion": 5,
+   "other": 2,
+   "patient": 11,
+   "slice": 6,
+   "unclear": 4,
+   "volume_or_scan_not_patient": 4,
+   "both": 3
+  },
+  "headline_unit": {
+   "na_only_one_unit_reported": 31,
+   "slice": 2,
+   "patient": 1,
+   "unclear": 1
+  },
+  "split_unit": {
+   "slice_or_image": 9,
+   "patient_subject": 13,
+   "unclear": 3,
+   "random_unit_not_stated": 6,
+   "external_cohort_only": 3,
+   "site_or_centre": 1
+  },
+  "positional_distribution_reported": {
+   "no": 35
+  },
+  "uncertainty_interval_reported": {
+   "none": 16,
+   "ci_unspecified_method": 13,
+   "sd_across_folds": 5,
+   "ci_clustered_by_subject": 1
+  },
+  "n_positive_reported": {
+   "neither": 6,
+   "patients_only": 14,
+   "na": 1,
+   "slices_only": 11,
+   "patients_and_slices": 3
+  }
+ },
+ "codebook_audit": {
+  "p1_true_records_anywhere": [],
+  "clinical_only_true_records": [
+   "S1/41617832",
+   "S1/39061744",
+   "S1/37222638",
+   "S1/39513126",
+   "S2/39061744",
+   "S2/37222638",
+   "S2/38337016",
+   "S3/39061744",
+   "S4/41617832",
+   "S4/39061744",
+   "S4/37222638",
+   "S4/39200968",
+   "S4/38784688"
+  ],
+  "trivial_baseline_na_convention": {
+   "S1": {
+    "bool:False": 37
+   },
+   "S2": {
+    "bool:False": 28,
+    "NoneType:None": 8
+   },
+   "S3": {
+    "bool:False": 13,
+    "str:'unclear'": 23
+   },
+   "S4": {
+    "bool:False": 36
+   }
+  },
+  "included_but_unreachable_as_coded": {
+   "S1": 5,
+   "S2": 0,
+   "S3": 0,
+   "S4": 7
+  }
+ },
+ "per_record": [
+  {
+   "record_id": "30734849",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "30921550",
+   "batch": "batch_D",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "volume_or_scan_not_patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "30922901",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "31093705",
+   "batch": "overlap",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "lesion",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "31634769",
+   "batch": "batch_B",
+   "status": "eligible_unreachable",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "32372385",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "32452907",
+   "batch": "batch_A",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "slice",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "32714766",
+   "batch": "batch_C",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "external_cohort_only",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "32907561",
+   "batch": "batch_D",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "33310694",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "external_cohort_only",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "33937792",
+   "batch": "batch_A",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "34003056",
+   "batch": "batch_B",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "lesion",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "external_cohort_only",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_and_slices"
+  },
+  {
+   "record_id": "34003996",
+   "batch": "batch_A",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "34136394",
+   "batch": "batch_A",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "slice",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "34229143",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "34324463",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "34476208",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "site_or_centre",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "34603980",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "other",
+   "headline_unit": "unclear",
+   "split_unit": "no_held_out_test_set",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "34655238",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "lesion",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "34888191",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "34926501",
+   "batch": "batch_B",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "both",
+   "headline_unit": "patient",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "34976558",
+   "batch": "batch_C",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "35061759",
+   "batch": "batch_D",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "both",
+   "headline_unit": "slice",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "35071275",
+   "batch": "batch_A",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "35247336",
+   "batch": "batch_A",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "volume_or_scan_not_patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "external_cohort_only",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "35378943",
+   "batch": "batch_C",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "lesion",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "35401411",
+   "batch": "batch_D",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "35626379",
+   "batch": "batch_A",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "slice",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "35641181",
+   "batch": "batch_D",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "35684918",
+   "batch": "batch_A",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "35787928",
+   "batch": "batch_D",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "35864986",
+   "batch": "batch_D",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "35872945",
+   "batch": "batch_C",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "volume_or_scan_not_patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "36016875",
+   "batch": "overlap",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "slice",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "36072854",
+   "batch": "overlap",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "36170844",
+   "batch": "batch_D",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "slice",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "36200353",
+   "batch": "batch_D",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "both",
+   "headline_unit": "slice",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "36229338",
+   "batch": "batch_C",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "volume_or_scan_not_patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "patients_and_slices"
+  },
+  {
+   "record_id": "36244303",
+   "batch": "batch_A",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "36291282",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "36539234",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "36762417",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "36776294",
+   "batch": "overlap",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "lesion",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "36789248",
+   "batch": "overlap",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "slice",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "37222638",
+   "batch": "overlap",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": true,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "37276106",
+   "batch": "batch_B",
+   "status": "eligible_unreachable",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "37293874",
+   "batch": "batch_A",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "37591161",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "37754951",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "37908848",
+   "batch": "batch_A",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "37962500",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "38082902",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "38082966",
+   "batch": "batch_A",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "38083399",
+   "batch": "batch_A",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "both",
+   "headline_unit": "lesion",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "38298725",
+   "batch": "batch_C",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "volume_or_scan_not_patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "38337016",
+   "batch": "batch_B",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": true,
+   "evaluation_unit_reported": "both",
+   "headline_unit": "slice",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_and_slices"
+  },
+  {
+   "record_id": "38584366",
+   "batch": "batch_D",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "38591974",
+   "batch": "batch_C",
+   "status": "eligible_unreachable",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "lesion",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "patients_and_slices"
+  },
+  {
+   "record_id": "38784688",
+   "batch": "batch_D",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": true,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "39061744",
+   "batch": "overlap",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": true,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "39107903",
+   "batch": "batch_B",
+   "status": "eligible_unreachable",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "lesion",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "39200968",
+   "batch": "batch_D",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": true,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "39384719",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "sd_across_folds",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "39423605",
+   "batch": "overlap",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "39513126",
+   "batch": "batch_A",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": true,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "39699671",
+   "batch": "batch_B",
+   "status": "eligible_unreachable",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "both",
+   "headline_unit": "patient",
+   "split_unit": "external_cohort_only",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "39846055",
+   "batch": "batch_D",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "40001707",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "40081198",
+   "batch": "batch_C",
+   "status": "eligible_unreachable",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "40093990",
+   "batch": "batch_C",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "40147601",
+   "batch": "batch_D",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "40194851",
+   "batch": "overlap",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "40232605",
+   "batch": "batch_D",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "lesion",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "40239684",
+   "batch": "overlap",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "40335658",
+   "batch": "overlap",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "40442294",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "40768653",
+   "batch": "batch_B",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "slice",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "40883444",
+   "batch": "batch_D",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "40903384",
+   "batch": "batch_A",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "slice",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "41068276",
+   "batch": "overlap",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "slice_or_image",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "41262491",
+   "batch": "batch_A",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "slice",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "41274092",
+   "batch": "batch_A",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "no_held_out_test_set",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "41357810",
+   "batch": "batch_D",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_clustered_by_subject",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "41547664",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "41559509",
+   "batch": "batch_D",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "41568076",
+   "batch": "batch_D",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "site_or_centre",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "41574043",
+   "batch": "batch_A",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "41617832",
+   "batch": "overlap",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": true,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "41740680",
+   "batch": "batch_A",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "41782094",
+   "batch": "batch_A",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "41874622",
+   "batch": "batch_D",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "unclear",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "41999029",
+   "batch": "batch_A",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "42052229",
+   "batch": "batch_D",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "42100397",
+   "batch": "batch_B",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "42130124",
+   "batch": "overlap",
+   "status": "included_reachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "neither"
+  },
+  {
+   "record_id": "42153825",
+   "batch": "batch_C",
+   "status": "eligible_unreachable",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "patients_only"
+  },
+  {
+   "record_id": "42162744",
+   "batch": "batch_A",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "unclear",
+   "headline_unit": "unclear",
+   "split_unit": "patient_subject",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "42367846",
+   "batch": "batch_C",
+   "status": "excluded",
+   "_p1": "NOT_ASSESSABLE",
+   "_s1": "NOT_ASSESSABLE",
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "random_unit_not_stated",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "slices_only"
+  },
+  {
+   "record_id": "42462969",
+   "batch": "batch_B",
+   "status": "excluded",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "other",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "no_held_out_test_set",
+   "positional_distribution_reported": "no",
+   "uncertainty_interval_reported": "ci_unspecified_method",
+   "n_positive_reported": "na"
+  },
+  {
+   "record_id": "42489954",
+   "batch": "overlap",
+   "status": "eligible_unreachable",
+   "_p1": false,
+   "_s1": false,
+   "evaluation_unit_reported": "patient",
+   "headline_unit": "na_only_one_unit_reported",
+   "split_unit": "unclear",
+   "positional_distribution_reported": "unclear",
+   "uncertainty_interval_reported": "none",
+   "n_positive_reported": "patients_only"
+  }
+ ]
+}

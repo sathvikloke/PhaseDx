@@ -1,0 +1,275 @@
+{
+ "_what": "Published slice/image-level vs patient/exam-level rank inversions located 2026-07-29. Every number below was read from the source named in 'source_url' and is reproduced verbatim from a table or leaderboard.",
+ "_search_limitation": "WebSearch was unavailable for the whole session (API error). Evidence was gathered via Europe PMC full-text search (10 queries -> 979 unique open-access PMCIDs, 821 with retrievable fullTextXML), an automated paired-table rank-inversion scan over those 821, the arXiv API, and direct fetches of challenge leaderboards. Kaggle/GitHub solution write-ups and non-indexed grey literature were therefore NOT systematically searched.",
+ "cases": [
+  {
+   "id": "camelyon16",
+   "rank": 1,
+   "kind": "challenge leaderboard, same submissions scored at two units",
+   "citation": "CAMELYON16 official public leaderboards; Ehteshami Bejnordi B, et al. JAMA 2017;318(22):2199-2210.",
+   "doi": "10.1001/jama.2017.14585",
+   "source_url": "https://camelyon16.grand-challenge.org/Results/",
+   "fine_unit": "lesion (FROC = mean sensitivity at 1/4,1/2,1,2,4,8 FP per WSI)",
+   "coarse_unit": "whole-slide image (AUC)",
+   "n_methods": 32,
+   "kendall_tau": 0.754,
+   "spearman_rho": 0.903,
+   "discordant_pairs": "61/496 (12.3%)",
+   "headline": "Top-5 membership changes. HMS/MGH Method 1 is 3rd by slide AUC (0.9650) and 6th by lesion FROC (0.5963); HMS/MGH Method 2 is 8th by AUC (0.9082) and 3rd by FROC (0.7289). The two methods from the same group reverse order between units.",
+   "second_headline": "On the Apr-1-deadline top-five boards the SETS differ: Radboud UMC (DIAG) is 2nd on the lesion board (0.5748) and absent from the slide top-five; 'Independent participant, Germany' is 3rd on the slide board (0.8654) and absent from the lesion top-five.",
+   "largest_movements": {
+    "DeepCare Inc": "10 -> 22",
+    "Radboud DIAG": "17 -> 7",
+    "HTW-BERLIN": "18 -> 25",
+    "Osaka": "23 -> 16",
+    "HMS/MGH Method 2": "8 -> 3"
+   },
+   "verbatim_quotes": [
+    "Public Leaderboard 1 - Whole-slide-image classification ... Evaluation 1: Teams are ranked based on area under ROC curve (AUC).",
+    "Public Leaderboard 2 - Tumor localization ... Evaluation 2: The detection/localization performance is summarized using Free Response Operating Characteristic (FROC) curves. The final score is defined as the average sensitivity at 6 predefined false positive rates: 1/4, 1/2, 1, 2, 4, and 8 FPs per whole slide image."
+   ],
+   "caveats": [
+    "The metric changes with the unit (AUC vs FROC) because AUC is not definable at lesion level; unit and metric are confounded, though the confound is entailed by the unit change.",
+    "2D pathology WSI, not volumetric CT/MRI; the fine unit is a lesion, not a slice.",
+    "Test set n=129 WSI (49 positive). The leaderboard publishes no confidence intervals, so most reorderings cannot be separated from sampling noise from the published numbers alone."
+   ]
+  },
+  {
+   "id": "rsna_str_pe",
+   "rank": 2,
+   "kind": "peer-reviewed benchmark study, same models at image and exam level",
+   "citation": "Islam NU, Gehlot S, Zhou Z, Gotway MB, Liang J. Seeking an Optimal Approach for Computer-Aided Pulmonary Embolism Detection. MLMI (MICCAI workshop) 2021; LNCS 12966:692-702.",
+   "doi": "10.1007/978-3-030-87589-3_71",
+   "pmid": "35695860",
+   "pmcid": "PMC9184235",
+   "arxiv": "2109.07029",
+   "dataset": "RSNA-STR Pulmonary Embolism CT (RSPED) -- the benchmark that ships image-level AND exam-level labels",
+   "fine_unit": "image-level PE AUC (Table 4, ImageNet initialisation)",
+   "coarse_unit": "exam-level mean AUC over 9 labels, conventional classification (Table 2)",
+   "n_methods": 6,
+   "kendall_tau": 0.467,
+   "spearman_rho": 0.543,
+   "discordant_pairs": "4/15",
+   "paired_values": {
+    "SeXception": {
+     "image": 0.9634,
+     "exam": 0.8852,
+     "image_rank": 1,
+     "exam_rank": 3
+    },
+    "SeResNext50": {
+     "image": 0.9614,
+     "exam": 0.8807,
+     "image_rank": 2,
+     "exam_rank": 4
+    },
+    "Xception": {
+     "image": 0.9607,
+     "exam": 0.8912,
+     "image_rank": 3,
+     "exam_rank": 1
+    },
+    "DenseNet121": {
+     "image": 0.9543,
+     "exam": 0.8879,
+     "image_rank": 4,
+     "exam_rank": 2
+    },
+    "ResNet18": {
+     "image": 0.952,
+     "exam": 0.8728,
+     "image_rank": 5,
+     "exam_rank": 5
+    },
+    "ResNet50": {
+     "image": 0.9473,
+     "exam": 0.8692,
+     "image_rank": 6,
+     "exam_rank": 6
+    }
+   },
+   "verbatim_quotes": [
+    "Although SeXception performed optimally for image-level classification (see Fig. 2), the same is not true for exam-level classification. There is no architecture that performs optimally across all labels, but overall, Xception shows the best AUC across nine labels.",
+    "Furthermore, SeXception is the optimal architecture for image-level classification, whereas Xception performs best for exam-level classification.",
+    "Based on our rigorous analysis, the optimal architectures for the tasks of image-level and exam-level classification are SeXception and Xception.",
+    "The features extracted by the models trained for image-level classification were helpful for exam-level classification. However, no model performed consistently best for all labels."
+   ],
+   "caveats": [
+    "The exam-level number is a mean AUC over nine labels; the image-level number is a single PE label. Same benchmark and same models, but not literally the same metric.",
+    "Exam-level features are derived from the image-level models, so the two units are not independent estimators.",
+    "Image-level values carry run-to-run SDs (SeXception 0.9634+-0.0009, SeResNext50 0.9614+-0.0011, Xception 0.9607+-0.0007) but no subject-clustered CIs; exam-level Table 2 reports means over 10 runs with no dispersion at all."
+   ]
+  },
+  {
+   "id": "adni_slice_scan",
+   "rank": 3,
+   "kind": "single study, explicit dual-level evaluation, 5 architectures",
+   "citation": "Multi-Architecture Deep Learning for Early Alzheimer's Detection in MRI: Slice- and Scan-Level Analysis. Int J Environ Res Public Health 2026.",
+   "doi": "10.3390/ijerph23030322",
+   "pmid": "41899699",
+   "pmcid": "PMC13027363",
+   "fine_unit": "slice-level accuracy (6,353 test slices)",
+   "coarse_unit": "scan-level accuracy (627 test volumes), max-confidence aggregation",
+   "n_methods": 5,
+   "kendall_tau": -0.6,
+   "spearman_rho": -0.8,
+   "discordant_pairs": "8/10",
+   "headline": "The slice-level rankings and scan-level rankings are strongly NEGATIVELY correlated. The slice-level best model is the scan-level worst.",
+   "paired_values_table8": {
+    "EfficientNetV2-L": {
+     "slice": 0.8684,
+     "scan": 0.8453,
+     "slice_rank": 1,
+     "scan_rank": 5,
+     "delta_pct": -2.66
+    },
+    "VGG19": {
+     "slice": 0.8607,
+     "scan": 0.8852,
+     "slice_rank": 2,
+     "scan_rank": 3,
+     "delta_pct": 2.85
+    },
+    "VGG16": {
+     "slice": 0.8568,
+     "scan": 0.8692,
+     "slice_rank": 3,
+     "scan_rank": 4,
+     "delta_pct": 1.45
+    },
+    "ConvNeXtV2-L": {
+     "slice": 0.8464,
+     "scan": 0.9107,
+     "slice_rank": 4,
+     "scan_rank": 1,
+     "delta_pct": 7.6
+    },
+    "SwinV1-L": {
+     "slice": 0.8264,
+     "scan": 0.9011,
+     "slice_rank": 5,
+     "scan_rank": 2,
+     "delta_pct": 9.04
+    }
+   },
+   "verbatim_quotes": [
+    "By evaluating performance at both slice-level and scan-level, we reveal that multi-slice aggregation affects architectures asymmetrically.",
+    "ConvNeXtV2-L achieved the best scan-level performance (91.07%), EfficientNetV2-L the highest slice-level accuracy (86.84%), and VGG19 balanced results (86.07%/88.52%). ConvNeXtV2-L and SwinV1-L exhibited scan-level improvements of 7.60% and 9.04% respectively, while EfficientNetV2-L experienced degradation of 2.66%, demonstrating that architectural selection and aggregation strategy are interdependent factors.",
+    "Most studies report either slice-level or scan-level performance without systematically investigating how aggregation affects different architectures.",
+    "EfficientNetV2-L unexpectedly showed degraded scan-level performance compared to slice-level results, suggesting the aggregation strategy may not effectively leverage this architecture's learned features."
+   ],
+   "caveats": [
+    "SELECTION: 'Scan-level evaluation was conducted only for the five highest-performing models in slice-level classification.' Selecting on the slice axis truncates slice-level variance (range 0.0420) relative to scan-level variance (range 0.0654), which inflates apparent discordance. The tau of -0.600 is an upper bound on the effect.",
+    "AGGREGATION RULE: scan prediction is max-confidence over slices ('The slice achieving the highest maximum class probability determined the final scan-level classification'), an unusual rule that rewards high-variance confidence. Part of the reordering is a unit x aggregation-rule interaction, not a pure unit effect; the authors say so themselves.",
+    "LEAKAGE: split is scan-based, not subject-based -- 'Our scan-level splitting strategy did not enforce subject-level separation, meaning different visits from the same individual could appear across sets.' Neither number is a clean subject-level estimate.",
+    "No confidence intervals anywhere. MDPI IJERPH, 2026.",
+    "Their own Table 9 tabulates other studies' accuracies in a single comparison column with (I)/(P) unit flags -- direct evidence that the literature compares across units as if commensurable."
+   ]
+  },
+  {
+   "id": "acute_pancreatitis",
+   "rank": 4,
+   "kind": "single study, 5 architectures, both units, same patient-level split",
+   "citation": "Guneri G, et al. A Vision Transformer-Based Deep Learning Framework for Patient-Level Classification of Acute Pancreatitis and Normal Pancreas Using Computed Tomography. Diagnostics 2026;16(8):1152.",
+   "doi": "10.3390/diagnostics16081152",
+   "pmid": "42072777",
+   "pmcid": "PMC13115216",
+   "fine_unit": "slice-level accuracy (Table 5)",
+   "coarse_unit": "patient-level accuracy (Table 3), majority vote over slices",
+   "n_methods": 5,
+   "kendall_tau_accuracy": 0.3,
+   "spearman_rho_accuracy": 0.5,
+   "discordant_pairs_accuracy": "3/10",
+   "paired_values_accuracy": {
+    "Swin": {
+     "slice": 84.06,
+     "patient": 78.38,
+     "slice_rank": 1,
+     "patient_rank": 3
+    },
+    "ViT": {
+     "slice": 83.75,
+     "patient": 89.19,
+     "slice_rank": 2,
+     "patient_rank": 1
+    },
+    "ResNet50": {
+     "slice": 80.07,
+     "patient": 78.38,
+     "slice_rank": 3,
+     "patient_rank": 4
+    },
+    "ConvNeXtV2": {
+     "slice": 79.91,
+     "patient": 81.08,
+     "slice_rank": 4,
+     "patient_rank": 2
+    },
+    "EfficientNet": {
+     "slice": 78.57,
+     "patient": 75.68,
+     "slice_rank": 5,
+     "patient_rank": 5
+    }
+   },
+   "verbatim_quotes": [
+    "Although the Swin model achieved the highest accuracy rate in slice-level analysis, the ViT model was observed to exhibit more balanced and robust classification performance in patient-level evaluation.",
+    "In slice-level analysis, all models achieve high performance. Swin shows the highest accuracy (84.06%), and ViT revealed the most balanced performance with an F1-score of 82.90%. In the more clinically significant patient-level evaluation, the ViT model outperforms all others with an accuracy of 89.19%, an F1-score of 86.67%, and an area under the curve (AUC) of 0.946.",
+    "high slice-level accuracy rates do not guarantee the model's success in the clinical diagnostic process"
+   ],
+   "why_it_matters_most_for_our_trap": "This is the ONLY located case that publishes patient-level CIs, and they show the inversion is not separable from noise: Table 7 gives ViT 89.19% [75.3-96.4] vs Swin 78.38% [62.8-89.2] on 37 test patients (21 normal, 16 AP). The intervals overlap heavily. The slice-level gap that put Swin first is 84.06 vs 83.75 = 0.31 points.",
+   "caveats": [
+    "Test set is 37 patients. A published inversion with no ability to distinguish it from sampling variability.",
+    "Their own Table 4 (patient level WITH augmentation) reorders again: Swin and ViT tie at 85.14%, so the 'winner' also flips with a training-time choice.",
+    "MDPI Diagnostics, 2026, single centre."
+   ]
+  }
+ ],
+ "adjacent_evidence": [
+  {
+   "id": "yagis_leakage",
+   "axis": "SPLIT unit, not evaluation unit -- must not be conflated",
+   "citation": "Yagis E, et al. Effect of data leakage in brain MRI classification using 2D convolutional neural networks. Sci Rep 2021;11:22544.",
+   "doi": "10.1038/s41598-021-01681-w",
+   "pmcid": "PMC8604922",
+   "finding": "Table 4, test accuracy for 3 CNNs x 6 datasets under slice-level vs subject-level splitting. The best architecture flips on 4 of 6 datasets; 9 of 18 architecture pairs reverse.",
+   "per_dataset": {
+    "OASIS-200": "discordant 0/3, winner ResNet-18 both",
+    "OASIS-34": "discordant 3/3, winner VGG16-v2 -> ResNet-18",
+    "OASIS-random": "discordant 1/3, winner VGG16-v1 both",
+    "ADNI": "discordant 1/3, winner ResNet-18 -> VGG16-v1",
+    "PPMI": "discordant 2/3, winner ResNet-18 -> VGG16-v1",
+    "Versilia": "discordant 2/3, winner VGG16-v2 -> VGG16-v1"
+   },
+   "note": "Shows the unit-of-analysis choice reorders architectures on the SPLIT axis. Adjacent mechanism, strong citation, but it is leakage, not evaluation granularity."
+  },
+  {
+   "id": "maier_hein_ranking_instability",
+   "axis": "the within-unit noise floor -- the comparator our analysis must beat",
+   "citation": "Maier-Hein L, et al. Why rankings of biomedical image analysis competitions should be interpreted with care. Nat Commun 2018;9:5217. (Author Correction: Nat Commun 2019;10:588.)",
+   "doi": "10.1038/s41467-018-07619-7",
+   "pmcid": "PMC6284017",
+   "verbatim_quotes": [
+    "the rank of an algorithm is generally not robust to a number of variables such as the test data used for validation, the ranking scheme applied and the observers that make the reference annotations",
+    "Even for relatively high values of Kendall's tau (b: tau = 0.74; c: tau = 0.85), critical changes in the ranking may occur",
+    "In some cases, almost all teams change their ranking position when the aggregation method is changed.",
+    "different observers produced different rankings in 15, 46, and 62% of the 13 pairwise comparisons between observers"
+   ],
+   "why_it_matters": "Establishes that tau in the 0.74-0.85 range is already enough to change winners. Our CAMELYON16 unit-change tau of 0.754 sits inside that band, so the honest claim is that the unit change produces instability of the SAME ORDER as the aggregation-scheme instability already documented -- not larger. This is the paper we must cite when separating 'the unit changes the ranking' from 'the ranking is too noisy to be stable at all'."
+  }
+ ],
+ "negative_controls": [
+  {
+   "citation": "Discrimination between LGI1 antibody encephalitis and GABA-B receptor antibody encephalitis based on ResNet18. Vis Comput Ind Biomed Art 2023;6:17.",
+   "doi": "10.1186/s42492-023-00144-5",
+   "pmcid": "PMC10435436",
+   "finding": "Three architectures at BOTH units with DeLong tests. Slice AUC ResNet18 0.86 > ResNet50 0.74 > VGG16 0.67; patient AUC ResNet18 0.98 > ResNet50 0.86 > VGG16 0.73. Ranking is PRESERVED on AUC and on accuracy. A clean published counter-example: reporting both units does not always produce an inversion."
+  }
+ ],
+ "priority3_public_prediction_files": {
+  "status": "not established in this pass",
+  "camelyon16": "No raw per-team prediction files on the challenge site; unnecessary anyway, because the organisers themselves published both leaderboards.",
+  "rsna_str_pe": "The public training set carries both image-level and exam-level labels, so a two-unit recomputation is possible on that split; Kaggle test labels are withheld and no published test-set prediction files were located.",
+  "limitation": "WebSearch was unavailable, so Kaggle solution repositories and GitHub write-ups were not systematically searched. This arm is under-searched and should not be reported as a negative result."
+ }
+}

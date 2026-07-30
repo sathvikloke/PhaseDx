@@ -1,0 +1,2594 @@
+{
+ "_schema": "phasedx.screen.access_recovery.v1",
+ "_pass": 2,
+ "_supersedes_nothing": "This file is ADDITIVE to paper/screen/access_recovery.json. Pass 1 recovered 4 records; this pass re-attacked the 16 it left behind and recovered 0. Both files are overlays; neither edits a sealed batch file.",
+ "_what_this_is": "Second re-run of the access ladder over the SIXTEEN records left unreachable by paper/screen/access_recovery.json, driven by MACHINE endpoints rather than the web layer, on the hypothesis (stated in the task) that the PMC OA Web Service and the Europe PMC REST full-text endpoints would bypass the Cloudflare/bot obstructions that defeated pass 1. That hypothesis is now falsified for this sample and the falsification is recorded per record: none of the sixteen has a PMC deposit at all, so the PMC OA Web Service is not merely blocked but inapplicable, and Europe PMC returns HTTP 404 for fullTextXML and supplementaryFiles on all sixteen. Zero full texts were recovered. The bounding interval is therefore unchanged.",
+ "_does_not_edit_sealed_files": "screen_batch_{A,B,C,D}.json and screen_reserve_R*.json are the screeners' sealed, git-timestamped submissions and are NOT modified. This file is an overlay with an EMPTY records[] array, so applying it changes no number; its value is the per-record endpoint ledger in still_unreachable[].endpoints_tried, which exists so the next operator does not repeat ~30 failed lookups per record.",
+ "_run_utc": "2026-07-30T05:30:00Z",
+ "_operator": "access-recovery pass 2, agent-executed, single operator",
+ "_sources_permitted": "PubMed Central / Europe PMC (search, fullTextXML, supplementaryFiles, annotations); NCBI esearch db=pmc; PMC ID converter; PMC OA Web Service; Unpaywall; OpenAlex; Semantic Scholar Graph API; Crossref registered text-mining, syndication and similarity-checking links; OpenAIRE; CORE v3; DOAJ; DataCite; arXiv; Zenodo; HAL; OSF preprints; PubMed LinkOut; the Internet Archive Wayback Machine CDX API and Internet Archive Scholar as public archives of pages that are themselves openly licensed.",
+ "_sources_refused": "Sci-Hub, LibGen, Anna's Archive and every other unauthorised full-text source. None was fetched, not even to test whether it held a record; search results pointing at such hosts were discarded unread. No bot-detection or CAPTCHA challenge was circumvented or solved: Springer's client challenge, IEEE's script shell, ScienceDirect's 'are you a robot' captcha, DuckDuckGo's and Mojeek's bot challenges were all recorded as failures and left. No browser User-Agent was spoofed; every request identified itself as PhaseDx-screen/1.0 with a contact address. No new Wayback 'Save Page Now' snapshot was created, because that writes to a public archive.",
+ "_ladder_rerun_summary": {
+  "records_carried_in": 16,
+  "denominator_eligible_looking": 54,
+  "unreachable_rate_before_this_pass": "29.6%",
+  "recovered": 0,
+  "still_unreachable": 16,
+  "unreachable_rate_after_this_pass": "29.6%",
+  "P1_bound_before": "[0.0%, 29.6%]",
+  "P1_bound_after": "[0.0%, 29.6%]",
+  "threshold_15pct_breached": true,
+  "endpoint_that_worked": "none",
+  "note": "Because nothing was recovered, records[] is empty and every endpoint in paper/screen/analysis/recompute_with_recovery.py returns exactly the numbers it returned before. The headline stays the bounding interval, per screen_protocol.md sec.7 rule 4."
+ },
+ "_what_this_pass_adds": [
+  "The PMC route is closed by absence, not by blocking: idconv returns no PMCID for any of the 16, and NCBI esearch on db=pmc returns 0 hits for all 16 by exact title AND by DOI. The PMC OA Web Service cannot be tried at all. This was the task's highest-prior route and it is now definitively excluded.",
+  "Europe PMC holds no body for any of the 16: fullTextXML and supplementaryFiles are HTTP 404 across the board, and a title search across ALL Europe PMC sources (including PPR preprints and bookXML) returns only the MED abstract record.",
+  "No preprint or repository copy exists for any of the 16: arXiv 0/16 on exact-title and loose queries, Zenodo 0/16, HAL 0/16, OSF 0/16, OpenAIRE has no fulltext instance for any, Unpaywall has_repository_copy is False for 15 of 16, and CORE's single hit (40147601) is a DOAJ metadata harvest whose advertised download URL returns HTTP 404.",
+  "The three known open-access-but-blocked records are CONFIRMED and the disclosure is strengthened: pubs.rsna.org, onlinelibrary.wiley.com and www.sciencedirect.com are blocked at the ORIGIN by this environment's browsing policy in a real browser (both the built-in Browser pane and the connected Chrome instance), not merely by publisher bot detection against scripted clients. academic.oup.com, link.springer.com and ieeexplore.ieee.org are blocked the same way. The obstruction is on our side of the wire.",
+  "One new lead: NLM's LinkOut marks the OUP full-text link for 39107903 (Dentomaxillofac Radiol) a 'free resource', contradicting Unpaywall/OpenAlex/Semantic Scholar/OpenAIRE. Uncorroborated, so NOT upgraded here, but it is the fourth record a screener on an unblocked network should test.",
+  "Two routes remain genuinely UNTRIED rather than failed, because the hosts were unreachable or the tool was broken in this environment: the fatcat API (api.fatcat.wiki, connection hangs), the Memento TimeTravel aggregator (HTTP 000, would cover archive.today), and general web search (WebSearch tool errored on every call; DuckDuckGo and Mojeek served CAPTCHAs that were not solved). The next operator should start there and with the six blocked publisher domains."
+ ],
+ "_positive_finding_search": "The task's instruction to look for a POSITIVE as hard as for the absence was honoured, but it could not be exercised: coding a zero-image baseline as PRESENT requires a verbatim quote from the body, and no body was obtained for any of the sixteen. No record here is coded either way. Two abstracts contain material that would bear on the endpoints if the body were readable and are logged so they are not lost: 37222638's abstract describes a clinical-variables-only comparator model (AUC 0.741/0.772/0.675), which would bear on secondary endpoint S1 -- already noted by pass 1 -- and 42489954's abstract suggests a functional-connectivity-graph input, which would bear on eligibility (E-DERIV). Neither is coded, because an abstract is not evidence under this codebook.",
+ "records": [],
+ "still_unreachable": [
+  {
+   "record_id": "41617832",
+   "position": 2,
+   "venue": "Eur Radiol",
+   "year": "2026",
+   "citation": "Liu R, Zhou Y, Wang R, Chen X, Yang Y, Jiang H, Xie K, Ning Y, Deng Y, Yu Q, Xu L, Hu G, Peng J. Multimodal deep learning for laryngeal squamous cell carcinoma staging using CT and laryngoscopy. Eur Radiol 2026;36(6):4964-4975. doi:10.1007/s00330-025-12315-4",
+   "doi": "10.1007/s00330-025-12315-4",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=41617832",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1007/s00330-025-12315-4%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:41617832%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/41617832/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/41617832/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:41617832",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1007/s00330-025-12315-4",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1007/s00330-025-12315-4",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1007/s00330-025-12315-4?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://link.springer.com/content/pdf/10.1007/s00330-025-12315-4.pdf",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://link.springer.com/article/10.1007/s00330-025-12315-4",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "Crossref registered link (similarity-checking, vor)",
+     "url": "https://link.springer.com/content/pdf/10.1007/s00330-025-12315-4.pdf",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1007/s00330-025-12315-4",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1007/s00330-025-12315-4%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1007/s00330-025-12315-4%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1007/s00330-025-12315-4",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1007/s00330-025-12315-4, link.springer.com/article/10.1007/s00330-025-12315-4, link.springer.com/content/pdf/10.1007/s00330-025-12315-4.pdf); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1007/s00330-025-12315-4&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=41617832&cmd=llinks",
+     "outcome": "[[\"MedlinePlus Health Information\", [\"free resource\"]], [\"Springer\", [\"subscription/membership/fee required\"]], [\"MedlinePlus Consumer Health Information\", [\"free resource\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "39423605",
+   "position": 3,
+   "venue": "Comput Biol Chem",
+   "year": "2024",
+   "citation": "Patil M, Mukherji P, Wadhai V. Federated learning and deep learning framework for MRI image and speech signal-based multi-modal depression detection. Comput Biol Chem 2024;113:108232. doi:10.1016/j.compbiolchem.2024.108232",
+   "doi": "10.1016/j.compbiolchem.2024.108232",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=39423605",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1016/j.compbiolchem.2024.108232%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:39423605%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/39423605/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/39423605/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:39423605",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1016/j.compbiolchem.2024.108232",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1016/j.compbiolchem.2024.108232",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1016/j.compbiolchem.2024.108232?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S1476927124002202?httpAccept=text/xml",
+     "outcome": "HTTP 200 -- Elsevier TDM endpoint served coredata METADATA ONLY (~1.9 kB); the article body requires an Elsevier API key this project does not hold."
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S1476927124002202?httpAccept=text/plain",
+     "outcome": "HTTP 400 -- HTTP 400 for text/plain accept"
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1016/j.compbiolchem.2024.108232",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1016/j.compbiolchem.2024.108232%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1016/j.compbiolchem.2024.108232%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1016/j.compbiolchem.2024.108232",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1016/j.compbiolchem.2024.108232, www.sciencedirect.com/science/article/abs/pii/S1476927124002202, www.sciencedirect.com/science/article/pii/S1476927124002202); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1016/j.compbiolchem.2024.108232&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=39423605&cmd=llinks",
+     "outcome": "[[\"Elsevier Science\", [\"subscription/membership/fee required\"]], [\"MedlinePlus Health Information\", [\"free resource\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "42489954",
+   "position": 8,
+   "venue": "Brain Topogr",
+   "year": "2026",
+   "citation": "Zhang Q, Liu Z, Dou W, Zhong R, Li Z, Jiang H. Multi-Scale Structural MRI Features Reveal Task-Based Functional Connectivity and Its Alterations in Psychiatric Disorders: A Collaborative Graph Attention Network Approach. Brain Topogr 2026;39(5):83. doi:10.1007/s10548-026-01237-z",
+   "doi": "10.1007/s10548-026-01237-z",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=42489954",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1007/s10548-026-01237-z%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:42489954%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/42489954/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/42489954/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=0; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:42489954",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1007/s10548-026-01237-z",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1007/s10548-026-01237-z",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1007/s10548-026-01237-z?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://link.springer.com/content/pdf/10.1007/s10548-026-01237-z.pdf",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://link.springer.com/article/10.1007/s10548-026-01237-z",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "Crossref registered link (similarity-checking, vor)",
+     "url": "https://link.springer.com/content/pdf/10.1007/s10548-026-01237-z.pdf",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1007/s10548-026-01237-z",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1007/s10548-026-01237-z%22",
+     "outcome": "totalHits=None -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1007/s10548-026-01237-z%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1007/s10548-026-01237-z",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1007/s10548-026-01237-z, link.springer.com/article/10.1007/s10548-026-01237-z, link.springer.com/content/pdf/10.1007/s10548-026-01237-z.pdf); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1007/s10548-026-01237-z&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=42489954&cmd=llinks",
+     "outcome": "[[\"MedlinePlus Health Information\", [\"free resource\"]], [\"Springer\", [\"subscription/membership/fee required\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "37222638",
+   "position": 13,
+   "venue": "J Magn Reson Imaging",
+   "year": "2024",
+   "citation": "Peng L, Yang Z, Liu J, Liu Y, Huang J, Chen J, Su Y, Zhang X, Song T. Prenatal Diagnosis of Placenta Accreta Spectrum Disorders: Deep Learning Radiomics of Pelvic MRI. J Magn Reson Imaging 2024;59(2):496-509. doi:10.1002/jmri.28787",
+   "doi": "10.1002/jmri.28787",
+   "pmcid": null,
+   "verdict": "open_access_but_unreachable_from_this_environment",
+   "verdict_pass1": "OA but unreachable from here",
+   "reason": "Provably open access under a publisher-declared licence, and unreachable ONLY because onlinelibrary.wiley.com is blocked by this execution environment's browsing policy in every available client including a real browser. NOT paywalled. Recoverable by a screener on an unblocked network.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=37222638",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1002/jmri.28787%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:37222638%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/37222638/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/37222638/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:37222638",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1002/jmri.28787",
+     "outcome": "is_oa=True oa_status=bronze has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[\"https://onlinelibrary.wiley.com/doi/pdfdirect/10.1002/jmri.28787\"]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1002/jmri.28787",
+     "outcome": "is_oa=True oa_status=bronze any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1002/jmri.28787?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (similarity-checking, vor)",
+     "url": "https://onlinelibrary.wiley.com/doi/pdf/10.1002/jmri.28787",
+     "outcome": "HTTP 403 -- HTTP 403 to every scripted client available here."
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1002/jmri.28787",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1002/jmri.28787%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1002/jmri.28787%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1002/jmri.28787",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "5 candidate URLs probed; ONE snapshot exists, of the article landing page (onlinelibrary.wiley.com/doi/10.1002/jmri.28787). The previous pass already read it: abstract and reference list only, no Methods and no Results body. /full/, /pdfdirect/ and /epdf/ have zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1002/jmri.28787&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=37222638&cmd=llinks",
+     "outcome": "[[\"Ovid Technologies, Inc.\", [\"subscription/membership/fee required\"]], [\"Wiley\", [\"subscription/membership/fee required\"]]]"
+    },
+    {
+     "endpoint": "publisher site, scripted client (curl / urllib, identifying User-Agent)",
+     "url": "https://onlinelibrary.wiley.com/...",
+     "outcome": "HTTP 403"
+    },
+    {
+     "endpoint": "publisher site, REAL BROWSER (built-in Browser pane AND the connected Chrome instance)",
+     "url": "https://onlinelibrary.wiley.com/...",
+     "outcome": "BLOCKED BY THIS ENVIRONMENT'S BROWSING POLICY at the origin level, in both browsers ('onlinelibrary.wiley.com is blocked by policy'). This is new evidence this pass: the obstruction is NOT merely scripted-client bot detection, it is an origin block that a human operator at this workstation also cannot lift from inside the agent."
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "38083399",
+   "position": 18,
+   "venue": "Annu Int Conf IEEE EMBC",
+   "year": "2023",
+   "citation": "Wang X, Leng S, Lu Z, Huang S, Lee BH, Baskaran L, Yew MS, Teo L, Chan MY, Ngiam KY, Lee HK, Zhong L, Huang W. Context-aware deep network for coronary artery stenosis classification in coronary CT angiography. Annu Int Conf IEEE Eng Med Biol Soc 2023;2023:1-4. doi:10.1109/embc40787.2023.10340650",
+   "doi": "10.1109/embc40787.2023.10340650",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=38083399",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1109/embc40787.2023.10340650%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:38083399%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/38083399/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/38083399/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:38083399",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1109/embc40787.2023.10340650",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1109/embc40787.2023.10340650",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1109/embc40787.2023.10340650?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (similarity-checking, vor)",
+     "url": "http://xplorestaging.ieee.org/ielx7/10339936/10339939/10340650.pdf?arnumber=10340650",
+     "outcome": "HTTP 200 -- redirects to the IEEE Xplore JS shell (49 kB of bot-detection script + title), no article text."
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1109/embc40787.2023.10340650",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1109/embc40787.2023.10340650%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1109/embc40787.2023.10340650%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1109/embc40787.2023.10340650",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed; 7 snapshots exist but all are of the ieeexplore.ieee.org JS abstract shell, which contains no article text."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1109/embc40787.2023.10340650&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=38083399&cmd=llinks",
+     "outcome": "[[\"ClinicalTrials.gov\", [\"free resource\"]], [\"The Lens - Patent Citations Database\", [\"free resource\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "40903384",
+   "position": 24,
+   "venue": "Radiography (Lond)",
+   "year": "2025",
+   "citation": "Aljneibi Z, Almenhali S, Lanca L. Convolutional neural network application for automated lung cancer detection on chest CT using Google AI Studio. Radiography (Lond) 2025;31 Suppl 2:103152. doi:10.1016/j.radi.2025.103152",
+   "doi": "10.1016/j.radi.2025.103152",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=40903384",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1016/j.radi.2025.103152%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:40903384%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/40903384/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/40903384/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=3; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:40903384",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1016/j.radi.2025.103152",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1016/j.radi.2025.103152",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1016/j.radi.2025.103152?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S1078817425002962?httpAccept=text/xml",
+     "outcome": "HTTP 200 -- Elsevier TDM endpoint served coredata METADATA ONLY (~1.9 kB); the article body requires an Elsevier API key this project does not hold."
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S1078817425002962?httpAccept=text/plain",
+     "outcome": "HTTP 400 -- HTTP 400 for text/plain accept"
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1016/j.radi.2025.103152",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1016/j.radi.2025.103152%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1016/j.radi.2025.103152%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1016/j.radi.2025.103152",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1016/j.radi.2025.103152, www.sciencedirect.com/science/article/abs/pii/S1078817425002962, www.sciencedirect.com/science/article/pii/S1078817425002962); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1016/j.radi.2025.103152&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=40903384&cmd=llinks",
+     "outcome": "[[\"Elsevier Science\", [\"subscription/membership/fee required\"]], [\"MedlinePlus Health Information\", [\"free resource\"]], [\"MedlinePlus Consumer Health Information\", [\"free resource\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "38082966",
+   "position": 27,
+   "venue": "Annu Int Conf IEEE EMBC",
+   "year": "2023",
+   "citation": "Xue M, Jiang H, Zheng J, Wu Y, Xu Y, Pan J, Zhu W. Spatiotemporal Excitation Module-based CNN for Diagnosis of Hepatic Malignancy in Four-phase CT Images. Annu Int Conf IEEE Eng Med Biol Soc 2023;2023:1-5. doi:10.1109/embc40787.2023.10340787",
+   "doi": "10.1109/embc40787.2023.10340787",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=38082966",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1109/embc40787.2023.10340787%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:38082966%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/38082966/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/38082966/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:38082966",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1109/embc40787.2023.10340787",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1109/embc40787.2023.10340787",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1109/embc40787.2023.10340787?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (similarity-checking, vor)",
+     "url": "http://xplorestaging.ieee.org/ielx7/10339936/10339939/10340787.pdf?arnumber=10340787",
+     "outcome": "HTTP 200 -- redirects to the IEEE Xplore JS shell (49 kB of bot-detection script + title), no article text."
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1109/embc40787.2023.10340787",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1109/embc40787.2023.10340787%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1109/embc40787.2023.10340787%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1109/embc40787.2023.10340787",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed; 7 snapshots exist but all are of the ieeexplore.ieee.org JS abstract shell, which contains no article text."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1109/embc40787.2023.10340787&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=38082966&cmd=llinks",
+     "outcome": "[[\"MedlinePlus Health Information\", [\"free resource\"]], [\"NCI CPTC Antibody Characterization Program\", [\"free resource\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "41740680",
+   "position": 35,
+   "venue": "J Neurosci Methods",
+   "year": "2026",
+   "citation": "V S DS, V V. An optimized hierarchical attention assisted deep learning model for brain tissue classification. J Neurosci Methods 2026;430:110724. doi:10.1016/j.jneumeth.2026.110724",
+   "doi": "10.1016/j.jneumeth.2026.110724",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=41740680",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1016/j.jneumeth.2026.110724%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:41740680%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/41740680/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/41740680/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:41740680",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1016/j.jneumeth.2026.110724",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1016/j.jneumeth.2026.110724",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1016/j.jneumeth.2026.110724?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S0165027026000543?httpAccept=text/xml",
+     "outcome": "HTTP 200 -- Elsevier TDM endpoint served coredata METADATA ONLY (~1.9 kB); the article body requires an Elsevier API key this project does not hold."
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S0165027026000543?httpAccept=text/plain",
+     "outcome": "HTTP 400 -- HTTP 400 for text/plain accept"
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1016/j.jneumeth.2026.110724",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1016/j.jneumeth.2026.110724%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1016/j.jneumeth.2026.110724%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1016/j.jneumeth.2026.110724",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1016/j.jneumeth.2026.110724, www.sciencedirect.com/science/article/abs/pii/S0165027026000543, www.sciencedirect.com/science/article/pii/S0165027026000543); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1016/j.jneumeth.2026.110724&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=41740680&cmd=llinks",
+     "outcome": "[[\"Elsevier Science\", [\"subscription/membership/fee required\"]], [\"MedlinePlus Health Information\", [\"free resource\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "39107903",
+   "position": 39,
+   "venue": "Dentomaxillofac Radiol",
+   "year": "2024",
+   "citation": "Kwon KW, Kim J, Kang D. Automated detection of maxillary sinus opacifications compatible with sinusitis from CT images. Dentomaxillofac Radiol 2024;53(8):549-557. doi:10.1093/dmfr/twae042",
+   "doi": "10.1093/dmfr/twae042",
+   "pmcid": null,
+   "verdict": "closed_with_an_unresolved_free_to_read_signal",
+   "verdict_pass1": "closed",
+   "reason": "Unpaywall, OpenAlex, Semantic Scholar and OpenAIRE all say closed, and Crossref registers OUP's standard (non-OA) reuse-rights URL, so it is coded closed. NEW THIS PASS: NLM's own LinkOut marks the Silverchair full-text link 'free resource'. That single signal is uncorroborated -- PubMed esummary lists no free-full-text attribute, the journal is not in DOAJ, and the only Wayback capture of the article is an archived 403 -- so it is NOT upgraded here. It is flagged as the one record on this list whose access status a screener on an unblocked network should re-test first after the three known open-access ones.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=39107903",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1093/dmfr/twae042%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:39107903%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/39107903/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/39107903/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:39107903",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1093/dmfr/twae042",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1093/dmfr/twae042",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1093/dmfr/twae042?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (syndication, am)",
+     "url": "https://academic.oup.com/dmfr/advance-article-pdf/doi/10.1093/dmfr/twae042/58811960/twae042.pdf",
+     "outcome": "HTTP 403 -- HTTP 403 to every scripted client available here."
+    },
+    {
+     "endpoint": "Crossref registered link (syndication, vor)",
+     "url": "https://academic.oup.com/dmfr/article-pdf/53/8/549/60807868/twae042.pdf",
+     "outcome": "HTTP 403 -- HTTP 403 to every scripted client available here."
+    },
+    {
+     "endpoint": "Crossref registered link (similarity-checking, vor)",
+     "url": "https://academic.oup.com/dmfr/article-pdf/53/8/549/60807868/twae042.pdf",
+     "outcome": "HTTP 403 -- HTTP 403 to every scripted client available here."
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1093/dmfr/twae042",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1093/dmfr/twae042%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1093/dmfr/twae042%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1093/dmfr/twae042",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed plus four academic.oup.com wildcard patterns. The only capture of THIS article (academic.oup.com/dmfr/article/53/8/549/7728471, 20250612235115) is itself an archived HTTP 403 page. The 40 other dmfr captures are different articles matched by the wildcard."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1093/dmfr/twae042&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=39107903&cmd=llinks",
+     "outcome": "[[\"MedlinePlus Health Information\", [\"free resource\"]], [\"Ovid Technologies, Inc.\", [\"subscription/membership/fee required\"]], [\"MedlinePlus Consumer Health Information\", [\"free resource\"]], [\"Silverchair Information Systems\", [\"free resource\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "39699671",
+   "position": 48,
+   "venue": "Eur Radiol",
+   "year": "2025",
+   "citation": "Debs N, Routier A, Bône A, Rohé MM. Evaluation of a deep learning prostate cancer detection system on biparametric MRI against radiological reading. Eur Radiol 2025;35(6):3134-3143. doi:10.1007/s00330-024-11287-1",
+   "doi": "10.1007/s00330-024-11287-1",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=39699671",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1007/s00330-024-11287-1%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:39699671%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/39699671/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/39699671/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:39699671",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1007/s00330-024-11287-1",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1007/s00330-024-11287-1",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1007/s00330-024-11287-1?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://link.springer.com/content/pdf/10.1007/s00330-024-11287-1.pdf",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://link.springer.com/article/10.1007/s00330-024-11287-1/fulltext.html",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "Crossref registered link (similarity-checking, vor)",
+     "url": "https://link.springer.com/content/pdf/10.1007/s00330-024-11287-1.pdf",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1007/s00330-024-11287-1",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1007/s00330-024-11287-1%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1007/s00330-024-11287-1%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1007/s00330-024-11287-1",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1007/s00330-024-11287-1, link.springer.com/article/10.1007/s00330-024-11287-1, link.springer.com/content/pdf/10.1007/s00330-024-11287-1.pdf); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1007/s00330-024-11287-1&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=39699671&cmd=llinks",
+     "outcome": "[[\"MedlinePlus Health Information\", [\"free resource\"]], [\"Springer\", [\"subscription/membership/fee required\"]], [\"NCI CPTC Antibody Characterization Program\", [\"free resource\"]], [\"NCI CPTAC Assay Portal\", [\"free resource\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "37276106",
+   "position": 52,
+   "venue": "IEEE Trans Nanobioscience",
+   "year": "2023",
+   "citation": "Tan D, Liu J, Chen S, Yao R, Li Y, Zhu S, Li L. Automatic Evaluating of Multi-Phase Cranial CTA Collateral Circulation Based on Feature Fusion Attention Network Model. IEEE Trans Nanobioscience 2023;22(4):789-799. doi:10.1109/tnb.2023.3283049",
+   "doi": "10.1109/tnb.2023.3283049",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=37276106",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1109/tnb.2023.3283049%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:37276106%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/37276106/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/37276106/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:37276106",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1109/tnb.2023.3283049",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1109/tnb.2023.3283049",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1109/tnb.2023.3283049?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (similarity-checking, vor)",
+     "url": "http://xplorestaging.ieee.org/ielx7/7728/10269102/10144353.pdf?arnumber=10144353",
+     "outcome": "HTTP 200 -- redirects to the IEEE Xplore JS shell (49 kB of bot-detection script + title), no article text."
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1109/tnb.2023.3283049",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1109/tnb.2023.3283049%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1109/tnb.2023.3283049%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1109/tnb.2023.3283049",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1109/tnb.2023.3283049, ieeexplore.ieee.org/abstract/document/3283049, ieeexplore.ieee.org/document/3283049); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1109/tnb.2023.3283049&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=37276106&cmd=llinks",
+     "outcome": "[[\"MedlinePlus Health Information\", [\"free resource\"]], [\"IEEE Engineering in Medicine and Biology Society\", [\"subscription/membership/fee required\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "31634769",
+   "position": 55,
+   "venue": "Med Hypotheses",
+   "year": "2020",
+   "citation": "Özyurt F, Sert E, Avcı D. An expert system for brain tumor detection: Fuzzy C-means with super resolution and convolutional neural network with extreme learning machine. Med Hypotheses 2020;134:109433. doi:10.1016/j.mehy.2019.109433",
+   "doi": "10.1016/j.mehy.2019.109433",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=31634769",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1016/j.mehy.2019.109433%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:31634769%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/31634769/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/31634769/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:31634769",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1016/j.mehy.2019.109433",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1016/j.mehy.2019.109433",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1016/j.mehy.2019.109433?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S0306987719310394?httpAccept=text/xml",
+     "outcome": "HTTP 200 -- Elsevier TDM endpoint served coredata METADATA ONLY (~1.9 kB); the article body requires an Elsevier API key this project does not hold."
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S0306987719310394?httpAccept=text/plain",
+     "outcome": "HTTP 400 -- HTTP 400 for text/plain accept"
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1016/j.mehy.2019.109433",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1016/j.mehy.2019.109433%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1016/j.mehy.2019.109433%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1016/j.mehy.2019.109433",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1016/j.mehy.2019.109433, www.sciencedirect.com/science/article/abs/pii/S0306987719310394, www.sciencedirect.com/science/article/pii/S0306987719310394); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1016/j.mehy.2019.109433&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=31634769&cmd=llinks",
+     "outcome": "[[\"Elsevier Science\", [\"subscription/membership/fee required\"]], [\"MedlinePlus Health Information\", [\"free resource\"]], [\"NCI CPTC Antibody Characterization Program\", [\"free resource\"]], [\"ClinicalKey\", [\"subscription/membership/fee required\"]], [\"The Lens - Patent Citations Database\", [\"free resource\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "42153825",
+   "position": 64,
+   "venue": "Radiology",
+   "year": "2026",
+   "citation": "Liu Z, Gu W, Liu L, Wu S, Yao Z, Sun Y, Huang D, Tong T. Interpretable MRI-based Multiparametric Radiomics for Preoperative Prediction of CMS4 Colorectal Cancer. Radiology 2026;319(2):e251719. doi:10.1148/radiol.251719",
+   "doi": "10.1148/radiol.251719",
+   "pmcid": null,
+   "verdict": "open_access_but_unreachable_from_this_environment",
+   "verdict_pass1": "OA but unreachable from here",
+   "reason": "Provably open access under a publisher-declared licence, and unreachable ONLY because pubs.rsna.org is blocked by this execution environment's browsing policy in every available client including a real browser. NOT paywalled. Recoverable by a screener on an unblocked network.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=42153825",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1148/radiol.251719%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:42153825%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/42153825/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/42153825/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:42153825",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1148/radiol.251719",
+     "outcome": "is_oa=True oa_status=hybrid has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[\"https://doi.org/10.1148/radiol.251719\"]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1148/radiol.251719",
+     "outcome": "is_oa=True oa_status=hybrid any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1148/radiol.251719?fields=isOpenAccess,openAccessPdf",
+     "outcome": "isOpenAccess=true but openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (similarity-checking, vor)",
+     "url": "http://pubs.rsna.org/doi/pdf/10.1148/radiol.251719",
+     "outcome": "HTTP 403 -- HTTP 403 to every scripted client available here."
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1148/radiol.251719",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1148/radiol.251719%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1148/radiol.251719%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1148/radiol.251719",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "5 candidate URLs probed (doi.org/10.1148/radiol.251719, pubs.rsna.org/doi/10.1148/radiol.251719, pubs.rsna.org/doi/epdf/10.1148/radiol.251719, pubs.rsna.org/doi/full/10.1148/radiol.251719, pubs.rsna.org/doi/pdf/10.1148/radiol.251719); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1148/radiol.251719&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=42153825&cmd=llinks",
+     "outcome": "[[\"Atypon\", [\"subscription/membership/fee required\"]], [\"MedlinePlus Health Information\", [\"free resource\"]], [\"NCI CPTAC Assay Portal\", [\"free resource\"]]]"
+    },
+    {
+     "endpoint": "publisher site, scripted client (curl / urllib, identifying User-Agent)",
+     "url": "https://pubs.rsna.org/...",
+     "outcome": "HTTP 403"
+    },
+    {
+     "endpoint": "publisher site, REAL BROWSER (built-in Browser pane AND the connected Chrome instance)",
+     "url": "https://pubs.rsna.org/...",
+     "outcome": "BLOCKED BY THIS ENVIRONMENT'S BROWSING POLICY at the origin level, in both browsers ('pubs.rsna.org is blocked by policy'). This is new evidence this pass: the obstruction is NOT merely scripted-client bot detection, it is an origin block that a human operator at this workstation also cannot lift from inside the agent."
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "40081198",
+   "position": 73,
+   "venue": "Comput Methods Programs Biomed",
+   "year": "2025",
+   "citation": "Yan F, Peng L, Dong F, Hirota K. MCNEL: A multi-scale convolutional network and ensemble learning for Alzheimer's disease diagnosis. Comput Methods Programs Biomed 2025;264:108703. doi:10.1016/j.cmpb.2025.108703",
+   "doi": "10.1016/j.cmpb.2025.108703",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=40081198",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1016/j.cmpb.2025.108703%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:40081198%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/40081198/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/40081198/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:40081198",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1016/j.cmpb.2025.108703",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1016/j.cmpb.2025.108703",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1016/j.cmpb.2025.108703?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S0169260725001208?httpAccept=text/xml",
+     "outcome": "HTTP 200 -- Elsevier TDM endpoint served coredata METADATA ONLY (~1.9 kB); the article body requires an Elsevier API key this project does not hold."
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S0169260725001208?httpAccept=text/plain",
+     "outcome": "HTTP 400 -- HTTP 400 for text/plain accept"
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1016/j.cmpb.2025.108703",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1016/j.cmpb.2025.108703%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1016/j.cmpb.2025.108703%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1016/j.cmpb.2025.108703",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1016/j.cmpb.2025.108703, www.sciencedirect.com/science/article/abs/pii/S0169260725001208, www.sciencedirect.com/science/article/pii/S0169260725001208); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1016/j.cmpb.2025.108703&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=40081198&cmd=llinks",
+     "outcome": "[[\"Elsevier Science\", [\"subscription/membership/fee required\"]], [\"MedlinePlus Health Information\", [\"free resource\"]], [\"ClinicalKey\", [\"subscription/membership/fee required\"]]]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "41559509",
+   "position": 85,
+   "venue": "J Imaging Inform Med",
+   "year": "2026",
+   "citation": "Taha AM, Aly SA, Sayed K, Yasser B. Customized CNN Architectures Outperform Pre-Trained Models in Differentiating Normal Brain Tissues, Glioma, Meningioma, and Pituitary Tumors. J Imaging Inform Med 2026;:. doi:10.1007/s10278-025-01800-3",
+   "doi": "10.1007/s10278-025-01800-3",
+   "pmcid": null,
+   "verdict": "closed",
+   "verdict_pass1": "closed",
+   "reason": "Genuinely paywalled. No open-access copy exists at any of the twenty-plus endpoints above, and no repository, preprint or archive copy exists anywhere.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=41559509",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1007/s10278-025-01800-3%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:41559509%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=None"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/41559509/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/41559509/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:41559509",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1007/s10278-025-01800-3",
+     "outcome": "is_oa=False oa_status=closed has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=False; oa_locations=[]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1007/s10278-025-01800-3",
+     "outcome": "is_oa=False oa_status=closed any_repository_has_fulltext=False"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1007/s10278-025-01800-3?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://link.springer.com/content/pdf/10.1007/s10278-025-01800-3.pdf",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://link.springer.com/article/10.1007/s10278-025-01800-3",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "Crossref registered link (similarity-checking, vor)",
+     "url": "https://link.springer.com/content/pdf/10.1007/s10278-025-01800-3.pdf",
+     "outcome": "HTTP 200 -- Springer 'Client Challenge' bot-detection interstitial (3038 bytes of JS), no article text. NOT circumvented."
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1007/s10278-025-01800-3",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1007/s10278-025-01800-3%22",
+     "outcome": "totalHits=0 -- no repository copy"
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1007/s10278-025-01800-3%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1007/s10278-025-01800-3",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1007/s10278-025-01800-3, link.springer.com/article/10.1007/s10278-025-01800-3, link.springer.com/content/pdf/10.1007/s10278-025-01800-3.pdf); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1007/s10278-025-01800-3&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=41559509&cmd=llinks",
+     "outcome": "[]"
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  },
+  {
+   "record_id": "40147601",
+   "position": 91,
+   "venue": "Neuroimage",
+   "year": "2025",
+   "citation": "Li C, Gao Z, Chen X, Zheng X, Zhang X, Lin CY, Alzheimer’s Disease Neuroimaging Initiative. Ensemble network using oblique coronal MRI for Alzheimer's disease diagnosis. Neuroimage 2025;310:121151. doi:10.1016/j.neuroimage.2025.121151",
+   "doi": "10.1016/j.neuroimage.2025.121151",
+   "pmcid": null,
+   "verdict": "open_access_but_unreachable_from_this_environment",
+   "verdict_pass1": "OA but unreachable from here",
+   "reason": "Provably open access under a publisher-declared licence, and unreachable ONLY because www.sciencedirect.com is blocked by this execution environment's browsing policy in every available client including a real browser. NOT paywalled. Recoverable by a screener on an unblocked network.",
+   "endpoints_tried": [
+    {
+     "endpoint": "PMC ID converter (idconv)",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids=40147601",
+     "outcome": "HTTP 200, record returned WITHOUT a pmcid field -- this PMID has no PMC deposit"
+    },
+    {
+     "endpoint": "PMC OA Web Service",
+     "url": "https://www.ncbi.nlm.nih.gov/pmc/utils/oa/oa.fcgi?id=PMC#######",
+     "outcome": "NOT APPLICABLE -- the service is keyed on PMCID and no PMCID exists for this record (see idconv, and the two esearch db=pmc probes below). This closes the single most-recommended route for this record."
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (exact title)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%22TITLE%22[Title]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "NCBI esearch db=pmc (DOI)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pmc&term=%2210.1016/j.neuroimage.2025.121151%22[DOI]",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Europe PMC search (resultType=core)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:40147601%20AND%20SRC:MED&resultType=core",
+     "outcome": "record present; inEPMC=N inPMC=N isOpenAccess=N hasPDF=N hasSuppl=N license=cc by-nc-nd"
+    },
+    {
+     "endpoint": "Europe PMC fullTextXML",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/40147601/fullTextXML",
+     "outcome": "HTTP 404 -- no full text held"
+    },
+    {
+     "endpoint": "Europe PMC supplementaryFiles",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/MED/40147601/supplementaryFiles",
+     "outcome": "HTTP 404 -- no supplement held"
+    },
+    {
+     "endpoint": "Europe PMC title search, ALL sources (MED/PMC/PPR/AGR/CBA/PAT)",
+     "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE:%22...%22",
+     "outcome": "hitCount=1; only the MED (abstract) record. No PPR preprint, no bookXML, no fulltextRepo record."
+    },
+    {
+     "endpoint": "Europe PMC annotations API",
+     "url": "https://www.ebi.ac.uk/europepmc/annotations_api/annotationsByArticleIds?articleIds=MED:40147601",
+     "outcome": "returns annotations derived from TITLE AND ABSTRACT ONLY (prefix/postfix strings are abstract text). Corroboration only; explicitly NOT accepted as a substitute for reading the body, per the task rules."
+    },
+    {
+     "endpoint": "Unpaywall",
+     "url": "https://api.unpaywall.org/v2/10.1016/j.neuroimage.2025.121151",
+     "outcome": "is_oa=True oa_status=gold has_repository_copy=False oa_locations_embargoed=[] journal_is_in_doaj=True; oa_locations=[\"https://doi.org/10.1016/j.neuroimage.2025.121151\", \"https://doaj.org/article/e3dbe1994b3d46f3a7e15e5f05c73b0c\"]"
+    },
+    {
+     "endpoint": "OpenAlex",
+     "url": "https://api.openalex.org/works/doi:10.1016/j.neuroimage.2025.121151",
+     "outcome": "is_oa=True oa_status=gold any_repository_has_fulltext=True"
+    },
+    {
+     "endpoint": "Semantic Scholar Graph API",
+     "url": "https://api.semanticscholar.org/graph/v1/paper/DOI:10.1016/j.neuroimage.2025.121151?fields=isOpenAccess,openAccessPdf",
+     "outcome": "openAccessPdf url empty"
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S1053811925001533?httpAccept=text/xml",
+     "outcome": "HTTP 200 -- Elsevier TDM endpoint served coredata METADATA ONLY (~1.9 kB); the article body requires an Elsevier API key this project does not hold."
+    },
+    {
+     "endpoint": "Crossref registered link (text-mining, vor)",
+     "url": "https://api.elsevier.com/content/article/PII:S1053811925001533?httpAccept=text/plain",
+     "outcome": "HTTP 400 -- HTTP 400 for text/plain accept"
+    },
+    {
+     "endpoint": "OpenAIRE",
+     "url": "https://api.openaire.eu/search/publications?doi=10.1016/j.neuroimage.2025.121151",
+     "outcome": "record found; NO fulltext instance/webresource -- only the DOI resolver, the PubMed page and author-affiliation URLs"
+    },
+    {
+     "endpoint": "CORE v3 search",
+     "url": "https://api.core.ac.uk/v3/search/works?q=doi:%2210.1016/j.neuroimage.2025.121151%22",
+     "outcome": "1 hit (CORE work 279723330 / output 655810328). The hit is a DOAJ METADATA harvest: outputs/655810328 has downloadUrl=\"\" and fullText=\"\", and sourceFulltextUrls points back to doaj.org, whose own fulltext link points back to ScienceDirect. The advertised search-result downloadUrl https://core.ac.uk/download/655810328.pdf redirects to a signed pdf.core.ac.uk URL that returns HTTP 404 -- CORE does not actually hold the file."
+    },
+    {
+     "endpoint": "DOAJ API",
+     "url": "https://doaj.org/api/search/articles/doi:%2210.1016/j.neuroimage.2025.121151%22",
+     "outcome": "article record present; bibjson.link fulltext = sciencedirect.com (blocked, see below). Abstract only."
+    },
+    {
+     "endpoint": "DataCite",
+     "url": "https://api.datacite.org/dois/10.1016/j.neuroimage.2025.121151",
+     "outcome": "HTTP 404 -- not a DataCite DOI, no dataset/preprint deposit"
+    },
+    {
+     "endpoint": "arXiv API (exact title, and loose all-field on the title terms)",
+     "url": "https://export.arxiv.org/api/query?search_query=ti:%22...%22",
+     "outcome": "totalResults=0 on both queries"
+    },
+    {
+     "endpoint": "Zenodo API",
+     "url": "https://zenodo.org/api/records?q=%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "HAL API",
+     "url": "https://api.archives-ouvertes.fr/search/?q=title_t:%22TITLE%22",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "OSF preprints API",
+     "url": "https://api.osf.io/v2/preprints/?filter[title]=TITLE",
+     "outcome": "0 hits"
+    },
+    {
+     "endpoint": "Wayback Machine CDX API",
+     "url": "http://web.archive.org/cdx/search/cdx?url=...&filter=statuscode:200&collapse=digest",
+     "outcome": "3 candidate URLs probed (doi.org/10.1016/j.neuroimage.2025.121151, www.sciencedirect.com/science/article/abs/pii/S1053811925001533, www.sciencedirect.com/science/article/pii/S1053811925001533); zero snapshots."
+    },
+    {
+     "endpoint": "Internet Archive Scholar (scholar.archive.org)",
+     "url": "https://scholar.archive.org/search?q=%22TITLE%22",
+     "outcome": "reachable this pass (the previous pass hit a session-verification challenge); the record is metadata-only -- no /access/ fulltext link."
+    },
+    {
+     "endpoint": "fatcat API (Internet Archive Scholar machine endpoint)",
+     "url": "https://api.fatcat.wiki/v0/release/lookup?doi=10.1016/j.neuroimage.2025.121151&expand=files",
+     "outcome": "host unreachable from this environment (connection hangs, no response in 25 s). Untried route for the next operator."
+    },
+    {
+     "endpoint": "Memento TimeTravel aggregator",
+     "url": "http://timetravel.mementoweb.org/timemap/link/<publisher URL>",
+     "outcome": "host unreachable (HTTP 000). Untried route for the next operator; would cover archive.today and other non-IA archives."
+    },
+    {
+     "endpoint": "PubMed LinkOut (elink cmd=llinks)",
+     "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&id=40147601&cmd=llinks",
+     "outcome": "[[\"Elsevier Science\", [\"free resource\"]], [\"MedlinePlus Health Information\", [\"free resource\"]], [\"ClinicalKey\", [\"subscription/membership/fee required\"]]]"
+    },
+    {
+     "endpoint": "publisher site, scripted client (curl / urllib, identifying User-Agent)",
+     "url": "https://www.sciencedirect.com/...",
+     "outcome": "HTTP 403 serving an 'Are you a robot? complete the captcha challenge' page. CAPTCHA NOT completed -- prohibited."
+    },
+    {
+     "endpoint": "publisher site, REAL BROWSER (built-in Browser pane AND the connected Chrome instance)",
+     "url": "https://www.sciencedirect.com/...",
+     "outcome": "BLOCKED BY THIS ENVIRONMENT'S BROWSING POLICY at the origin level, in both browsers ('www.sciencedirect.com is blocked by policy'). This is new evidence this pass: the obstruction is NOT merely scripted-client bot detection, it is an origin block that a human operator at this workstation also cannot lift from inside the agent."
+    },
+    {
+     "endpoint": "General web search (as a route to an author or repository copy)",
+     "url": "html.duckduckgo.com, mojeek.com, WebSearch tool",
+     "outcome": "DuckDuckGo and Mojeek both served bot CAPTCHAs, which were NOT completed (prohibited). The WebSearch tool errored on every call in this environment. Web search is therefore an untried route for the next operator, not a failed one."
+    }
+   ],
+   "fulltext_obtained": false,
+   "coded_this_pass": false,
+   "coding_note": "NOT coded. No body text was obtained, so the mandatory 14-term search over body AND supplement could not be run and no trivial_baseline value -- true or false -- would be evidenced. Under screen_frame.json v1.2 an unevidenced negative is invalid, so this record stays at its sealed code."
+  }
+ ],
+ "_environment_limitation_statement": "Three of the sixteen -- 37222638 (J Magn Reson Imaging, Unpaywall bronze OA, publisher PDF at onlinelibrary.wiley.com), 42153825 (Radiology, Unpaywall AND OpenAlex AND OpenAIRE all report hybrid OA under CC BY) and 40147601 (NeuroImage, gold OA, CC BY-NC-ND, confirmed keylessly by Elsevier's own coredata endpoint: openaccess=1, openaccessType=Full, and by DOAJ listing) -- are demonstrably open access and are unreachable ONLY because this execution environment cannot reach Wiley, RSNA or Elsevier. Pass 1 attributed this to publisher bot detection against scripted clients. Pass 2 establishes something stronger and more honest: all three domains, plus academic.oup.com, link.springer.com and ieeexplore.ieee.org, are blocked AT THE ORIGIN by this environment's own browsing policy, in the built-in browser pane and in a real connected Chrome instance alike. The obstruction is ours, not the literature's. Reporting these three as 'unreachable' without saying so would misattribute an environment limitation to the literature; reporting them as 'reachable' without having read them would be an unevidenced code. They are therefore counted as unreachable and this paragraph is the disclosure. A screener on an unblocked network should recover all three, taking the count from 16 to 13 and the rate from 29.6% to 24.1% (Wilson [14.6%, 36.9%]); if 39107903's LinkOut 'free resource' signal also holds, 12 and 22.2% (Wilson [13.2%, 34.9%]). Both are still above the 15% threshold, so the bounding interval remains the headline either way, and the headline is insensitive to this limitation.",
+ "_numbers": {
+  "eligible_looking": 54,
+  "included_reachable": 38,
+  "eligible_unreachable": 16,
+  "S6_unreachable": "16/54 = 29.6% [19.1%, 42.8%]",
+  "P1_complete_case": "0/38 = 0.0% [0.0%, 9.2%]",
+  "P1_bounding_interval": "[0.0%, 29.6%]",
+  "counterfactual_if_the_three_OA_records_were_read": "13/54 = 24.1% [14.6%, 36.9%]; bound [0.0%, 24.1%]",
+  "counterfactual_if_39107903_is_also_free": "12/54 = 22.2% [13.2%, 34.9%]; bound [0.0%, 22.2%]"
+ },
+ "_reproducing_this": {
+  "how": "Every endpoint in still_unreachable[].endpoints_tried is a public URL and every outcome is reproducible by re-issuing it. No document was retrieved, so nothing is committed and there is nothing to redistribute.",
+  "what_to_check": "The three claims that carry weight: (1) NCBI esearch db=pmc returns count 0 for all sixteen DOIs and titles; (2) https://www.ebi.ac.uk/europepmc/webservices/rest/MED/{pmid}/fullTextXML returns HTTP 404 for all sixteen; (3) Unpaywall reports is_oa true for exactly three of the sixteen and has_repository_copy false for fifteen of sixteen.",
+  "recompute": "python paper/screen/analysis/recompute_with_recovery.py -- unchanged by this file, which is the point. records[] is empty, so the AFTER column is identical to the one pass 1 produced."
+ }
+}

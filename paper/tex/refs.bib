@@ -1,0 +1,895 @@
+% =====================================================================
+% refs.bib -- PhaseDx / trivial-baselines manuscript
+%
+% Every entry below was checked against a live record on 2026-07-30:
+% PubMed/NCBI E-utilities, the Crossref REST API, OpenAlex, DataCite, the
+% arXiv abstract page, or the publisher's own page. Journal, volume, issue,
+% pages, year, DOI and author order are transcribed from that record, not
+% from memory. Entries that could not be verified are NOT included; they
+% are listed in the accompanying report instead.
+%
+% Encoding: LaTeX accent commands only, no raw UTF-8, so the file compiles
+% under a stock Overleaf TeX Live with either bibtex or biber.
+%
+% Packages required: none beyond the bibliography style. No exotic fields.
+% =====================================================================
+
+
+% ---------------------------------------------------------------------
+% 1. PRIOR ART FOR THE CONSTRUCTION ITSELF
+%    These are the works that must appear in the INTRODUCTION, not in a
+%    late discussion paragraph. The pixel-free positional baseline is
+%    theirs, not ours.
+% ---------------------------------------------------------------------
+
+@misc{osciiart2020baseline,
+  author       = {{OsciiArt}},
+  title        = {Baseline with No Image},
+  howpublished = {Kaggle notebook, {RSNA-STR} Pulmonary Embolism Detection competition},
+  year         = {2020},
+  month        = oct,
+  url          = {https://www.kaggle.com/code/osciiart/baseline-with-no-image},
+  urldate      = {2026-07-30},
+  note         = {Public web disclosure, not peer reviewed. Published
+                  2020-10-10; author handle \texttt{osciiart}; gold-medal
+                  notebook. Bins the label rate on relative slice position
+                  in the training data and applies it to the test set with
+                  no access to pixels. Verified from the page's
+                  \texttt{schema.org} metadata (headline, author,
+                  \texttt{datePublished} 2020-10-10T12:56:24Z) on the
+                  access date; the competition attribution and the
+                  reported leaderboard scores are recorded in
+                  \texttt{paper/audit\_targets.md} and were not
+                  independently re-read from the rendered page}
+}
+
+@inproceedings{yan2018deeplesiongraphs,
+  author    = {Yan, Ke and Wang, Xiaosong and Lu, Le and Zhang, Ling and
+               Harrison, Adam P. and Bagheri, Mohammadhadi and
+               Summers, Ronald M.},
+  title     = {Deep Lesion Graphs in the Wild: Relationship Learning and
+               Organization of Significant Radiology Image Findings in a
+               Diverse Large-Scale Lesion Database},
+  booktitle = {2018 {IEEE/CVF} Conference on Computer Vision and Pattern
+               Recognition ({CVPR})},
+  year      = {2018},
+  pages     = {9261--9270},
+  doi       = {10.1109/CVPR.2018.00965},
+  note      = {Also arXiv:1711.10535. Table 1 reports a row
+               ``Baseline: Location feature'' at 59.7\% eight-class
+               lesion-type accuracy against their full method's 90.5\%;
+               the location feature is image-derived (the $z$ coordinate
+               comes from a self-supervised body-part regressor)}
+}
+
+@article{badgeley2019hip,
+  author  = {Badgeley, Marcus A. and Zech, John R. and
+             Oakden-Rayner, Luke and Glicksberg, Benjamin S. and
+             Liu, Manway and Gale, William and McConnell, Michael V. and
+             Percha, Bethany and Snyder, Thomas M. and Dudley, Joel T.},
+  title   = {Deep learning predicts hip fracture using confounding patient
+             and healthcare variables},
+  journal = {npj Digital Medicine},
+  year    = {2019},
+  volume  = {2},
+  pages   = {31},
+  doi     = {10.1038/s41746-019-0105-1},
+  note    = {PMID 31304378}
+}
+
+@article{ongly2024shortcut,
+  author  = {Ong Ly, Cathy and Unnikrishnan, Balagopal and Tadic, Tony and
+             Patel, Tirth and Duhamel, Joe and Kandel, Sonja and
+             Moayedi, Yasbanoo and Brudno, Michael and Hope, Andrew and
+             Ross, Heather and McIntosh, Chris},
+  title   = {Shortcut learning in medical {AI} hinders generalization:
+             method for estimating {AI} model generalization without
+             external data},
+  journal = {npj Digital Medicine},
+  year    = {2024},
+  volume  = {7},
+  number  = {1},
+  pages   = {124},
+  doi     = {10.1038/s41746-024-01118-4},
+  note    = {PMID 38744921. Thirteen datasets; releases a bias-corrected
+             external accuracy estimator}
+}
+
+@article{maierhein2018rankings,
+  author  = {Maier-Hein, Lena and Eisenmann, Matthias and Reinke, Annika and
+             Onogur, Sinan and Stankovic, Marko and Scholz, Patrick and
+             Arbel, Tal and Bogunovic, Hrvoje and Bradley, Andrew P. and
+             Carass, Aaron and others},
+  title   = {Why rankings of biomedical image analysis competitions should
+             be interpreted with care},
+  journal = {Nature Communications},
+  year    = {2018},
+  volume  = {9},
+  number  = {1},
+  pages   = {5217},
+  doi     = {10.1038/s41467-018-07619-7},
+  note    = {PMID 30523263; 38 authors. Sets the ceiling on any
+             rank-inversion claim: critical ranking changes already occur
+             at Kendall's $\tau$ of 0.74--0.85}
+}
+
+
+% ---------------------------------------------------------------------
+% 2. SHORTCUT LEARNING AND CONFOUNDED EVALUATION
+% ---------------------------------------------------------------------
+
+@article{geirhos2020shortcut,
+  author  = {Geirhos, Robert and Jacobsen, J{\"o}rn-Henrik and
+             Michaelis, Claudio and Zemel, Richard and Brendel, Wieland and
+             Bethge, Matthias and Wichmann, Felix A.},
+  title   = {Shortcut learning in deep neural networks},
+  journal = {Nature Machine Intelligence},
+  year    = {2020},
+  volume  = {2},
+  number  = {11},
+  pages   = {665--673},
+  doi     = {10.1038/s42256-020-00257-z}
+}
+
+@article{zech2018pneumonia,
+  author  = {Zech, John R. and Badgeley, Marcus A. and Liu, Manway and
+             Costa, Anthony B. and Titano, Joseph J. and
+             Oermann, Eric Karl},
+  title   = {Variable generalization performance of a deep learning model to
+             detect pneumonia in chest radiographs: a cross-sectional study},
+  journal = {PLOS Medicine},
+  year    = {2018},
+  volume  = {15},
+  number  = {11},
+  pages   = {e1002683},
+  doi     = {10.1371/journal.pmed.1002683},
+  note    = {PMID 30399157}
+}
+
+@article{degrave2021covid,
+  author  = {DeGrave, Alex J. and Janizek, Joseph D. and Lee, Su-In},
+  title   = {{AI} for radiographic {COVID-19} detection selects shortcuts
+             over signal},
+  journal = {Nature Machine Intelligence},
+  year    = {2021},
+  volume  = {3},
+  number  = {7},
+  pages   = {610--619},
+  doi     = {10.1038/s42256-021-00338-7}
+}
+
+@inproceedings{oakdenrayner2020hidden,
+  author    = {Oakden-Rayner, Luke and Dunnmon, Jared and Carneiro, Gustavo
+               and R{\'e}, Christopher},
+  title     = {Hidden stratification causes clinically meaningful failures in
+               machine learning for medical imaging},
+  booktitle = {Proceedings of the {ACM} Conference on Health, Inference, and
+               Learning ({CHIL})},
+  year      = {2020},
+  pages     = {151--159},
+  doi       = {10.1145/3368555.3384468}
+}
+
+@inproceedings{lin2024shortcut,
+  author    = {Lin, Manxi and Weng, Nina and Mikolaj, Kamil and
+               Bashir, Zahra and Svendsen, Morten B. S. and
+               Tolsgaard, Martin G. and Christensen, Anders N. and
+               Feragen, Aasa},
+  title     = {Shortcut Learning in Medical Image Segmentation},
+  booktitle = {Medical Image Computing and Computer Assisted Intervention
+               ({MICCAI}) 2024},
+  series    = {Lecture Notes in Computer Science},
+  year      = {2024},
+  pages     = {623--633},
+  doi       = {10.1007/978-3-031-72111-3_59},
+  note      = {Also arXiv:2403.06748}
+}
+
+@article{hill2024shortcutting,
+  author  = {Hill, Brandon G. and Koback, Frances L. and
+             Schilling, Peter L.},
+  title   = {The risk of shortcutting in deep learning algorithms for
+             medical imaging research},
+  journal = {Scientific Reports},
+  year    = {2024},
+  volume  = {14},
+  number  = {1},
+  pages   = {29224},
+  doi     = {10.1038/s41598-024-79838-6},
+  note    = {PMID 39587148}
+}
+
+
+% ---------------------------------------------------------------------
+% 3. THE EVALUATION UNIT AND LEAKAGE
+%    NOTE for the manuscript text: Yagis, Tampu and Wen all measure the cost
+%    of a WRONG (leaky) split. Our result survives a CORRECT,
+%    patient-disjoint split. That distinction must be stated explicitly.
+% ---------------------------------------------------------------------
+
+@article{yagis2021leakage,
+  author  = {Yagis, Ekin and Atnafu, Selamawet Workalemahu and
+             Garc{\'i}a Seco de Herrera, Alba and Marzi, Chiara and
+             Scheda, Riccardo and Giannelli, Marco and Tessa, Carlo and
+             Citi, Luca and Diciotti, Stefano},
+  title   = {Effect of data leakage in brain {MRI} classification using {2D}
+             convolutional neural networks},
+  journal = {Scientific Reports},
+  year    = {2021},
+  volume  = {11},
+  number  = {1},
+  pages   = {22544},
+  doi     = {10.1038/s41598-021-01681-w},
+  note    = {PMID 34799630}
+}
+
+@article{tampu2022leakage,
+  author  = {Tampu, Iulian Emil and Eklund, Anders and Haj-Hosseini, Neda},
+  title   = {Inflation of test accuracy due to data leakage in deep
+             learning-based classification of {OCT} images},
+  journal = {Scientific Data},
+  year    = {2022},
+  volume  = {9},
+  number  = {1},
+  pages   = {580},
+  doi     = {10.1038/s41597-022-01618-6},
+  note    = {PMID 36138025}
+}
+
+@article{wen2020cnn,
+  author  = {Wen, Junhao and Thibeau-Sutre, Elina and Diaz-Melo, Mauricio and
+             Samper-Gonz{\'a}lez, Jorge and Routier, Alexandre and
+             Bottani, Simona and Dormont, Didier and Durrleman, Stanley and
+             Burgos, Ninon and Colliot, Olivier},
+  title   = {Convolutional neural networks for classification of
+             {A}lzheimer's disease: overview and reproducible evaluation},
+  journal = {Medical Image Analysis},
+  year    = {2020},
+  volume  = {63},
+  pages   = {101694},
+  doi     = {10.1016/j.media.2020.101694},
+  note    = {PMID 32417716}
+}
+
+@article{kapoor2023leakage,
+  author  = {Kapoor, Sayash and Narayanan, Arvind},
+  title   = {Leakage and the reproducibility crisis in machine-learning-based
+             science},
+  journal = {Patterns},
+  year    = {2023},
+  volume  = {4},
+  number  = {9},
+  pages   = {100804},
+  doi     = {10.1016/j.patter.2023.100804},
+  note    = {PMID 37720327}
+}
+
+@article{varoquaux2022failures,
+  author  = {Varoquaux, Ga{\"e}l and Cheplygina, Veronika},
+  title   = {Machine learning for medical imaging: methodological failures
+             and recommendations for the future},
+  journal = {npj Digital Medicine},
+  year    = {2022},
+  volume  = {5},
+  number  = {1},
+  pages   = {48},
+  doi     = {10.1038/s41746-022-00592-y},
+  note    = {PMID 35413988}
+}
+
+@article{roberts2021pitfalls,
+  author  = {Roberts, Michael and Driggs, Derek and Thorpe, Matthew and
+             Gilbey, Julian and Yeung, Michael and Ursprung, Stephan and
+             Aviles-Rivero, Angelica I. and Etmann, Christian and
+             McCague, Cathal and Beer, Lucian and others},
+  title   = {Common pitfalls and recommendations for using machine learning
+             to detect and prognosticate for {COVID-19} using chest
+             radiographs and {CT} scans},
+  journal = {Nature Machine Intelligence},
+  year    = {2021},
+  volume  = {3},
+  number  = {3},
+  pages   = {199--217},
+  doi     = {10.1038/s42256-021-00307-0}
+}
+
+
+% ---------------------------------------------------------------------
+% 4. THE AUDITED BENCHMARKS AND THEIR PUBLISHED COMPARATORS
+% ---------------------------------------------------------------------
+
+% --- RSNA intracranial haemorrhage ---
+
+@article{flanders2020rsnaich,
+  author  = {Flanders, Adam E. and Prevedello, Luciano M. and Shih, George and
+             Halabi, Safwan S. and Kalpathy-Cramer, Jayashree and
+             Ball, Robyn and Mongan, John T. and Stein, Anouk and
+             Kitamura, Felipe C. and Lungren, Matthew P. and others},
+  title   = {Construction of a Machine Learning Dataset through
+             Collaboration: The {RSNA} 2019 Brain {CT} Hemorrhage Challenge},
+  journal = {Radiology: Artificial Intelligence},
+  year    = {2020},
+  volume  = {2},
+  number  = {3},
+  pages   = {e190211},
+  doi     = {10.1148/ryai.2020190211},
+  note    = {PMID 33937827. An erratum was published as
+             Radiol Artif Intell 2020;2(4):e209002,
+             doi:10.1148/ryai.2020209002}
+}
+
+@misc{kaggle2019rsnaich,
+  author       = {{Radiological Society of North America}},
+  title        = {{RSNA} Intracranial Hemorrhage Detection},
+  howpublished = {Kaggle competition and public label release
+                  (\texttt{stage\_2\_train.csv})},
+  year         = {2019},
+  url          = {https://www.kaggle.com/competitions/rsna-intracranial-hemorrhage-detection},
+  urldate      = {2026-07-30},
+  note         = {Public web disclosure. The label file audited in this
+                  work: 752{,}802 slices, 21{,}744 series,
+                  18{,}938 patients, six labels}
+}
+
+@article{burduja2020ich,
+  author  = {Burduja, Mihail and Ionescu, Radu Tudor and Verga, Nicolae},
+  title   = {Accurate and Efficient Intracranial Hemorrhage Detection and
+             Subtype Classification in {3D} {CT} Scans with Convolutional
+             and Long Short-Term Memory Neural Networks},
+  journal = {Sensors},
+  year    = {2020},
+  volume  = {20},
+  number  = {19},
+  pages   = {5611},
+  doi     = {10.3390/s20195611},
+  note    = {PMID 33019508. The peer-reviewed slice-level comparator used
+             for every {RSNA} {ICH} arm in this work (Table 3,
+             {ResNeXt-101} 32$\times$8d $+$ {BiLSTM})}
+}
+
+@misc{ngo2022adjacentslices,
+  author       = {Ngo, Dat T. and Nguyen, Thao T. B. and Nguyen, Hieu T. and
+                  Nguyen, Dung B. and Nguyen, Ha Q. and Pham, Hieu H.},
+  title        = {Slice-level Detection of Intracranial Hemorrhage on {CT}
+                  Using Deep Descriptors of Adjacent Slices},
+  year         = {2022},
+  eprint       = {2208.03403},
+  archivePrefix= {arXiv},
+  primaryClass = {eess.IV},
+  doi          = {10.48550/arXiv.2208.03403},
+  note         = {Accepted at the 22nd {IEEE} Statistical Signal Processing
+                  ({SSP}) Workshop}
+}
+
+@article{chilamkurthy2018headct,
+  author  = {Chilamkurthy, Sasank and Ghosh, Rohit and Tanamala, Swetha and
+             Biviji, Mustafa and Campeau, Norbert G. and
+             Venugopal, Vasantha Kumar and Mahajan, Vidur and Rao, Pooja and
+             Warier, Prashant},
+  title   = {Deep learning algorithms for detection of critical findings in
+             head {CT} scans: a retrospective study},
+  journal = {The Lancet},
+  year    = {2018},
+  volume  = {392},
+  number  = {10162},
+  pages   = {2388--2396},
+  doi     = {10.1016/S0140-6736(18)31645-3},
+  note    = {PMID 30318264. Source of the {CQ500} release}
+}
+
+% --- LUNA16 ---
+
+@article{setio2017luna16,
+  author  = {Setio, Arnaud Arindra Adiyoso and Traverso, Alberto and
+             de Bel, Thomas and Berens, Moira S. N. and
+             van den Bogaard, Cas and Cerello, Piergiorgio and Chen, Hao and
+             Dou, Qi and Fantacci, Maria Evelina and Geurts, Bram and others},
+  title   = {Validation, comparison, and combination of algorithms for
+             automatic detection of pulmonary nodules in computed tomography
+             images: the {LUNA16} challenge},
+  journal = {Medical Image Analysis},
+  year    = {2017},
+  volume  = {42},
+  pages   = {1--13},
+  doi     = {10.1016/j.media.2017.06.015},
+  note    = {PMID 28732268; 32 authors; also arXiv:1612.08012. The
+             comparator for the benchmark on which the trivial fraction
+             does NOT fire}
+}
+
+% --- PI-CAI ---
+
+@article{saha2024picai,
+  author  = {Saha, Anindo and Bosma, Joeran S. and Twilt, Jasper J. and
+             van Ginneken, Bram and Bjartell, Anders and Padhani, Anwar R. and
+             Bonekamp, David and Villeirs, Geert and Salomon, Georg and
+             Giannarini, Gianluca and others},
+  title   = {Artificial intelligence and radiologists in prostate cancer
+             detection on {MRI} ({PI-CAI}): an international, paired,
+             non-inferiority, confirmatory study},
+  journal = {The Lancet Oncology},
+  year    = {2024},
+  volume  = {25},
+  number  = {7},
+  pages   = {879--887},
+  doi     = {10.1016/S1470-2045(24)00220-1},
+  note    = {PMID 38876123; 25 authors. Evaluates at the case unit; the
+             positional baseline on its label file is exactly 0.500}
+}
+
+% --- DeepLesion ---
+
+@article{yan2018deeplesion,
+  author  = {Yan, Ke and Wang, Xiaosong and Lu, Le and Summers, Ronald M.},
+  title   = {{DeepLesion}: automated mining of large-scale lesion annotations
+             and universal lesion detection with deep learning},
+  journal = {Journal of Medical Imaging},
+  year    = {2018},
+  volume  = {5},
+  number  = {3},
+  pages   = {036501},
+  doi     = {10.1117/1.JMI.5.3.036501},
+  note    = {The dataset release paper; also arXiv:1710.01766}
+}
+
+% --- fastMRI Prostate, fastMRI+ and the preprint comparator ---
+
+@misc{tibrewala2023fastmriprostate,
+  author       = {Tibrewala, Radhika and Dutt, Tarun and Tong, Angela and
+                  Ginocchio, Luke and Keerthivasan, Mahesh B. and
+                  Baete, Steven H. and Chopra, Sumit and Lui, Yvonne W. and
+                  Sodickson, Daniel K. and Chandarana, Hersh and
+                  Johnson, Patricia M.},
+  title        = {{FastMRI} Prostate: A Publicly Available, Biparametric
+                  {MRI} Dataset to Advance Machine Learning for Prostate
+                  Cancer Imaging},
+  year         = {2023},
+  eprint       = {2304.09254},
+  archivePrefix= {arXiv},
+  primaryClass = {eess.IV},
+  doi          = {10.48550/arXiv.2304.09254}
+}
+
+@misc{rempe2024kspace,
+  author       = {Rempe, Moritz and H{\"o}rst, Fabian and Seibold, Constantin
+                  and Hadaschik, Boris and Schlimbach, Matthias and
+                  Egger, Jan and Kr{\"o}ninger, Kevin and Breuer, Felix and
+                  Blaimer, Martin and Kleesiek, Jens},
+  title        = {Tumor likelihood estimation on {MRI} prostate data by
+                  utilizing k-Space information},
+  year         = {2024},
+  eprint       = {2407.06165},
+  archivePrefix= {arXiv},
+  primaryClass = {eess.IV},
+  doi          = {10.48550/arXiv.2407.06165},
+  note         = {PREPRINT, not peer reviewed, and labelled as such
+                  everywhere it appears in this manuscript. Every trivial
+                  fraction at or above 1.0 in this work is measured against
+                  this comparator and against no other}
+}
+
+@article{zhao2022fastmriplus,
+  author  = {Zhao, Ruiyang and Yaman, Burhaneddin and Zhang, Yuxin and
+             Stewart, Russell and Dixon, Austin and Knoll, Florian and
+             Huang, Zhengnan and Lui, Yvonne W. and Hansen, Michael S. and
+             Lungren, Matthew P.},
+  title   = {{fastMRI+}, clinical pathology annotations for knee and brain
+             fully sampled magnetic resonance imaging data},
+  journal = {Scientific Data},
+  year    = {2022},
+  volume  = {9},
+  number  = {1},
+  pages   = {152},
+  doi     = {10.1038/s41597-022-01255-z},
+  note    = {PMID 35383186}
+}
+
+% --- Duke Breast Cancer MRI ---
+
+@article{saha2018radiogenomics,
+  author  = {Saha, Ashirbani and Harowicz, Michael R. and Grimm, Lars J. and
+             Kim, Connie E. and Ghate, Sujata V. and Walsh, Ruth and
+             Mazurowski, Maciej A.},
+  title   = {A machine learning approach to radiogenomics of breast cancer:
+             a study of 922 subjects and 529 {DCE-MRI} features},
+  journal = {British Journal of Cancer},
+  year    = {2018},
+  volume  = {119},
+  number  = {4},
+  pages   = {508--516},
+  doi     = {10.1038/s41416-018-0185-8}
+}
+
+@misc{saha2021dukebreastmri,
+  author       = {Saha, Ashirbani and Harowicz, Michael R. and
+                  Grimm, Lars J. and Weng, Jingxi and Cain, Elizabeth H. and
+                  Kim, Connie E. and Ghate, Sujata V. and Walsh, Ruth and
+                  Mazurowski, Maciej A.},
+  title        = {Dynamic contrast-enhanced magnetic resonance images of
+                  breast cancer patients with tumor locations
+                  ({Duke-Breast-Cancer-MRI})},
+  howpublished = {The Cancer Imaging Archive},
+  year         = {2021},
+  doi          = {10.7937/TCIA.e3sv-re93},
+  url          = {https://www.cancerimagingarchive.net/collection/duke-breast-cancer-mri/},
+  urldate      = {2026-07-30},
+  note         = {Dataset. Verified against the {DataCite} record for the
+                  {DOI}}
+}
+
+% --- RSNA-STR pulmonary embolism, and the other RSNA CT releases ---
+
+@misc{kaggle2020rsnastrpe,
+  author       = {{Radiological Society of North America} and
+                  {Society of Thoracic Radiology}},
+  title        = {{RSNA STR} Pulmonary Embolism Detection},
+  howpublished = {Kaggle competition},
+  year         = {2020},
+  url          = {https://www.kaggle.com/competitions/rsna-str-pulmonary-embolism-detection},
+  urldate      = {2026-07-30},
+  note         = {Public web disclosure. The benchmark that ships both
+                  image-level and exam-level labels, and the competition in
+                  which the pixel-free positional baseline was publicly
+                  disclosed in 2020}
+}
+
+@article{colak2021rsnape,
+  author  = {Colak, Errol and Kitamura, Felipe C. and Hobbs, Stephen B. and
+             Wu, Carol C. and Lungren, Matthew P. and
+             Prevedello, Luciano M. and Kalpathy-Cramer, Jayashree and
+             Ball, Robyn L. and Shih, George and Stein, Anouk and others},
+  title   = {The {RSNA} Pulmonary Embolism {CT} Dataset},
+  journal = {Radiology: Artificial Intelligence},
+  year    = {2021},
+  volume  = {3},
+  number  = {2},
+  pages   = {e200254},
+  doi     = {10.1148/ryai.2021200254}
+}
+
+@article{rudie2024ratic,
+  author  = {Rudie, Jeffrey D. and Lin, Hui-Ming and Ball, Robyn L. and
+             Jalal, Sabeena and Prevedello, Luciano M. and Nicolaou, Savvas
+             and Marinelli, Brett S. and Flanders, Adam E. and
+             Magudia, Kirti and Shih, George and others},
+  title   = {The {RSNA} Abdominal Traumatic Injury {CT} ({RATIC}) Dataset},
+  journal = {Radiology: Artificial Intelligence},
+  year    = {2024},
+  volume  = {6},
+  number  = {6},
+  pages   = {e240101},
+  doi     = {10.1148/ryai.240101}
+}
+
+@article{lin2023rsnacspine,
+  author  = {Lin, Hui Ming and Colak, Errol and Richards, Tyler and
+             Kitamura, Felipe C. and Prevedello, Luciano M. and
+             Talbott, Jason and Ball, Robyn L. and Gumeler, Ekim and
+             Yeom, Kristen W. and Hamghalam, Mohammad and others},
+  title   = {The {RSNA} Cervical Spine Fracture {CT} Dataset},
+  journal = {Radiology: Artificial Intelligence},
+  year    = {2023},
+  volume  = {5},
+  number  = {5},
+  pages   = {e230034},
+  doi     = {10.1148/ryai.230034}
+}
+
+
+% ---------------------------------------------------------------------
+% 5. PUBLISHED RANK INVERSIONS BETWEEN EVALUATION UNITS
+%    Reported alongside our own NULL. No published two-unit comparison,
+%    including ours, has shown that the change exceeds sampling noise.
+% ---------------------------------------------------------------------
+
+@inproceedings{islam2021pe,
+  author    = {Islam, Nahid Ul and Gehlot, Shiv and Zhou, Zongwei and
+               Gotway, Michael B. and Liang, Jianming},
+  title     = {Seeking an Optimal Approach for Computer-Aided Pulmonary
+               Embolism Detection},
+  booktitle = {Machine Learning in Medical Imaging ({MLMI}), {MICCAI}
+               workshop},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {12966},
+  year      = {2021},
+  pages     = {692--702},
+  doi       = {10.1007/978-3-030-87589-3_71},
+  note      = {PMID 35695860, PMCID PMC9184235, also arXiv:2109.07029. The
+               strongest located published inversion: the authors write that
+               ``SeXception is the optimal architecture for image-level
+               classification, whereas Xception performs best for
+               exam-level classification''}
+}
+
+@article{bejnordi2017camelyon16,
+  author  = {Ehteshami Bejnordi, Babak and Veta, Mitko and
+             Johannes van Diest, Paul and van Ginneken, Bram and
+             Karssemeijer, Nico and Litjens, Geert and
+             van der Laak, Jeroen A. W. M. and others},
+  title   = {Diagnostic Assessment of Deep Learning Algorithms for Detection
+             of Lymph Node Metastases in Women With Breast Cancer},
+  journal = {JAMA},
+  year    = {2017},
+  volume  = {318},
+  number  = {22},
+  pages   = {2199--2210},
+  doi     = {10.1001/jama.2017.14585},
+  note    = {PMID 29234806; 69 authors ({CAMELYON16} consortium)}
+}
+
+@misc{camelyon16leaderboard,
+  author       = {{CAMELYON16 Challenge organisers}},
+  title        = {{CAMELYON16} public leaderboards: whole-slide-image
+                  classification and tumor localization},
+  howpublished = {Grand Challenge},
+  year         = {2016},
+  url          = {https://camelyon16.grand-challenge.org/Results/},
+  urldate      = {2026-07-30},
+  note         = {Public web disclosure, no peer review and no confidence
+                  intervals published. Verified on the access date: two
+                  boards, 32 ranked submissions each, ranked by {AUC} and by
+                  {FROC} respectively. The between-unit Kendall
+                  $\tau$ of 0.754 measured on these boards sits inside the
+                  instability band documented by Maier-Hein et al., so it
+                  cannot be claimed as a unit-specific effect}
+}
+
+@article{bricaud2026adni,
+  author  = {Bricaud, Isabelle and Masala, Giovanni Luca},
+  title   = {Multi-Architecture Deep Learning for Early {A}lzheimer's
+             Detection in {MRI}: Slice- and Scan-Level Analysis},
+  journal = {International Journal of Environmental Research and Public
+             Health},
+  year    = {2026},
+  volume  = {23},
+  number  = {3},
+  pages   = {322},
+  doi     = {10.3390/ijerph23030322},
+  note    = {PMID 41899699, PMCID PMC13027363}
+}
+
+@article{guneri2026pancreatitis,
+  author  = {G{\"u}neri, G{\"u}rkan and Yazar, Elif K{\i}r and
+             Yazar, Mesut Furkan and {\c C}orbac{\i}, Kadir and
+             Y{\i}ld{\i}r{\i}m, Mehmet S{\"u}leyman and Dand{\i}l, Emre},
+  title   = {A Vision Transformer-Based Deep Learning Framework for
+             Patient-Level Classification of Acute Pancreatitis and Normal
+             Pancreas Using Computed Tomography},
+  journal = {Diagnostics},
+  year    = {2026},
+  volume  = {16},
+  number  = {8},
+  pages   = {1152},
+  doi     = {10.3390/diagnostics16081152},
+  note    = {PMID 42072777, PMCID PMC13115216}
+}
+
+@article{ruan2021wsi,
+  author  = {Ruan, Jun and Zhu, Zhikui and Wu, Chenchen and Ye, Guanglu and
+             Zhou, Jingfan and Yue, Junqiu},
+  title   = {A fast and effective detection framework for whole-slide
+             histopathology image analysis},
+  journal = {PLOS ONE},
+  year    = {2021},
+  volume  = {16},
+  number  = {5},
+  pages   = {e0251521},
+  doi     = {10.1371/journal.pone.0251521},
+  note    = {PMID 33979398. Reproduces 13 {CAMELYON16} methods in one table
+             where the winner changes between units}
+}
+
+@article{jarkman2022generalization,
+  author  = {Jarkman, Sofia and Karlberg, Micael and
+             Pocevi{\v{c}}i{\=u}t{\.{e}}, Milda and Bod{\'e}n, Anna and
+             B{\'a}ndi, P{\'e}ter and Litjens, Geert and Lundstr{\"o}m, Claes
+             and Treanor, Darren and van der Laak, Jeroen},
+  title   = {Generalization of Deep Learning in Digital Pathology:
+             Experience in Breast Cancer Metastasis Detection},
+  journal = {Cancers},
+  year    = {2022},
+  volume  = {14},
+  number  = {21},
+  pages   = {5424},
+  doi     = {10.3390/cancers14215424},
+  note    = {PMID 36358842. One of only two located published cases that
+             report intervals at both units; the inversion sits inside them}
+}
+
+@article{guo2019wsi,
+  author  = {Guo, Zichao and Liu, Hong and Ni, Haomiao and Wang, Xiangdong
+             and Su, Mingming and Guo, Wei and Wang, Kuansong and
+             Jiang, Taijiao and Qian, Yueliang},
+  title   = {A Fast and Refined Cancer Regions Segmentation Framework in
+             Whole-slide Breast Pathological Images},
+  journal = {Scientific Reports},
+  year    = {2019},
+  volume  = {9},
+  number  = {1},
+  pages   = {882},
+  doi     = {10.1038/s41598-018-37492-9},
+  note    = {PMID 30696894. The second of the two located published cases
+             reporting intervals at both units}
+}
+
+
+% ---------------------------------------------------------------------
+% 6. STATISTICAL METHODS
+% ---------------------------------------------------------------------
+
+@article{page2021prisma,
+  author  = {Page, Matthew J. and McKenzie, Joanne E. and
+             Bossuyt, Patrick M. and Boutron, Isabelle and
+             Hoffmann, Tammy C. and Mulrow, Cynthia D. and
+             Shamseer, Larissa and Tetzlaff, Jennifer M. and Akl, Elie A. and
+             Brennan, Sue E. and others},
+  title   = {The {PRISMA} 2020 statement: an updated guideline for reporting
+             systematic reviews},
+  journal = {BMJ},
+  year    = {2021},
+  volume  = {372},
+  pages   = {n71},
+  doi     = {10.1136/bmj.n71}
+}
+
+@article{wilson1927,
+  author  = {Wilson, Edwin B.},
+  title   = {Probable Inference, the Law of Succession, and Statistical
+             Inference},
+  journal = {Journal of the American Statistical Association},
+  year    = {1927},
+  volume  = {22},
+  number  = {158},
+  pages   = {209--212},
+  doi     = {10.1080/01621459.1927.10502953}
+}
+
+@article{fleiss1971kappa,
+  author  = {Fleiss, Joseph L.},
+  title   = {Measuring nominal scale agreement among many raters},
+  journal = {Psychological Bulletin},
+  year    = {1971},
+  volume  = {76},
+  number  = {5},
+  pages   = {378--382},
+  doi     = {10.1037/h0031619}
+}
+
+@article{holm1979,
+  author  = {Holm, Sture},
+  title   = {A Simple Sequentially Rejective Multiple Test Procedure},
+  journal = {Scandinavian Journal of Statistics},
+  year    = {1979},
+  volume  = {6},
+  number  = {2},
+  pages   = {65--70},
+  doi     = {10.2307/4615733},
+  note    = {Verified against the {OpenAlex} record; {JSTOR} stable
+             identifier 4615733}
+}
+
+@article{delong1988,
+  author  = {DeLong, Elizabeth R. and DeLong, David M. and
+             Clarke-Pearson, Daniel L.},
+  title   = {Comparing the Areas under Two or More Correlated Receiver
+             Operating Characteristic Curves: A Nonparametric Approach},
+  journal = {Biometrics},
+  year    = {1988},
+  volume  = {44},
+  number  = {3},
+  pages   = {837--845},
+  doi     = {10.2307/2531595}
+}
+
+
+% ---------------------------------------------------------------------
+% 7. FDA SCOPING CONTEXT
+%    Prior audits of what cleared-device summaries do and do not report.
+%    NOTE: this manuscript must NOT claim that FDA summaries hide the
+%    evaluation unit -- that was tested and is false (determinable in
+%    28/30 sampled summaries).
+% ---------------------------------------------------------------------
+
+@article{wu2021fdaeval,
+  author  = {Wu, Eric and Wu, Kevin and Daneshjou, Roxana and Ouyang, David
+             and Ho, Daniel E. and Zou, James},
+  title   = {How medical {AI} devices are evaluated: limitations and
+             recommendations from an analysis of {FDA} approvals},
+  journal = {Nature Medicine},
+  year    = {2021},
+  volume  = {27},
+  number  = {4},
+  pages   = {582--584},
+  doi     = {10.1038/s41591-021-01312-x}
+}
+
+@article{muehlematter2023predicate,
+  author  = {Muehlematter, Urs J. and Bluethgen, Christian and
+             Vokinger, Kerstin N.},
+  title   = {{FDA}-cleared artificial intelligence and machine
+             learning-based medical devices and their 510(k) predicate
+             networks},
+  journal = {The Lancet Digital Health},
+  year    = {2023},
+  volume  = {5},
+  number  = {9},
+  pages   = {e618--e626},
+  doi     = {10.1016/S2589-7500(23)00126-7}
+}
+
+@article{muehlematter2021approval,
+  author  = {Muehlematter, Urs J. and Daniore, Paola and
+             Vokinger, Kerstin N.},
+  title   = {Approval of artificial intelligence and machine learning-based
+             medical devices in the {USA} and {Europe} (2015--20): a
+             comparative analysis},
+  journal = {The Lancet Digital Health},
+  year    = {2021},
+  volume  = {3},
+  number  = {3},
+  pages   = {e195--e203},
+  doi     = {10.1016/S2589-7500(20)30292-2}
+}
+
+
+% ---------------------------------------------------------------------
+% 8. THIS WORK'S OWN RELEASE
+%    A DOI must be minted (Zenodo) and inserted here before submission;
+%    CITATION.cff and .zenodo.json currently carry no DOI field.
+% ---------------------------------------------------------------------
+
+@misc{trivialbaselines2026,
+  author       = {Loke, Sathvik and Johnson, Ethan and Movva, Neeraj and
+                  Raut, Aditya},
+  title        = {trivialbaselines: zero-image null models for
+                  slice-labelled medical imaging benchmarks},
+  howpublished = {Software, version 1.0.0},
+  year         = {2026},
+  url          = {https://github.com/sathvikloke/PhaseDx/tree/main/trivialbaselines},
+  urldate      = {2026-07-30},
+  note         = {MIT licence; released 2026-07-29. Metadata transcribed
+                  from \texttt{trivialbaselines/CITATION.cff}. NO archival
+                  DOI has been minted yet -- insert the Zenodo {DOI} here
+                  before submission}
+}
+
+
+% ---------------------------------------------------------------------
+% 9. ADDED IN THE HOSTILE-REVIEW AUDIT (2026-07-30)
+%    Two works were cited in main.tex with no entry under any key.
+%    Sources: paper/published_inversions_round2.json (Chen 2025, the
+%    negative control on CAMELYON16) and the pre-specified paradox guard
+%    in paper/screen_protocol.md sec.8 (Gwet's AC1).
+% ---------------------------------------------------------------------
+
+@article{chen2025camcsa,
+  author  = {Chen, Yong and Wu, Hu and Huang, Zhenhua and Zhang, Zhen},
+  title   = {Cross-slide augmentation for whole slide image classification
+             based on class activation map},
+  journal = {Scientific Reports},
+  year    = {2025},
+  volume  = {15},
+  doi     = {10.1038/s41598-025-27455-2},
+  note    = {PMCID PMC12657889. The strongest located NEGATIVE control on
+             the rank-inversion question: eleven methods on {CAMELYON16}
+             scored at both units give $\tau_a = 0.927$, only 2 of 55 pairs
+             invert, and the same method is best at both units. Transcribed
+             from \texttt{paper/published\_inversions\_round2.json}
+             (\texttt{chen\_camcsa\_11methods}); volume and {DOI} were not
+             re-verified against a live publisher record in this audit}
+}
+
+@article{gwet2008ac1,
+  author  = {Gwet, Kilem Li},
+  title   = {Computing inter-rater reliability and its variance in the
+             presence of high agreement},
+  journal = {British Journal of Mathematical and Statistical Psychology},
+  year    = {2008},
+  volume  = {61},
+  number  = {1},
+  pages   = {29--48},
+  doi     = {10.1348/000711006X126600},
+  note    = {PMID 18482474. The {AC1} statistic, pre-specified in the frozen
+             protocol as the paradox guard for the extremely skewed primary
+             flag, before any coding}
+}
