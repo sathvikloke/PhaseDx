@@ -1224,10 +1224,56 @@ identity check on our implementation, not an estimate of fidelity. It passes exa
 \textbf{Prostate T2: $r = 0.9982$ per slice, and this is a like-for-like comparison.}
 The acquisition is fully sampled once the three interleaved averages are merged, and
 the vendor image is an \emph{unregularised} RSS reconstruction of the same $k$-space.
-Two of 2{,}039 slices fall below 0.99 and none below 0.95. This cohort was fixed as
-the pre-specified primary cohort of the case study on two grounds decided in advance
---- it is the largest (67 patients) and it is the only one whose reconstruction is
-validated against an unregularised vendor reference.
+Two of 2{,}039 slices fall below 0.99 and none below 0.95. This cohort is the primary
+cohort of the case study on one ground that does not depend on any outcome: it is the
+only cohort carrying a diagnostic label whose reconstruction is validated against an
+unregularised vendor reference. It is \emph{not} the largest cohort --- breast has 90
+patients against prostate T2's 71 --- and size is not a ground for the designation.
+
+\subsubsection*{The falsification criteria were amended while the study ran}
+
+\textbf{This is the case study's principal departure from the standard the rest of
+this paper argues for, and it is stated here rather than left to be discovered.}
+Unlike the screening protocol, the nine criteria C0--C8 were \emph{not} committed to
+the repository before the runs they judge. The scoring script
+\texttt{pipeline/s06\_report.py} first entered the repository in commit
+\texttt{a64d202} (2026-07-29), after every run it scores. The amendment history,
+recovered from the three scoring passes retained on disk, is:
+
+\begin{itemize}\itemsep2pt
+\item \textbf{2026-07-27, seven criteria (C1--C7).} Prostate T2 \textbf{NOT
+SUPPORTED}, failing C1 and C2; C3--C7 were MISSING for want of stage-5 controls.
+\item \textbf{2026-07-28, nine criteria (C0--C8).} C0 (only the primary cohort
+carries a confirmatory verdict; every other cohort is exploratory) and C8 (the
+headline must beat the \emph{measured} label-permutation null, not a hard-coded
+0.500) were added. Six of the original seven were tightened: C6's confound ceiling
+fell from 0.80 to 0.65 AUC, and C1, C3, C4, C5 and C7 each gained cluster-count,
+interval-coverage or both-directions requirements. C2 alone is unchanged. This set was
+scored twice the same day, before and after the permutation replicates reached the 20
+needed for C8 to be decidable; prostate T2 was \textbf{NOT SUPPORTED} on both, failing
+C1--C6 on the earlier scoring and C1--C6 and C8 on the later, which is the one this
+paper reports.
+\end{itemize}
+
+Every amendment added a requirement and none removed one, but ``tightened'' is not
+uniform across the six. Four of them (C4--C7) only add conjuncts to the same quantity,
+so nothing that failed the earlier form could pass the later one. Two do not reduce to
+that: C1 moved the test from the slice level to the cluster level stage 4 marks
+\emph{preferred}, and C3 replaced a confidence interval on the permutation null with
+the observed range across replicates. Those two change \emph{what} is measured rather
+than how strictly it is judged, and C1's change is the one this paper argues for
+everywhere else. The verdict is nonetheless robust to all of it, for a simpler reason
+than nesting: in the first pass C3--C7 were \textbf{MISSING} --- the controls did not
+yet exist, and a missing criterion is reported as missing and never as passing --- so
+that pass turned on C1 and C2 alone, and prostate T2 failed both, as it does under the
+final nine. The verdict was \textbf{NOT SUPPORTED} under both. That the
+direction is uniformly conservative is checkable but not self-evidencing: the criteria
+were not frozen in advance, and a reader is entitled to weight the case study
+accordingly. \textbf{The verdict files are not released}: \texttt{pipeline\_out/} is
+excluded from the repository whole under the fastMRI data use agreement, so the
+seven-criterion pass rests on our report of it rather than on a released artefact. The
+script is released and records the superseded 0.80 ceiling in the comment that sets
+the current one.
 
 \textbf{Prostate DWI: the per-slice number is deliberately depressed and is not the
 reconstruction check.} The vendor \texttt{trace\_b50} reference averages roughly 14
@@ -1656,10 +1702,10 @@ modification times.
 4 & \textbf{Freeze commit \texttt{a64d202}} --- protocol v1.0, codebook v1.0, sample, frame, permutation, and both released scripts & \textbf{07:12:02} & git object $+$ public push \\
 5 & Commit \texttt{b589efa} (archival citation metadata) & 07:22:11 & git object \\
 6 & Commit \texttt{f484685} (author list) & 07:46:50 & git object \\
-7 & Screener S3 submits batch C & 08:01:22 & \textbf{mtime only --- never committed} \\
-8 & Screener S1 submits batch A & 08:03:10 & \textbf{mtime only --- never committed} \\
-9 & Screener S2 submits batch B & 08:07:06 & \textbf{mtime only --- never committed} \\
-10 & Screener S4 submits batch D & 08:07:36 & \textbf{mtime only --- never committed} \\
+7 & Screener S3 submits batch C & 08:01:22 & \textbf{mtime only --- not committed until the next day} \\
+8 & Screener S1 submits batch A & 08:03:10 & \textbf{mtime only --- not committed until the next day} \\
+9 & Screener S2 submits batch B & 08:07:06 & \textbf{mtime only --- not committed until the next day} \\
+10 & Screener S4 submits batch D & 08:07:36 & \textbf{mtime only --- not committed until the next day} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1668,7 +1714,10 @@ modification times.
 submission by 49 minutes 20 seconds and the latest by 55 minutes 34 seconds. The two
 commits falling inside that window touch neither the protocol, nor the codebook, nor
 the sample: \texttt{git log} restricted to those three paths returns \texttt{a64d202}
-and nothing else.
+and, dated 2026-07-30 --- a day after screening closed --- \texttt{ae277f4}, which
+commits the v1.2 protocol and codebook amendment. Nothing was committed to those
+three paths inside the screening window, and \texttt{screen\_sample.json} was never
+committed again at all.
 
 \textbf{The sample was never re-drawn.} \texttt{screen\_sample.json} in the working
 tree is byte-identical to the blob in \texttt{a64d202} (SHA-256
@@ -1694,13 +1743,18 @@ retrievable from the hosting service's API and will be quoted if a reviewer asks
 \textbf{It is not equivalent to a registry timestamp}, which is issued by a party with
 no interest in the result.
 
-\item \textbf{The four sealed screener files were never committed.} The frozen protocol
-says each overlap batch is ``submitted as a sealed file, timestamped in git, before any
-screener sees another's codes''. The sealing and the independence held as a matter of
-process --- each file carries a written independence statement and no screener's file
-references another's --- but \textbf{the git-timestamp part of that requirement was not
-met}. Their only timestamps are filesystem mtimes, which are trivially rewritable. The
-phrase ``sealed and timestamped in git'' must not be used of these files.
+\item \textbf{The four sealed screener files were not committed until after screening
+and analysis were complete.} The frozen protocol says each overlap batch is ``submitted
+as a sealed file, timestamped in git, before any screener sees another's codes''. The
+sealing and the independence held as a matter of process --- each file carries a written
+independence statement and no screener's file references another's --- but \textbf{the
+git-timestamp part of that requirement was not met}: the four files entered the
+repository in \texttt{ae277f4} on 2026-07-30, a day after the screen ran, byte-identical
+to the digests recorded when this statement was first drafted. Their only timestamps
+contemporaneous with screening are filesystem mtimes, which are trivially rewritable, so
+the commit fixes the files from that date forward and establishes nothing about when
+they were written. The phrase ``sealed and timestamped in git'' must not be used of
+these files.
 
 \item \textbf{The screeners' self-declared timestamps are wrong and are not quoted
 anywhere.} Batch A declares a submission time that, read literally as UTC, precedes the
@@ -1806,7 +1860,7 @@ do not write & why \\
 ``registered protocol'', ``registration number'' & there is no registry record \\
 ``prospectively registered'' & false \\
 ``pre-registered'', unqualified & reads as registry registration to a clinical-journal editor; use ``protocol frozen in a public repository before screening'' \\
-``sealed and timestamped in git'', of the screener files & those four files were never committed \\
+``sealed and timestamped in git'', of the screener files & those four files were not committed until a day after screening \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1815,7 +1869,8 @@ do not write & why \\
 
 \begin{quote}\small
 \begin{verbatim}
-# the freeze commit, and that nothing later touched protocol, codebook or sample
+# the freeze commit; the only later commit on these paths is the post-screening
+# v1.2 amendment (ae277f4, 2026-07-30), and none falls inside the screening window
 git log --format='%H %aI %s' -- paper/screen_protocol.md \
                                paper/screen_frame.json paper/screen_sample.json
 
@@ -1829,7 +1884,8 @@ shasum -a 256 paper/screen_sample.json
 # the frame and the permutation, offline
 python paper/screen/reproduce_frame.py --verify
 
-# the screener files have no git timestamp (this returns nothing, which is the point)
+# the screener files carry no git timestamp contemporaneous with screening: this
+# returns only ae277f4 (2026-07-30), a day after the batches were submitted
 git log -- paper/screen_batch_A.json paper/screen_batch_B.json \
            paper/screen_batch_C.json paper/screen_batch_D.json
 \end{verbatim}
@@ -1877,8 +1933,8 @@ than filled. The black tick on each cohort's rows is that cohort's own phase hea
 directly. \textbf{Lower block:} the two cohorts whose label contains no pathology of
 any kind --- brain, labelled by receive-coil count $\geq 16$ channels, and knee,
 labelled by pulse sequence --- plus the brain phase arm recomputed inside each site
-stratum, one row per stratum. The dotted line is the 0.65 ceiling written into criterion C6
-before any of these numbers existed, read here out of the criterion's own rule string;
+stratum, one row per stratum. The dotted line is the 0.65 ceiling written into criterion C6,
+read here out of the criterion's own rule string;
 the dashed line is chance. \textbf{A high value on this axis is evidence against the
 phase hypothesis, because the label being predicted is the scanner and not the
 disease.}
@@ -1947,7 +2003,7 @@ CSVs beside it.}
 \subsection{The estimator's input on the remaining four cohorts}
 
 The main article shows all four columns --- magnitude, $\sin\varphi$, $\cos\varphi$
-and the raw angle --- for the pre-specified primary cohort.
+and the raw angle --- for the primary cohort.
 Figure~\ref{fig:qualcohorts} shows the other four cohorts more briefly, on the same
 selection rule: the magnitude channel and the raw angle only, because
 $\sin\varphi$ and $\cos\varphi$ are a fixed pointwise function of that angle and

@@ -608,7 +608,7 @@ def fig3():
         LX, 5.5,
         f"S6 unreachable = {s6['k']}/{s6['n']} = {s6['pct']:.1f}% "
         f"[{s6['ci95'][0]:.1f}%, {s6['ci95'][1]:.1f}%] — above the\n"
-        f"pre-registered 15% threshold, so the protocol makes the\n"
+        f"pre-specified 15% threshold, so the protocol makes the\n"
         f"BOUNDING INTERVAL the headline: "
         f"P1 ∈ [{lo['pct']:.1f}%, {hi['pct']:.1f}%].\n"
         f"Complete case {p1['k']}/{p1['n']} = {p1['pct']:.1f}% "
@@ -643,14 +643,14 @@ def fig3():
     axB.set_xlabel("unreachable (% of eligible)", fontsize=7.0)
     axB.set_xlim(0, 66)
     axB.set_title("the rate does not fall as\nthe sample grows", pad=6, fontsize=7.6)
-    axB.text(14.0, yy[-1] - 1.55, "pre-registered\n15% threshold", fontsize=6.0,
+    axB.text(14.0, yy[-1] - 1.55, "pre-specified\n15% threshold", fontsize=6.0,
              ha="right", va="bottom")
     axB.text(s6["pct"] + 1.2, yy[-1] - 1.55, f"pooled\n{s6['pct']:.1f}%",
              fontsize=6.0, color=GREY, ha="left", va="bottom")
     axB.set_ylim(yy[-1] - 1.7, yy[0] + 0.9)
     axB.legend(handles=[
         Line2D([], [], marker="o", ls="none", ms=5.2, color=ORANGE,
-               label="pre-registered block"),
+               label="pre-specified block"),
         Line2D([], [], marker="o", ls="none", ms=5.2, color=LIGHTGREY, mec=GREY,
                label="post-hoc block (R4)"),
     ], loc="upper right", frameon=False, fontsize=6.2, borderaxespad=0.2)
@@ -1444,7 +1444,7 @@ def figS1():
             fontweight="bold", color="#333333", ha="left", va="center",
             transform=ax.get_yaxis_transform(which="grid"))
     ax.text(ceil + 0.008, bottom - 2.68,
-            f"pre-registered C6 ceiling {ceil:.2f}", fontsize=6.0,
+            f"C6 ceiling {ceil:.2f}", fontsize=6.0,
             color="#333333", ha="left", va="bottom")
     ax.text(0.5 - 0.008, bottom - 2.68, "chance", fontsize=6.0,
             color="#333333", ha="right", va="bottom")

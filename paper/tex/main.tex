@@ -58,8 +58,9 @@
 
 \title{\bfseries What a slice-level benchmark certifies\\
 without the pixels:\\[0.15em]
-an audit of seven public benchmarks and a pre-registered\\
-screen of how often the check is reported}
+a label-file audit of seven public benchmarks,\\
+and a protocol-frozen random-sample screen\\
+of how often the check is reported}
 
 \author{%
 Sathvik Loke,\thanks{Corresponding author: \texttt{sloke@imsa.edu}}\;
@@ -127,7 +128,7 @@ intervals. Seven public benchmarks (eight label files) were audited. A
 rank-inversion analysis on 21 method configurations across five NYU fastMRI
 cohorts compared
 between-unit rank disagreement against within-unit resampling noise. A
-pre-registered random-sample screen of a frozen \num{9979}-record PubMed frame
+protocol-frozen random-sample screen of a frozen \num{9979}-record PubMed frame
 (seed 20260729, four independent screeners) estimated reporting prevalence.
 Proportions carry Wilson 95\% CIs.
 
@@ -147,7 +148,7 @@ disjoint halves of the same subjects ranked methods in opposite orders.
 
 \textbf{Conclusion.} The unit at which a volumetric benchmark is read decides what
 its number means; against peer-reviewed numbers a pixel-blind model reached about
-half the reported margin over chance, and in a pre-registered sample of the
+half the reported margin over chance, and in a protocol-frozen sample of the
 literature no paper that could be read reported this check.
 
 \vspace{0.6em}
@@ -162,7 +163,7 @@ changed but the unit of evaluation.
 \item Against peer-reviewed comparators, a model with no pixels reached a median
 0.469 (IQR: 0.437, 0.490; $n=9$) of the published margin over chance; on two of
 nine benchmark-arms it reached none of it.
-\item In a pre-registered random sample, 0 of 91 readable papers reported any
+\item In a protocol-frozen random sample, 0 of 91 readable papers reported any
 zero-image baseline (bounding interval 0.0\%--32.6\%, because 32.6\% of the
 eligible set could not be obtained).
 \end{itemize}
@@ -172,7 +173,7 @@ eligible set could not be obtained).
 A model that never sees a pixel reproduces roughly half of published
 slice-level performance on public volumetric benchmarks and collapses to below
 chance when the same scores are read per patient, yet no paper that could be
-obtained in a pre-registered random sample of this literature reported such a
+obtained in a protocol-frozen random sample of this literature reported such a
 check, in a sample where a third of eligible papers could not be obtained.
 
 % =====================================================================
@@ -258,7 +259,7 @@ This paper reports five things: (a) the slice-versus-patient divergence of a
 single pixel-blind score vector, anchored on a benchmark of \num{18938}
 patients that needs no published comparator; (b) how much of a published margin
 over chance is reachable without pixels, reported as a distribution, including
-the benchmarks on which nothing is reachable; (c) a pre-registered estimate of
+the benchmarks on which nothing is reachable; (c) a protocol-frozen estimate of
 how often the field reports any such check; (d) a pre-specified test of whether
 the evaluation unit changes which method wins, which returned a null; and (e) a
 worked case study, a seven-rule reporting protocol and a released tool. Our
@@ -274,12 +275,13 @@ not the idea.
 This is a methodological and meta-research study on public data and published
 records; no patient was recruited and no identifiable data were used.
 Institutional review board approval was \todo{MISSING: IRB / ethics statement
-and waiver language}. The audit component analyses published label files only;
-no pixel data were downloaded for any audited target. The prevalence screen was
-pre-registered before any analysis-sample record was read, and its protocol,
-codebook, sealed screener files and analysis script are released. The
-pre-registration was not deposited in a public registry before screening began,
-which is a reportable deviation from our own protocol.
+and waiver language}. The audit analyses published label files only; no pixel data
+were downloaded. The screening protocol, codebook, sampling frame and seeded sample
+were committed to a public repository before any analysis-sample record was coded
+(commit \texttt{a64d202}). \textbf{The screen was not deposited with
+OSF Registries, PROSPERO or any other registry in advance and is therefore not
+prospectively registered}, a reportable deviation from our own protocol
+(Supplementary Section~S7).
 
 \subsection{The zero-image baseline family}
 
@@ -461,7 +463,7 @@ they are different slices, each correlation is also reported against an
 anatomy-support floor, per cohort and per slice, in Supplementary Figure S2 and
 Supplementary Section S4.
 
-\subsection{The pre-registered prevalence screen}
+\subsection{The protocol-frozen prevalence screen}
 
 \textbf{Frame.} One frozen PubMed query for deep-learning classification papers
 on volumetric modalities reporting a numeric classification metric, 2019-01-01 to
@@ -477,7 +479,7 @@ in blocks of 50, until the target is exceeded --- because at $n=75$ a zero count
 carries a Wilson upper bound of 4.9\%. The extension fired and stopped at
 position 260. A fifth block (positions 261--310) was screened past the stopping
 point and is reported throughout as a labelled post-hoc extension, never pooled
-into the pre-registered denominator.
+into the pre-specified denominator.
 
 \textbf{Extraction.} Two stages: title and abstract, then a Methods-in-full read
 with the results tables, any baseline or statistical-analysis subsection, and the
@@ -693,7 +695,7 @@ in has no causal relationship to whether the patient has cancer.
 \subsection{Almost nobody checks}
 
 The audit establishes that a benchmark \emph{can} be reached without pixels. It
-says nothing about whether anyone checks; the pre-registered screen answers that
+says nothing about whether anyone checks; the protocol-frozen screen answers that
 (Table~\ref{tab:screen}, Figure~\ref{fig:prisma}).
 
 \textbf{Flow and censoring first.} The extension rule was executed and stopped at
@@ -702,7 +704,7 @@ segmentation studies, 32 whose classifier input is a derived feature vector or
 connectivity matrix with the image discarded, and 44 for the remaining reasons.
 \textbf{Forty-four papers were eligible on their abstract but could not be
 obtained in full text: 32.6\% (95\% CI: 25.3\%, 40.9\%) of the eligible-looking
-set.} Ninety-one were included and readable, against a pre-registered target of
+set.} Ninety-one were included and readable, against a pre-specified target of
 75.
 
 \textbf{Enlarging the sample did not reduce the censoring and could not.} Four
@@ -787,7 +789,7 @@ papers report a subject-clustered uncertainty interval (2.2\%; 95\% CI: 0.6\%,
 overlap set as originally sealed, the primary flag returned raw agreement 65.6\%
 (95\% CI: 50.0, 80.0) and Fleiss $\kappa$ $-0.015$ (95\% CI: $-0.164$, 0.120)
 against a pre-specified floor of 90\% raw or $\kappa$ 0.60. The threshold failed
-and the pre-registered remedy was triggered. The diagnosis does not excuse the
+and the protocol's pre-specified remedy was triggered. The diagnosis does not excuse the
 failure but is itself a finding: the frozen extraction form declared the six
 sub-flags boolean and provided \emph{no level for ``could not be assessed'',} so
 four screeners invented four different conventions for records where the field is
@@ -901,12 +903,14 @@ of this subsection is the demonstration, not the biology
 (Figure~\ref{fig:case}).
 
 The question was whether MRI phase carries tumour signal beyond magnitude, tested
-under nine criteria fixed in advance with prostate T2 pre-registered as the
-primary cohort. Figure~\ref{fig:input} shows what the estimators were given on
-that cohort --- the magnitude channel, the two phase channels and the raw angle
-they are computed from, for one slice with an annotated tumour and one without,
-read out of the cache in stored order. It is there so that a reader can see the
-input rather than infer it from a channel name; it illustrates and does not
+under nine falsification criteria in the released scoring script
+(\texttt{pipeline/s06\_report.py}). \textbf{Unlike the screening protocol, these
+criteria were not committed before the runs they judge}, and the set was amended as
+the study ran, every change adding a requirement; prostate T2, the primary cohort,
+was \textbf{NOT SUPPORTED} under both the seven- and the nine-criterion scoring
+(Supplementary Section~S4).
+Figure~\ref{fig:input} shows what the estimators were given on that cohort, read
+out of the cache in stored order; it illustrates and does not
 adjudicate, and none of the results below rest on it. All three clinical cohorts
 were \textbf{NOT SUPPORTED} at the
 patient level: prostate T2 gave 0.473 (95\% CI: 0.321, 0.632) for magnitude,
@@ -944,7 +948,7 @@ separable from scanner model or coil array, so we may say phase encodes hardware
 and may not decompose that hardware further. Every confound control written for
 the three clinical cohorts, including the ones that land near chance, and every
 site stratum including the one below the floor, is plotted
-against the same axis and the same pre-registered ceiling in Supplementary
+against the same axis and the same C6 ceiling in Supplementary
 Figure S1. \emph{No aggregation rescues the
 null}: seven patient-aggregation schemes were swept, none lifts any clinical
 cohort's interval lower bound above 0.500, and the selection-aware envelope tops
@@ -1077,7 +1081,7 @@ and it is not a sample-size problem: four blocks in four sessions returned
 \textbf{The agreement statistic that clears the floor is a re-encoding, not a
 re-rating.} As sealed, the primary flag failed its own pre-specified threshold
 ($\kappa=-0.015$, raw 65.6\%). The failure is attributable to a codebook defect
---- no \texttt{not\_assessable} level --- and the pre-registered remedy was
+--- no \texttt{not\_assessable} level --- and the pre-specified remedy was
 executed, but the post-amendment $\kappa=0.932$ (95\% CI: 0.777, 1.000)
 re-expresses the same four sealed files. A fresh blind four-screener re-coding
 under the amended codebook remains outstanding, the protocol's 20\% within-batch
@@ -1094,7 +1098,7 @@ the failure mode: papers reporting any slice-level metric are 20.9\% of the
 included set, so any endpoint conditioned on them rests on $n=19$. The venue
 subgroup is a provisional keyword heuristic rather than the pre-specified
 scope-statement classification, screeners were not blinded to the study
-hypothesis, and a fifth block of records lies outside the pre-registered stopping
+hypothesis, and a fifth block of records lies outside the pre-specified stopping
 rule and is labelled post-hoc throughout.
 
 \textbf{The rank-inversion analysis compares configurations we trained, not
@@ -1131,7 +1135,7 @@ metric and the same unit, the median share of the published margin over chance
 reachable with no pixels is 0.469 (IQR: 0.437, 0.490; $n=9$), and on two
 benchmark-arms none of it is reachable. Whether the unit also changes \emph{which
 method wins} we could not establish, and neither can any published two-unit
-comparison we located. In a pre-registered random sample of the literature that
+comparison we located. In a protocol-frozen random sample of the literature that
 produces such numbers, none of the 91 papers that could be read reported any of
 these checks. Three fields in the label file a benchmark already publishes make
 all of it checkable by anyone, for free, without the images.
@@ -1143,27 +1147,23 @@ all of it checkable by anyone, for free, without the images.
 
 \section*{Data and Code Availability}
 
-The audit tool (\texttt{trivialbaselines} v1.0, MIT licence), all per-benchmark
-JSON payloads and human-readable cards, the label-table preparation scripts, the
-independent reimplementation of the RSNA ICH unit-collapse computation, the
-trivial-fraction assembler, and the full prevalence-screen package --- frozen
-protocol and codebook with changelogs, sampling frame with its SHA-256 and seeded
-permutation, four sealed independently submitted screener files with every
-verbatim quote and access-ladder note, the adjudication audit trail, the re-code
-overlay, the four reserve blocks and the pooling script --- are released at
-\todo{MISSING: public repository URL and archival DOI}. The 44 unreachable
-records are listed by PMID so that a reader with better access can complete the
-screen. No pixel data were downloaded for any audited target.
+The audit tool (\texttt{trivialbaselines} v1.0, MIT licence), the per-benchmark
+JSON payloads and cards, the label-table preparation scripts, the independent
+reimplementation of the RSNA ICH unit-collapse computation, the trivial-fraction
+assembler, and the full prevalence-screen package --- frozen protocol and codebook
+with changelogs, sampling frame and seeded permutation with their SHA-256 digests,
+the four sealed screener files, the adjudication audit trail, the re-code overlay,
+the reserve blocks and the pooling script --- are released at \todo{MISSING: public
+repository URL and archival DOI}. The 44 unreachable records are listed by PMID so
+a reader with better access can complete the screen.
 
-The worked-example cohorts are NYU fastMRI releases and are \emph{not}
-redistributed with this work. They are obtained by application to the NYU
-fastMRI Initiative at \url{https://fastmri.med.nyu.edu} under its data sharing
-agreement \citep{knoll2020fastmri,zbontar2018fastmri,tibrewala2023fastmriprostate,solomon2025fastmribreast}.
-That agreement forbids onward distribution of the dataset or of files derived
-from it, so no reconstructed image, cache file or slice is included in the
-released repository; the figures of those cohorts in this article and its
-supplement are supplied to the journal directly, and the code that regenerates
-them from a reader's own copy of the data is released.
+The worked-example cohorts are NYU fastMRI releases, obtained by application to the
+NYU fastMRI Initiative at \url{https://fastmri.med.nyu.edu} under its data sharing
+agreement \citep{knoll2020fastmri,zbontar2018fastmri,tibrewala2023fastmriprostate,solomon2025fastmribreast},
+which forbids onward distribution of the dataset or of derived files. No
+reconstructed image, cache file or slice is in the released repository; figures are
+supplied to the journal directly and the code that regenerates them from a reader's
+own copy is released.
 
 % =====================================================================
 \clearpage
@@ -1280,9 +1280,9 @@ positional baseline is exactly 0.500, the correct registration of
 
 \begin{table}[htbp]
 \centering
-\caption{Pre-registered prevalence screen: flow and endpoints. 250 papers sampled
+\caption{Protocol-frozen prevalence screen: flow and endpoints. 250 papers sampled
 from a frozen \num{9979}-record PubMed frame at permutation positions 1--100 and
-111--260, the second range drawn under the pre-registered extension rule, which
+111--260, the second range drawn under the pre-specified extension rule, which
 stopped at position 260. All intervals are Wilson score 95\%. Because censoring
 exceeds the pre-specified 15\% threshold, the bounding interval is the headline
 for every affected endpoint.}
@@ -1327,7 +1327,7 @@ The amended-encoding row is a re-encoding of the same four sealed files under tw
 amendments that add a missing level; it is not an independent re-rating. A
 post-hoc fifth block (positions 261--310) gives 300 screened, 114 included, 56
 unreachable (32.9\%; 26.3\%, 40.3\%) and P1 $=$ 0/114 (0.0\%; 0.0\%, 3.3\%); it
-is never pooled into the pre-registered denominator.
+is never pooled into the pre-specified denominator.
 \end{table}
 
 \begin{table}[htbp]
@@ -1444,17 +1444,17 @@ own competition performance metric, and PI-CAI's positional baseline at exactly
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig3_prisma_flow.pdf}
-\caption{\textbf{Pre-registered prevalence screen: flow and censoring.}
+\caption{\textbf{Protocol-frozen prevalence screen: flow and censoring.}
 \textbf{(A)} PRISMA 2020 flow adapted for a random-sample meta-research screen:
 a frozen \num{9979}-record PubMed frame, 250 records sampled in permutation
 order, 79 excluded at title and abstract, 171 reports sought, \textbf{44 not
 retrieved and carried into both bounding analyses rather than excluded}, 127
 assessed at full text, 36 excluded with reasons, 91 included and reachable. The
 eligible-looking denominator is $91+44=135$. \textbf{(B)} Unreachable rate per
-screened block against the pre-registered 15\% threshold: the rate does not fall
+screened block against the pre-specified 15\% threshold: the rate does not fall
 as the sample grows, which is why the reportable primary result is a bounding
 interval rather than a point estimate. The post-hoc fifth block is shown in grey
-and is never pooled into the pre-registered denominator.}
+and is never pooled into the pre-specified denominator.}
 \label{fig:prisma}
 \end{figure}
 
@@ -1484,7 +1484,7 @@ architectures. The interaction is supported; neither individual ordering is.}
 \caption{\textbf{The protocol applied to our own study, which it fails.}
 \textbf{(A)} Patient-level AUROC with 95\% subject-clustered intervals for
 magnitude, phase and both channels on the three clinical cohorts; every cohort is
-NOT SUPPORTED against criteria fixed in advance. \textbf{(B)} The background-only
+NOT SUPPORTED against the nine falsification criteria. \textbf{(B)} The background-only
 control: deleting the anatomy and training on air alone does not collapse the
 slice-level number. A diagnostic signal that survives deleting the patient is not
 a diagnostic signal.}
@@ -1502,7 +1502,7 @@ a diagnostic signal.}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig6_qualitative_phase.pdf}
-\caption{\textbf{The estimator's input on the pre-specified primary cohort
+\caption{\textbf{The estimator's input on the primary cohort
 (fastMRI Prostate, T2), for one slice of each class.} Left to right: the
 magnitude channel as fed, per-slice z-scored; phase channel 1, $\sin\varphi$;
 phase channel 2, $\cos\varphi$; and, for orientation only, the raw phase in
