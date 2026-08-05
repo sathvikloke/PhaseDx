@@ -3,7 +3,7 @@
 %  Main manuscript, Radiology: Artificial Intelligence (RSNA) format
 %  Compiles with stock Overleaf / pdfLaTeX. No shell-escape, no custom
 %  class, no exotic packages: geometry, amsmath, graphicx, array,
-%  booktabs, siunitx, caption, natbib, hyperref only.
+%  booktabs, siunitx, caption, natbib, microtype, hyperref only.
 %
 %  BIBLIOGRAPHY: refs.bib, in the same folder. Build order on Overleaf is
 %  pdfLaTeX -> BibTeX -> pdfLaTeX x2. The citation keys used here are, in
@@ -45,6 +45,10 @@
 \usepackage{siunitx}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage[numbers,sort&compress]{natbib}
+% microtype does the character protrusion and font expansion that stops
+% justified text opening up rivers of white space. Stock TeX Live, already
+% used by supplement.tex. It also removes most overfull boxes on its own.
+\usepackage{microtype}
 \usepackage[hidelinks]{hyperref}
 
 \sisetup{group-separator={,},group-minimum-digits=4,detect-weight=true}
@@ -56,44 +60,60 @@
 \setlength{\parindent}{0pt}
 \renewcommand{\arraystretch}{1.15}
 
-\title{\bfseries What a slice-level benchmark certifies\\
-without the pixels:\\[0.15em]
-a label-file audit of seven public benchmarks,\\
-and a protocol-frozen random-sample screen\\
-of how often the check is reported}
-
-\author{%
-Sathvik Loke,\thanks{Corresponding author: \texttt{sloke@imsa.edu}}\;
-Ethan Johnson,\;
-Neeraj Movva,\;
-Aditya Raut
-}
-\date{}
+% ---------------------------------------------------------------------
+%  TITLE PAGE
+%  Hand-set rather than \maketitle. \maketitle centres the author list and
+%  drops a \thanks footnote at the foot of the page, which separates an
+%  author from their affiliation by the height of the page. Journal style
+%  is superscript markers against a numbered affiliation list, so that is
+%  what this builds. Nothing here is a float, so nothing can migrate.
+% ---------------------------------------------------------------------
+\newcommand{\affmark}[1]{\textsuperscript{\normalfont #1}}
 
 \begin{document}
-\maketitle
 
-% ---------------------------------------------------------------------
+\thispagestyle{empty}
+
 \begin{center}
-\small
-\begin{tabular}{@{}l@{}}
-\textbf{Affiliations}\\[0.3em]
-Sathvik Loke, Neeraj Movva --- Illinois Mathematics and Science Academy, Aurora, Ill.\\
-Ethan Johnson --- Central High School, Springfield, Mo.\\
-Aditya Raut --- Neuqua Valley High School, Naperville, Ill.\\[0.4em]
-\textbf{E-mail} \texttt{sloke@imsa.edu}, \texttt{ethanthekek21@gmail.com},\\
-\texttt{nmovva@imsa.edu}, \texttt{aditya.sraut09@gmail.com}\\[0.4em]
-\textbf{Funding} The authors received no funding for this work.\\
-\textbf{Conflicts of interest} \todo{CONFIRM: each author must state COI or ``none''}\\
-\end{tabular}
+{\LARGE\bfseries What a slice-level benchmark certifies\\ without the pixels\par}
+\vspace{0.55em}
+{\large\bfseries A label-file audit of seven public benchmarks, and a
+protocol-frozen\\ random-sample screen of how often the check is reported\par}
+
+\vspace{1.6em}
+
+{\large Sathvik Loke\affmark{1,*}\quad Ethan Johnson\affmark{2}\quad
+Neeraj Movva\affmark{1}\quad Aditya Raut\affmark{3}\par}
 \end{center}
+
+\vspace{0.9em}
+
+{\small
+\begin{tabbing}
+\hspace{1.3em}\=\kill
+\affmark{1}\>Illinois Mathematics and Science Academy, Aurora, Illinois\\
+\affmark{2}\>Central High School, Springfield, Missouri\\
+\affmark{3}\>Neuqua Valley High School, Naperville, Illinois\\[0.5em]
+\affmark{*}\>Corresponding author: Sathvik Loke, \texttt{sloke@imsa.edu}
+\end{tabbing}
+
+\vspace{-0.4em}
+\begin{tabular}{@{}p{0.16\textwidth}@{}p{0.82\textwidth}@{}}
+\textbf{Co-authors} & \texttt{ethanthekek21@gmail.com}, \texttt{nmovva@imsa.edu},
+\texttt{aditya.sraut09@gmail.com}\\[0.35em]
+\textbf{Funding} & The authors received no funding for this work.\\[0.35em]
+\textbf{Conflicts} & \todo{CONFIRM: each author must state COI or ``none''}\\[0.35em]
+\textbf{Data} & NYU fastMRI, under its Data Sharing Agreement; all other
+sources are public. See Data and Code Availability.\\
+\end{tabular}
+}
 
 % Word counts requested at submission:
 % \todo{MISSING: final word count of manuscript body, to be inserted at submission}
 
-\vspace{0.6em}
+\vspace{1.1em}
 \hrule
-\vspace{0.8em}
+\vspace{0.9em}
 
 % =====================================================================
 % NOTE ON LENGTH: this abstract runs ~380 words and the body ~8,200 words.
@@ -229,10 +249,12 @@ field level \citep{varoquaux2022failures,roberts2021pitfalls}.
 \textbf{The central construction of this paper is prior art, and we say so
 here rather than in a discussion paragraph.} A public Kaggle notebook on the
 RSNA-STR Pulmonary Embolism Detection challenge, ``Baseline with no image''
-(October 2020), bins $P(\text{label}\mid\text{relative slice position})$ on the
+(October 2020), bins the label rate against relative slice position,
+$P(\text{label}\mid z)$, on the
 training set and applies it to the test set with no pixels, scoring 0.33 on the
-public leaderboard against 0.44 for a constant predictor \citep{osciiart2020baseline};
-that is the same construction, four years earlier. Yan et al., in the paper that
+public leaderboard against 0.44 for a constant predictor
+\citep{osciiart2020baseline}; that is the same construction, four years
+earlier. Yan et al., in the paper that
 defines the DeepLesion lesion-type task, publish a ``Baseline: Location
 feature'' row at 59.7\% eight-class accuracy against their own method's 90.5\%
 \citep{yan2018deeplesiongraphs}. And rankings of biomedical image analysis challenges are
