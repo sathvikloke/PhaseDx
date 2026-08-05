@@ -2025,7 +2025,18 @@ description on trust.
 % line runs into the folio.
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.72\textwidth]{figures/figS3_qualitative_cohorts.pdf}
+% Contains fastMRI image data; excluded from the public repository. See the
+% corresponding note in main.tex.
+\IfFileExists{figures/figS3_qualitative_cohorts.pdf}{%
+  \includegraphics[width=0.72\textwidth]{figures/figS3_qualitative_cohorts.pdf}%
+}{%
+  \fbox{\parbox{0.88\textwidth}{\vspace{1em}\centering\small
+  \textbf{Figure omitted from the public repository.}\\[0.4em]
+  This panel displays NYU fastMRI image data, which the Data Sharing Agreement
+  permits in an academic publication but not in a redistributable archive.
+  Rebuild it from the licensed cache with
+  \texttt{python paper/tex/make\_figures.py}.\vspace{1em}}}%
+}
 \caption{\textbf{The estimator's input on the four cohorts not shown in the main
 article, one slice of each class.} For each cohort, columns 1--2 are the positive class
 and columns 3--4 the negative class; within each pair, the first panel is the magnitude

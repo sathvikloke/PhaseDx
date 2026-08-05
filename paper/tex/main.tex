@@ -1508,7 +1508,21 @@ a diagnostic signal.}
 % ---------------------------------------------------------------------
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth]{figures/fig6_qualitative_phase.pdf}
+% This figure contains fastMRI image data and is therefore NOT in the public
+% git repository -- see the note above. \IfFileExists keeps the document
+% building for anyone who clones the repo without it, instead of failing with
+% "file not found" on a figure they were never permitted to receive.
+\IfFileExists{figures/fig6_qualitative_phase.pdf}{%
+  \includegraphics[width=\textwidth]{figures/fig6_qualitative_phase.pdf}%
+}{%
+  \fbox{\parbox{0.92\textwidth}{\vspace{1em}\centering\small
+  \textbf{Figure omitted from the public repository.}\\[0.4em]
+  This panel displays NYU fastMRI image data. The Data Sharing Agreement
+  permits it in an academic publication but not in a redistributable archive,
+  so the file is excluded from version control and supplied to the journal
+  separately. Rebuild it from the licensed cache with
+  \texttt{python paper/tex/make\_figures.py}.\vspace{1em}}}%
+}
 \caption{\textbf{The estimator's input on the primary cohort
 (fastMRI Prostate, T2), for one slice of each class.} Left to right: the
 magnitude channel as fed, per-slice z-scored; phase channel 1, $\sin\varphi$;
