@@ -1,0 +1,63 @@
+{
+  "title": "PhaseDx: what a slice-level benchmark certifies without the pixels — code, screening artefacts and released auditor",
+  "upload_type": "software",
+  "license": "cc-by-4.0",
+  "version": "1.1.0",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Loke, Sathvik",
+      "affiliation": "Illinois Mathematics and Science Academy, Aurora, Illinois"
+    },
+    {
+      "name": "Johnson, Ethan",
+      "affiliation": "Central High School, Springfield, Missouri"
+    },
+    {
+      "name": "Movva, Neeraj",
+      "affiliation": "Illinois Mathematics and Science Academy, Aurora, Illinois"
+    },
+    {
+      "name": "Raut, Aditya",
+      "affiliation": "Neuqua Valley High School, Naperville, Illinois"
+    }
+  ],
+  "description": "<p>Complete research compendium for a study of what a slice-level medical imaging benchmark certifies when it is read at the wrong unit. Contains the analysis pipeline, the released auditing tool <code>trivialbaselines</code>, the full pre-specified prevalence-screen package, and the manuscript source.</p><p><strong>Headline result.</strong> On RSNA 2019 Intracranial Haemorrhage (752,802 slices, 18,938 patients) a single predictor that reads no pixels &mdash; only where a slice sits in its stack &mdash; scores 0.737 (95% CI 0.735&ndash;0.740) slice-level AUROC and 0.453 (95% CI 0.445&ndash;0.461) at the patient level, an interval lying wholly below chance. All six official labels behave the same way. Against peer-reviewed comparators the median share of the published margin over chance reachable without pixels is 0.469; two benchmark-arms do not fire at all (LUNA16, &minus;0.002; PI-CAI, exactly 0.500).</p><p><strong>Screening result.</strong> In a random sample of 250 papers from a frozen 9,979-record PubMed frame, none of the 91 that could be read reported a measured zero-image baseline (0/91; 95% CI 0.0%&ndash;4.1%), and 44 (32.6%) could not be obtained, giving a bounding interval of 0.0%&ndash;32.6%. The screening protocol, codebook, frame and seeded sample were committed before any analysis-sample record was coded; the screen was not deposited with any registry and is described as protocol-frozen, not pre-registered.</p><p><strong>Negative results are included, not omitted.</strong> No rank inversion survived a within-unit noise floor (0 of 447 pairs). The project's own k-space phase case study is a null: all three clinical cohorts are NOT SUPPORTED, training on the air outside the body scores within 0.025&ndash;0.037 of training on anatomy, and phase predicts the receive-coil configuration at 0.979. The falsification criteria for that case study were amended while it ran, which is disclosed in the manuscript and documented in the supplement.</p><p><strong>No imaging data is included.</strong> The MRI cohorts are NYU fastMRI releases held under a data sharing agreement that permits use in academic publications but not redistribution. Derived image figures are excluded from this archive for the same reason, and the manuscript sources are written to build without them.</p>",
+  "keywords": [
+    "medical imaging",
+    "benchmark auditing",
+    "shortcut learning",
+    "data leakage",
+    "evaluation methodology",
+    "null model",
+    "reproducibility",
+    "meta-research",
+    "AUROC",
+    "slice-level evaluation",
+    "MRI",
+    "k-space"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/sathvikloke/PhaseDx",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.1148/ryai.2020190007",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1148/ryai.240345",
+      "relation": "cites",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.1038/s41746-019-0105-1",
+      "relation": "cites",
+      "scheme": "doi"
+    }
+  ],
+  "access_right": "open"
+}

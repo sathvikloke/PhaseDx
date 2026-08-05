@@ -312,4 +312,4 @@ repository for the evaluation protocol these baselines are meant to support.
 
 ## License
 
-MIT. See `LICENSE`.
+CC BY 4.0. See `LICENSE`.

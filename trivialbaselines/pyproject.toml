@@ -7,7 +7,7 @@ name = "trivialbaselines"
 version = "1.0.0"
 description = "Zero-image null models for slice-labelled medical imaging benchmarks: audit a published benchmark from its label file alone."
 readme = "README.md"
-license = { text = "MIT" }
+license = { text = "CC-BY-4.0" }
 requires-python = ">=3.10"
 keywords = [
     "medical-imaging", "benchmark", "shortcut-learning", "leakage",
@@ -16,7 +16,6 @@ keywords = [
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",

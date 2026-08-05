@@ -1,7 +1,7 @@
 {
   "title": "trivialbaselines: zero-image null models for slice-labelled medical imaging benchmarks",
   "upload_type": "software",
-  "license": "MIT",
+  "license": "cc-by-4.0",
   "version": "1.0.0",
   "language": "eng",
   "creators": [
