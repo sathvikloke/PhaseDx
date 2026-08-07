@@ -847,8 +847,14 @@
 
 % ---------------------------------------------------------------------
 % 8. THIS WORK'S OWN RELEASE
-%    A DOI must be minted (Zenodo) and inserted here before submission;
-%    CITATION.cff and .zenodo.json currently carry no DOI field.
+%    The DOI was minted on 2026-08-06 and is recorded in the note below.
+%    Do NOT add a bare `doi = {...}' field: unsrtnat drops `doi' on misc
+%    entries, so it would look applied and render nothing. Never write an
+%    at-sign in a comment in this file -- BibTeX scans for it and starts
+%    parsing an entry, which is exactly how this line broke the build once.
+%    The identifier belongs to
+%    the PhaseDx compendium record, which archives this package; the tool
+%    has no separate DOI of its own.
 % ---------------------------------------------------------------------
 
 @misc{trivialbaselines2026,
@@ -860,10 +866,11 @@
   year         = {2026},
   url          = {https://github.com/sathvikloke/PhaseDx/tree/main/trivialbaselines},
   urldate      = {2026-07-30},
-  note         = {MIT licence; released 2026-07-29. Metadata transcribed
-                  from \texttt{trivialbaselines/CITATION.cff}. NO archival
-                  DOI has been minted yet -- insert the Zenodo {DOI} here
-                  before submission}
+  note         = {{CC BY} 4.0; released 2026-07-29. Metadata transcribed
+                  from \texttt{trivialbaselines/CITATION.cff}. Archived
+                  within the project compendium record, concept {DOI}
+                  10.5281/zenodo.21814952 (version at submission
+                  10.5281/zenodo.21814953)}
 }
 
 
