@@ -36,7 +36,7 @@ Status key: **OK** = done and verified · **ACTION** = a human must do something
 | Cover Letter | `cover_letter.tex` → 4 pp | **ACTION** — 3 `TO SUPPLY` markers |
 | Full Title Page | `titlepage.tex` → 3 pp | **ACTION** — 11 `TO SUPPLY` markers |
 | Checklist (CLAIM / STARD / CONSORT / PRISMA / STROBE) | — | **ACTION** — not written |
-| Figures, combined into **one** document, each legend immediately after its figure | `figures.tex` → 2 pp | **OK** |
+| Figures, combined into **one** document, each legend immediately after its figure | `figures.tex` → 3 pp | **OK** |
 | Supplemental Materials | — | none submitted; optional |
 
 ### Uploaded as one single document — `main.tex` → 21 pp
@@ -63,10 +63,10 @@ All from the Original Research block **[AI]**.
 
 | Limit | Requirement | Measured | Status |
 |---|---|---|---|
-| Word count, Introduction→Discussion | ≤ 3,000 | **2,902** (see §3) | OK |
+| Word count, Introduction→Discussion | ≤ 3,000 | **2,904** (see §3) | OK |
 | Abstract | ≤ 250 words, structured, exactly 4 sections | 246 / 253 (see §3); sections correct | **ACTION** |
 | References | ≤ 35 | **25** | OK |
-| Figures (images, charts, graphs) | ≤ 6 | **2** | OK |
+| Figures (images, charts, graphs) | ≤ 6 | **3** | OK |
 | Tables | ≤ 4 | **4** — at the cap | OK |
 | Key Points | ≤ 3 | **3** | OK |
 | Summary Statement | ≤ 255 characters | **228**, one sentence | OK |
@@ -79,10 +79,23 @@ All from the Original Research block **[AI]**.
 
 **Body — RESOLVED 2026-08-11.** Counting whitespace-separated tokens in the text
 extracted from the compiled PDF, Introduction through end of Discussion is now
-**2,902 words** against the 3,000 limit. Excluding standalone bracketed citation
-markers gives 2,901. Section totals: Introduction 383 · Materials and Methods
-730 · Results 1,007 · Discussion 782, against indicative budgets of
+**2,904 words** against the 3,000 limit. Excluding standalone bracketed citation
+markers gives 2,903. Section totals: Introduction 383 · Materials and Methods
+730 · Results 1,009 · Discussion 782, against indicative budgets of
 400/800/1000/800.
+
+**What the third figure cost.** Adding the new two-unit scatter cost exactly two
+words: the callout in Results went from `(Table 3)` to `(Table 3, Fig 2)`,
+taking the body from 2,902 to 2,904. The legend cost nothing, because Figure
+Legends is its own section after the References and sits outside the
+Introduction→Discussion span the limit applies to. Nothing was cut to pay for
+it; 96 words of headroom remain.
+
+The new figure is **Figure 2**, not Figure 3, because figures must be numbered
+in order of first citation and Results reaches the two-unit reading of the other
+benchmark-arms before it reaches the trivial fraction. The trivial-fraction
+figure is therefore Figure 3 here, while the full manuscript calls the same
+image Figure 2; the file was renamed to match, not rebuilt.
 
 Sixty-one tokens were cut, in this order: the Introduction's second paragraph
 (the most review-like stretch) was compressed without dropping a citation or a
@@ -220,7 +233,7 @@ The nine items **[AI]** requires, in the order it lists them:
       **ACTION**: telephone not on record
 - [x] Funding information — none, stated exhaustively
 - [x] Manuscript Type — Original Research
-- [x] Word Count for Text — 2,902, recorded on the Full Title Page; see §3
+- [x] Word Count for Text — 2,904, recorded on the Full Title Page; see §3
 - [~] Unanonymized acknowledgments — **ACTION**: the language-model tool list needs
       names, versions, manufacturer and dates; anyone else acknowledged must send
       written permission, because being named signals agreement with the data and
@@ -407,7 +420,8 @@ ours, any file path, and any reference to the excluded arm of the larger study.
 | `cover_letter.tex` | Cover letter to the Editor. Not anonymized. Separate upload. |
 | `figures.tex` | Combined figure document. Separate upload. |
 | `figures/fig1_collapse.pdf` | Figure 1. Copied unchanged from the full manuscript. |
-| `figures/fig2_trivial_fraction.pdf` | Figure 2. Copied unchanged. |
+| `figures/fig2_unit_scatter.pdf` | Figure 2. Built for this submission by `make_rsna_figures.py`. |
+| `figures/fig3_trivial_fraction.pdf` | Figure 3. Copied unchanged (the full manuscript's Figure 2), renamed to match its number here. |
 | `refs.bib` | 25 entries, all cited, all present in the parent bibliography. |
 | `checklist.md` | This file. Not submitted. |
 | `README.md` | What was cut from the full manuscript and why. Not submitted. |

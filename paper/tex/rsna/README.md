@@ -21,8 +21,10 @@ needed for a *Patterns* submission and for co-author outreach.
 | `main.tex` | The **single submission document**, in the order the journal requires: Abbreviated Title Page (anonymised) → Abstract → Main Body → Acknowledgments → References → Figure Legends → Tables (one per page). |
 | `figures.tex` | The **separate figure document**. New submissions must combine all figures into one document with each legend immediately following its figure. |
 | `refs.bib` | 25 entries — only those cited by `main.tex`. Trimmed from the full `refs.bib`; the tool/archive entry was **deleted**, because it names the authors. |
-| `figures/fig1_collapse.pdf` | Copied unchanged from `paper/tex/figures/`. Contains no identifying text. |
-| `figures/fig2_trivial_fraction.pdf` | Copied unchanged from `paper/tex/figures/`. Contains no identifying text. |
+| `figures/fig1_collapse.pdf` | **Figure 1.** Copied unchanged from `paper/tex/figures/`. Contains no identifying text. |
+| `figures/fig2_unit_scatter.pdf` | **Figure 2.** Built for this submission by `make_rsna_figures.py`, from the same artefacts as Table 3. Contains no identifying text. |
+| `figures/fig3_trivial_fraction.pdf` | **Figure 3.** Copied unchanged from `paper/tex/figures/fig2_trivial_fraction.pdf` and renamed to match its number here. Contains no identifying text. |
+| `make_rsna_figures.py` | Builds Figure 2 from the stage-14 artefacts and prints a source ledger. Not submitted. |
 
 Build with `tectonic main.tex` and `tectonic figures.tex` (compile in a scratch
 directory; there is no `pdflatex` on this machine). Both compile clean — no overfull
@@ -47,12 +49,12 @@ boxes, no undefined references.
 
 | Requirement | Limit | This manuscript |
 |---|---|---|
-| Body, Introduction → Discussion | ≤ 3000 words | **2902** (2901 excluding standalone citation brackets) |
+| Body, Introduction → Discussion | ≤ 3000 words | **2904** (2903 excluding standalone citation brackets) |
 | Structured abstract | ≤ 250 words, exactly four sections | **249**, Purpose / Materials and Methods / Results / Conclusion |
 | Summary Statement | ≤ 255 characters, one sentence, no abbreviations | **228 characters** |
 | Key Points | ≤ 3 | 3 |
 | References | ≤ 35 | 25 |
-| Figures | ≤ 6 | 2 |
+| Figures | ≤ 6 | 3 |
 | Tables | ≤ 4 | 4 |
 | Abbreviations | ≤ 10 | 5 (AUC, CI, DWI, ICH, IQR) |
 | Title | no stated limit; journal median 13 words, Q3 15 | 15 words, colon structure (used by ~half of the journal's titles) |
@@ -136,7 +138,9 @@ paragraph in Materials and Methods (¶6c), and citations to Knoll et al and Zbon
   the general point that a benchmark can leave its slice unlocatable survives, attached to
   the RSNA ICH slice-ordering recovery.
 - The PRISMA flow figure, the rank-inversion figure, the case-study figure, and the
-  qualitative-input figure. Two figures remain.
+  qualitative-input figure. Two of the full manuscript's figures were kept, and one new
+  figure (Figure 2, the two-unit scatter over every audited benchmark-arm) was built for
+  this submission because that claim was otherwise carried by a table alone.
 - Per-benchmark detail on `--self-test`, the JSON payload format, the dependency argument,
   and the IRB paragraph's longer form.
 
