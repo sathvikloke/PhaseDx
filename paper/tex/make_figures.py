@@ -81,6 +81,13 @@ CACHE = REPO / "pipeline_out" / "cache"
 _SOURCES: list[str] = []
 
 
+# The full manuscript writes AUROC; the RSNA submission writes AUC. Both build
+# from this script, so the metric word is a variable rather than a literal.
+# Set PHASEDX_METRIC_WORD=AUC to rebuild the shared figures for that package.
+import os as _os
+METRIC = _os.environ.get("PHASEDX_METRIC_WORD", "AUROC")
+
+
 def _ledger(panel: str, relpath: str) -> None:
     line = f"  {panel:<34s} <- {relpath}"
     print(line)
@@ -342,7 +349,7 @@ def fig1():
     axA.set_xticks(x)
     axA.set_xticklabels([LABEL_PRETTY[k] for k in LABEL_ORDER],
                         rotation=32, ha="right")
-    axA.set_ylabel("AUROC of the zero-image positional baseline")
+    axA.set_ylabel(f"{METRIC} of the zero-image positional baseline")
     axA.set_ylim(0.39, 0.90)
     axA.set_xlim(-0.6, n - 0.35)
     axA.set_title(
@@ -446,7 +453,7 @@ def fig2():
     ax.plot([picai_pos_tf, picai_row["trivial_fraction"]], [ypic, ypic],
             color=BLACK, lw=0.6, ls=(0, (2, 2)), zorder=2)
     ax.annotate(
-        f"positional baseline alone: AUROC exactly {picai_pos_auc:.3f}",
+        f"positional baseline alone: {METRIC} exactly {picai_pos_auc:.3f}",
         xy=(picai_pos_tf, ypic), xytext=(picai_pos_tf + 0.05, ypic - 0.55),
         fontsize=6.2, color=BLACK, ha="left", va="center",
         arrowprops=dict(arrowstyle="-", color=BLACK, lw=0.6,

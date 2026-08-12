@@ -308,9 +308,9 @@ This is an estimation study: no significance test was pre-specified and no $P$
 values are reported. Every AUC carries a 95\% percentile bootstrap CI resampling
 subjects, with replicate count and seed recorded per run and degenerate
 replicates counted rather than dropped; one reported range is instead a
-split-to-split spread and is labeled as such. Analyses used Python 3.11 (Python Software
-Foundation, Wilmington, Del) with NumPy 1.26 and pandas 2.1, and, for the
-independent reimplementation only, scikit-learn 1.4.
+split-to-split spread and is labeled as such. Analyses used Python 3.14 (Python
+Software Foundation, Wilmington, Del) with NumPy 2.4 and pandas 3.0, and, for
+the reimplementation only, scikit-learn 1.8.
 
 \section*{Results}
 
@@ -337,7 +337,7 @@ constant predictor is a measured floor rather than 0.500 once folds are pooled,
 at 0.492 per slice (Table 1). The naive slice-resampled interval is 1.51--1.99
 times too narrow across these six rows and undercovers in simulation (Fig 1B).
 
-The two full-cohort routes, one an independent reimplementation sharing no code
+The two full-cohort routes, one a second implementation sharing no code
 with the audit tool, agree to 0.003 AUC at both units; all four span
 0.008 (Table 2). Three further checks, given with Table 1, show that the
 slice-level reading is not a binning artifact, that the null model is not
@@ -522,7 +522,7 @@ section on acceptance, where naming them no longer risks identifying the
 authors.
 
 \textbf{Data and code availability.} The audit tool, the per-benchmark output
-payloads, the label-table preparation scripts, the independent reimplementation
+payloads, the label-table preparation scripts, the second implementation
 of the intracranial hemorrhage unit-collapse computation, and the assembler
 that builds the trivial-fraction table are released under a Creative Commons
 Attribution licence in a public repository and archived with a persistent
@@ -740,7 +740,7 @@ replicate count here supports. The subsample row of the independent
 implementation was recomputed at 2000 replicates for this table; its point
 estimates are unchanged and its earlier recorded interval, (0.420, 0.486), came
 from 100 replicates. The
-independent implementation shares no code with the audit tool: its own fold
+second implementation shares no code with the audit tool: its own fold
 assignment and seed, its own binning, its own AUC routine, its own clustered
 bootstrap.
 
