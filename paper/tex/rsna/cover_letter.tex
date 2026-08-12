@@ -1,0 +1,250 @@
+% =====================================================================
+%  COVER LETTER -- Radiology: Artificial Intelligence, Original Research
+%
+%  Separate upload. Not anonymized: the cover letter goes to the editor,
+%  not to reviewers, so it may name the authors, the institution and the
+%  public archive that the manuscript file must not name.
+%
+%  The journal's required cover-letter items (Cover Letter section of the
+%  author instructions, retrieved 2026-08-11) are all present:
+%    - title of the manuscript
+%    - complete author list
+%    - description of any subject overlap with previously published works
+%    - description of any conflict of interest or industry support
+%    - confirmation of sole submission
+%  Three further items are required by the Editorial Policies page:
+%    - a statement of which authors had control of the data and performed
+%      the analyses (Conflicts of Interest)
+%    - disclosure of prior posting, with DOI and licensing terms
+%      (Preprint Servers)
+%    - disclosure of how language-model tools were used, in the cover
+%      letter as well as the manuscript (Large Language Models)
+%
+%  Fill the two \todo{} fields before sending. Build: tectonic cover_letter.tex
+% =====================================================================
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{empty}
+\setlength{\emergencystretch}{2em}
+
+\newcommand{\todo}[1]{\textbf{[TO SUPPLY: #1]}}
+
+\begin{document}
+
+\noindent
+Sathvik Loke\\
+Illinois Mathematics and Science Academy\\
+1500 Sullivan Road, Aurora, IL 60506, USA\\
+\texttt{sloke@imsa.edu}
+
+\vspace{1.0em}
+\noindent \todo{submission date}
+
+\vspace{1.0em}
+\noindent
+The Editor\\
+\emph{Radiology: Artificial Intelligence}\\
+Radiological Society of North America
+
+\vspace{1.0em}
+\noindent Dear Editor,
+
+We submit for consideration as Original Research: \textbf{``What a Slice-Level
+Benchmark Certifies without the Pixels: An Audit of Seven Public Imaging
+Datasets,''} by Sathvik Loke, Ethan Johnson, Neeraj Movva and Aditya Raut.
+
+The paper measures how much of a published slice-level result on a public
+volumetric imaging benchmark can be reached from that benchmark's own label
+file, with no images. Three disclosures come first, because you should have
+them before you read anything else.
+
+\subsection*{1. A longer version of this work is already public, and we cannot
+withdraw it}
+
+Before preparing this submission we deposited a research compendium on Zenodo:
+concept DOI \texttt{10.5281/zenodo.21814952}, version of record at the time of
+writing \texttt{10.5281/zenodo.21814953}, licensed CC~BY~4.0. It contains the
+analysis code, the per-benchmark outputs, and the source of a longer manuscript
+that includes the results reported here. It is publicly indexed and citable.
+Zenodo deposits cannot be unpublished, so we are disclosing it rather than
+offering to remove it.
+
+We recognize this may affect your assessment of prior publication, and we would
+rather you decide that with the record in front of you. Two points that bear on
+it. The deposit is an archive of code and data with the manuscript source
+included, not a submission to another journal or a posting on a manuscript
+preprint server; it has not been submitted anywhere. And the longer manuscript
+in it is a different document from this one: it is roughly three times the
+length, is organized around a different set of results, and is not the paper we
+are asking you to review. We will send you the full deposit, or any part of it,
+on request.
+
+If the paper is accepted we will update the Zenodo record with the publication
+reference, DOI and a link to the published article, as the policy requires.
+
+\subsection*{2. This submission is one part of a larger study, and the other
+parts are not in it}
+
+The work reported here is drawn from a larger project. The other components of
+that project are in separate preparation and are deliberately not reported,
+cited or relied on anywhere in this manuscript; no claim made here rests on
+any of them. One of those components is being substantially reworked, and we
+took the view that a paper should not carry material we are still revising.
+
+We mention this because the Zenodo deposit described above is broader than
+this submission, so material that this manuscript does not report is
+nevertheless visible in the archive. We would rather you hear that from us. If
+any of it becomes relevant to your assessment, we will supply it and explain
+its status.
+
+\subsection*{3. The central construction is prior art, and it is not ours}
+
+Fitting a model to a slice's position in its stack, with no image data, and
+comparing it with a published slice-level number, has been done before. The
+manuscript says so in its Introduction rather than in a late paragraph of the
+Discussion.
+
+\begin{itemize}\setlength{\itemsep}{0.2em}
+\item A public Kaggle notebook, ``Baseline with no image'' (RSNA-STR Pulmonary
+Embolism Detection, October 2020), bins the label rate against relative slice
+position on the training set and applies it to the test set with no pixels.
+That is the same construction, six years ago.
+\item Yan et al (CVPR 2018), in the paper defining the DeepLesion lesion-type
+task, report a ``Baseline: Location feature'' row at 59.7\% against their own
+method's 90.5\%. A location-only baseline on that benchmark is theirs.
+\item Badgeley et al (\emph{npj Digital Medicine} 2019) showed hip-fracture
+performance collapsing to AUC 0.52 on a confounder-balanced test set.
+\item Yagis et al (2021) and Tampu et al (2022) measured the inflation caused
+by slice-level evaluation.
+\end{itemize}
+
+What we add is narrower than the construction, and we would rather state it
+narrowly than have a reviewer find the boundary for us:
+
+\begin{itemize}\setlength{\itemsep}{0.2em}
+\item \textbf{A result that needs no published comparator.} On the RSNA 2019
+Intracranial Hemorrhage benchmark, one pixel-blind score vector reads AUC 0.737
+(95\% CI: 0.735, 0.740) per slice and 0.453 (95\% CI: 0.445, 0.461) per
+patient, on all six official labels. The comparison is between two readings of
+the same score vector, so it does not depend on any published number being
+correct. Four independent routes, one an independent reimplementation sharing
+no code, agree to 0.003.
+\item \textbf{A measurement under a correct split.} The existing literature on
+the evaluation unit measures the cost of a \emph{wrong}, leaky split. Every
+value here was obtained under a patient-disjoint one, with intervals that
+resample subjects rather than slices.
+\item \textbf{A distribution rather than a verdict.} Against peer-reviewed
+comparators, the median share of the published margin over chance reachable
+with no pixels is 0.469 (IQR: 0.437, 0.490; $n=9$ benchmark-arms).
+\end{itemize}
+
+That last number also bounds what we may claim, and the Discussion says so: a
+median near one half is not a demonstration that published slice-level results
+are accounted for by trivial baselines. One of the nine arms returns
+$-0.002$ --- none of the margin --- and is reported at the same prominence as
+the rest. No peer-reviewed comparison in the paper is matched; the only rows
+reaching parity have a preprint comparator and are labeled as such wherever
+they appear. Every claim is about an evaluation protocol. We make no claim
+about what any published model learned, which no analysis of a label file could
+support.
+
+\subsection*{Subject overlap}
+
+None of the authors has previously published on any patient, animal or
+experiment reported here, and none of us has related work under review or in
+press.
+
+The patients themselves have all been reported before, and necessarily so: this
+is a retrospective secondary analysis of public label files, so every subject
+was first reported by the group that released the benchmark, and many were
+reported again by the comparator papers whose published numbers we use as
+denominators. Those releases and comparator papers are cited in Materials and
+Methods and in Results. No new patient data were collected, no identifiable
+information was used, and no pixel data were downloaded.
+
+\subsection*{One point where the journal's requirements pull against each other}
+
+The Algorithm and Code Transparency policy asks that Materials and Methods
+carry a link to the code and the unique identifier of the revision used.
+Double-anonymized review forbids exactly that, because our repository and
+archive name us. We resolved it by stating in Materials and Methods that the
+tool is released under a Creative Commons license with the address and revision
+withheld for review and supplied on acceptance. The archive is already public
+and the identifiers are in section~1 above, so you have them now; tell us if
+you would prefer them written into the manuscript instead, and we will do that.
+
+\subsection*{Declarations}
+
+\textbf{Sole submission.} This manuscript is submitted only to
+\emph{Radiology: Artificial Intelligence}. It is not under consideration at any
+other journal and will not be submitted elsewhere while it is under
+consideration here.
+
+\textbf{Conflicts of interest and industry support.} All four authors declare
+no conflicts of interest. The study received no funding, no industry support,
+no equipment, no compute donation and no in-kind support of any kind. No author
+has any affiliation with, or financial interest in, any organization that
+produced or maintains a benchmark audited here, or whose published results are
+used as comparators. Each author will submit a completed ICMJE disclosure form.
+
+\textbf{Control of the data and the analyses.} S.L. had full control of all
+data used in the study and of the information submitted for publication. S.L.
+performed the primary analyses. \todo{name the author who wrote the independent
+reimplementation reported in Table 2, and any other author who performed
+analyses; if S.L. wrote it as well, say so plainly, because an independent
+reimplementation by the same person is a weaker check and the editor should be
+able to see that}. All authors reviewed the reported values against the
+analysis code's own output and take responsibility for them.
+
+\textbf{Use of large language models.} We state this fully, because the policy
+asks about study use and not only about writing, and because the honest answer
+is broader than the usual disclosure.
+
+Large language model assistance was used in two ways: in drafting and editing
+this manuscript, and in writing the analysis code that produces every number in
+the Results. The tool was \textbf{Claude (Opus 5), Anthropic}, accessed
+2026-07-27 to \todo{final date of access}.
+
+No value reported in the paper was generated by a language model. Every number
+is a deterministic output of the released code, run on a published label file,
+and the flagship estimate was reproduced by an independent reimplementation
+written separately from the primary implementation; the two agree to 0.003
+AUROC at both the slice and the patient level. We consider that reproduction,
+rather than any assurance about provenance, to be the thing that should
+persuade a reviewer, and the code is released so that the check can be repeated
+without us.
+
+The authors have read, verified against the released artefacts, and take full
+responsibility for every claim in the manuscript.
+
+\textbf{Checklist.} A CLAIM checklist is uploaded with this submission. The
+study audits an evaluation protocol rather than developing a diagnostic model,
+so a number of CLAIM items concern steps that were not performed and are marked
+not applicable, each with a reason. If you would prefer STROBE for a study of
+this shape, we will complete and send it.
+
+\subsection*{Reviewers}
+
+Reviewers with expertise in benchmark and challenge design, in meta-research
+and reporting standards, or in neuroradiology and head CT triage would be well
+placed to assess this work. We request no exclusions.
+
+Thank you for considering the manuscript.
+
+\vspace{1.2em}
+\noindent Yours sincerely,
+
+\vspace{2.2em}
+\noindent
+Sathvik Loke\\
+on behalf of Sathvik Loke, Ethan Johnson, Neeraj Movva and Aditya Raut
+
+\end{document}

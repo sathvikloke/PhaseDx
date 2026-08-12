@@ -1,0 +1,231 @@
+% =====================================================================
+%  FULL TITLE PAGE -- NOT ANONYMIZED, NOT PART OF THE MANUSCRIPT FILE
+%
+%  Radiology: Artificial Intelligence requires this as a SEPARATE upload.
+%  It must never be merged into main.tex: main.tex is the anonymized
+%  document that reviewers see, and this file names the authors.
+%
+%  The item list below is taken verbatim from the journal's "Full Title
+%  Page" section (pubs.rsna.org/page/ai/author-instructions, retrieved
+%  2026-08-11). Every required item has its own block, in the order the
+%  journal lists them, so an editor can tick them off:
+%    1. Title
+%    2. Authors: first and last names, middle initials, academic degrees,
+%       institutions, affiliations by superscript number in author order
+%    3. Name and street address of the institution where the work originated
+%    4. Corresponding author: telephone, e-mail, complete postal address
+%    5. Funding
+%    6. Manuscript type
+%    7. Word count for text
+%    8. Unanonymized acknowledgments
+%    9. Data sharing statement
+%  Conflicts of interest are added because the Editorial Policies page
+%  requires each author to declare them.
+%
+%  ANYTHING THE REPOSITORY DOES NOT ESTABLISH IS MARKED \todo{} AND IS
+%  DELIBERATELY NOT FILLED IN. Middle initials, telephone numbers, ORCID
+%  iDs and the dates on which language-model tools were used are not
+%  recorded anywhere in this project, and inventing them would be worse
+%  than leaving them visible. Search this file for "TO SUPPLY" before
+%  uploading; the document prints a warning while any remain.
+%
+%  Build: tectonic titlepage.tex
+% =====================================================================
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlength{\emergencystretch}{2em}
+
+% Unmissable marker for anything not established by a project artifact.
+\newcommand{\todo}[1]{\textbf{[TO SUPPLY: #1]}}
+\newcommand{\affmark}[1]{\textsuperscript{\normalfont #1}}
+\newcommand{\block}[1]{\vspace{0.5em}\textbf{#1}\par}
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries Full Title Page\par}
+{\small\itshape Not anonymized. Uploaded as a separate file; not part of the
+manuscript document.\par}
+\end{center}
+
+\hrule
+\vspace{0.6em}
+
+% ---------------------------------------------------------------- 1. TITLE
+\block{Title}
+
+What a Slice-Level Benchmark Certifies without the Pixels: An Audit of Seven
+Public Imaging Datasets
+
+% -------------------------------------------------------------- 2. AUTHORS
+\block{Authors}
+
+Sathvik \todo{middle initial, or confirm none} Loke\affmark{1}\quad
+Ethan \todo{middle initial, or confirm none} Johnson\affmark{2}\quad
+Neeraj \todo{middle initial, or confirm none} Movva\affmark{1}\quad
+Aditya \todo{middle initial, or confirm none} Raut\affmark{3}
+
+\vspace{0.3em}
+{\small The journal asks for academic degrees after each name. No author holds
+a completed academic degree; all four are secondary-school students. The
+degree field is therefore left empty rather than filled with a credential
+nobody holds. \todo{confirm this is acceptable to the editorial office, or
+supply degrees if any author has since completed one}}
+
+\vspace{0.4em}
+\begin{tabular}{@{}p{0.03\textwidth}p{0.93\textwidth}@{}}
+\affmark{1} & Illinois Mathematics and Science Academy, 1500 Sullivan Road,
+Aurora, IL 60506, USA\\[0.25em]
+\affmark{2} & Central High School, Springfield, MO, USA\\[0.25em]
+\affmark{3} & Neuqua Valley High School, Naperville, IL, USA\\
+\end{tabular}
+
+\vspace{0.3em}
+{\small Author order is the order of the superscripts. There is one first
+author and one corresponding author; no dual first authorship is requested.
+ORCID iDs: \todo{ORCID iD for each author --- the submitting author's
+ScholarOne account must be linked to an ORCID iD, and all authors of accepted
+manuscripts must link theirs}}
+
+% ------------------------------------------------- 3. ORIGINATING INSTITUTION
+\block{Institution from which the work originated}
+
+Illinois Mathematics and Science Academy, 1500 Sullivan Road, Aurora, IL 60506,
+USA.
+
+\vspace{0.2em}
+{\small The analysis used publicly released label files and the authors' own
+computers. No institutional imaging archive, clinical system or institutional
+funding was involved, and the work was not performed under a departmental
+research program.}
+
+% -------------------------------------------------- 4. CORRESPONDING AUTHOR
+\block{Corresponding author}
+
+\begin{tabular}{@{}p{0.22\textwidth}p{0.74\textwidth}@{}}
+Name & Sathvik Loke\\[0.25em]
+Address & Illinois Mathematics and Science Academy,\newline
+1500 Sullivan Road, Aurora, IL 60506, USA\\[0.25em]
+E-mail & \texttt{sloke@imsa.edu}\\[0.25em]
+Telephone & \todo{telephone number, with country code}\\
+\end{tabular}
+
+\vspace{0.2em}
+{\small One corresponding author is designated, as the journal requires. The
+journal does not permit multiple corresponding authors.}
+
+% -------------------------------------------------------------- 5. FUNDING
+\block{Funding}
+
+The authors received no funding for this work. No grant, fellowship, award,
+institutional allocation, industry contract, equipment loan, compute donation
+or in-kind support of any kind was received by any author for any part of it.
+
+% ------------------------------------------------------- 6. MANUSCRIPT TYPE
+\block{Manuscript type}
+
+Original Research.
+
+% --------------------------------------------------------- 7. WORD COUNT
+\block{Word count for text}
+
+Introduction through Discussion: 2{,}928 (limit 3{,}000). Measured on the
+compiled PDF under the strictest convention, counting section headings and
+bracketed citation markers; excluding every bracketed citation marker the count
+is 2{,}897, and excluding section headings as well, 2{,}855. Recount if the
+text is edited again before upload.
+
+\vspace{0.2em}
+{\small Structured abstract: 249 words including the four section headings, 243
+excluding them (limit 250). Summary statement: 243 characters (limit 255), one
+sentence, no abbreviations. Key points: 3 (limit 3). References: 25 (limit 35).
+Figures: 2 (limit 6). Tables: 4 (limit 4). Abbreviations: 5 (limit 10).}
+
+% ------------------------------------------- 8. UNANONYMIZED ACKNOWLEDGMENTS
+\block{Acknowledgments (unanonymized)}
+
+\emph{Use of large language models.} Large language model assistance was used
+in drafting and editing the text of this manuscript. No result, no number and
+no analysis reported in the manuscript was produced by a large language model:
+every value in the Results is emitted by the released audit code from a
+published label file, and each was re-read from the code's own output before
+submission. Tools used, with version, manufacturer and dates of access:
+\todo{name, version, manufacturer/creator and dates of access for every
+language-model tool used in drafting, editing or any part of the study. The
+journal requires these specifics in both the cover letter and the manuscript.
+Do not submit until this list is complete and accurate, and make sure it
+matches the list in the cover letter word for word}
+
+\vspace{0.3em}
+\emph{Other acknowledgments.} \todo{name anyone who contributed substantially
+but does not meet all four ICMJE authorship criteria --- for example anyone
+who reviewed the interval methods, or commented on a draft --- or write
+``None.'' if there is nobody. Everyone named here must send written permission
+to be acknowledged, because being named signals agreement with the data and
+conclusions. If there is nobody to name, say so explicitly rather than
+deleting this block}
+
+% --------------------------------------------------- 9. DATA SHARING STATEMENT
+\block{Data sharing statement}
+
+Data generated by the authors or analyzed during the study are available at:
+\url{https://doi.org/10.5281/zenodo.21814952} (concept DOI, resolving to the
+most recent version; the version archived at the time of submission is
+\texttt{10.5281/zenodo.21814953}), released under a Creative Commons
+Attribution 4.0 International license.
+
+\vspace{0.3em}
+{\small The first sentence above is one of the five statements the journal
+requires verbatim. What follows describes the restrictions on reuse, as the
+policy also asks.
+
+The archive contains the audit code, the per-benchmark output payloads, the
+label-table preparation scripts, an independent reimplementation of the
+intracranial hemorrhage unit-collapse computation, and the assembler that
+builds the trivial-fraction table. It does not contain, and cannot contain,
+any benchmark's pixel data. It also holds material from other parts of the
+larger study that this submission does not report; see the cover letter.
+
+The label files analyzed here were generated by third parties, not by the
+authors, and each carries its own terms. Six of the seven benchmarks are
+public releases obtained under their own published terms. The worked-example
+label files are NYU fastMRI releases, available by application to the NYU
+fastMRI Initiative (\url{https://fastmri.med.nyu.edu}) under a data sharing
+agreement that permits use in academic publications but forbids onward
+distribution of the dataset or of files derived from it; those files are
+therefore not redistributed in the archive, and the code that regenerates
+every reported value from a reader's own authorized copy is released instead.
+No participant-level data of any kind were held by the authors: the public
+label files do not carry age or sex, which is why neither is reported.}
+
+% ------------------------------------------------------- CONFLICTS OF INTEREST
+\block{Conflicts of interest}
+
+All four authors declare no conflicts of interest. No author has a financial
+interest in the subject matter of this manuscript, and no author has any
+affiliation with, or financial involvement in, any organization with a
+financial interest in it. No author holds any position, fiduciary or
+otherwise, with any organization that produced, funds, distributes or
+maintains any of the benchmarks audited here, or with any organization whose
+published results are used as comparators. Each author will submit a completed
+ICMJE Disclosure of Potential Conflicts of Interest Form.
+
+\vspace{1.2em}
+\hrule
+\vspace{0.5em}
+{\small\itshape Before uploading: search this file for ``TO SUPPLY''. Nothing
+in this project's records establishes those fields, so they have been left
+visible rather than guessed.}
+
+\end{document}

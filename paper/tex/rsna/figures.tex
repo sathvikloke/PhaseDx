@@ -1,0 +1,66 @@
+% =====================================================================
+%  FIGURE DOCUMENT -- submitted as its own file, separate from main.tex.
+%  The journal asks that new submissions combine all figures into one
+%  document, with each legend immediately following its figure.
+%  Legends here are identical to the "Figure Legends" section of main.tex.
+%
+%  Both figures are anonymous: no institution, no repository, no filenames
+%  that identify the authors.
+%
+%  Build: tectonic figures.tex
+% =====================================================================
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{siunitx}
+
+\sisetup{group-separator={,},group-minimum-digits=4}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+
+\begin{document}
+
+\begin{center}
+\includegraphics[width=\textwidth]{figures/fig1_collapse.pdf}
+\end{center}
+
+\textbf{Figure 1.} One pixel-blind score vector, read at two units, on the RSNA
+2019 Intracranial Hemorrhage benchmark (\num{752802} slices, \num{21744}
+series, \num{18938} patients). \textbf{(A)} Slice-level area under the receiver
+operating characteristic curve (AUC) joined to patient-level AUC for each of
+the six official labels, with 95\% subject-clustered bootstrap intervals and
+the within-series label permutation null at the patient unit. Nothing changes
+between the two readings of a pair except the unit at which the ranking is
+performed; every patient-level point estimate lies below chance, and four of
+the six intervals lie wholly below it, the epidural and intraventricular
+intervals crossing 0.5. \textbf{(B)} Width of the correct subject-clustered
+interval divided by the width of the naive slice-resampled interval on the same
+six labels: the naive interval is 1.51 to 1.99 times too narrow.
+
+\clearpage
+
+\begin{center}
+\includegraphics[width=\textwidth]{figures/fig2_trivial_fraction.pdf}
+\end{center}
+
+\textbf{Figure 2.} Trivial fraction---the share of a published margin over
+chance reached by a pixel-blind model---for the strongest published comparator
+per benchmark-arm. Peer-reviewed median 0.469, IQR 0.437 to 0.490 ($n=9$); the
+shaded band is that IQR, and error bars are 95\% subject-clustered bootstrap
+intervals propagating uncertainty in the baseline only. Rows whose comparator
+is a preprint that has not been peer reviewed are marked as such; they are the
+two highest here, at 0.973 and 0.981, and no row in this figure reaches 1.
+LUNA16 is plotted at $-0.002$, computed on the challenge's own competition
+performance metric, for
+which no interval is available. The open circle on the PI-CAI row marks its
+positional baseline alone, which is exactly 0.500 area under the curve---the
+correct registration of ``inapplicable,'' because that label file has no slice
+index---while the filled marker is its strongest zero-image baseline, over
+acquisition metadata.
+
+\end{document}
