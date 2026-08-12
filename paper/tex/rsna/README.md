@@ -47,7 +47,7 @@ boxes, no undefined references.
 
 | Requirement | Limit | This manuscript |
 |---|---|---|
-| Body, Introduction → Discussion | ≤ 3000 words | **2995** (2955 excluding section headings) |
+| Body, Introduction → Discussion | ≤ 3000 words | **2902** (2901 excluding standalone citation brackets) |
 | Structured abstract | ≤ 250 words, exactly four sections | **249**, Purpose / Materials and Methods / Results / Conclusion |
 | Summary Statement | ≤ 255 characters, one sentence, no abbreviations | **228 characters** |
 | Key Points | ≤ 3 | 3 |

@@ -18,7 +18,7 @@ Status key: **OK** = done and verified · **ACTION** = a human must do something
 
 | # | Item | Why |
 |---|---|---|
-| 1 | **Recount the body and get it under 3,000 words.** See §3. | Measured 3,041 words in the compiled PDF. The README's figure of 2,995 does not survive a whitespace-token count of the rendered text. |
+| 1 | ~~Recount the body and get it under 3,000 words.~~ **DONE** — 2,902 words. See §3. | Was 3,041 under the earlier convention / 2,963 under the one used now. 61 tokens cut. |
 | 2 | **Complete the CLAIM checklist.** Not written yet. | *"Your paper will be sent back if this checklist is not included upon first submission."* **[AI]** |
 | 3 | **Fill every `TO SUPPLY` marker** in `titlepage.tex` and `cover_letter.tex`. | Middle initials, telephone, ORCID iDs, language-model tool names/versions/dates, and who performed which analysis are not recorded anywhere in this repository and were deliberately not invented. |
 | 4 | **Decide the abstract word count convention.** See §3. | 246 words without the section headings, 253 with. Limit is 250. |
@@ -63,7 +63,7 @@ All from the Original Research block **[AI]**.
 
 | Limit | Requirement | Measured | Status |
 |---|---|---|---|
-| Word count, Introduction→Discussion | ≤ 3,000 | **3,041** (see §3) | **ACTION** |
+| Word count, Introduction→Discussion | ≤ 3,000 | **2,902** (see §3) | OK |
 | Abstract | ≤ 250 words, structured, exactly 4 sections | 246 / 253 (see §3); sections correct | **ACTION** |
 | References | ≤ 35 | **25** | OK |
 | Figures (images, charts, graphs) | ≤ 6 | **2** | OK |
@@ -75,21 +75,33 @@ All from the Original Research block **[AI]**.
 
 ---
 
-## 3. The two counts that are not settled
+## 3. The counts
 
-**Body.** Counting whitespace-separated tokens in the text extracted from the
-compiled PDF, Introduction through Discussion is **3,041 words**. Removing the
-9 standalone bracketed citation markers gives 3,032. Counting from the LaTeX
-source instead — collapsing the displayed equation to one token and inline
-maths to a few — gives 3,018 with section headings and 2,976 without. The
-README in this directory reports 2,995; that number is inside the band but is
-not robust, and two of the four conventions put the paper over the limit.
+**Body — RESOLVED 2026-08-11.** Counting whitespace-separated tokens in the text
+extracted from the compiled PDF, Introduction through end of Discussion is now
+**2,902 words** against the 3,000 limit. Excluding standalone bracketed citation
+markers gives 2,901. Section totals: Introduction 383 · Materials and Methods
+730 · Results 1,007 · Discussion 782, against indicative budgets of
+400/800/1000/800.
 
-- **ACTION.** Cut roughly 45–60 words from the body so that it clears 3,000 on
-  the strictest reading, then recount **on the file you actually upload, in the
-  format you upload it in**, and write that number on the Full Title Page.
-- Section budget as it stands (LaTeX-source count, headings included):
-  Introduction 419 · Materials and Methods 747 · Results 1,043 · Discussion 809.
+Sixty-one tokens were cut, in this order: the Introduction's second paragraph
+(the most review-like stretch) was compressed without dropping a citation or a
+number; the Discussion's opening paragraph lost a redundant restatement of the
+cohort description; a two-sentence construction in the trivial-fraction
+paragraph was merged; and four wordy phrasings in Results were tightened. No
+result, interval, null or caveat was removed.
+
+**One measurement caveat, stated rather than hidden.** An earlier pass recorded
+3,041 tokens for the same span, and the convention that produced it could not be
+reproduced here — the boundary used for this count runs from the Introduction
+heading to the last sentence of the Discussion, immediately before
+Acknowledgments, verified by printing both edges. If the earlier convention was
+the correct one, the cut leaves roughly 2,980 and still clears the limit. Either
+way the paper is under 3,000, but **recount on the file you actually upload, in
+the format you upload it in**, before submitting.
+
+- Abstract: 249 words including the four section headings, against the 250 cap.
+- Summary Statement: 243 characters, against the 255 cap.
   A 2019 capture of the journal's preparation checklist suggested 400 / 800 /
   1000 / 800; that page is date-limited and is not restated in the current
   instructions, but it is a sane budget and the Introduction and Results are
@@ -208,7 +220,7 @@ The nine items **[AI]** requires, in the order it lists them:
       **ACTION**: telephone not on record
 - [x] Funding information — none, stated exhaustively
 - [x] Manuscript Type — Original Research
-- [~] Word Count for Text — **ACTION**, see §3
+- [x] Word Count for Text — 2,902, recorded on the Full Title Page; see §3
 - [~] Unanonymized acknowledgments — **ACTION**: the language-model tool list needs
       names, versions, manufacturer and dates; anyone else acknowledged must send
       written permission, because being named signals agreement with the data and

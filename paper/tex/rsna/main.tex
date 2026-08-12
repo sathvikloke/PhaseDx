@@ -155,20 +155,19 @@ findings are not uniformly distributed along an organ, and a score vector
 encoding only that geometry ranks slices well and patients not at all.
 
 None of this is new. Shortcut learning is a named phenomenon
-\citep{geirhos2020shortcut}. In medical imaging, Badgeley et al showed hip
-fracture predicted at AUC 0.78 from the radiograph, 0.91 with hospital process
-features added, and 0.52---chance---on a test set balanced across patient and
-process variables \citep{badgeley2019hip}; Zech et al, DeGrave et al, and Ong
-Ly et al documented the same mechanism across institutions, in radiographic
-COVID-19 models, and across thirteen datasets
+\citep{geirhos2020shortcut}. Badgeley et al predicted hip fracture at AUC 0.78
+from the radiograph, 0.91 with hospital process features added, and
+0.52---chance---on a test set balanced across those variables
+\citep{badgeley2019hip}; the same mechanism has been documented across
+institutions, in radiographic COVID-19 models, and across thirteen datasets
 \citep{zech2018pneumonia,degrave2021covid,ongly2024shortcut}. On the evaluation
-unit, Yagis et al measured that slice-level cross-validation boosted test
-accuracy by 29\%--55\% and reached about 96\% accuracy on \emph{randomly
-labeled} data \citep{yagis2021leakage}, Tampu et al reported the same inflation
+unit, Yagis et al measured slice-level cross-validation inflating test accuracy
+by 29\%--55\% and reaching about 96\% on \emph{randomly labeled} data
+\citep{yagis2021leakage}, Tampu et al reported the same
 \citep{tampu2022leakage}, and more than half of surveyed Alzheimer disease
-classification papers may have suffered from data leakage
-\citep{wen2020cnn,kapoor2023leakage}. Stronger baselines have been recommended
-at field level \citep{varoquaux2022failures,roberts2021pitfalls}.
+classification papers may have leaked
+\citep{wen2020cnn,kapoor2023leakage}. Stronger baselines have been urged at
+field level \citep{varoquaux2022failures,roberts2021pitfalls}.
 
 The central construction used here is prior art. A public Kaggle notebook on the
 RSNA-STR Pulmonary Embolism Detection challenge, ``Baseline with no image''
@@ -299,9 +298,8 @@ independent reimplementation only, scikit-learn 1.4.
 
 \subsection*{One Pixel-Blind Score Vector, Read at Two Units}
 
-Every value in this subsection is computed from a published label file; no
-published number enters. On the RSNA ICH official training
-file---\num{752802} slices, \num{21744} series, \num{18938} patients, the
+Every value here is computed from a published label file; no published number
+enters. On the RSNA ICH official training file---\num{752802} slices, \num{21744} series, \num{18938} patients, the
 benchmark whose own official metric is per slice---a 20-bin estimate of the
 probability of the label given relative slice position, fit out of fold on a
 subject-disjoint five-fold split, produces \emph{one} score vector. Read at the slice level it reaches AUC 0.737 (95\% CI:
@@ -309,14 +307,13 @@ subject-disjoint five-fold split, produces \emph{one} score vector. Read at the 
 vector reaches 0.453 (95\% CI: 0.445, 0.461)---an interval lying wholly below
 chance. Aggregating instead by each patient's highest-scoring slice gives
 0.500.
-Nothing changes between those readings except the unit at which the
-ranking is performed, and the difference is 0.284 AUC. All six official labels
+Nothing changes between the readings except the unit, and the difference is
+0.284 AUC. All six official labels
 behave the same way, with gaps of 0.205--0.307 (Table 1, Fig 1A).
 
 Three controls ran on the same path. The within-series label permutation null
-sits at 0.502 at the slice level, so the excess is 0.236; at the patient level
-that null is 0.523, so the observed 0.453 is 0.069 below what the same
-estimator reaches when there is nothing to find. The
+sits at 0.502 at the slice level, so the excess is 0.236; at the patient level that null is 0.523, so the observed 0.453 sits 0.069 below
+what the same estimator reaches when there is nothing to find. The
 constant predictor scores 0.492 per slice and 0.501 per patient. The naive
 slice-resampled interval is 1.51--1.99 times
 too narrow across these six rows (Fig 1B); in simulation its coverage at a
@@ -325,8 +322,8 @@ the subject-clustered interval, with a mean width 3.18 times narrower.
 
 Four routes agree
 to 0.003 AUC at both units (Table 2), one an independent reimplementation
-sharing no code with the audit tool. Three further checks come from the tool's
-own full-cohort output: the effect is not a binning artifact (slice AUC 0.716,
+sharing no code with the audit tool. Three further checks come from the tool's full-cohort output: the effect is not
+a binning artifact (slice AUC 0.716,
 0.733, 0.738, and 0.745 over 5, 10, 20, and 50 bins, and the fit-free
 centrality score reaches 0.735); the null model is not itself overfitting
 (apparent training AUC 0.7379 vs held-out 0.7376); and acquisition metadata
@@ -403,13 +400,12 @@ literature at all.
 \section*{Discussion}
 
 The unit at which a three-dimensional benchmark is read decides what its number
-means. On the largest benchmark that could be audited---\num{18938} patients,
-with no published number involved---a single pixel-blind score vector read 0.737
+means. On \num{18938} patients a single pixel-blind score vector read 0.737
 (95\% CI: 0.735, 0.740) per slice and 0.453 (95\% CI: 0.445, 0.461) per patient,
-on all six of its labels; only the first of those readings is what a paper
-would print. Against peer-reviewed comparators the median share of the
-published margin over chance reachable with no pixels was 0.469 (IQR: 0.437,
-0.490; $n=9$), and on one arm none of it was reachable.
+on all six labels; only the first is what a paper would print. Against
+peer-reviewed comparators the median share of the published margin over chance
+reachable with no pixels was 0.469 (IQR: 0.437, 0.490; $n=9$), and on one arm
+none of it was reachable.
 
 A trivial fraction is a statement about an \emph{evaluation protocol}: a
 pixel-blind model reaches that much of a reported margin over chance under the
@@ -417,11 +413,10 @@ same protocol. It is not a decomposition---baseline and published model may
 exploit the same shortcut, different shortcuts, or overlapping ones---and it is
 not a claim about any model's internals, which no analysis of a label file
 could support. Reporting it continuously rather than as a verdict constrains
-what may be said in both directions. It licenses the claim that a median of
+what may be said in both directions: it licenses the claim that a median of
 about half the peer-reviewed published margin over chance is reachable with no
-pixels. It equally forbids the reverse: because 8 of 9 peer-reviewed rows sit
-near 0.5 rather than near 1, these data cannot show that published slice-level
-numbers are \emph{accounted for} by trivial baselines.
+pixels, and it forbids the reverse, because 8 of 9 peer-reviewed rows sit near
+0.5 rather than near 1.
 
 Badgeley et al's control is a \emph{negative} one---balance the confounders and
 watch the model collapse to 0.52 \citep{badgeley2019hip}. The control used here
