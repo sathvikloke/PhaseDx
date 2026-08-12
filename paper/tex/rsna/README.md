@@ -25,49 +25,58 @@ needed for a *Patterns* submission and for co-author outreach.
 | `figures/fig2_unit_scatter.pdf` | **Figure 2.** Built for this submission by `make_rsna_figures.py`, from the same artefacts as Table 3. Contains no identifying text. |
 | `figures/fig3_trivial_fraction.pdf` | **Figure 3.** Copied unchanged from `paper/tex/figures/fig2_trivial_fraction.pdf` and renamed to match its number here. Contains no identifying text. |
 | `make_rsna_figures.py` | Builds Figure 2 from the stage-14 artefacts and prints a source ledger. Not submitted. |
+| `titlepage.tex` | The **Full Title Page**, *non*-anonymised, uploaded separately. 3 pp. |
+| `cover_letter.tex` | The **cover letter** to the Editor, *non*-anonymised, uploaded separately. 4 pp. |
+| `CLAIM_checklist.md` | The **CLAIM 2024 reporting checklist**, all 44 items, uploaded separately. Anonymised, because a reviewer may see it. |
+| `checklist.md` | The submission checklist against the journal's own pages. Not submitted. |
 
-Build with `tectonic main.tex` and `tectonic figures.tex` (compile in a scratch
-directory; there is no `pdflatex` on this machine). Both compile clean — no overfull
-boxes, no undefined references.
+Build with `tectonic main.tex`, `tectonic figures.tex`, `tectonic titlepage.tex` and
+`tectonic cover_letter.tex` (compile in a scratch directory; there is no `pdflatex` on this
+machine). All four compile clean — no errors, no overfull boxes, no undefined references.
 
-### Not in this directory, and still owed before submission
+### Still owed before submission
 
-- **Full Title Page** — a separate, *non*-anonymised file: title, all authors with degrees
-  and superscript-numbered affiliations, the institution where the work originated, the
-  corresponding author's phone/email/postal address, funding, manuscript type, word count,
-  unanonymised acknowledgments, data-sharing statement.
-- **Cover letter** — must carry the title and full author list, any subject overlap with
-  previously published work, conflicts/industry support, confirmation of sole submission,
-  and the large-language-model disclosure.
-- **Reporting checklist** — required at first submission or the paper is returned. CLAIM
-  is the designated default for AI-in-medical-imaging manuscripts; mark inapplicable items
-  "not applicable".
+Every required file now exists. What is missing is information no artefact in this
+repository establishes, and it was deliberately not invented; it is marked `TO SUPPLY` in
+the file that needs it (9 markers in `titlepage.tex`, 3 in `cover_letter.tex`) and listed
+in `checklist.md` §0. In short: four middle initials, four ORCID iDs, a telephone number,
+the submission date, the **final** language-model access date, the name of whoever wrote
+the independent reimplementation reported in Table 2, and the non-anonymised
+acknowledgments block.
 
 ---
 
 ## Compliance, as built
 
+Measured on the compiled PDF, 2026-08-12.
+
 | Requirement | Limit | This manuscript |
 |---|---|---|
-| Body, Introduction → Discussion | ≤ 3000 words | **2904** (2903 excluding standalone citation brackets) |
-| Structured abstract | ≤ 250 words, exactly four sections | **249**, Purpose / Materials and Methods / Results / Conclusion |
-| Summary Statement | ≤ 255 characters, one sentence, no abbreviations | **228 characters** |
+| Body, Introduction → Discussion | ≤ 3000 words | **2990** — 10 tokens of margin, so recount after any edit |
+| Structured abstract | ≤ 250 words, exactly four sections | **248** counting the heading word "Abstract" and the four section headings, 241 counting neither; Purpose / Materials and Methods / Results / Conclusion |
+| Summary Statement | ≤ 255 characters, one sentence, no abbreviations | **243 characters** |
 | Key Points | ≤ 3 | 3 |
 | References | ≤ 35 | 25 |
 | Figures | ≤ 6 | 3 |
-| Tables | ≤ 4 | 4 |
-| Abbreviations | ≤ 10 | 5 (AUC, CI, DWI, ICH, IQR) |
+| Tables | ≤ 4 | 4 — at the cap, so anything added in revision must replace one |
+| Abbreviations | ≤ 10 | 5 declared (AUC, CI, DWI, ICH, IQR); the nine other acronym-shaped tokens in the body are all proper names |
 | Title | no stated limit; journal median 13 words, Q3 15 | 15 words, colon structure (used by ~half of the journal's titles) |
 
-Section budget actually used: Introduction 415 · Materials and Methods 744 ·
-Results 1037 · Discussion 799. The compiled document is 21 double-spaced pages.
+Section budget actually used: Introduction 334 · Materials and Methods 917 ·
+Results 1057 · Discussion 682. The compiled document is 22 double-spaced pages: title
+page 1, abstract 2, body 3–11, references 12–16, figure legends 17–18, tables 19–22.
+Materials and Methods runs over its indicative budget because the third-party
+slice-ordering provenance for the flagship benchmark now lives there, which is where a
+reviewer asked for it.
 
 Other rules honoured: double-spaced, ragged right, 11 pt Times New Roman, pages not
 numbered; Introduction is background only with hypothesis and purpose in its last
 paragraph; Materials and Methods ends with statistical analysis naming software with
 version and manufacturer; Results give numerators and denominators for every percentage;
 Discussion opens by restating problem and primary results, has limitations as its
-second-to-last paragraph, ends with a summary, and **cites no table or figure**; no
+second-to-last paragraph, ends with a summary, and **cites no table or figure**; tables
+and figures are **cited in ascending numeric order of first citation** (Table 1→4,
+Fig 1→3); figure legends are **byte-identical** between `main.tex` and `figures.tex`; no
 self-evaluative language ("novel", "unique"), no priority claim, and "significant" does
 not appear.
 
@@ -100,7 +109,15 @@ technologies were used **in the study**, not merely in drafting — with tool na
 manufacturer and date of access. Dropping the screen removes the reported-result problem;
 it does not remove that duty for anything language-model-touched that remains in scope, or
 for drafting assistance. A disclosure paragraph is therefore present in the
-Acknowledgments.
+Acknowledgments — and it is the broad one: language-model assistance was used **both in
+drafting and in writing the analysis code that produces every number in the Results**. The
+same wording is in `cover_letter.tex` and, since 2026-08-12, in `titlepage.tex`, which
+until then carried a narrower and false version ("no analysis reported in the manuscript
+was produced by a large language model"). The argument that carries the weight is identical
+in all three and rests where it belongs: no value is model-generated, every number is a
+deterministic output of the released code run on a published label file, and the flagship
+estimate was reproduced by an independent reimplementation agreeing to 0.003 AUC at both
+units.
 
 Where the full manuscript motivates the work with "almost nobody checks", this version
 motivates it from the published literature instead — Kapoor & Narayanan, Varoquaux &
@@ -149,9 +166,20 @@ paragraph in Materials and Methods (¶6c), and citations to Knoll et al and Zbon
 The full manuscript says **two** benchmark-arms do not fire. That is wrong on this
 statistic and is fixed here. **Only LUNA16 is at zero** (−0.002). PI-CAI's *positional*
 baseline is exactly 0.500 — the correct registration of "inapplicable", since that label
-file has no slice index — but its strongest zero-image baseline runs over acquisition
-metadata and reaches 0.692, giving a trivial fraction of 0.467, which is mid-range. PI-CAI
-is therefore **not** a null arm and is not described as one anywhere in this version.
+file has no slice index — but its strongest zero-image baseline reaches 0.692, giving a
+trivial fraction of 0.467, which is mid-range. PI-CAI is therefore **not** a null arm and
+is not described as one anywhere in this version.
+
+**Second correction, made during the major revision.** That PI-CAI baseline is **not** an
+acquisition-metadata model and this version no longer calls it one anywhere. It is a
+depth-3 tree over the four non-image columns of that label file — patient age,
+prostate-specific antigen level, centre and scan year — and it splits on all four. Age and
+prostate-specific antigen are standard clinical predictors of clinically significant
+prostate cancer, so the row is a **clinical-variable baseline** and supports no inference
+about acquisition confounding; the manuscript says so and draws none. Refitting on centre
+and scan year alone is not possible from the retained output, and the manuscript says that
+too; read one column at a time those two reach 0.547 and 0.552 per patient against 0.636
+and 0.638 for the clinical pair.
 
 ---
 

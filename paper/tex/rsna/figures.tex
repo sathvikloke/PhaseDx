@@ -37,14 +37,21 @@
 2019 Intracranial Hemorrhage benchmark (\num{752802} slices, \num{21744}
 series, \num{18938} patients). \textbf{(A)} Slice-level area under the receiver
 operating characteristic curve (AUC) joined to patient-level AUC for each of
-the six official labels, with 95\% subject-clustered bootstrap intervals and
+the six official labels, with 95\% subject-clustered bootstrap intervals
+(2000 replicates) and
 the within-series label permutation null at the patient unit. Nothing changes
 between the two readings of a pair except the unit at which the ranking is
 performed; every patient-level point estimate lies below chance, and four of
 the six intervals lie wholly below it, the epidural and intraventricular
-intervals crossing 0.5. \textbf{(B)} Width of the correct subject-clustered
+intervals crossing 0.5. The sub-chance patient-level values are a stack-depth
+confound of the mean operator rather than a reversed positional signal; with
+depth held fixed the ``any'' reading is 0.497 (95\% CI: 0.487, 0.508) (Table 1).
+\textbf{(B)} Width of the correct subject-clustered
 interval divided by the width of the naive slice-resampled interval on the same
-six labels: the naive interval is 1.51 to 1.99 times too narrow.
+six labels: the naive interval is 1.51 to 1.99 times too narrow. In simulation
+at a nominal 95\%, the naive interval covered 46.5\% (93 of 200 datasets)
+against 91.5\% (183 of 200) for the subject-clustered interval, with a mean
+width 3.18 times narrower.
 
 \clearpage
 
@@ -56,15 +63,21 @@ six labels: the naive interval is 1.51 to 1.99 times too narrow.
 every audited benchmark-arm. Each point is one arm: its slice-level area under
 the receiver operating characteristic curve (AUC) against the patient-level AUC
 of the identical score vector after mean aggregation, with 95\%
-subject-clustered bootstrap intervals on both axes. The dashed diagonal is the
+subject-clustered bootstrap intervals on both axes (replicate counts in
+Table 3). The dashed diagonal is the
 line on which the two units agree, and the grey stem below each point is the
 distance that arm falls from it. Of the seven arms for which both units are
 defined, five have a patient-level interval that reaches chance or lies below
 it; the two that do not are DeepLesion, whose labels are anatomic regions that
 relative slice position predicts at either unit, and LUNA16, which moves little
-at either. Values are for the 20-bin positional baseline except PI-CAI, whose
-positional baseline is exactly 0.500 and whose strongest zero-image baseline is
-an acquisition-metadata tree. The two arms defined at only one unit are drawn in
+at either. The DeepLesion point is the pelvis arm, the strongest of eight
+body-part arms computed and chosen after all eight had been seen; the other
+seven fall at 0.691 to 0.890 per slice and 0.642 to 0.838 per patient, all
+above chance at both units, and all eight are listed in Table 3. Values are for
+the 20-bin positional baseline except PI-CAI, whose positional baseline is
+exactly 0.500 and whose strongest zero-image baseline is a tree over that label
+file's four non-image columns, two of them clinical---age and prostate-specific
+antigen level---rather than acquisition fields. The two arms defined at only one unit are drawn in
 the margins rather than in the field, so that a value that does not exist cannot
 be read as a low one: PI-CAI's label file carries no slice index, and Duke
 Breast's patient-level AUC is undefined because all 922 of its 922 patients are
@@ -78,18 +91,26 @@ positive.
 
 \textbf{Figure 3.} Trivial fraction---the share of a published margin over
 chance reached by a pixel-blind model---for the strongest published comparator
-per benchmark-arm. Peer-reviewed median 0.469, IQR 0.437 to 0.490 ($n=9$); the
+per benchmark-arm. Peer-reviewed median 0.469, IQR 0.437 to 0.490 over nine
+arms; those nine arms come from only four benchmarks, six of them being the six
+label columns of RSNA ICH, and one arm per benchmark gives a median of 0.474
+(Table 4). The
 shaded band is that IQR, and error bars are 95\% subject-clustered bootstrap
-intervals propagating uncertainty in the baseline only. Rows whose comparator
+intervals propagating uncertainty in the baseline only, at the replicate counts
+in Table 3. Rows whose comparator
 is a preprint that has not been peer reviewed are marked as such; they are the
 two highest here, at 0.973 and 0.981, and no row in this figure reaches 1.
-LUNA16 is plotted at $-0.002$, computed on sensitivity at one false positive per
-scan---one operating point of the challenge's own competition performance
-metric, against a random-score reference of 0.0027 rather than against 0.5---for
-which no interval is available. The open circle on the PI-CAI row marks its
+LUNA16 is plotted at $-0.002$, computed from sensitivity at one false positive
+per scan (0.0006) and not from the challenge's competition performance metric,
+which for the same score vector is 0.0020; the reference of 0.0027, used in
+place of 0.5, is the random-score value of that competition metric, the mean
+over its seven false-positive operating points. No interval is available for
+this row. The open circle on the PI-CAI row marks its
 positional baseline alone, which is exactly 0.500 area under the curve---the
 correct registration of ``inapplicable,'' because that label file has no slice
-index---while the filled marker is its strongest zero-image baseline, over
-acquisition metadata.
+index---while the filled marker is its strongest zero-image baseline, a tree
+over that file's four non-image columns, two of which (age and prostate-specific
+antigen level) are clinical predictors rather than acquisition fields
+(Table 3).
 
 \end{document}
