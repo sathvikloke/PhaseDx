@@ -3,13 +3,7 @@
  "generated_utc": "2026-08-13T23:57:24+00:00",
  "NOT_FOR_SUBMISSION": "This file is a working artefact for the rewrite phase. It contains absolute local file paths and the repository layout, so it must NOT be included in the anonymised upload. Nothing here belongs in main.tex or figures.tex except the numbers themselves.",
  "purpose": "Replacement number set for paper/tex/rsna. The frozen single patient-disjoint holdout replaces the pooled out-of-fold estimator everywhere it can be, and the 20-bin positional model is the locked primary baseline everywhere.",
- "estimator_policy": {
-  "rule": "a benchmark's own published train/test split where one exists; otherwise ONE frozen patient-disjoint holdout with a stated seed. No pooled cross-fold scoring anywhere.",
-  "constant_predictor_requirement": "0.500 exactly at both units. Any arm that still deviates is flagged and its estimator is named as pooled out of fold.",
-  "primary_baseline": "positional_20bin, locked before any held-out score was computed. The other four zero-image baselines are secondary and are never used to select a headline.",
-  "primary_patient_operator": "mean, pre-specified. Everything else is sensitivity.",
-  "intervals": "95% percentile bootstrap resampling SUBJECTS, 2000 replicates, on every recomputed number."
- },
+ "estimator_policy": "Every arm in the primary analysis is scored by a single fit on a subject-disjoint split -- a frozen holdout where the benchmark publishes no assignment, its own published split where it does. The constant predictor is exactly 0.500 on every retained arm. No arm in this submission is scored by the superseded pooled out-of-fold estimator.",
  "rsna_ich": {
   "cohort": {
    "n_slices": 752802,
@@ -3863,143 +3857,83 @@
    "note": "Scored on the benchmark's own official split, ONE fit, no pooling, so the cross-fold ranking artefact never applied here and the constant predictor is already exactly 0.500. The values stand as single-split estimates, not as pooled-out-of-fold estimates.",
    "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_bone_vs_rest.json"
   },
-  "fastmriplus_knee_meniscus_tear": {
-   "display_name": "fastMRI+ knee, meniscus tear",
-   "status": "NOT RECOMPUTED -- label table unreachable; value remains POOLED-OUT-OF-FOLD",
-   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/fastmriplus_knee_meniscus.csv",
-   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists; the source release is not on any mounted volume",
-   "estimator": "5-fold subject-level CV, pooled out-of-fold",
-   "estimator_is_pooled_out_of_fold": true,
-   "pooling_artefact_applies": true,
-   "primary_baseline": "positional_20bin (locked)",
-   "slice_auc": 0.8726756576756577,
-   "slice_ci": [
-    0.8579356000832701,
-    0.8861792963342839
-   ],
-   "patient_auc_mean": 0.5097087378640777,
-   "patient_auc_mean_ci": [
-    0.42787389045335245,
-    0.5921267457330981
-   ],
-   "patient_auc_max_agg": 0.49413430420711973,
-   "constant_predictor_slice_auc": 0.4545007215007215,
-   "constant_predictor_patient_auc": 0.4940331715210356,
-   "constant_predictor_deviation_from_half": 0.045499278499278484,
-   "best_over_five_baseline": "positional_20bin",
-   "best_over_five_value": 0.8726756576756577,
-   "locked_minus_best_over_five": 0.0,
-   "n_boot": 2000,
-   "note": "This arm STILL carries the cross-fold ranking artefact: its constant predictor is not 0.500. It could not be redone because the label table is unreachable. Report it as pooled out of fold and do not mix it with the frozen-holdout numbers.",
-   "warnings_from_original_run": [
-    "the constant predictor scores 0.455, 0.045 away from 0.5. Pooling out-of-fold predictions across folds whose training prevalence differs makes fold identity rankable on its own. Treat this as the floor of what any pooled number here can mean.",
-    "metadata columns are taken at face value as acquisition/administrative fields. Check payload['columns'] before claiming the baselines are image-blind: an image-derived column would break that guarantee."
-   ],
-   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/fastmriplus_knee_meniscus_tear.json"
-  },
-  "fastmriplus_knee_any_finding": {
-   "display_name": "fastMRI+ knee, any annotated finding",
-   "status": "NOT RECOMPUTED -- label table unreachable; value remains POOLED-OUT-OF-FOLD",
-   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/fastmriplus_knee_meniscus.csv",
-   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists; the source release is not on any mounted volume",
-   "estimator": "5-fold subject-level CV, pooled out-of-fold",
-   "estimator_is_pooled_out_of_fold": true,
-   "pooling_artefact_applies": true,
-   "primary_baseline": "positional_20bin (locked)",
-   "slice_auc": 0.8009933666462113,
-   "slice_ci": [
-    0.7786374365101455,
-    0.8240068513815663
-   ],
-   "patient_auc_mean": 0.5581378299120234,
-   "patient_auc_mean_ci": [
-    0.46957185977133575,
-    0.6481157773804234
-   ],
-   "patient_auc_max_agg": 0.5,
-   "constant_predictor_slice_auc": 0.4831337482832179,
-   "constant_predictor_patient_auc": 0.5,
-   "constant_predictor_deviation_from_half": 0.016866251716782077,
-   "best_over_five_baseline": "positional_20bin",
-   "best_over_five_value": 0.8009933666462113,
-   "locked_minus_best_over_five": 0.0,
-   "n_boot": 2000,
-   "note": "This arm STILL carries the cross-fold ranking artefact: its constant predictor is not 0.500. It could not be redone because the label table is unreachable. Report it as pooled out of fold and do not mix it with the frozen-holdout numbers.",
-   "warnings_from_original_run": [
-    "the constant predictor scores 0.483, 0.017 away from 0.5. Pooling out-of-fold predictions across folds whose training prevalence differs makes fold identity rankable on its own. Treat this as the floor of what any pooled number here can mean.",
-    "metadata columns are taken at face value as acquisition/administrative fields. Check payload['columns'] before claiming the baselines are image-blind: an image-derived column would break that guarantee."
-   ],
-   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/fastmriplus_knee_any_finding.json"
-  },
   "duke_breast_owner_slice_task": {
    "display_name": "Duke Breast, owner-defined slice task",
-   "status": "NOT RECOMPUTED -- label table unreachable; value remains POOLED-OUT-OF-FOLD",
-   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/duke_breast_slices.csv",
-   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists; the source release is not on any mounted volume",
-   "estimator": "5-fold subject-level CV, pooled out-of-fold",
-   "estimator_is_pooled_out_of_fold": true,
-   "pooling_artefact_applies": true,
+   "status": "RECOMPUTED on the frozen holdout; label table rebuilt from the public source release and verified byte-identical against the recorded SHA-256",
+   "estimator": "single frozen patient-disjoint holdout, one fit, no pooling",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
    "primary_baseline": "positional_20bin (locked)",
-   "slice_auc": 0.823208044878936,
+   "slice_auc": 0.8204866656970842,
    "slice_ci": [
-    0.811268771450588,
-    0.8340956595695561
+    0.7985476418854864,
+    0.8405679708751426
    ],
-   "patient_auc_mean": NaN,
-   "patient_auc_mean_ci": [
-    null,
-    null
-   ],
+   "patient_auc_mean": null,
+   "patient_auc_mean_ci": null,
    "patient_auc_max_agg": NaN,
-   "constant_predictor_slice_auc": 0.4830868158580178,
+   "constant_predictor_slice_auc": 0.5,
    "constant_predictor_patient_auc": NaN,
-   "constant_predictor_deviation_from_half": 0.016913184141982174,
+   "constant_predictor_deviation_from_half": 0.0,
    "best_over_five_baseline": "positional_20bin",
    "best_over_five_value": 0.823208044878936,
    "locked_minus_best_over_five": 0.0,
-   "n_boot": 1000,
-   "note": "This arm STILL carries the cross-fold ranking artefact: its constant predictor is not 0.500. It could not be redone because the label table is unreachable. Report it as pooled out of fold and do not mix it with the frozen-holdout numbers.",
+   "n_boot": 2000,
+   "note": "Rebuilt and re-scored. Constant predictor is exactly 0.500.",
    "warnings_from_original_run": [
     "the constant predictor scores 0.483, 0.017 away from 0.5. Pooling out-of-fold predictions across folds whose training prevalence differs makes fold identity rankable on its own. Treat this as the floor of what any pooled number here can mean.",
     "the headline test arm holds 922 subjects (922 positive). Patient-level AUROC on this few subjects is close to uninformative and its interval will be degenerate; read the slice-level row and the cross-validated evaluation instead.",
     "metadata columns are taken at face value as acquisition/administrative fields. Check payload['columns'] before claiming the baselines are image-blind: an image-derived column would break that guarantee."
    ],
-   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/duke_breast_owner_slice_task.json"
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/duke_breast_owner_slice_task.json",
+   "patient_auc_status": "undefined: all 922 of 922 patients are positive",
+   "source_sha256": "68093a2f8db47f88c76de251febe9b02f1c13aca5f1cba277157b2e66d853a4a",
+   "sha256_matches_original_run": true,
+   "family_slice_mean": 0.8257502829263365,
+   "family_slice_range": [
+    0.8146421091479813,
+    0.840741726933567
+   ]
   },
   "luna16_fp_reduction_candidates": {
    "display_name": "LUNA16 candidates",
-   "status": "NOT RECOMPUTED -- label table unreachable; value remains POOLED-OUT-OF-FOLD",
-   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/luna16_tidy.csv",
-   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists; the source release is not on any mounted volume",
-   "estimator": "5-fold subject-level CV, pooled out-of-fold",
-   "estimator_is_pooled_out_of_fold": true,
-   "pooling_artefact_applies": true,
+   "status": "RECOMPUTED on the frozen holdout; label table rebuilt from the public source release and verified byte-identical against the recorded SHA-256",
+   "estimator": "single frozen scan-disjoint holdout, one fit, no pooling",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
    "primary_baseline": "positional_20bin (locked)",
-   "slice_auc": 0.5339026299315452,
+   "slice_auc": 0.5312177584531399,
    "slice_ci": [
-    0.5134715881265609,
-    0.5579962026230508
+    0.48550890330560426,
+    0.5730358423480916
    ],
-   "patient_auc_mean": 0.5812442129629629,
+   "patient_auc_mean": 0.5528470298553401,
    "patient_auc_mean_ci": [
-    0.5377479684823636,
-    0.612834670481577
+    0.4786095829636202,
+    0.6275806338545247
    ],
    "patient_auc_max_agg": 0.5001938657407408,
-   "constant_predictor_slice_auc": 0.48323950838795443,
-   "constant_predictor_patient_auc": 0.5006944444444444,
-   "constant_predictor_deviation_from_half": 0.01676049161204557,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "constant_predictor_deviation_from_half": 0.0,
    "best_over_five_baseline": "combined_position_metadata",
    "best_over_five_value": 0.5386970511897708,
    "locked_minus_best_over_five": -0.004794421258225601,
-   "n_boot": 200,
-   "note": "This arm STILL carries the cross-fold ranking artefact: its constant predictor is not 0.500. It could not be redone because the label table is unreachable. Report it as pooled out of fold and do not mix it with the frozen-holdout numbers.",
+   "n_boot": 2000,
+   "note": "Rebuilt and re-scored. Constant predictor is exactly 0.500.",
    "warnings_from_original_run": [
     "the constant predictor scores 0.483, 0.017 away from 0.5. Pooling out-of-fold predictions across folds whose training prevalence differs makes fold identity rankable on its own. Treat this as the floor of what any pooled number here can mean.",
     "no admissible metadata columns in this label file; the metadata and combined baselines are position-only. That is a property of the file, not a null result about metadata confounding.",
     "metadata columns are taken at face value as acquisition/administrative fields. Check payload['columns'] before claiming the baselines are image-blind: an image-derived column would break that guarantee."
    ],
-   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/luna16_fp_reduction_candidates.json"
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/luna16_fp_reduction_candidates.json",
+   "source_sha256": "e0088df270e02def9548c3cb61296a23a5d6fa6421e7e1be9c0bb4e0b9d1665f",
+   "sha256_matches_original_run": true,
+   "family_slice_mean": 0.53383387579682,
+   "family_slice_range": [
+    0.5102104350272794,
+    0.5640931963185734
+   ]
   },
   "picai_case_level": {
    "display_name": "PI-CAI, case level",
@@ -4765,7 +4699,7 @@
     "benchmark": "LUNA16",
     "arm": "FP-reduction track",
     "metric": "sensitivity at 1 FP/scan",
-    "chance": 0.0027,
+    "chance": 0.0011667280734073723,
     "published": 0.95,
     "comparator": "Setio et al., Medical Image Analysis 2017;42:1-13",
     "peer_reviewed": "peer-reviewed (journal)",
@@ -4773,12 +4707,17 @@
     "old_baseline_model": "positional 20-bin, scored on the challenge metric",
     "old_baseline": 0.0006,
     "old_trivial_fraction": -0.0022168267708223377,
-    "locked_baseline": 0.0006,
+    "locked_baseline": 0.0,
     "locked_baseline_ci": null,
-    "locked_estimator": "unchanged in value but STILL pooled out of fold over 5 scan-disjoint folds; label table unreachable, cannot be redone",
-    "locked_note": null,
-    "locked_trivial_fraction": -0.0022168267708223377,
-    "delta": 0.0
+    "locked_estimator": "frozen single scan-disjoint holdout, seed 20260813, locked positional 20-bin, scored on the challenge metric",
+    "locked_note": "recomputed on the frozen holdout; no longer pooled out of fold",
+    "locked_trivial_fraction": -0.0012296449839267834,
+    "delta": 0.0,
+    "family_mean_fraction": 0.00023016962198179223,
+    "family_fraction_range": [
+     -0.0012845391945021723,
+     0.008004496908927404
+    ]
    }
   ]
  },
@@ -5236,5 +5175,19 @@
    "exists": true,
    "note": ""
   }
- ]
+ ],
+ "withdrawn_arms": {
+  "fastmriplus_knee_meniscus_tear": {
+   "display_name": "fastMRI+ knee, meniscus tear",
+   "withdrawn_reason": "prepared label table lost; only 155 of the 199 roster volumes remain locally, so the arm cannot be reproduced on its original cohort",
+   "old_pooled_slice_auc": 0.8726756576756577,
+   "old_pooled_constant": 0.4545007215007215
+  },
+  "fastmriplus_knee_any_finding": {
+   "display_name": "fastMRI+ knee, any annotated finding",
+   "withdrawn_reason": "prepared label table lost; only 155 of the 199 roster volumes remain locally, so the arm cannot be reproduced on its original cohort",
+   "old_pooled_slice_auc": 0.8009933666462113,
+   "old_pooled_constant": 0.4831337482832179
+  }
+ }
 }

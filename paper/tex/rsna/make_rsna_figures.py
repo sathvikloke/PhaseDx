@@ -9,11 +9,11 @@ Build every figure in the RSNA submission package, from the revised number set.
                               C: the same four quantities over 24 holdouts
     fig2_unit_scatter.pdf     slice vs patient, every audited benchmark-arm,
                               all eight DeepLesion body-part arms plotted
-    fig3_trivial_fraction.pdf descriptive cross-study comparison, no average
+    figS1_trivial_fraction.pdf  SUPPLEMENTAL: descriptive cross-study comparison
 
 WHY THIS SCRIPT NOW BUILDS ALL THREE
 ------------------------------------
-Figures 1 and 3 used to be byte-identical copies of the full manuscript's own
+Figures 1 and S1 used to be byte-identical copies of the full manuscript's own
 figures, produced by the shared builder in the parent directory from the
 superseded pooled out-of-fold artefacts. The revision replaces that estimator
 with a frozen patient-disjoint holdout, so those two figures no longer show the
@@ -37,8 +37,9 @@ applied to that file, never a per-benchmark constant:
   * patient axis= defined iff the arm has a finite patient AUC.
   * open marker = the arm's constant predictor is not exactly 0.500, i.e. it is
                   still scored by the superseded pooled estimator. That is read
-                  from the artefact, not assigned here.
-  * Figure 3 row selection = for each (benchmark, arm), the comparator with the
+                  from the artefact, not assigned here. No retained arm now
+                  triggers it, so the convention is emitted only if one does.
+  * Figure S1 row selection = for each (benchmark, arm), the comparator with the
                   strongest published value, which is the conservative choice;
                   rows that are a split-geometry variant of another row are
                   dropped so no benchmark-arm appears twice.
@@ -397,10 +398,8 @@ def fig1(D, SW):
 # Label placement only. This moves TEXT; no marker is displaced or jittered.
 LABEL_POS = {
     "RSNA ICH, any hemorrhage":            (-0.012, -0.014, "right", "top", False),
-    "fastMRI+ knee, any finding":          (-0.026, 0.000, "right", "center", False),
     "LUNA16 candidates":                   (-0.026, 0.000, "right", "center", False),
     "DeepLesion, 8 body-part arms":        (0.000, 0.021, "center", "bottom", False),
-    "fastMRI+ knee, meniscus tear":        (0.902, 0.598, "left", "center", True),
     "fastMRI Prostate, T2":                (0.902, 0.470, "left", "center", True),
     "fastMRI Prostate, DWI":               (0.902, 0.408, "left", "center", True),
 }
@@ -411,15 +410,12 @@ DEEPLESION_ARMS = ["deeplesion_pelvis_vs_rest", "deeplesion_mediastinum_vs_rest"
                    "deeplesion_softtissue_vs_rest", "deeplesion_bone_vs_rest"]
 
 OTHER_ARMS = ["fastmri_prostate_t2", "fastmri_prostate_dwi",
-              "fastmriplus_knee_meniscus_tear", "fastmriplus_knee_any_finding",
               "duke_breast_owner_slice_task", "luna16_fp_reduction_candidates",
               "picai_case_level"]
 
 SHORT = {
     "fastMRI Prostate, T2-weighted": "fastMRI Prostate, T2",
     "fastMRI Prostate, DWI": "fastMRI Prostate, DWI",
-    "fastMRI+ knee, meniscus tear": "fastMRI+ knee, meniscus tear",
-    "fastMRI+ knee, any annotated finding": "fastMRI+ knee, any finding",
     "Duke Breast, owner-defined slice task": "Duke Breast",
     "LUNA16 candidates": "LUNA16 candidates",
     "PI-CAI, case level": "PI-CAI, case level",
@@ -602,12 +598,17 @@ def fig2(D):
                label="patient-level interval lies wholly above chance"),
         Line2D([], [], color=GREY, lw=0.9, ls=(0, (5, 3)),
                label=f"slice {METRIC} = patient {METRIC}"),
-        Line2D([], [], marker="o", ls="none", ms=5.6, color=BLUE, mfc="white",
-               mew=1.4,
-               label="still pooled out of fold (constant predictor ≠ 0.500)"),
         Line2D([], [], marker="o", ls="none", ms=5.6, color=GREY, mfc="white",
                mew=1.4, label="only one unit is defined (plotted in a gutter)"),
     ]
+    # The open-marker convention for "still pooled out of fold" is emitted ONLY
+    # if such an arm survives. Every retained arm is now scored by a single fit,
+    # so the entry must not appear and claim a distinction the panel does not draw.
+    if n_pooled:
+        handles.insert(4, Line2D([], [], marker="o", ls="none", ms=5.6, color=BLUE,
+                                 mfc="white", mew=1.4,
+                                 label="still pooled out of fold "
+                                       "(constant predictor ≠ 0.500)"))
     fig.legend(handles=handles, loc="upper left", bbox_to_anchor=(0.075, 0.195),
                frameon=False, handletextpad=0.7, borderaxespad=0.0, ncol=2,
                columnspacing=2.2, labelspacing=0.45)
@@ -619,10 +620,13 @@ def fig2(D):
                      f"secondary model, two of whose four inputs are clinical.")
     for r in slice_only:
         notes.append(f"{r['label']}: patient-level {METRIC} is undefined "
-                     f"because all 922 of its 922 patients are positive; this "
-                     f"arm is also still pooled out of fold.")
+                     f"because all 922 of its 922 patients are positive.")
     notes.append(f"All eight DeepLesion body-part arms are plotted; the label "
                  f"there is the anatomic region, so no divergence is expected.")
+    if n_pooled == 0:
+        notes.append("Every arm plotted is scored by a single fit on a "
+                     "subject-disjoint split; the constant predictor is exactly "
+                     "0.500 on all of them.")
     fig.text(0.075, 0.030, "\n".join(notes), fontsize=6.2, color="#333333",
              ha="left", va="bottom", linespacing=1.5)
 
@@ -649,10 +653,10 @@ METRIC_NOTE = {
 }
 
 
-def fig3(D):
-    print("\nFigure 3 -- descriptive cross-study comparison")
+def figS1(D):
+    print("\nFigure S1 (supplemental) -- descriptive cross-study comparison")
     tf = D["trivial_fraction_locked"]
-    _ledger("Fig 3, every row", NUMBERS.name,
+    _ledger("Fig S1, every row", NUMBERS.name,
             "trivial_fraction_locked.rows, strongest published per arm")
 
     # strongest published comparator per (benchmark, arm); drop variant rows
@@ -739,7 +743,7 @@ def fig3(D):
                  "anchors, so no average is taken over this panel", pad=6,
                  loc="left")
 
-    save(fig, "fig3_trivial_fraction.pdf")
+    save(fig, "figS1_trivial_fraction.pdf")
     for r in rows:
         print(f"    {r['benchmark']:<18s} {r['arm']:<22s} "
               f"{r['locked_trivial_fraction']:+.4f}   "
@@ -802,7 +806,7 @@ def main():
               "frozen-holdout bin sweep and fit-free variant")
     fig1(D, SW)
     fig2(D)
-    fig3(D)
+    figS1(D)
     print("\n" + "=" * 78)
     print("SOURCE LEDGER")
     for line in _SOURCES:

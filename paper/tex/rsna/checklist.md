@@ -104,7 +104,7 @@ per-arm CIs for fastMRI Prostate in the Results text, which are in Table 4.
 **Figure numbering.** The two-unit scatter is **Figure 2**, not Figure 3, because
 figures must be numbered in order of first citation and Results reaches the
 two-unit reading of the other benchmark-arms before it reaches the cross-study
-comparison. All three figures are now built by `make_rsna_figures.py` in this
+comparison. Figures 1, 2 and the supplemental figure are built by `make_rsna_figures.py` in this
 directory from `revised_numbers.json`; none is copied from the full manuscript
 any more, because the full manuscript still carries the superseded estimator.
 
@@ -151,7 +151,7 @@ there, which is where reviewers asked for them.
 **[AI]** lists exactly four. All four are at the top of `main.tex`, anonymized.
 
 - [x] **Title.** *What a Slice-Level Benchmark Certifies without the Pixels: An
-      Audit of Seven Public Imaging Datasets.* 15 words.
+      Audit of Six Public Imaging Datasets.* 15 words.
       Note: Radiology: AI states **no title length limit** — the 15-word cap
       belongs to flagship *Radiology*, a different journal. 15 words sits at the
       third quartile of 120 Radiology: AI titles from 2025–2026 (median 13), and

@@ -20,6 +20,12 @@
 %    - disclosure of how language-model tools were used, in the cover
 %      letter as well as the manuscript (Large Language Models)
 %
+%  An earlier revision ran to four pages, most of it arguing whether a
+%  Zenodo deposit counts as a preprint. That argument is not ours to
+%  win, and the policy does not ask it: it asks what overlaps and how the
+%  submitted manuscript differs. This version answers that with an
+%  itemised overlap map and drops the rest.
+%
 %  One \todo{} field remains: the submission date.
 %  Build: tectonic cover_letter.tex
 % =====================================================================
@@ -46,221 +52,173 @@ Illinois Mathematics and Science Academy\\
 1500 Sullivan Road, Aurora, IL 60506, USA\\
 \texttt{sloke@imsa.edu}
 
-\vspace{1.0em}
+\vspace{0.8em}
 \noindent \todo{submission date}
 
-\vspace{1.0em}
+\vspace{0.8em}
 \noindent
 The Editor\\
 \emph{Radiology: Artificial Intelligence}\\
 Radiological Society of North America
 
-\vspace{1.0em}
+\vspace{0.8em}
 \noindent Dear Editor,
 
 We submit for consideration as Original Research: \textbf{``What a Slice-Level
-Benchmark Certifies without the Pixels: An Audit of Seven Public Imaging
+Benchmark Certifies without the Pixels: An Audit of Six Public Imaging
 Datasets,''} by Sathvik Loke, Ethan Johnson, Neeraj Movva and Aditya Raut.
 
 The paper measures how much of a published slice-level result on a public
-volumetric imaging benchmark can be reached from that benchmark's own label
-file, with no images. Three disclosures come first, because you should have
-them before you read anything else.
+volumetric imaging benchmark can be reached with no images, from the subject
+identifier, slice index and per-slice label alone. On the RSNA 2019 Intracranial
+Hemorrhage benchmark, over 24 independently drawn patient-disjoint holdouts, one
+pixel-blind score vector reads AUC 0.7381 per slice and 0.4551 per patient, while
+a constant predictor reads exactly 0.500 at both units in every draw. That
+comparison is between two readings of the same score vector, so it does not
+depend on any published number being correct. We then identify the mechanism
+rather than infer it: mean aggregation carries stack depth into the per-patient
+score, and with depth held fixed the same vector reads 0.5037 across the family,
+covering chance.
 
-\subsection*{1. A longer version of this work is already public, and we cannot
-withdraw it}
+\subsection*{Prior public posting, and exactly what overlaps}
 
 Before preparing this submission we deposited a research compendium on Zenodo:
-concept DOI \texttt{10.5281/zenodo.21814952}, version of record at the time of
-writing \texttt{10.5281/zenodo.21814953}, licensed CC~BY~4.0. It contains the
-analysis code, the per-benchmark outputs, and the source of a longer manuscript
-that includes the results reported here. It is publicly indexed and citable.
-Zenodo deposits cannot be unpublished, so we are disclosing it rather than
-offering to remove it.
+concept DOI \texttt{10.5281/zenodo.21814952}, licensed CC~BY~4.0. It contains
+analysis code, per-benchmark outputs, and the source of a longer manuscript.
+Zenodo deposits cannot be unpublished, so we disclose it rather than offer to
+remove it. If the paper is accepted we will update the record with the
+publication reference and DOI, as the policy requires.
 
-We recognize this may affect your assessment of prior publication, and we would
-rather you decide that with the record in front of you. Two points that bear on
-it. The deposit is an archive of code and data with the manuscript source
-included, not a submission to another journal or a posting on a manuscript
-preprint server; it has not been submitted anywhere. And the longer manuscript
-in it is a different document from this one: it is roughly three times the
-length, is organized around a different set of results, and is not the paper we
-are asking you to review. We will send you the full deposit, or any part of it,
-on request.
+Because the policy asks how the submitted manuscript differs, here is the map
+rather than a characterisation of it:
 
-If the paper is accepted we will update the Zenodo record with the publication
-reference, DOI and a link to the published article, as the policy requires.
-
-\subsection*{2. This submission is one part of a larger study, and the other
-parts are not in it}
-
-The work reported here is drawn from a larger project. The other components of
-that project are in separate preparation and are deliberately not reported,
-cited or relied on anywhere in this manuscript; no claim made here rests on
-any of them. One of those components is being substantially reworked, and we
-took the view that a paper should not carry material we are still revising.
-
-We mention this because the Zenodo deposit described above is broader than
-this submission, so material that this manuscript does not report is
-nevertheless visible in the archive. We would rather you hear that from us. If
-any of it becomes relevant to your assessment, we will supply it and explain
-its status.
-
-\subsection*{3. The central construction is prior art, and it is not ours}
-
-Fitting a model to a slice's position in its stack, with no image data, and
-comparing it with a published slice-level number, has been done before. The
-manuscript says so in its Introduction rather than in a late paragraph of the
-Discussion.
-
-\begin{itemize}\setlength{\itemsep}{0.2em}
-\item A public Kaggle notebook, ``Baseline with no image'' (RSNA-STR Pulmonary
-Embolism Detection, October 2020), bins the label rate against relative slice
-position on the training set and applies it to the test set with no pixels.
-That is the same construction, six years ago.
-\item Yan et al (CVPR 2018), in the paper defining the DeepLesion lesion-type
-task, report a ``Baseline: Location feature'' row at 59.7\% against their own
-method's 90.5\%. A location-only baseline on that benchmark is theirs.
-\item Badgeley et al (\emph{npj Digital Medicine} 2019) showed hip-fracture
-performance collapsing to AUC 0.52 on a confounder-balanced test set.
-\item Yagis et al (2021) and Tampu et al (2022) measured the inflation caused
-by slice-level evaluation.
+\begin{itemize}\setlength{\itemsep}{0.15em}
+\item \textbf{Shared.} The benchmark set, the positional-baseline construction,
+and the observation that slice-level and patient-level readings of one score
+vector diverge on RSNA ICH.
+\item \textbf{New here, and not in the deposit.} The estimator: the deposited
+manuscript reports pooled out-of-fold cross-validation throughout, under which
+the constant predictor reads 0.492 rather than 0.500---a ranking artefact of fold
+identity---whereas every number in this submission is recomputed on frozen
+subject-disjoint holdouts with a single fit. The stack-depth mechanism, the
+depth-conditioned reading and its permutation null are new. The 24-holdout
+family, which is the primary estimate here, is new. The bin-count $\times$
+aggregation sensitivity analysis is new. Two arms were rebuilt from their public
+source releases and re-scored; two others were withdrawn as irreproducible.
+\item \textbf{In the deposit, deliberately not here.} A k-space phase study and
+the other components of the larger project, one of which is being substantially
+reworked. No claim in this manuscript rests on any of them.
 \end{itemize}
 
-What we add is narrower than the construction, and we would rather state it
-narrowly than have a reviewer find the boundary for us:
+We will send you the full deposit, or any part of it, on request.
 
-\begin{itemize}\setlength{\itemsep}{0.2em}
-\item \textbf{A result that needs no published comparator.} On the RSNA 2019
-Intracranial Hemorrhage benchmark, read on a frozen patient-disjoint holdout with
-a single fit, one pixel-blind score vector reads AUC 0.738 (95\% CI: 0.733,
-0.742) per slice and 0.442 (95\% CI: 0.428, 0.458) per patient, on all six
-official labels, while a constant predictor reads exactly 0.500 at both units.
-The comparison is between two readings of the same score vector, so it does not
-depend on any published number being correct. A second implementation sharing no
-code ran the same protocol on its own holdouts; the two families agree to 0.0003
-per slice and 0.005 per patient, with the constant predictor at exactly 0.500 in
-every draw of both.
-\item \textbf{A mechanism, not just a gap.} The patient-level reading is a
-stack-depth confound of the mean operator: stack depth alone reads 0.394 per
-patient, and with depth held fixed the same score vector reads 0.5071 (95\% CI:
-0.5013, 0.5129), sitting on its own permutation null of 0.5055. Every value was
-obtained under a patient-disjoint split, with intervals that resample subjects
-rather than slices, and with the across-holdout spread reported beside every
-bootstrap interval.
-\item \textbf{A spread rather than a verdict.} Against the strongest
-peer-reviewed comparator on each of four benchmarks, the locked pixel-blind
-baseline reaches 0.491, 0.480 and $-0.002$ of the published margin over chance
-on the three benchmarks where it is estimable; on the fourth the label file
-carries no slice index, so the quantity does not exist and is reported as
-unavailable rather than as zero. We report that comparison as descriptive only and take no average over
-it: those four sit on four metrics against four different chance anchors, which
-a margin ratio does not make commensurable. The heterogeneity is the finding.
-\end{itemize}
+\subsection*{The central construction is prior art, and it is not ours}
 
-That comparison also bounds what we may claim, and the Discussion says so: two
-benchmarks near one half is not a demonstration that published slice-level
-results are accounted for by trivial baselines, and four benchmarks cannot
-support a rate for the field. One of the four returns $-0.002$ --- none of the
-margin --- and is reported at the same prominence as the rest. No peer-reviewed comparison in the paper is matched; the only rows
-reaching parity have a preprint comparator and are labeled as such wherever
-they appear. Every claim is about an evaluation protocol. We make no claim
-about what any published model learned, which no analysis of a label file could
-support.
+Fitting a model to a slice's position in its stack and comparing it with a
+published slice-level number has been done before, and the manuscript says so in
+its Introduction rather than late in the Discussion: a 2020 Kaggle notebook on
+the RSNA-STR Pulmonary Embolism challenge; Yan et al's own ``Baseline: Location
+feature'' row on DeepLesion; Badgeley et al on confounder-balanced test sets; and,
+closest of all, Wallis and Buvat, who classify brain tumours to high accuracy
+with no information about the tumour. What we add is narrower than the
+construction: a within-benchmark result that needs no published comparator, an
+identified mechanism rather than a gap, and a demonstration that the slice-level
+reading survives the analysis choices the baseline requires while the
+patient-level one does not.
 
-\subsection*{Subject overlap}
+\subsection*{Two things worth knowing before you read it}
 
-None of the authors has previously published on any patient, animal or
-experiment reported here, and none of us has related work under review or in
-press.
+\textbf{The flagship's provenance is qualified, and the manuscript says so.} The
+RSNA ICH official release carries the label but neither a subject identifier nor
+a slice index; both come from a public, license-permissive, pixel-free tabular
+mirror. The official label file was never obtained, so the mirror could not be
+checked row for row against it. Table 2 reports the internal-consistency tests,
+the power of each, and what they cannot establish: they can falsify a bad mapping
+and never certify a good one. The primary result compares two readings of one
+score vector \emph{within} the benchmark, so it requires the mirror to be
+internally consistent rather than canonical. We would rather state that plainly
+than have a reviewer find it.
 
-The patients themselves have all been reported before, and necessarily so: this
-is a retrospective secondary analysis of public label files, so every subject
-was first reported by the group that released the benchmark, and many were
-reported again by the comparator papers whose published numbers we use as
-denominators. Those releases and comparator papers are cited in Materials and
-Methods and in Results. No new patient data were collected, no identifiable
-information was used, and no pixel intensities were read or used in any analysis.
-
-\subsection*{One point where the journal's requirements pull against each other}
-
-The Algorithm and Code Transparency policy asks that Materials and Methods
-carry a link to the code and the unique identifier of the revision used.
-Double-anonymized review forbids exactly that, because our repository and
-archive name us. We resolved it by stating in Materials and Methods that the
-tool is released under a Creative Commons license with the address and revision
-withheld for review and supplied on acceptance. The archive is already public
-and the identifiers are in section~1 above, so you have them now; tell us if
-you would prefer them written into the manuscript instead, and we will do that.
+\textbf{One journal requirement pulls against another.} The Algorithm and Code
+Transparency policy asks Materials and Methods to carry a link to the code and
+the revision identifier; double-anonymized review forbids exactly that, because
+our repository and archive name us. We resolved it by stating in Materials and
+Methods that the tool is released with the address and revision withheld for
+review and supplied on acceptance. The identifiers are above, so you have them
+now; tell us if you would prefer them written into the manuscript instead.
 
 \subsection*{Declarations}
 
-\textbf{Sole submission.} This manuscript is submitted only to
-\emph{Radiology: Artificial Intelligence}. It is not under consideration at any
-other journal and will not be submitted elsewhere while it is under
-consideration here.
+\textbf{Sole submission.} This manuscript is submitted only to \emph{Radiology:
+Artificial Intelligence}, is not under consideration at any other journal, and
+will not be submitted elsewhere while it is under consideration here.
 
-\textbf{Conflicts of interest and industry support.} All four authors declare
-no conflicts of interest. The study received no funding, no industry support,
-no equipment, no compute donation and no in-kind support of any kind. No author
-has any affiliation with, or financial interest in, any organization that
-produced or maintains a benchmark audited here, or whose published results are
-used as comparators. Each author will submit a completed ICMJE disclosure form.
+\textbf{Subject overlap.} No author has previously published on any patient,
+animal or experiment reported here, and none has related work under review or in
+press. The patients themselves have all been reported before, and necessarily so:
+this is a retrospective secondary analysis of public label files, so every
+subject was first reported by the group that released the benchmark, and many
+again by the comparator papers whose published numbers appear in the supplement.
+Those releases and papers are cited in Materials and Methods and Results. No new
+patient data were collected, no identifiable information was used, and no pixel
+intensities were read in any analysis.
 
-\textbf{Control of the data and the analyses.} S.L. had full control of all
-data used in the study and of the information submitted for publication. S.L.
-performed the primary analyses. S.L. wrote the primary implementation and the
-released audit tool. E.T.J. wrote the second implementation reported in Table 3,
-working separately and sharing no code with the first. S.L. and E.T.J. had full access to the label files and
-performed the analyses; all four authors verified the reported values against
-the released outputs. All authors reviewed the reported values against the
-analysis code's own output and take responsibility for them.
+\textbf{Conflicts of interest and industry support.} All four authors declare no
+conflicts of interest. The study received no funding, no industry support, no
+equipment, no compute donation and no in-kind support of any kind. No author has
+any affiliation with, or financial interest in, any organization that produced or
+maintains a benchmark audited here, or whose published results are used as
+comparators. Each author will submit a completed ICMJE disclosure form.
+
+\textbf{Control of the data and the analyses.} S.L. had full control of all data
+used in the study and of the information submitted for publication, and performed
+the primary analyses. S.L. wrote the primary implementation and the released
+audit tool. E.T.J. wrote the second implementation reported in Table 3, working
+separately and sharing no code with the first. S.L. and E.T.J. had full access to
+the label files. All four authors verified the reported values against the
+released outputs and take responsibility for them.
 
 \textbf{Use of large language models.} We state this fully, because the policy
-asks about study use and not only about writing, and because the honest answer
-is broader than the usual disclosure.
+asks about study use and not only about writing, and the honest answer is broader
+than the usual disclosure. Large language model assistance was used in two ways:
+in drafting and editing this manuscript, and in writing the analysis code that
+produces every number in the Results. The tool was \textbf{Claude (Opus~5),
+Anthropic}, accessed 2026-07-27 to 2026-08-14.
 
-Large language model assistance was used in two ways: in drafting and editing
-this manuscript, and in writing the analysis code that produces every number in
-the Results. The tool was \textbf{Claude (Opus 5), Anthropic}, accessed
-2026-07-27 to 2026-08-12.
-
-No value reported in the paper was generated by a language model. Every number
-is a deterministic output of the released code, run on a published label file,
-and the flagship estimate was reproduced by a second implementation written
-separately from the primary one and sharing no code with it; running the same
-pre-specified protocol on its own holdouts, it agrees to 0.0003 AUC per slice and
-0.005 per patient. The two
-implementations were written by different authors, S.L. and E.T.J., working
-separately and sharing no code, so the check can catch an implementation error
-in either. We still describe it as a code-independence check rather than an
-independent replication: both authors used the language-model assistance
-disclosed above, so it cannot catch a misconception about the data that both
-of them shared. We consider that
-check, rather than any assurance about provenance, to be what should persuade a
-reviewer, and the code is released so it can be repeated without us.
+No value reported in the paper was generated by a language model. Every number is
+a deterministic output of the released code, run on a published label file, and
+the flagship estimate was reproduced by a second implementation written
+separately from the primary one and sharing no code with it, agreeing to 0.0003
+AUC per slice and 0.005 per patient with a constant predictor of exactly 0.500 in
+every draw of both. The two implementations were written by different authors,
+S.L. and E.T.J., so the check can catch an implementation error in either. We
+still describe it as a code-independence check rather than an independent
+replication: both authors used the assistance disclosed above, so it cannot catch
+a misconception about the data that both shared. That check, rather than any
+assurance about provenance, is what should persuade a reviewer, and the code is
+released so it can be repeated without us.
 
 The authors have read, verified against the released artefacts, and take full
 responsibility for every claim in the manuscript.
 
-\textbf{Checklist.} A CLAIM checklist is uploaded with this submission. The
-study audits an evaluation protocol rather than developing a diagnostic model,
-so a number of CLAIM items concern steps that were not performed and are marked
-not applicable, each with a reason. If you would prefer STROBE for a study of
-this shape, we will complete and send it.
+\textbf{Checklist.} A CLAIM checklist is uploaded with this submission. The study
+audits an evaluation protocol rather than developing a diagnostic model, so a
+number of CLAIM items concern steps that were not performed and are marked not
+applicable, each with a reason. If you would prefer STROBE for a study of this
+shape, we will complete and send it.
 
 \subsection*{Reviewers}
 
-Reviewers with expertise in benchmark and challenge design, in meta-research
-and reporting standards, or in neuroradiology and head CT triage would be well
-placed to assess this work. We request no exclusions.
+Reviewers with expertise in benchmark and challenge design, in meta-research and
+reporting standards, or in neuroradiology and head CT triage would be well placed
+to assess this work. We request no exclusions.
 
 Thank you for considering the manuscript.
 
-\vspace{1.2em}
+\vspace{1.0em}
 \noindent Yours sincerely,
 
-\vspace{2.2em}
+\vspace{2.0em}
 \noindent
 Sathvik Loke\\
 on behalf of Sathvik Loke, Ethan Johnson, Neeraj Movva and Aditya Raut

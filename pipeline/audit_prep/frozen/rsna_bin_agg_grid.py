@@ -22,7 +22,7 @@ on the same holdout as the headline or its 20-bin/mean cell will not reproduce
 the number the abstract prints.
 
 Emits pipeline_out/trivial_baselines/rsna_bin_agg_grid.json and
-paper/tex/rsna/figures/fig4_bin_agg_grid.pdf.
+paper/tex/rsna/figures/fig3_bin_agg_grid.pdf.
 """
 from __future__ import annotations
 
@@ -45,7 +45,7 @@ from aucutil import cluster_count_matrix, auc_from_counts  # noqa: E402
 
 REPO = HERE.parents[2]
 OUT_JSON = REPO / "pipeline_out" / "trivial_baselines" / "rsna_bin_agg_grid.json"
-OUT_PDF = REPO / "paper" / "tex" / "rsna" / "figures" / "fig4_bin_agg_grid.pdf"
+OUT_PDF = REPO / "paper" / "tex" / "rsna" / "figures" / "fig3_bin_agg_grid.pdf"
 
 BINS = [5, 10, 20, 30, 50]
 AGGS = ["mean", "max", "top-3 mean", "top-5 mean", "75th pct", "90th pct"]

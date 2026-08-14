@@ -28,7 +28,8 @@ needed for a *Patterns* submission and for co-author outreach. The shared figure
 | `refs.bib` | 25 entries; **19 are cited by `main.tex` and are the 19 that appear in the compiled bibliography.** The 6 uncited entries are shortcut/leakage citations left over from the prose that was cut and are inert (BibTeX emits only cited keys). Trimmed from the full `refs.bib`; the tool/archive entry was **deleted**, because it names the authors. |
 | `figures/fig1_collapse.pdf` | **Figure 1.** A: two units, six labels. B: the stack-depth mechanism. C: the same four quantities over 24 holdouts. Built here. No identifying text. |
 | `figures/fig2_unit_scatter.pdf` | **Figure 2.** Slice versus patient for every audited benchmark-arm, all eight DeepLesion arms plotted. Built here. No identifying text. |
-| `figures/fig3_trivial_fraction.pdf` | **Figure 3.** The descriptive cross-study comparison. Built here. No identifying text. |
+| `figures/fig3_bin_agg_grid.pdf` | **Figure 3.** Bin count x aggregation grid. Built by `pipeline/audit_prep/frozen/rsna_bin_agg_grid.py`. No identifying text. |
+| `figures/figS1_trivial_fraction.pdf` | **Figure S1, supplemental.** The descriptive cross-study comparison, demoted out of the main text. Built here. No identifying text. |
 | `make_rsna_numbers.py` | Prints every number the manuscript uses, and every table body, straight out of `revised_numbers.json`. Run it before believing any figure in the text. Not submitted. |
 | `make_rsna_figures.py` | Builds **all three** figures from `revised_numbers.json` and prints a source ledger. Run as `PHASEDX_METRIC_WORD=AUC venv/bin/python paper/tex/rsna/make_rsna_figures.py`. Not submitted. |
 | `revised_numbers.json` | The number set every figure and every table reads from, with a 29-entry source ledger and a sha256 per input. **Carries `NOT_FOR_SUBMISSION`: it contains absolute local paths and must not be uploaded.** |
@@ -153,7 +154,7 @@ depends on it.
 The five NYU fastMRI worked-example cohorts, the 102 training runs and 456 control runs,
 the background-only control, the reconstruction-fidelity validation, and the nine-criterion
 falsification suite are all out. The fastMRI **label files** stay, because they are two of
-the eight label files in the trivial-fraction table; the fastMRI **imaging study** does
+the seven label files in the trivial-fraction table; the fastMRI **imaging study** does
 not. In the end the falsification suite did not earn even a sentence — the word budget went
 to the two in-scope results instead.
 
@@ -242,3 +243,29 @@ that initiative's own agreement.
 - No claim that a model "learned nothing". Every claim is about an evaluation protocol.
 - The only matched rows have a preprint comparator, and they are labelled as such every
   time they are mentioned.
+
+
+## Revision of 2026-08-14
+
+Four arms previously carried on the superseded pooled out-of-fold estimator were
+resolved. Two -- Duke Breast and LUNA16 -- had their label tables rebuilt from the
+public source releases (`Annotation_Boxes.xlsx` plus the TCIA `getSeries`
+metadata; `candidates_V2.zip` from the LUNA16 Zenodo record) and verified
+byte-identical against the SHA-256 recorded by the original run, then re-scored by
+`pipeline/audit_prep/frozen/frozen_arm_holdout.py`. Two fastMRI+ knee arms could
+not be rebuilt on their original cohort -- 155 of the 199 roster volumes remain
+locally -- and are withdrawn. **No number in this submission now rests on the
+pooled estimator, and the constant predictor is exactly 0.500 on every retained
+arm.**
+
+The primary estimate moved from the single frozen holdout to the mean over the
+24-holdout family, because the pre-registered draw sits at the boundary of that
+family on the patient-level and depth-conditioned readings. That draw is still
+reported, as a pre-registered reference point with a bootstrap CI.
+
+The cross-study margin ratio was demoted out of the abstract and Key Points and
+its figure moved to `supplement.tex` as Figure S1; the bin x aggregation grid was
+promoted to Figure 3. `figures.tex` is now GENERATED from main.tex by
+`make_figures_tex.py`, which enforces the journal's rule that a legend follow its
+figure immediately -- an earlier revision wrapped Figure 4 in a `[p]` float, which
+separated the two.
