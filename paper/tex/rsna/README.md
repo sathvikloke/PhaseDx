@@ -3,14 +3,19 @@
 This directory holds a **separate, self-contained, anonymised manuscript** built for
 *Radiology: Artificial Intelligence* (RSNA) as an **Original Research** article.
 
-It is **derived from `paper/tex/main.tex` by cutting**, not by rewriting. Wherever a
-sentence fit the new scope and the new word budget, its exact wording was preserved,
-because that prose has been through repeated audit and its numbers are traceable to
-artefacts.
+It began as a cut-down of `paper/tex/main.tex`. It is no longer that. On 2026-08-13 the
+estimator behind every flagship number changed — from a pooled out-of-fold five-fold split
+to one frozen patient-disjoint holdout — and the paper was reorganised around the
+two-unit reading and its stack-depth mechanism, with the cross-study comparison demoted to
+descriptive. Every number here now comes from `revised_numbers.json`; the full manuscript
+still carries the superseded estimator, so **numbers in this directory and numbers in
+`paper/tex/main.tex` are no longer expected to agree**. `checklist.md` §14 is the record of
+what changed and why.
 
 **Nothing in `paper/tex/` outside this directory was modified.** `main.tex`,
 `supplement.tex`, `refs.bib` and `figures/` remain the full manuscript, which is still
-needed for a *Patterns* submission and for co-author outreach.
+needed for a *Patterns* submission and for co-author outreach. The shared figure builder
+`paper/tex/make_figures.py` was likewise left alone; this package builds its own figures.
 
 ---
 
@@ -20,11 +25,15 @@ needed for a *Patterns* submission and for co-author outreach.
 |---|---|
 | `main.tex` | The **single submission document**, in the order the journal requires: Abbreviated Title Page (anonymised) → Abstract → Main Body → Acknowledgments → References → Figure Legends → Tables (one per page). |
 | `figures.tex` | The **separate figure document**. New submissions must combine all figures into one document with each legend immediately following its figure. |
-| `refs.bib` | 25 entries — only those cited by `main.tex`. Trimmed from the full `refs.bib`; the tool/archive entry was **deleted**, because it names the authors. |
-| `figures/fig1_collapse.pdf` | **Figure 1.** Copied unchanged from `paper/tex/figures/`. Contains no identifying text. |
-| `figures/fig2_unit_scatter.pdf` | **Figure 2.** Built for this submission by `make_rsna_figures.py`, from the same artefacts as Table 3. Contains no identifying text. |
-| `figures/fig3_trivial_fraction.pdf` | **Figure 3.** Copied unchanged from `paper/tex/figures/fig2_trivial_fraction.pdf` and renamed to match its number here. Contains no identifying text. |
-| `make_rsna_figures.py` | Builds Figure 2 from the stage-14 artefacts and prints a source ledger. Not submitted. |
+| `refs.bib` | 25 entries; **19 are cited by `main.tex` and are the 19 that appear in the compiled bibliography.** The 6 uncited entries are shortcut/leakage citations left over from the prose that was cut and are inert (BibTeX emits only cited keys). Trimmed from the full `refs.bib`; the tool/archive entry was **deleted**, because it names the authors. |
+| `figures/fig1_collapse.pdf` | **Figure 1.** A: two units, six labels. B: the stack-depth mechanism. C: the same four quantities over 24 holdouts. Built here. No identifying text. |
+| `figures/fig2_unit_scatter.pdf` | **Figure 2.** Slice versus patient for every audited benchmark-arm, all eight DeepLesion arms plotted. Built here. No identifying text. |
+| `figures/fig3_trivial_fraction.pdf` | **Figure 3.** The descriptive cross-study comparison. Built here. No identifying text. |
+| `make_rsna_numbers.py` | Prints every number the manuscript uses, and every table body, straight out of `revised_numbers.json`. Run it before believing any figure in the text. Not submitted. |
+| `make_rsna_figures.py` | Builds **all three** figures from `revised_numbers.json` and prints a source ledger. Run as `PHASEDX_METRIC_WORD=AUC venv/bin/python paper/tex/rsna/make_rsna_figures.py`. Not submitted. |
+| `revised_numbers.json` | The number set every figure and every table reads from, with a 29-entry source ledger and a sha256 per input. **Carries `NOT_FOR_SUBMISSION`: it contains absolute local paths and must not be uploaded.** |
+| `tables_appendix.tex` | Two optional supplemental tables: E1, the three-way classification of the non-image variables behind Table 4's one-letter key; E2, the mirror-provenance tests behind the Table 2 note. |
+| `screening_table.md` | The working record behind Table 1. Not submitted. |
 | `titlepage.tex` | The **Full Title Page**, *non*-anonymised, uploaded separately. 3 pp. |
 | `cover_letter.tex` | The **cover letter** to the Editor, *non*-anonymised, uploaded separately. 4 pp. |
 | `CLAIM_checklist.md` | The **CLAIM 2024 reporting checklist**, all 44 items, uploaded separately. Anonymised, because a reviewer may see it. |
@@ -38,36 +47,40 @@ machine). All four compile clean — no errors, no overfull boxes, no undefined 
 
 Every required file now exists. What is missing is information no artefact in this
 repository establishes, and it was deliberately not invented; it is marked `TO SUPPLY` in
-the file that needs it (9 markers in `titlepage.tex`, 3 in `cover_letter.tex`) and listed
-in `checklist.md` §0. In short: four middle initials, four ORCID iDs, a telephone number,
-the submission date, the **final** language-model access date, the name of whoever wrote
-the independent reimplementation reported in Table 2, and the non-anonymised
-acknowledgments block.
+the file that needs it and listed in `checklist.md` §0. In short: the submission date and
+the non-anonymised acknowledgments block. The language-model disclosure is complete and
+identical in `main.tex`, `titlepage.tex` and `cover_letter.tex` — Claude (Opus 5),
+Anthropic, accessed 2026-07-27 to 2026-08-12 — because the journal requires tool, version,
+manufacturer and dates of access **at submission**, in both the manuscript and the cover
+letter.
 
 ---
 
 ## Compliance, as built
 
-Measured on the compiled PDF, 2026-08-12.
+Measured on the compiled PDF, 2026-08-13, after the frozen-holdout rewrite.
 
 | Requirement | Limit | This manuscript |
 |---|---|---|
-| Body, Introduction → Discussion | ≤ 3000 words | **2990** — 10 tokens of margin, so recount after any edit |
-| Structured abstract | ≤ 250 words, exactly four sections | **248** counting the heading word "Abstract" and the four section headings, 241 counting neither; Purpose / Materials and Methods / Results / Conclusion |
-| Summary Statement | ≤ 255 characters, one sentence, no abbreviations | **243 characters** |
+| Body, Introduction → Discussion | ≤ 3000 words | **2978** — 22 tokens of margin, so recount after any edit |
+| Structured abstract | ≤ 250 words, exactly four sections | **243** counting the heading word "Abstract" and the four section headings, 235 counting neither, **247** under the strictest comma-splitting convention; Purpose / Materials and Methods / Results / Conclusion |
+| Summary Statement | ≤ 255 characters, one sentence, no abbreviations | **246 characters** |
 | Key Points | ≤ 3 | 3 |
 | References | ≤ 35 | 25 |
 | Figures | ≤ 6 | 3 |
 | Tables | ≤ 4 | 4 — at the cap, so anything added in revision must replace one |
-| Abbreviations | ≤ 10 | 5 declared (AUC, CI, DWI, ICH, IQR); the nine other acronym-shaped tokens in the body are all proper names |
-| Title | no stated limit; journal median 13 words, Q3 15 | 15 words, colon structure (used by ~half of the journal's titles) |
+| Abbreviations | ≤ 10 | 5 declared (AUC, CI, DWI, ICH, SD); IQR was removed with the median, SD added with the across-holdout spread |
+| Title | no stated limit; journal median 13 words, Q3 15 | 15 words, colon structure |
 
-Section budget actually used: Introduction 334 · Materials and Methods 917 ·
-Results 1057 · Discussion 682. The compiled document is 22 double-spaced pages: title
-page 1, abstract 2, body 3–11, references 12–16, figure legends 17–18, tables 19–22.
-Materials and Methods runs over its indicative budget because the third-party
-slice-ordering provenance for the flagship benchmark now lives there, which is where a
-reviewer asked for it.
+Section budget actually used: Introduction 295 · Materials and Methods 1030 ·
+Results 996 · Discussion 657. The compiled document is 21 double-spaced pages, with each of the four tables on a page of its own.
+**The 400/800/1000/800 section split is not this journal's rule** — it is the
+boilerplate of two sibling RSNA journals, and the *Radiology: AI* instructions
+carry the same section-opening sentences with those caps deleted. The only
+binding text limit is the 3,000-word total. Materials and Methods runs long for
+two declared reasons: the third-party slice-ordering provenance and the
+benchmark-eligibility criterion both live there, which is where reviewers asked
+for them.
 
 Other rules honoured: double-spaced, ragged right, 11 pt Times New Roman, pages not
 numbered; Introduction is background only with hypothesis and purpose in its last
@@ -85,7 +98,8 @@ not appear.
 ## What was cut, and why
 
 The scope decision was made upstream: this version is **the RSNA intracranial hemorrhage
-unit collapse plus the seven-benchmark trivial-fraction table**, and nothing else.
+two-unit reading with its stack-depth mechanism, plus a descriptive cross-study comparison
+over the seven audited benchmarks**, and nothing else.
 
 ### 1. The pre-specified prevalence screen — **excluded entirely, pending a disclosure rework**
 
@@ -111,13 +125,16 @@ it does not remove that duty for anything language-model-touched that remains in
 for drafting assistance. A disclosure paragraph is therefore present in the
 Acknowledgments — and it is the broad one: language-model assistance was used **both in
 drafting and in writing the analysis code that produces every number in the Results**. The
-same wording is in `cover_letter.tex` and, since 2026-08-12, in `titlepage.tex`, which
-until then carried a narrower and false version ("no analysis reported in the manuscript
-was produced by a large language model"). The argument that carries the weight is identical
-in all three and rests where it belongs: no value is model-generated, every number is a
-deterministic output of the released code run on a published label file, and the flagship
-estimate was reproduced by an independent reimplementation agreeing to 0.003 AUC at both
-units.
+same wording is in `cover_letter.tex` and in `titlepage.tex`, and since 2026-08-13 the
+tool is **named in `main.tex` too, at submission** — Claude (Opus 5), Anthropic, accessed
+2026-07-27 to 2026-08-12. The manuscript previously deferred the name to acceptance, which
+was a policy violation: RSNA requires name, version, manufacturer and dates of access at
+submission, in both the manuscript and the cover letter, and naming the tool identifies
+nobody. The argument that carries the weight is identical in all three and rests where it
+belongs: no value is model-generated, every number is a deterministic output of the
+released code run on a published label file, and the flagship estimate was reproduced by a
+second implementation sharing no code with the first, whose family of estimates agrees to
+0.0003 AUC per slice and 0.005 per patient.
 
 Where the full manuscript motivates the work with "almost nobody checks", this version
 motivates it from the published literature instead — Kapoor & Narayanan, Varoquaux &
@@ -154,21 +171,28 @@ paragraph in Materials and Methods (¶6c), and citations to Knoll et al and Zbon
 - The RSNA-STR Pulmonary Embolism label-file measurement as a standalone result; only
   the general point that a benchmark can leave its slice unlocatable survives, attached to
   the RSNA ICH slice-ordering recovery.
-- The PRISMA flow figure, the rank-inversion figure, the case-study figure, and the
-  qualitative-input figure. Two of the full manuscript's figures were kept, and one new
-  figure (Figure 2, the two-unit scatter over every audited benchmark-arm) was built for
-  this submission because that claim was otherwise carried by a table alone.
+- The flow figure, the rank-inversion figure, the case-study figure, and the
+  qualitative-input figure. All three figures in this package are now built here, by
+  `make_rsna_figures.py`, from `revised_numbers.json`; none is copied from the full
+  manuscript, because the full manuscript still carries the superseded estimator.
+- The naive-versus-clustered interval-width panel and its simulation coverage figures
+  (old Figure 1B). Its numbers were computed under the superseded pooled estimator and the
+  simulation was not re-run; that panel slot went to the stack-depth mechanism, which is
+  the reviewer-facing result. See `checklist.md` §14.
 - Per-benchmark detail on `--self-test`, the JSON payload format, the dependency argument,
   and the IRB paragraph's longer form.
 
 ### 5. Corrected relative to the full manuscript
 
-The full manuscript says **two** benchmark-arms do not fire. That is wrong on this
-statistic and is fixed here. **Only LUNA16 is at zero** (−0.002). PI-CAI's *positional*
-baseline is exactly 0.500 — the correct registration of "inapplicable", since that label
-file has no slice index — but its strongest zero-image baseline reaches 0.692, giving a
-trivial fraction of 0.467, which is mid-range. PI-CAI is therefore **not** a null arm and
-is not described as one anywhere in this version.
+The full manuscript says **two** benchmark-arms do not fire. Under the **locked** primary
+baseline that is now the right count, for a reason the full manuscript does not give.
+LUNA16 is at −0.002. PI-CAI's *locked positional* baseline is exactly 0.500 — the correct
+registration of "inapplicable", since that label file has no slice index — so its primary
+trivial fraction is exactly **0.000**. The 0.692 metadata tree that used to carry that row
+was selected on the test data and two of its four inputs are clinical predictors; it
+survives only as a labelled secondary reading (0.692; 95% CI: 0.626, 0.755) and supports no
+acquisition-confounding inference. That is the one row the baseline lock moves anywhere in
+the package.
 
 **Second correction, made during the major revision.** That PI-CAI baseline is **not** an
 acquisition-metadata model and this version no longer calls it one anywhere. It is a
@@ -208,9 +232,12 @@ that initiative's own agreement.
 
 ## Rules that governed every number here
 
-- Every value is traceable to an artefact under `pipeline_out/trivial_baselines/` or
-  `paper/trivial_fraction_distribution.json`. Where a number and an artefact disagreed,
-  the artefact won.
+- Every value is traceable to `revised_numbers.json`, which carries a source ledger and a
+  sha256 per input, or to `pipeline_out/trivial_baselines/`. Where a number and an artefact
+  disagreed, the artefact won — including once where the artefact's own prose note
+  disagreed with the artefact's own numbers, recorded in `checklist.md` §14.
+- Every number in `main.tex` is machine-checked against `revised_numbers.json`: 162
+  assertions, all passing.
 - A null is never rounded toward significance: −0.002 stays −0.002, 0.500 stays 0.500.
 - No claim that a model "learned nothing". Every claim is about an evaluation protocol.
 - The only matched rows have a preprint comparator, and they are labelled as such every

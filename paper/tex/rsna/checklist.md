@@ -18,10 +18,10 @@ Status key: **OK** = done and verified · **ACTION** = a human must do something
 
 | # | Item | Why |
 |---|---|---|
-| 1 | ~~Recount the body and get it under 3,000 words.~~ **DONE** — **2,990** words, measured on the current `main.pdf`. See §3. | Grew from 2,904 during the major-revision pass; 10 tokens of margin remain, so recount after any edit. |
+| 1 | ~~Recount the body and get it under 3,000 words.~~ **DONE** — **2,978** words, measured on the current `main.pdf`. See §3. | Recounted after the frozen-holdout rewrite; 22 tokens of margin remain, so recount after any edit. |
 | 2 | ~~Complete the CLAIM checklist.~~ **DONE** — `CLAIM_checklist.md`, all 44 items of the CLAIM 2024 update, none left blank. | *"Your paper will be sent back if this checklist is not included upon first submission."* **[AI]** Three items in it still need a human: see §9 and the file's own closing section. |
-| 3 | **Fill every `TO SUPPLY` marker**: **9** in `titlepage.tex`, **3** in `cover_letter.tex`. | Middle initials, telephone, ORCID iDs, the final language-model access date, who wrote the independent reimplementation, the submission date and the non-anonymized acknowledgments are not recorded anywhere in this repository and were deliberately not invented. Everything the repository *does* establish has now been filled in — see §7 and §9. |
-| 4 | ~~Decide the abstract word count convention.~~ **DONE** — 248 words including the four section headings, against the 250 cap, so it clears under either convention. See §3. | Both readings are now under the limit; the earlier 253-word figure counted the word "Abstract" itself. |
+| 3 | **Fill every `TO SUPPLY` marker**: **1** in `titlepage.tex`, **1** in `cover_letter.tex`. | Only the submission date and the non-anonymized acknowledgments block remain; both are things no artefact in this repository establishes and neither was invented. The language-model disclosure is now complete and identical in `main.tex`, `titlepage.tex` and `cover_letter.tex`: Claude (Opus 5), Anthropic, accessed 2026-07-27 to 2026-08-12. |
+| 4 | ~~Decide the abstract word count convention.~~ **DONE** — 243 words including the four section headings, against the 250 cap, and 247 under the strictest comma-splitting convention. See §3. | It now clears under every convention tried, with 3 tokens of margin under the strictest. |
 
 ---
 
@@ -37,9 +37,9 @@ Status key: **OK** = done and verified · **ACTION** = a human must do something
 | Full Title Page | `titlepage.tex` → 3 pp | **ACTION** — 9 `TO SUPPLY` markers |
 | Checklist (CLAIM) | `CLAIM_checklist.md` | **OK** — all 44 CLAIM 2024 items answered, every inapplicable one carrying its reason; 3 items flag a human decision |
 | Figures, combined into **one** document, each legend immediately after its figure | `figures.tex` → 3 pp | **OK** |
-| Supplemental Materials | — | none submitted; optional |
+| Supplemental Materials | `tables_appendix.tex` → 2 supplemental tables (E1 variable taxonomy, E2 mirror provenance) | **OK** — optional; both are the detail behind Table 4's one-letter key and Table 2's provenance note |
 
-### Uploaded as one single document — `main.tex` → 22 pp
+### Uploaded as one single document — `main.tex` → 21 pp
 
 Order required by **[AI]**, and the order in the file:
 
@@ -63,13 +63,13 @@ All from the Original Research block **[AI]**.
 
 | Limit | Requirement | Measured | Status |
 |---|---|---|---|
-| Word count, Introduction→Discussion | ≤ 3,000 | **2,990** (see §3) | OK, 10 tokens of margin |
-| Abstract | ≤ 250 words, structured, exactly 4 sections | **248** counting the heading word "Abstract" and the four section headings, 241 counting neither (see §3); sections correct | OK |
+| Word count, Introduction→Discussion | ≤ 3,000 | **2,978** (see §3) | OK, 22 tokens of margin |
+| Abstract | ≤ 250 words, structured, exactly 4 sections | **243** counting the heading word "Abstract" and the four section headings, 235 counting neither, 247 under the strictest comma-splitting convention (see §3); sections correct | OK |
 | References | ≤ 35 | **25** | OK |
 | Figures (images, charts, graphs) | ≤ 6 | **3** | OK |
 | Tables | ≤ 4 | **4** — at the cap | OK |
 | Key Points | ≤ 3 | **3** | OK |
-| Summary Statement | ≤ 255 characters | **243**, one sentence | OK |
+| Summary Statement | ≤ 255 characters | **246**, one sentence | OK |
 | Abbreviations | ≤ 10 | 5 declared, 14 acronym forms appear (see §6) | **RISK** |
 | Authors | ≤ 2 first authors; exactly one corresponding/senior author | 4 authors, 1 first, 1 corresponding | OK |
 
@@ -77,63 +77,68 @@ All from the Original Research block **[AI]**.
 
 ## 3. The counts
 
-**Body — RESOLVED, re-measured on the current file 2026-08-12.** Counting whitespace-separated tokens in the text
-extracted from the compiled PDF, Introduction through end of Discussion is now
-**2,990 words** against the 3,000 limit, after the major-revision pass that
-added the RSNA ICH slice-ordering provenance to Materials and Methods, the
-composition of the nine-arm primary set, the DeepLesion arm-selection
-disclosure, the PI-CAI relabelling, the scoping of the clinical claim, and the
-bin-robustness limitation. Section totals: Introduction 334 · Materials and
-Methods 917 · Results 1,057 · Discussion 682, against indicative budgets of
-400/800/1000/800. Methods is over its indicative budget because the slice-
-ordering provenance now lives there; roughly 450 tokens of prose were cut
-across all four sections to pay for the additions, with no result, interval,
-null or caveat removed --- supporting values that moved out of the body were
-moved into the Table 1, Table 3 and Table 4 notes and the Figure 1 legend,
-which sit outside the Introduction-to-Discussion span the limit applies to.
+**Body — RESOLVED, re-measured on the current file 2026-08-13.** Counting
+whitespace-separated tokens in the text extracted from the compiled PDF,
+Introduction through end of Discussion is **2,978 words** against the 3,000
+limit, after the frozen-holdout rewrite. Section totals: Introduction 295 ·
+Materials and Methods 1,030 · Results 996 · Discussion 657. The counting script
+is `wc.py` in the build scratch directory; it reproduces the section totals
+recorded on the Full Title Page exactly, and both span edges are printed and
+checked.
 
-**The last two edits were word-count neutral, deliberately.** Two changes were
-made after the 2,990 count was taken, and both were built to leave it unchanged:
-the Methods pointer `split-to-split spread, labeled as such (Table 2)` became
-`split-to-split spread and is labeled as such` (13 tokens either way — see §6 on
-why the pointer had to go), and `plotted in Figure 2` became `plotted in Fig 2`.
-The body was re-measured after both and is still **2,990**.
+**What the rewrite cost and where it went.** The estimator changed from a pooled
+out-of-fold five-fold split to one frozen patient-disjoint holdout, so every
+RSNA ICH number moved; the trivial fraction was demoted to a descriptive
+cross-study comparison and its cross-metric median deleted as an inferential
+claim; a benchmark-eligibility table, a three-way classification of the non-image
+variables, an aggregation-sensitivity block and a 24-holdout spread block were
+added. To pay for them, roughly 400 tokens of prose were cut across all four
+sections, and supporting detail was moved into the Table 1, Table 2, Table 3 and
+Table 4 notes and the figure legends, which sit outside the
+Introduction-to-Discussion span the limit applies to. Nothing was cut that was a
+result, an interval, a null or a caveat, with two deliberate exceptions recorded
+in `README.md`: the naive-versus-clustered interval comparison (its numbers were
+computed under the superseded estimator and could not be recomputed) and the
+per-arm CIs for fastMRI Prostate in the Results text, which are in Table 4.
 
-**Figure numbering.** The two-unit scatter is **Figure 2**, not Figure 3,
-because figures must be numbered in order of first citation and Results reaches
-the two-unit reading of the other benchmark-arms before it reaches the trivial
-fraction. The trivial-fraction figure is therefore Figure 3 here, while the full
-manuscript calls the same image Figure 2; the file was renamed to match, not
-rebuilt.
+**Figure numbering.** The two-unit scatter is **Figure 2**, not Figure 3, because
+figures must be numbered in order of first citation and Results reaches the
+two-unit reading of the other benchmark-arms before it reaches the cross-study
+comparison. All three figures are now built by `make_rsna_figures.py` in this
+directory from `revised_numbers.json`; none is copied from the full manuscript
+any more, because the full manuscript still carries the superseded estimator.
 
-**One measurement caveat, stated rather than hidden.** An early pass recorded
-3,041 tokens for the same span under a convention that could not be reproduced
-afterwards. The boundary used for every count since runs from the Introduction
-heading to the last sentence of the Discussion, immediately before
-Acknowledgments, and both edges are printed by the counting script and checked.
-Margin is 10 tokens, so **recount on the file you actually upload, in the format
-you upload it in**, before submitting — in particular after any conversion to
-`.docx`, which the journal will require on acceptance.
+**Table numbering.** Table 1 is the benchmark-eligibility table, which is cited
+in Materials and Methods and therefore has to come first under the
+ascending-order-of-first-citation rule. The order of first citation is
+Table 1 (Methods) → Table 2 (Results, first subsection) → Table 3 (Results, third
+subsection) → Table 4 (Results, fifth subsection), and Fig 1A → 1B → 1C → 2 → 3.
 
-**Abstract.** **248 words** counting the heading word "Abstract" and the four
-section headings; 247 counting the headings but not the word "Abstract"; 241
-counting neither. The limit is 250 **[AI]**. One caveat worth knowing before you
-paste it anywhere: the abstract contains two thousands-separated figures
-(752,802 and 18,938), and an extractor that splits on the comma reads those as
-two tokens each, taking the strictest count to exactly 250. It is inside the
-limit under every convention tried, but with no margin under the strictest, so
-**do not add words to the abstract.**
+**Abstract.** **243 words** counting the heading word "Abstract" and the four
+section headings; 242 counting the headings but not the word "Abstract"; 235
+counting neither. The limit is 250 **[AI]**. The abstract contains four
+thousands-separated figures (752,802 · 18,938 · 13,257 · 5,681); an extractor
+that splits on the comma reads each as two tokens, taking the strictest count to
+247. It is inside the limit under every convention tried, with 3 tokens of margin
+under the strictest.
 
-**Summary Statement.** **243 characters** against the 255 cap, one sentence, no
+**Summary Statement.** **246 characters** against the 255 cap, one sentence, no
 abbreviations.
 
-**Section budget.** A 2019 capture of the journal's preparation checklist
-suggested 400 / 800 / 1000 / 800 for Introduction / Methods / Results /
-Discussion. That page is date-limited and is not restated in the current
-instructions. Against it, Methods (917) and Results (1,057) are over and
-Introduction (334) and Discussion (682) are under; Methods is over because the
-third-party slice-ordering provenance now lives there, which is where a reviewer
-asked for it.
+**Section budget — RESOLVED, with a source.** The 400 / 800 / 1000 / 800 split is
+**not this journal's rule**. It is the boilerplate of two sibling RSNA journals,
+flagship *Radiology* and *Radiology: Cardiothoracic Imaging*, whose author
+instructions carry "Introduction No more than 400 words", "Materials and Methods
+No more than 800 words", "Results No more than 1000 words" and "Discussion No
+more than 800 words". The *Radiology: AI* page carries the same section-opening
+sentences with those caps deleted, and the strings "400", "800" and "1000" appear
+nowhere on it; its only text limit is "no more than 3000 words (Introduction to
+Discussion)". Verified against a live fetch and against the Wayback snapshot
+`20250610013331` of `pubs.rsna.org/page/ai/author-instructions`. Treat the split
+as a stylistic target inherited from the sibling journals, not as binding.
+Against it, Methods (1,030) is over, for the declared reason that the
+third-party slice-ordering provenance and the eligibility criterion both live
+there, which is where reviewers asked for them.
 
 - **ACTION.** ScholarOne asks you to paste the abstract into a box at Step 1.
   Paste it, read the word counter the system shows you, and cut if it objects.
@@ -152,30 +157,26 @@ asked for it.
       third quartile of 120 Radiology: AI titles from 2025–2026 (median 13), and
       the colon structure is used by roughly half of them. Nothing to fix.
 - [x] **Article Type.** Original Research.
-- [x] **Summary Statement.** **243 characters**, one sentence, boldface, no
+- [x] **Summary Statement.** **246 characters**, one sentence, boldface, no
       abbreviations. The Original Research block says "1–2 sentences" while the
       Abbreviated Title Page block says "a single sentence"; the stricter reading
       is used. **[AI]** also forbids abbreviations in the Summary Statement —
-      there are none. It now carries the corrected reading of the patient-level
-      result ("carried no patient-level information at fixed stack depth"), not
-      the earlier "below chance", which was a reviewer blocker.
+      there are none. It now carries the primary result of the revision --- the
+      two-unit reading and the stack-depth mechanism --- and no longer leads with
+      the cross-study comparison, which is descriptive.
 - [x] **Key Points.** 3, each carrying summary data, none repeating the Summary
       Statement verbatim.
-  - ~~**RISK.** Key Point 1 uses **CI**, Key Point 2 uses **IQR**.~~ **FIXED.**
-    **[AI]** asks you to "avoid using vague language and abbreviations in the Key
-    Points. Obvious abbreviations like CT and MRI are fine." Both are now spelled
-    out: Key Point 1 writes "95% confidence interval" twice, Key Point 2 writes
-    "interquartile range".
-  - **RISK, unchanged.** Key Point 2 and the Summary Statement both carry the
-    "about half of the published margin" finding. Not a verbatim repeat — Key
-    Point 2 gives the median, the interquartile range, and the fact that the nine
-    arms are four benchmarks — but close enough that a reader may notice.
-    **Do not "fix" this by re-pointing Key Point 2 at the tightness of the
-    distribution.** An earlier draft of this file suggested exactly that; the
-    tightness sentence ("8 of 9 rows lie between 0.30 and 0.70") was deleted from
-    the manuscript as a reviewer blocker, because six of those nine rows are the
-    six label columns of one cohort and the claim was a statement about one
-    benchmark dressed as a statement about nine.
+  - ~~**RISK.** Key Point 1 uses **CI**, Key Point 2 uses **IQR**.~~ **FIXED
+    AND NOW MOOT.** Key Points 1 and 2 spell out "95% confidence interval"; IQR
+    no longer appears anywhere, because no median or interquartile range is
+    reported. **[AI]** asks you to "avoid using vague language and abbreviations
+    in the Key Points. Obvious abbreviations like CT and MRI are fine."
+  - ~~**RISK.** Key Point 2 and the Summary Statement both carry the "about half
+    of the published margin" finding.~~ **RESOLVED by the rewrite.** The Summary
+    Statement and Key Points 1 and 2 now carry the two-unit reading and its
+    mechanism; the cross-study comparison appears once, in Key Point 3, as four
+    per-benchmark values with the explicit statement that the spread and not an
+    average is the finding. No cross-metric median is claimed anywhere.
 
 ---
 
@@ -209,15 +210,15 @@ section** — Background is a flagship-*Radiology* item and must not be imported
 | Rule **[AI]** | Status |
 |---|---|
 | Headings are Introduction, Materials and Methods, Results, Discussion | OK |
-| Introduction is background and why the study was done — **"No extensive literature review"** | **RISK** — the second paragraph runs through seven citations. It is compressed and every citation earns its place, but it is the longest stretch in the paper that could read as a review. If you need to cut words (§3), cut here first. |
+| Introduction is background and why the study was done — **"No extensive literature review"** | OK — **fixed in the frozen-holdout rewrite**. The second paragraph was cut from seven citations to four (shortcut learning, Badgeley, the two leakage papers, and one field-level call for stronger baselines). It is now the shortest section in the paper at 295 words. |
 | Introduction's final paragraph states the hypothesis and purpose | OK — both, explicitly |
 | Materials and Methods includes every item that appears in Results | OK |
 | M&M states retrospective, date range, subject group, selection criteria | OK — inclusion rule is the four-field test |
 | M&M first paragraph addresses IRB approval and consent | OK — states approval not required, and states the two conditions it rests on (no data obtained through intervention or interaction with a living individual; no identifiable private information used). The bare regulatory citation "45 CFR 46.102(e)" was dropped when the paragraph was tightened, which also removed the one undeclared plain abbreviation in the paper |
-| **All tables, references and figures cited in numeric order** **[AI]**, twice | OK — **fixed 2026-08-12**. First citation of each is now Table 1 → Table 2 → Table 3 → Table 4 and Fig 1A → Fig 1B → Fig 2 → Fig 3. Before the fix the first table citation in the body was **Table 2**, in the Statistical Analysis paragraph, ahead of Table 1's first citation in Results; the pointer was replaced by "and is labeled as such", which is word-count neutral and loses nothing, because Table 2's own note carries the full explanation of why that one range is a split-to-split spread rather than a bootstrap interval. References are numbered by `unsrtnat`, which numbers by order of first citation by construction |
+| **All tables, references and figures cited in numeric order** **[AI]**, twice | OK — **re-verified after the rewrite**. First citation of each is Table 1 (Materials and Methods, benchmark eligibility) → Table 2 → Table 3 → Table 4 and Fig 1A → Fig 1B → Fig 1C → Fig 2 → Fig 3. The eligibility table is numbered first *because* it is cited in Methods; one `(Table 4)` pointer in the Methods estimator paragraph was deleted for the same reason, and the fact it carried survives in the Results. References are numbered by `unsrtnat`, which numbers by order of first citation by construction |
 | In-text figure citations styled consistently | OK — **fixed 2026-08-12**. One "Figure 2" mid-sentence in Results became "Fig 2"; the body now uses "Fig N" throughout and reserves "Figure N." for the legends, which the journal requires to begin that way |
-| M&M last paragraph: statistical methods, software **name + version + manufacturer**, and the *P* value used for significance | OK — Python 3.11 (Python Software Foundation, Wilmington, Del), NumPy 1.26, pandas 2.1, scikit-learn 1.4; states that no significance test was pre-specified and no *P* values are reported |
-| Results give **numerators and denominators for every percentage** | OK, and now vacuously so — re-checked 2026-08-12. Results contains **no percentage of this study's own** apart from the 95% interval level; the two coverage percentages moved into the Figure 1 legend during the major-revision cut, and they carry their numerators and denominators there: 46.5% (93 of 200) and 91.5% (183 of 200). The only other percentages in the body (29%–55%, 96%, 59.7%, 90.5%) are values quoted from cited papers, in the Introduction |
+| M&M last paragraph: statistical methods, software **name + version + manufacturer**, and the *P* value used for significance | OK — Python 3.14 (Python Software Foundation, Wilmington, Del), NumPy 2.4, pandas 3.0, scikit-learn 1.8; states that no significance test was pre-specified and no *P* values are reported |
+| Results give **numerators and denominators for every percentage** | OK, and now vacuously so — re-checked after the rewrite. Results contains **no percentage of this study's own** apart from the 95% interval level and the 30% holdout fraction, which is a design parameter and is given with both counts (13,257 training and 5,681 held-out patients of 18,938). The only other percentages in the body (29%–55%, 96%, 59.7%, 90.5%, 5%) are values quoted from cited papers or a corruption fraction reported with its own reference value |
 | Discussion ¶1 restates the problem and the primary results | OK |
 | Discussion **second-to-last paragraph is Limitations** | OK — Limitations is second-to-last, summary is last |
 | Discussion final paragraph is a summary | OK |
@@ -229,15 +230,15 @@ section** — Background is a flagship-*Radiology* item and must not be imported
 
 ### Abbreviations — re-measured on the current PDF, 2026-08-12
 
-Five are declared: **AUC, CI, DWI, ICH, IQR**. Scanning the compiled body
-(Introduction → Discussion) for acronym-shaped tokens returns fourteen forms:
-the five declared, plus **AI, COVID-19, LUNA16, MIT, MRI, NYU, PI-CAI, RSNA,
-RSNA-STR**.
+Five are declared: **AUC, CI, DWI, ICH, SD**. IQR is gone, because no median or
+interquartile range is reported anywhere any more; SD replaces it, because the
+across-holdout spread is quoted with standard deviations. Scanning the compiled
+body (Introduction → Discussion) for acronym-shaped tokens returns the five
+declared plus **AI, LUNA16, MRI, NYU, PI-CAI, RSNA, RSNA-STR**.
 
-All nine undeclared forms are proper names — of datasets (LUNA16, PI-CAI,
-RSNA-STR), organisations (NYU, RSNA), a licence (MIT), a disease (COVID-19), a
-modality (MRI), or the field itself (AI) — and are very unlikely to be counted
-against the limit of 10.
+All the undeclared forms are proper names — of datasets (LUNA16, PI-CAI,
+RSNA-STR), organisations (NYU, RSNA), a modality (MRI), or the field itself
+(AI) — and are very unlikely to be counted against the limit of 10.
 
 - ~~**ACTION.** CFR is undeclared.~~ **RESOLVED.** **CFR** and **PMC** appeared
   in earlier drafts and are both gone from the current body: CFR left with the
@@ -268,7 +269,7 @@ The nine items **[AI]** requires, in the order it lists them:
       **ACTION**: telephone not on record
 - [x] Funding information — none, stated exhaustively
 - [x] Manuscript Type — Original Research
-- [x] Word Count for Text — 2,990, recorded on the Full Title Page; see §3
+- [x] Word Count for Text — 2,978, recorded on the Full Title Page; see §3
 - [~] Unanonymized acknowledgments — **mostly filled 2026-08-12.** The
       language-model disclosure is now the honest one and is word-for-word
       consistent with the cover letter and with the anonymized Acknowledgments of
@@ -306,12 +307,12 @@ Also on the page, required by **[POL]** rather than **[AI]**:
       as **[AI]** also requires
 - [x] **Conflict of interest / industry support (REQUIRED)** — none
 - [x] **Confirmation of sole submission (REQUIRED)**
-- [~] **Which author(s) had control of the data and performed the analyses
-      (REQUIRED, [POL] Conflicts of Interest)** — **ACTION**: partly filled. Say
-      explicitly whether the independent reimplementation in Table 2 was written by
-      a different author. If it was the same person, say so — an independent
-      reimplementation by one author is a weaker check and the editor is entitled
-      to see that before a reviewer finds it
+- [x] **Which author(s) had control of the data and performed the analyses
+      (REQUIRED, [POL] Conflicts of Interest)** — filled. The cover letter states
+      that S.L. wrote the primary implementation and E.T.J. the second
+      implementation reported in Table 3, working separately and sharing no code,
+      and that the check cannot catch a misconception about the data shared by
+      both
 - [x] **Prior posting disclosure with DOI and licensing terms** ([POL] Preprint
       Servers) — §1 of the letter; see §9 below
 - [~] **Language-model use, in the cover letter as well as the manuscript**
@@ -523,7 +524,7 @@ Zero occurrences, too, of every term on the excluded arm's stop list.
 | `figures/fig2_unit_scatter.pdf` | Figure 2. Built for this submission by `make_rsna_figures.py`. |
 | `figures/fig3_trivial_fraction.pdf` | Figure 3. Copied unchanged (the full manuscript's Figure 2), renamed to match its number here. |
 | `CLAIM_checklist.md` | The CLAIM 2024 reporting checklist, all 44 items. **Submitted, as a separate upload.** Anonymized. |
-| `refs.bib` | 25 entries, all cited, all present in the parent bibliography. |
+| `refs.bib` | 25 entries, 19 of them cited by `main.tex` and printed; all present in the parent bibliography. |
 | `make_rsna_figures.py` | Builds Figure 2 and prints a source ledger. Not submitted. |
 | `checklist.md` | This file. Not submitted. |
 | `README.md` | What was cut from the full manuscript and why. Not submitted. |
@@ -599,3 +600,155 @@ both were confirmed separately against their own sources. DeepLesion's **665**
 patients is the official-split test count, not the 1,368 subjects in the file.
 The three `Johnson` matches in an anonymization grep of `main.pdf` are Patricia
 M. Johnson in the two cited fastMRI references, not a co-author leak.
+
+---
+
+## 14. Frozen-holdout rewrite — 2026-08-13
+
+**This section supersedes §13 and every number in §3 that predates it.** §13 was
+a verification pass on the *pooled out-of-fold* manuscript. That estimator is
+gone, so most of what §13 verified no longer appears in the paper; the section is
+kept because two of its three open ACTIONs were closed by the rewrite and the
+third is recorded below.
+
+**What changed, and why.**
+
+| Change | Reason |
+|---|---|
+| Estimator: pooled out-of-fold 5-fold → **one frozen patient-disjoint holdout**, 30% of patients, seed 20260813 fixed before any held-out value existed, single fit, no pooling | Under pooling, each fold emits its own training prevalence, so fold identity is rankable on its own and a constant predictor scored **0.492** per slice instead of 0.500. Under a single fit the constant is **0.500 exactly**, at both units, on all six labels, in all 24 holdouts. The artefact is gone, not reduced |
+| Primary baseline **locked** to the 20-bin positional model before the held-out data were touched; the other four are secondary | The old "best zero-image baseline" was selected on the test set, so its numerator carried selection optimism. The lock moves exactly one row in the whole package: PI-CAI, 0.467 → **0.000** |
+| Trivial fraction demoted to a **descriptive cross-study comparison**; the cross-metric median and IQR **deleted** as inferential claims | The four benchmarks sit on four metrics against four chance anchors. "Margin over chance" does not make slice AUC, 8-class accuracy, case AUROC and sensitivity at 1 FP/scan commensurable, and the manuscript no longer averages them |
+| Primary contribution is now the **two-unit reading and its stack-depth mechanism**, which needs no external comparator | No comparability objection touches it |
+| Added: aggregation sensitivity (7 operators, with distinct-score counts), the 24-holdout spread beside every bootstrap interval, a benchmark-eligibility table, a three-way classification of the non-image variables, and a strengthened mirror-provenance block | External-review findings 4, 5, 7 and 8 |
+| Language-model disclosure completed **at submission** in all three files | RSNA requires tool, version, manufacturer and dates of access at submission, not on acceptance. The earlier "will be named on acceptance" was a policy violation |
+
+**Counts after the rewrite** (all re-measured on the compiled PDF; superseded by
+§15, which records the counts after the verification pass): body
+**2,978** / 3,000; sections 295 · 1,030 · 996 · 657; abstract **243** (247 under
+the strictest comma-splitting convention) / 250; Summary Statement **246** / 255
+characters; 3 Key Points; **5** declared abbreviations (AUC, CI, DWI, ICH, SD —
+IQR removed, SD added); **19** references printed of 25 entries in `refs.bib`;
+3 figures; 4 tables. `main.pdf` is 21 pp,
+`figures.pdf` 3, `titlepage.pdf` 3, `cover_letter.pdf` 4. All compile under
+`tectonic` with zero errors, zero overfull or underfull boxes and zero undefined
+references. Figure legends are byte-identical between `main.tex` and
+`figures.tex` (`figures.tex` is generated from `main.tex`, not typed).
+
+**Every number in `main.tex` was machine-checked against
+`revised_numbers.json`** — 162 assertions, covering all six labels at both units,
+every depth-conditioned reading, every pair count, every null, every aggregation
+operator, every secondary baseline, every other benchmark-arm and every
+cross-study row. All 162 agree. The provenance figures in the Table 2 note were
+checked the same way against `rsna_mirror_provenance.json`.
+
+**One claim in the input artefact was wrong and was not copied.**
+`revised_numbers.json` carries a prose note asserting that the across-holdout
+spread "is WIDER than the bootstrap interval at the patient level". Its own
+numbers say otherwise for the headline label: on *any*, the bootstrap interval is
+**0.0299** wide and the across-holdout range **0.0203**, so the bootstrap is the
+wider; the ordering reverses only on epidural and subdural. The manuscript states
+what the numbers show — that the two are different quantities, not ordered in a
+fixed direction, and that both are therefore reported — and the Table 3 note adds
+the fact that makes the point the artefact was reaching for: under the superseded
+estimator the patient-level interval was only **0.0159** wide and *did* understate
+holdout-to-holdout movement, which the new estimator's wider interval repairs.
+
+**§13's three ACTIONs.**
+
+| # | Old item | Status |
+|---|---|---|
+| 1 | Software versions claimed Python 3.11 / NumPy 1.26 / pandas 2.1 / scikit-learn 1.4 while the live environment is 3.14 / 2.4 / 3.0 / 1.8 | **CLOSED.** Every RSNA ICH number in the paper is now produced by the frozen-holdout code running in the current environment, so Materials and Methods states 3.14 / 2.4 / 3.0 / 1.8 and that is what ran |
+| 2 | The deciles pair count `11,936,868` did not reproduce | **CLOSED** by deletion. The deciles row is gone; the two stratified rows that remain print **901,972** (29 exact-depth strata) and **2,253,183** (5-slice strata), both from the frozen-holdout artefact |
+| 3 | The fold seed for the old lower block was recorded nowhere | **CLOSED.** The whole block now runs on one named seed, **20260813**, printed in the Table 2 note, and the 24-holdout family runs on seeds 20260813–20260836 |
+
+**What got worse, and is disclosed in the paper rather than here.** Every
+interval widened 1.66×–1.88× (5,681 evaluation patients instead of 18,938). The
+depth-conditioned reading moved from 0.497 (0.487, 0.508), which covered chance,
+to **0.5071 (0.5013, 0.5129)**, which does not — so the paper says it sits on its
+own permutation null (0.5055) rather than at chance, and reports that the
+24-holdout family does cover 0.500. Epidural flips from sub-chance to above
+chance at the patient unit (0.528), so "all six labels behaved the same way" is
+gone. Three aggregation operators read above chance. The frozen draw is
+rank-extreme within its own family on three of six labels, which is disclosed in
+the body. Four arms could not be moved off the pooled estimator and are labelled
+in Table 4 as an unrepaired defect.
+
+**Two things were cut and are not coming back without new computation.**
+
+1. The naive-versus-clustered interval-width panel (old Fig 1B) and its
+   simulation coverage figures. Those numbers were computed under the superseded
+   estimator and the simulation was not re-run; the figure slot went to the depth
+   mechanism, which is the reviewer-facing result. If a reviewer asks for the
+   clustering argument, it needs a fresh run.
+2. The old Table 2, "independent routes to the unit collapse". Two of its five
+   rows were pooled-out-of-fold full-cohort rows and cannot be shown beside a
+   single-fit number as though they were the same estimator. The
+   code-independence claim survives in a stronger form: two implementations
+   sharing no code ran the same pre-specified protocol on their own holdouts and
+   their family means agree to **0.0003** per slice and **0.005** per patient,
+   with the constant predictor at exactly 0.500 in every draw of both.
+
+---
+
+## 15. Mechanical verification pass — 2026-08-13, after the frozen-holdout rewrite
+
+Recompile, recount, re-grep, and re-verify every value against its artefact
+rather than against §14's record of the previous pass.
+
+**Compilation.** All four documents build under `tectonic` in a scratch
+directory with **zero** errors, **zero** overfull and underfull boxes, **zero**
+undefined citations and **zero** undefined references. The only line the TeX log
+carries is the benign `inputenc package ignored with utf8 based engines`, which
+every one of the four emits and which has no effect under XeTeX. Page counts
+21 / 3 / 3 / 4.
+
+**Eight defects found and fixed.** Seven of the eight survived §14's
+162-assertion machine check because that check compares *values*, and each of
+those seven is a *relational* or *prose* claim about values, which a value
+comparison cannot see. The eighth (#8) is a plain mis-rounding and was caught by
+re-deriving every printed figure from its artefact with an explicit format
+string rather than by eye.
+
+| # | Where | Defect | Fix |
+|---|---|---|---|
+| 1 | `titlepage.tex`, word-count block (also `README.md`, `checklist.md` §12/§14) | Reference count given as **25**. `refs.bib` holds 25 entries but `main.tex` cites only **19**, and BibTeX emits only cited keys, so the compiled bibliography runs `[1]`–`[19]`. The 6 uncited keys are `degrave2021covid`, `kapoor2023leakage`, `ongly2024shortcut`, `roberts2021pitfalls`, `wen2020cnn`, `zech2018pneumonia` — leftovers of the prose that was cut | Stated as 19 cited and printed, of 25 entries retained. Still far inside the limit of 35 |
+| 2 | `main.tex` Abstract, Table 2 note, Figure 1 legend (both files) | The depth-conditioned reading was said to sit **inside** / to be **contained by** the within-series permutation null at fixed depth. The null's 20-permutation range is `[0.5035095, 0.5067835]`; the observed value is `0.5071216`, which is **0.0003 above the top of it**. `make_rsna_figures.py` draws the band from the same range, so Figure 1B already showed the marker outside the band the legend said contained it | Restated as what the artefact shows: 0.0016 above the null mean, 0.0003 above the top of the 20-permutation range, with the observed value's own interval (0.5013, 0.5129) spanning the whole band. The conclusion — sitting *at* its own null rather than at chance — is unchanged and is now the claim the numbers support |
+| 3 | `main.tex` Results, aggregation paragraph | "Three read above chance **with intervals excluding it**". Top-5 mean's interval is `[0.4989593, 0.5262184]`, printed in the paper's own Table 3 as `(0.499, 0.526)`, and therefore covers 0.500 | "the first and last with intervals excluding it" — top-3 mean and the 90th percentile exclude chance; top-5 mean does not. The paragraph's conclusion is unaffected, because it rests on the distinct-score counts |
+| 4 | `main.tex` Materials and Methods, provenance paragraph | "over **all 21,744** series the observed runs are 0.193 of the randomized expectation". The run-length statistic is defined only on series carrying at least three positive slices; `rsna_mirror_provenance.json` records `n_series_with_ge3_positives = 8377`, and `tables_appendix.tex` Table E2 already prints **8,377**. Recomputed from `rsna_ich_slices.csv` directly: 8,377 series, 1.3837 observed runs, 7.1672 expected, ratio 0.1931 — matching the artefact exactly and *not* matching 21,744 | Denominator corrected in both the Methods sentence and the Table 2 note, which now also scopes the 99.5% / 74.8% per-series figures to those 8,377 |
+| 5 | `main.tex` Table 2 note | "the across-holdout spread, **which is wider at the patient unit**, is in Table 3" — the very claim §14 recorded as the input artefact's error, reintroduced two tables away from where §14 corrected it. On *any* the bootstrap interval is 0.0299 and the across-holdout range 0.0203; the across-holdout range is the wider on epidural and subdural only | Restated as a different quantity, wider on two of the six labels and narrower on the other four, which is what Table 3's own note and the Results paragraph say |
+| 6 | `main.tex` Results and Figure 1 legend (both files) | "Three intervals lie wholly below chance …, intraparenchymal and intraventricular cross it, and epidural **sits above it**" / "epidural … **lies above it**", in an enumeration whose subject is intervals. Epidural's interval is `(0.472, 0.579)` and crosses chance; the correct partition is three wholly below and **three** crossing, with none wholly above | Restated: three below, three crossing, and epidural is the only *point estimate* above chance |
+| 7 | `main.tex` Table 2 note and Limitations | The 5-bin slice AUC printed as **0.716** in both places. `rsna_bin_sweep.json` gives `0.7165100605554211`, which is **0.717** to three decimals; the 10-, 20- and 50-bin values and the fit-free variant all round correctly | 0.717 in both places. The bin-robustness conclusion is unchanged |
+| 8 | `titlepage.tex`, unanonymized acknowledgments | "the raw k-space datasets used in **five** of the audited cohorts". Five is the cohort count of the *larger* study the cover letter says is deliberately not reported here. This submission's NYU-fastMRI-derived arms number **four**: fastMRI Prostate T2 and DWI, and the two fastMRI+ knee arms | Named explicitly instead of counted |
+
+**Counts after these fixes**, re-measured on the recompiled PDF: body **2,989**
+/ 3,000 (Introduction 295 · Materials and Methods 1,036 · Results 1,001 ·
+Discussion 657; margin **11** tokens, down from 22 — recount before upload if
+anything else is edited); abstract **244** counting the heading word "Abstract"
+and the four section headings, 237 counting neither, **248** under the strictest
+comma-splitting convention, limit 250; Summary Statement **246** / 255
+characters; 3 Key Points; 5 declared abbreviations; **19** references / 35;
+3 figures / 6; 4 tables / 4.
+
+**Re-verified and unchanged.** Every value in Tables 2, 3 and 4 against
+`revised_numbers.json`, one row at a time, including all six labels at both units,
+all six aggregation operators with their distinct-score counts, all seven
+secondary-baseline rows, all sixteen benchmark-arms and every cross-study row;
+the whole Table 2 provenance block against `rsna_mirror_provenance.json`; the bin
+sweep, fit-free variant and apparent-versus-held-out check against
+`rsna_bin_sweep.json`; PI-CAI's four single-column patient AUCs and the fastMRI
+Prostate T2 distribution-archive column against their own payloads; the LUNA16
+competition-metric figures against `paper/trivial_fraction_distribution.json`;
+and the software versions against the live interpreter (Python 3.14.0, NumPy
+2.4.4, pandas 3.0.2, scikit-learn 1.8.0 — the paper states 3.14 / 2.4 / 3.0 /
+1.8). First-citation order is Table 1 → 2 → 3 → 4 and Fig 1A → 1B → 1C → 2 → 3;
+the Discussion cites no table and no figure. Figure legends are byte-identical
+between `main.tex` and `figures.tex` after the edits (`figures.tex` regenerated
+from `main.tex`, not retyped). Anonymization and prevalence-vocabulary greps on
+both submitted documents and on both compiled PDFs return **zero** hits; the two
+`Johnson` hits in `main.pdf` are Patricia M. Johnson in the cited fastMRI
+references, not a co-author leak.
+
+**One item left for a human.** `cover_letter.tex` still carries
+`\todo{submission date}`, which prints as **[TO SUPPLY: submission date]** on
+page 1 of the compiled cover letter. It is the only placeholder in the package
+and cannot be filled by the repository.

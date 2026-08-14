@@ -132,32 +132,35 @@ narrowly than have a reviewer find the boundary for us:
 
 \begin{itemize}\setlength{\itemsep}{0.2em}
 \item \textbf{A result that needs no published comparator.} On the RSNA 2019
-Intracranial Hemorrhage benchmark, one pixel-blind score vector reads AUC 0.737
-(95\% CI: 0.735, 0.740) per slice and 0.453 (95\% CI: 0.445, 0.461) per
-patient, on all six official labels. The comparison is between two readings of
-the same score vector, so it does not depend on any published number being
-correct. The two full-cohort routes, one a second implementation sharing
-no code, agree to 0.003 at both units; across all four routes in Table 2 the
-maximum disagreement is 0.007 per slice and 0.008 per patient.
-\item \textbf{A measurement under a correct split.} The existing literature on
-the evaluation unit measures the cost of a \emph{wrong}, leaky split. Every
-value here was obtained under a patient-disjoint one, with intervals that
-resample subjects rather than slices.
-\item \textbf{A distribution rather than a verdict.} Against peer-reviewed
-comparators, the median share of the published margin over chance reachable
-with no pixels is 0.469 (IQR: 0.437, 0.490) over nine benchmark-arms. Those
-nine arms are only four benchmarks, six of them being the six label columns of
-one cohort; taking one arm per benchmark the median is 0.474. Both are in
-Table 4, and the manuscript states the composition wherever the number
-appears.
+Intracranial Hemorrhage benchmark, read on a frozen patient-disjoint holdout with
+a single fit, one pixel-blind score vector reads AUC 0.738 (95\% CI: 0.733,
+0.742) per slice and 0.442 (95\% CI: 0.428, 0.458) per patient, on all six
+official labels, while a constant predictor reads exactly 0.500 at both units.
+The comparison is between two readings of the same score vector, so it does not
+depend on any published number being correct. A second implementation sharing no
+code ran the same protocol on its own holdouts; the two families agree to 0.0003
+per slice and 0.005 per patient, with the constant predictor at exactly 0.500 in
+every draw of both.
+\item \textbf{A mechanism, not just a gap.} The patient-level reading is a
+stack-depth confound of the mean operator: stack depth alone reads 0.394 per
+patient, and with depth held fixed the same score vector reads 0.5071 (95\% CI:
+0.5013, 0.5129), sitting on its own permutation null of 0.5055. Every value was
+obtained under a patient-disjoint split, with intervals that resample subjects
+rather than slices, and with the across-holdout spread reported beside every
+bootstrap interval.
+\item \textbf{A spread rather than a verdict.} Against the strongest
+peer-reviewed comparator on each of four benchmarks, the locked pixel-blind
+baseline reaches 0.491, 0.480, 0.000 and $-0.002$ of the published margin over
+chance. We report that comparison as descriptive only and take no average over
+it: those four sit on four metrics against four different chance anchors, which
+a margin ratio does not make commensurable. The heterogeneity is the finding.
 \end{itemize}
 
-That last number also bounds what we may claim, and the Discussion says so: a
-median near one half is not a demonstration that published slice-level results
-are accounted for by trivial baselines, and four benchmarks cannot support a
-rate for the field. One of the four returns
-$-0.002$ --- none of the margin --- and is reported at the same prominence as
-the rest. No peer-reviewed comparison in the paper is matched; the only rows
+That comparison also bounds what we may claim, and the Discussion says so: two
+benchmarks near one half is not a demonstration that published slice-level
+results are accounted for by trivial baselines, and four benchmarks cannot
+support a rate for the field. One of the four returns $-0.002$ --- none of the
+margin --- and is reported at the same prominence as the rest. No peer-reviewed comparison in the paper is matched; the only rows
 reaching parity have a preprint comparator and are labeled as such wherever
 they appear. Every claim is about an evaluation protocol. We make no claim
 about what any published model learned, which no analysis of a label file could
@@ -204,9 +207,9 @@ used as comparators. Each author will submit a completed ICMJE disclosure form.
 
 \textbf{Control of the data and the analyses.} S.L. had full control of all
 data used in the study and of the information submitted for publication. S.L.
-performed the primary analyses. S.L. wrote the primary implementation and the released audit tool. E.T.J. wrote
-the second implementation reported in Table 2, working separately and sharing
-no code with the first. S.L. and E.T.J. had full access to the label files and
+performed the primary analyses. S.L. wrote the primary implementation and the
+released audit tool. E.T.J. wrote the second implementation reported in Table 3,
+working separately and sharing no code with the first. S.L. and E.T.J. had full access to the label files and
 performed the analyses; all four authors verified the reported values against
 the released outputs. All authors reviewed the reported values against the
 analysis code's own output and take responsibility for them.
@@ -223,8 +226,9 @@ the Results. The tool was \textbf{Claude (Opus 5), Anthropic}, accessed
 No value reported in the paper was generated by a language model. Every number
 is a deterministic output of the released code, run on a published label file,
 and the flagship estimate was reproduced by a second implementation written
-separately from the primary one and sharing no code with it; on the full cohort
-the two agree to 0.003 AUC at both the slice and the patient level. The two
+separately from the primary one and sharing no code with it; running the same
+pre-specified protocol on its own holdouts, it agrees to 0.0003 AUC per slice and
+0.005 per patient. The two
 implementations were written by different authors, S.L. and E.T.J., working
 separately and sharing no code, so the check can catch an implementation error
 in either. We still describe it as a code-independence check rather than an

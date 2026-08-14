@@ -1,0 +1,142 @@
+% =====================================================================
+% Supplemental tables for the Radiology: AI submission.
+%
+% E1  Three-way classification of the non-image variables (FINDING 5).
+%     The manuscript's Table 4 carries only the G / A / C key; this is the
+%     per-variable detail behind it.
+% E2  Provenance validation of the hemorrhage benchmark's slice ordering
+%     and subject identifier (FINDING 8), each test shown against the value
+%     the same statistic returns when the structure being tested is
+%     destroyed. The manuscript's Table 2 note states the same statistics in
+%     prose; this is the tabular form with the destroyed-structure column.
+%
+% The benchmark-eligibility record that used to be Table E1 here is now
+% Table 1 OF THE MANUSCRIPT, in full, and is not repeated in this file.
+%
+% ANONYMIZATION: no author, institution, repository, persistent identifier,
+% software name or file path appears below. Data-contributing centers are
+% referred to by count, not by name.
+%
+% EXCLUDED VOCABULARY: this file is deliberately free of the token list the
+% submission bans; that list is kept in the working notes, not here, so this
+% file passes its own check.
+%
+% Requires: booktabs, siunitx (\num), threeparttable optional.
+% =====================================================================
+
+% ---------------------------------------------------------------- Table E1
+\begin{table*}[t]
+\centering
+\footnotesize
+\caption{Non-image variables available to the zero-image models, classified three ways;
+the manuscript's Table 4 carries only the one-letter key. \textbf{G}, geometry and acquisition: where in the stack the slice
+sits and how the image was made. \textbf{A}, administrative: how the data were
+catalogued or distributed. \textbf{C}, legitimate clinical non-image predictor.
+Values are single-variable area under the receiver operating characteristic
+curve at the patient level on each arm's own held-out data, so they show what
+each field carries on its own. The headline result of this study rests on class
+G alone.}
+\label{tab:taxonomy}
+\begin{tabular}{@{}p{0.19\textwidth} p{0.29\textwidth} p{0.15\textwidth} p{0.23\textwidth}@{}}
+\toprule
+Benchmark arm & G, geometry and acquisition & A, administrative & C, clinical \\
+\midrule
+RSNA ICH (6 label columns) & relative position; series depth 0.601; reconstruction intercept 0.553; imaging plane 0.500; reconstruction slope 0.500 & \emph{none in the file} & \emph{none in the file} \\
+\addlinespace[2pt]
+fastMRI Prostate, T2 & relative position; volume depth 0.542 & distribution-archive bucket 0.596 & \emph{none in the file} \\
+fastMRI Prostate, DWI & relative position; volume depth 0.481 & distribution-archive bucket 0.407 & \emph{none in the file} \\
+\addlinespace[2pt]
+DeepLesion (8 arms) & published normalized $z$; display window setting 0.518--0.938; scanned range 0.520--0.733; section thickness 0.533--0.694; in-plane spacing 0.534--0.626; matrix size 0.499--0.502; volume depth 0.374--0.705 & \emph{none in the file} & age 0.473--0.566; sex 0.449--0.562 \\
+\addlinespace[2pt]
+fastMRI+ knee, 2 arms & relative position; readout columns 0.494--0.578; sequence 0.469--0.573; volume depth 0.549--0.553 & \emph{none in the file} & \emph{none in the file} \\
+\addlinespace[2pt]
+Duke Breast & relative position; volume depth; manufacturer; scanner model; software version (all patient-level undefined; slice-level 0.501--0.527) & series count (slice-level 0.473) & \emph{none in the file} \\
+\addlinespace[2pt]
+PI-CAI, case level & \emph{slice index absent}; volume depth 0.504 & contributing center 0.547; acquisition year 0.552 & age 0.636; prostate-specific antigen 0.638 \\
+\addlinespace[2pt]
+LUNA16 & published world $z$; volume depth 0.658 & \emph{none in the file} & \emph{none in the file} \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+\raggedright\scriptsize
+\textbf{Note.}---Class G is the only class present on the hemorrhage benchmark,
+which is why the primary result is a statement about geometry and nothing else.
+Two arms are not class G alone and the distinction changes how they should be
+read. On PI-CAI the depth-limited tree over the four
+available variables reaches 0.692 (95\% CI: 0.626, 0.755) at the patient level;
+taken one at a time the two clinical variables reach 0.636 and 0.638 and the two
+administrative variables reach 0.547 and 0.552, and the fitted tree splits on all
+four. The single-variable ordering places the clinical variables above the
+administrative ones, but the tree's 0.692 cannot be partitioned between the two
+classes from the recorded output, and it is not claimed to be: age and
+prostate-specific antigen are established predictors of clinically significant
+prostate cancer, so a model using them is not pixel-blind in the same sense as a
+model using only stack geometry. On DeepLesion the label
+\emph{is} the anatomic region, so relative position is legitimate task
+information rather than a shortcut, and that arm is reported as a reference
+level and not as a benchmark defect. The distribution-archive bucket on the
+fastMRI Prostate T2 arm is the clearest class A result: a field that records only which
+download package a subject shipped in ranks patients at 0.596.
+\end{table*}
+
+% ---------------------------------------------------------------- Table E2
+\begin{table*}[t]
+\centering
+\footnotesize
+\caption{Provenance validation of the RSNA ICH slice ordering and subject identifier, neither of which the official release contains. Each test is
+reported against the value the same statistic returns when the structure being
+tested is destroyed, so a null result is distinguishable from a test with no
+power.}
+\label{tab:provenance}
+\begin{tabular}{@{}p{0.28\textwidth} p{0.23\textwidth} p{0.23\textwidth} p{0.13\textwidth}@{}}
+\toprule
+Test & Observed & Value when the structure is destroyed & Separation \\
+\midrule
+\multicolumn{4}{@{}l}{\textbf{Slice ordering}}\\
+\addlinespace[2pt]
+Runs of hemorrhage slices per series, \emph{any} label, \num{8377} series & 1.384 & 7.167 expected under random placement; ratio 1.001 (SD 0.002) over 20 randomized orderings & $z=-452$ \\
+Same test, subdural & ratio 0.175 & 0.999 (SD 0.003) & $z=-274$ \\
+Same test, epidural (rarest, 331 series) & ratio 0.180 & 1.006 (SD 0.010) & $z=-86$ \\
+Same test, three remaining subtypes & ratio 0.223, 0.223, 0.246 & --- & all fire \\
+Series individually more contiguous than chance & 99.5\% & 50\% by construction & --- \\
+Series whose positive slices form one run & 74.8\% & median 7.5 runs expected & --- \\
+Sensitivity: ratio after a fraction of slices is relocated at random within its series & 0.193 at 0\%; 0.233 at 5\%; 0.301 at 10\%; 0.444 at 20\%; 0.576 at 30\%; 1.001 at 100\% & pre-set abort threshold 0.50, crossed near 24\% & --- \\
+Orientation coherence: mean relative position of positive slices & 0.5239 & 0.4998 (SD 0.0011) if a random half of series are reversed & $z=+22$ \\
+\addlinespace[3pt]
+\multicolumn{4}{@{}p{0.87\textwidth}}{\textbf{Subject identifier}, tested on \num{1758} subjects holding \num{4564} series; series and studies are 1:1, so every pair below spans two separate examinations}\\
+\addlinespace[2pt]
+Same-subject series agreeing on reconstruction intercept & 0.977 & 0.515 (SD 0.007) with subject labels permuted & $z=68$ \\
+Same-subject series agreeing on hemorrhage present & 0.801 & 0.500 (SD 0.007) & $z=44$ \\
+Same, restricted to pairs already matching on reconstruction intercept (\num{5023} pairs) & 0.800 & 0.504 (SD 0.012) & $z=25$ \\
+Same-subject series agreeing on series depth & 0.188 & 0.098 (SD 0.002) & $z=40$ \\
+\addlinespace[3pt]
+\multicolumn{4}{@{}l}{\textbf{Structural reconciliation}}\\
+\addlinespace[2pt]
+Series whose within-series counter runs 1 to $n$ without a gap & \num{21743} of \num{21744} & --- & --- \\
+Rows implied missing by the single gapped series & 1 & reconciles \num{752802} held against \num{752803} published & --- \\
+Series present in the labels but absent from the acquisition-parameter file & 0 of \num{21744} & --- & --- \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+\raggedright\scriptsize
+\textbf{Note.}---No image header was read. The $z$ order is inferred from label
+contiguity, not observed directly, and the official label file was never obtained,
+so the mirror's instance identifiers were not checked row for row against it.
+Nothing here identifies which end of the counter is the vertex; the positional
+model is invariant to reversing the axis and is fitted per series, so orientation
+is not needed. The orientation test is one-sided: asymmetry implies the series
+agree on direction, while symmetry would have implied nothing. Every test is
+internal-consistency evidence and can only falsify a bad mapping, never certify a
+good one---a mapping wrong in a way that preserved within-series label contiguity
+and within-subject acquisition homogeneity would pass all of them. The
+sensitivity row separates two questions that are easy to conflate. As a
+continuous statistic the ordering test is sharp: relocating 5\% of slices moves
+the ratio from 0.193 to 0.233, roughly 20 standard deviations of the randomized
+null. As a pass/fail gate at the pre-set 0.50 threshold it is blunt: about a
+quarter of all slices would have to be misplaced before it refused the file. The
+gate certifies against wholesale mis-ordering; it does not certify against a
+handful of locally transposed slices, and no claim here depends on that finer
+resolution, because the positional model bins relative position into 20 levels.
+\end{table*}

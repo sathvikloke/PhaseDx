@@ -1,0 +1,5240 @@
+{
+ "schema": "phasedx.rsna.revised_numbers.v1",
+ "generated_utc": "2026-08-13T23:57:24+00:00",
+ "NOT_FOR_SUBMISSION": "This file is a working artefact for the rewrite phase. It contains absolute local file paths and the repository layout, so it must NOT be included in the anonymised upload. Nothing here belongs in main.tex or figures.tex except the numbers themselves.",
+ "purpose": "Replacement number set for paper/tex/rsna. The frozen single patient-disjoint holdout replaces the pooled out-of-fold estimator everywhere it can be, and the 20-bin positional model is the locked primary baseline everywhere.",
+ "estimator_policy": {
+  "rule": "a benchmark's own published train/test split where one exists; otherwise ONE frozen patient-disjoint holdout with a stated seed. No pooled cross-fold scoring anywhere.",
+  "constant_predictor_requirement": "0.500 exactly at both units. Any arm that still deviates is flagged and its estimator is named as pooled out of fold.",
+  "primary_baseline": "positional_20bin, locked before any held-out score was computed. The other four zero-image baselines are secondary and are never used to select a headline.",
+  "primary_patient_operator": "mean, pre-specified. Everything else is sensitivity.",
+  "intervals": "95% percentile bootstrap resampling SUBJECTS, 2000 replicates, on every recomputed number."
+ },
+ "rsna_ich": {
+  "cohort": {
+   "n_slices": 752802,
+   "n_series": 21744,
+   "n_patients": 18938
+  },
+  "label_table": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/audit_data/rsna_ich_slices.csv",
+  "label_table_sha256": "7380d44b9602ad405f1c9176811dcce71bccee427c3716e36a303bd2c16765bf",
+  "estimator": "single frozen patient-disjoint holdout, one fit, no pooling",
+  "holdout_fraction": 0.3,
+  "primary_seed": 20260813,
+  "n_boot": 2000,
+  "n_bins": 20,
+  "depth_definition": "int(total slices for the patient / number of that patient's series); reproduces 10,065,308 within-exact-depth pairs over 36 informative strata on the full cohort",
+  "primary_baseline": "positional_20bin (LOCKED before the holdout was scored)",
+  "labels": {
+   "any": {
+    "n_test_patients": 5681,
+    "n_test_slices": 226663,
+    "n_train_patients": 13257,
+    "n_train_slices": 526139,
+    "test_slice_prevalence": 0.14231700806924819,
+    "test_patient_prevalence": 0.40591445168104207,
+    "n_pos_test_slices": 32258,
+    "n_pos_test_patients": 2306,
+    "slice_auc": 0.737691144133092,
+    "slice_ci": [
+     0.7333370265096615,
+     0.7417343542049176
+    ],
+    "patient_auc_mean": 0.4424181041405673,
+    "patient_auc_mean_ci": [
+     0.42812223788572984,
+     0.45799054010887214
+    ],
+    "gap_slice_minus_patient": 0.2952730399925247,
+    "patient_auc_mean_depthfixed": 0.5071216179659679,
+    "patient_auc_mean_depthfixed_ci": [
+     0.5013121592154293,
+     0.5129180258085169
+    ],
+    "patient_auc_mean_depth5": 0.5024387721725222,
+    "patient_auc_mean_depth5_ci": [
+     0.4867244091242095,
+     0.5177913144684818
+    ],
+    "pairs_unstratified": 7782750.0,
+    "pairs_depthfixed": 901972.0,
+    "pairs_depth5": 2253183.0,
+    "n_depth_strata_informative": 29,
+    "depth_alone_patient_auc": 0.39425267418328996,
+    "depth_alone_patient_ci": [
+     0.3799657018110386,
+     0.40907544121704387
+    ],
+    "constant_predictor_slice_auc": 0.5,
+    "constant_predictor_patient_auc": 0.5,
+    "constant_predictor_slice_ci": [
+     0.5,
+     0.5
+    ],
+    "within_series_permutation_null": {
+     "n_perm": 20,
+     "slice_mean": 0.5046191530042842,
+     "slice_range": [
+      0.5011482458524702,
+      0.5067301789987958
+     ],
+     "patient_mean": 0.5802993864636535,
+     "patient_range": [
+      0.5460218431788249,
+      0.601488998104783
+     ],
+     "patient_depthfixed_mean": 0.5055209030879007,
+     "patient_depthfixed_range": [
+      0.5035095324466835,
+      0.5067834699968513
+     ],
+     "slice_excess_over_null": 0.23307199112880783
+    },
+    "published_slice_auc": 0.9843,
+    "trivial_fraction_slice_locked": 0.49079319457586623,
+    "trivial_fraction_slice_locked_ci": [
+     0.48180265643126474,
+     0.4991417596632617
+    ],
+    "superseded_pooled_oof": {
+     "slice_auc": 0.737374772144935,
+     "slice_ci": [
+      0.7350661517958363,
+      0.7398236389888124
+     ],
+     "patient_auc_mean": 0.4532834998863832,
+     "patient_ci": [
+      0.44541842597258874,
+      0.4613175003556171
+     ],
+     "patient_auc_max_agg": 0.5000606932764332,
+     "constant_predictor_slice_auc": 0.4918157688599211,
+     "constant_predictor_patient_auc": 0.500693291717998,
+     "within_series_permutation_null": {
+      "n_perm": 20,
+      "slice_mean": 0.5018217223107617,
+      "slice_range": [
+       0.49978920835786905,
+       0.503910285262316
+      ],
+      "patient_mean": 0.5227409140955135,
+      "slice_excess_over_null": 0.23555304983417324
+     },
+     "trivial_fraction_slice": 0.4901399383541916,
+     "estimator": "5-fold subject-disjoint, pooled out of fold (SUPERSEDED)"
+    },
+    "delta_vs_pooled_oof": {
+     "slice_auc": 0.00031637198815703815,
+     "patient_auc_mean": -0.010865395745815909,
+     "constant_slice_auc": 0.00818423114007888
+    }
+   },
+   "epidural": {
+    "n_test_patients": 5681,
+    "n_test_slices": 226663,
+    "n_train_patients": 13257,
+    "n_train_slices": 526139,
+    "test_slice_prevalence": 0.005130965353851312,
+    "test_patient_prevalence": 0.019010737546206653,
+    "n_pos_test_slices": 1163,
+    "n_pos_test_patients": 108,
+    "slice_auc": 0.708778344864665,
+    "slice_ci": [
+     0.6869297616223288,
+     0.7290119873553056
+    ],
+    "patient_auc_mean": 0.5276963667417642,
+    "patient_auc_mean_ci": [
+     0.4716181958927976,
+     0.5791341797399796
+    ],
+    "gap_slice_minus_patient": 0.18108197812290072,
+    "patient_auc_mean_depthfixed": 0.504429020889315,
+    "patient_auc_mean_depthfixed_ci": [
+     0.4819485922985756,
+     0.5306461308870847
+    ],
+    "patient_auc_mean_depth5": 0.5209935732856239,
+    "patient_auc_mean_depth5_ci": [
+     0.46333251806908443,
+     0.5779515708824619
+    ],
+    "pairs_unstratified": 601884.0,
+    "pairs_depthfixed": 74057.0,
+    "pairs_depth5": 185009.0,
+    "n_depth_strata_informative": 20,
+    "depth_alone_patient_auc": 0.5121908872806056,
+    "depth_alone_patient_ci": [
+     0.4611854109856145,
+     0.5638816083859255
+    ],
+    "constant_predictor_slice_auc": 0.5,
+    "constant_predictor_patient_auc": 0.5,
+    "constant_predictor_slice_ci": [
+     0.5,
+     0.5
+    ],
+    "within_series_permutation_null": {
+     "n_perm": 20,
+     "slice_mean": 0.5009789124387765,
+     "slice_range": [
+      0.48861860049226613,
+      0.5137810502313575
+     ],
+     "patient_mean": 0.5067970738547627,
+     "patient_range": [
+      0.4358979471127327,
+      0.5586524978235009
+     ],
+     "patient_depthfixed_mean": 0.49545282687659514,
+     "patient_depthfixed_range": [
+      0.4776388457539463,
+      0.5263985848738134
+     ],
+     "slice_excess_over_null": 0.2077994324258885
+    },
+    "published_slice_auc": 0.9851,
+    "trivial_fraction_slice_locked": 0.4303820755816635,
+    "trivial_fraction_slice_locked_ci": [
+     0.3853427368013374,
+     0.4720923260261917
+    ],
+    "superseded_pooled_oof": {
+     "slice_auc": 0.7121945902411463,
+     "slice_ci": [
+      0.6995635293296317,
+      0.7248833695186538
+     ],
+     "patient_auc_mean": 0.4921426814992346,
+     "patient_ci": [
+      0.46132480403644155,
+      0.5243698798779329
+     ],
+     "patient_auc_max_agg": 0.485575997284698,
+     "constant_predictor_slice_auc": 0.47954204188004135,
+     "constant_predictor_patient_auc": 0.4986271966585162,
+     "within_series_permutation_null": {
+      "n_perm": 20,
+      "slice_mean": 0.49491076350290075,
+      "slice_range": [
+       0.48705999031633446,
+       0.5034706414000427
+      ],
+      "patient_mean": 0.4995635688903974,
+      "slice_excess_over_null": 0.21728382673824553
+     },
+     "trivial_fraction_slice": 0.43742442845010576,
+     "estimator": "5-fold subject-disjoint, pooled out of fold (SUPERSEDED)"
+    },
+    "delta_vs_pooled_oof": {
+     "slice_auc": -0.0034162453764813305,
+     "patient_auc_mean": 0.03555368524252961,
+     "constant_slice_auc": 0.020457958119958652
+    }
+   },
+   "intraparenchymal": {
+    "n_test_patients": 5681,
+    "n_test_slices": 226663,
+    "n_train_patients": 13257,
+    "n_train_slices": 526139,
+    "test_slice_prevalence": 0.04815519074573265,
+    "test_patient_prevalence": 0.24784368949128674,
+    "n_pos_test_slices": 10915,
+    "n_pos_test_patients": 1408,
+    "slice_auc": 0.7533599051118077,
+    "slice_ci": [
+     0.7460980221394755,
+     0.7602387687497029
+    ],
+    "patient_auc_mean": 0.48345999856392147,
+    "patient_auc_mean_ci": [
+     0.4666236869202936,
+     0.5006061817673817
+    ],
+    "gap_slice_minus_patient": 0.26989990654788626,
+    "patient_auc_mean_depthfixed": 0.499897493416432,
+    "patient_auc_mean_depthfixed_ci": [
+     0.49345676326063626,
+     0.5061497371378285
+    ],
+    "patient_auc_mean_depth5": 0.5097149018852577,
+    "patient_auc_mean_depth5_ci": [
+     0.4923693644339119,
+     0.5264582025731654
+    ],
+    "pairs_unstratified": 6016384.0,
+    "pairs_depthfixed": 756049.0,
+    "pairs_depth5": 1812113.0,
+    "n_depth_strata_informative": 27,
+    "depth_alone_patient_auc": 0.4165165488107143,
+    "depth_alone_patient_ci": [
+     0.3998196189505372,
+     0.4325564404836979
+    ],
+    "constant_predictor_slice_auc": 0.5,
+    "constant_predictor_patient_auc": 0.5,
+    "constant_predictor_slice_ci": [
+     0.5,
+     0.5
+    ],
+    "within_series_permutation_null": {
+     "n_perm": 20,
+     "slice_mean": 0.5055618264020226,
+     "slice_range": [
+      0.5014202658399136,
+      0.5104960822321755
+     ],
+     "patient_mean": 0.5734618169318981,
+     "patient_range": [
+      0.5448917489309193,
+      0.6007475586664681
+     ],
+     "patient_depthfixed_mean": 0.5047936046473179,
+     "patient_depthfixed_range": [
+      0.501643412001074,
+      0.5082911292786578
+     ],
+     "slice_excess_over_null": 0.2477980787097851
+    },
+    "published_slice_auc": 0.9927,
+    "trivial_fraction_slice_locked": 0.5142275321936426,
+    "trivial_fraction_slice_locked_ci": [
+     0.4994885775106058,
+     0.5281890983350981
+    ],
+    "superseded_pooled_oof": {
+     "slice_auc": 0.7513707751336752,
+     "slice_ci": [
+      0.7473956378214693,
+      0.7552886620869778
+     ],
+     "patient_auc_mean": 0.4804014961106307,
+     "patient_ci": [
+      0.47075797698714494,
+      0.4900194276111755
+     ],
+     "patient_auc_max_agg": 0.5025285235012076,
+     "constant_predictor_slice_auc": 0.495216657670754,
+     "constant_predictor_patient_auc": 0.5032729819929631,
+     "within_series_permutation_null": {
+      "n_perm": 20,
+      "slice_mean": 0.5034253104607521,
+      "slice_range": [
+       0.5010078811384667,
+       0.5078179545252597
+      ],
+      "patient_mean": 0.5329669406762292,
+      "slice_excess_over_null": 0.2479454646729231
+     },
+     "trivial_fraction_slice": 0.5101903290717987,
+     "estimator": "5-fold subject-disjoint, pooled out of fold (SUPERSEDED)"
+    },
+    "delta_vs_pooled_oof": {
+     "slice_auc": 0.001989129978132498,
+     "patient_auc_mean": 0.0030585024532907568,
+     "constant_slice_auc": 0.004783342329245988
+    }
+   },
+   "intraventricular": {
+    "n_test_patients": 5681,
+    "n_test_slices": 226663,
+    "n_train_patients": 13257,
+    "n_train_slices": 526139,
+    "test_slice_prevalence": 0.03485791681924266,
+    "test_patient_prevalence": 0.1765534236930118,
+    "n_pos_test_slices": 7901,
+    "n_pos_test_patients": 1003,
+    "slice_auc": 0.8033452469917759,
+    "slice_ci": [
+     0.797639357948531,
+     0.8090586601846763
+    ],
+    "patient_auc_mean": 0.4851660282086617,
+    "patient_auc_mean_ci": [
+     0.46684635940291574,
+     0.5044178861246797
+    ],
+    "gap_slice_minus_patient": 0.31817921878311417,
+    "patient_auc_mean_depthfixed": 0.5061858040403809,
+    "patient_auc_mean_depthfixed_ci": [
+     0.499176040962004,
+     0.5134995806531089
+    ],
+    "patient_auc_mean_depth5": 0.5258631973809562,
+    "patient_auc_mean_depth5_ci": [
+     0.5060631810684207,
+     0.5444820654384395
+    ],
+    "pairs_unstratified": 4692034.0,
+    "pairs_depthfixed": 613259.0,
+    "pairs_depth5": 1428613.0,
+    "n_depth_strata_informative": 26,
+    "depth_alone_patient_auc": 0.42393799789174585,
+    "depth_alone_patient_ci": [
+     0.40480301358559256,
+     0.4418876104725362
+    ],
+    "constant_predictor_slice_auc": 0.5,
+    "constant_predictor_patient_auc": 0.5,
+    "constant_predictor_slice_ci": [
+     0.5,
+     0.5
+    ],
+    "within_series_permutation_null": {
+     "n_perm": 20,
+     "slice_mean": 0.504838697992437,
+     "slice_range": [
+      0.49828915932274825,
+      0.5106887096864019
+     ],
+     "patient_mean": 0.5882614394951102,
+     "patient_range": [
+      0.5575840882653451,
+      0.6126186425759064
+     ],
+     "patient_depthfixed_mean": 0.504590882481953,
+     "patient_depthfixed_range": [
+      0.5002511173908577,
+      0.5080227114481809
+     ],
+     "slice_excess_over_null": 0.2985065489993389
+    },
+    "published_slice_auc": 0.997,
+    "trivial_fraction_slice_locked": 0.6103526096414001,
+    "trivial_fraction_slice_locked_ci": [
+     0.5988719475825574,
+     0.6218484108343588
+    ],
+    "superseded_pooled_oof": {
+     "slice_auc": 0.8048496457668485,
+     "slice_ci": [
+      0.8017200160981176,
+      0.8081475746190557
+     ],
+     "patient_auc_mean": 0.4973957351521487,
+     "patient_ci": [
+      0.4869535178543478,
+      0.5077377394873952
+     ],
+     "patient_auc_max_agg": 0.4948149781173049,
+     "constant_predictor_slice_auc": 0.48869321366963414,
+     "constant_predictor_patient_auc": 0.4978992264206131,
+     "within_series_permutation_null": {
+      "n_perm": 20,
+      "slice_mean": 0.501201297646923,
+      "slice_range": [
+       0.49311329818529626,
+       0.506795547389404
+      ],
+      "patient_mean": 0.5224547641613515,
+      "slice_excess_over_null": 0.30364834811992547
+     },
+     "trivial_fraction_slice": 0.6133795689473812,
+     "estimator": "5-fold subject-disjoint, pooled out of fold (SUPERSEDED)"
+    },
+    "delta_vs_pooled_oof": {
+     "slice_auc": -0.0015043987750725796,
+     "patient_auc_mean": -0.012229706943486962,
+     "constant_slice_auc": 0.011306786330365859
+    }
+   },
+   "subarachnoid": {
+    "n_test_patients": 5681,
+    "n_test_slices": 226663,
+    "n_train_patients": 13257,
+    "n_train_slices": 526139,
+    "test_slice_prevalence": 0.04849049028734288,
+    "test_patient_prevalence": 0.18165815877486358,
+    "n_pos_test_slices": 10991,
+    "n_pos_test_patients": 1032,
+    "slice_auc": 0.6952942658903832,
+    "slice_ci": [
+     0.6878741618550646,
+     0.7029402750795255
+    ],
+    "patient_auc_mean": 0.4669079455280039,
+    "patient_auc_mean_ci": [
+     0.4493429334492198,
+     0.48547051365990845
+    ],
+    "gap_slice_minus_patient": 0.22838632036237932,
+    "patient_auc_mean_depthfixed": 0.5091207919110635,
+    "patient_auc_mean_depthfixed_ci": [
+     0.5016155368424179,
+     0.5169045896064122
+    ],
+    "patient_auc_mean_depth5": 0.5079714438039161,
+    "patient_auc_mean_depth5_ci": [
+     0.4881866363827205,
+     0.5276401427716726
+    ],
+    "pairs_unstratified": 4797768.0,
+    "pairs_depthfixed": 612392.0,
+    "pairs_depth5": 1483671.0,
+    "n_depth_strata_informative": 26,
+    "depth_alone_patient_auc": 0.41742889610335476,
+    "depth_alone_patient_ci": [
+     0.3997287976214028,
+     0.4372282016699006
+    ],
+    "constant_predictor_slice_auc": 0.5,
+    "constant_predictor_patient_auc": 0.5,
+    "constant_predictor_slice_ci": [
+     0.5,
+     0.5
+    ],
+    "within_series_permutation_null": {
+     "n_perm": 20,
+     "slice_mean": 0.5036826643017586,
+     "slice_range": [
+      0.5001752837364761,
+      0.5088589776482327
+     ],
+     "patient_mean": 0.5492851884459607,
+     "patient_range": [
+      0.5227635016949548,
+      0.5884263265751908
+     ],
+     "patient_depthfixed_mean": 0.504406409619982,
+     "patient_depthfixed_range": [
+      0.5018133809716652,
+      0.5076511450182236
+     ],
+     "slice_excess_over_null": 0.19161160158862467
+    },
+    "published_slice_auc": 0.9821,
+    "trivial_fraction_slice_locked": 0.4050907817680631,
+    "trivial_fraction_slice_locked_ci": [
+     0.3896995682536083,
+     0.4209505809573232
+    ],
+    "superseded_pooled_oof": {
+     "slice_auc": 0.6904556102816904,
+     "slice_ci": [
+      0.6859245916174315,
+      0.6947947340470144
+     ],
+     "patient_auc_mean": 0.4854634719762064,
+     "patient_ci": [
+      0.4749266222424645,
+      0.496010320691251
+     ],
+     "patient_auc_max_agg": 0.5045255050473063,
+     "constant_predictor_slice_auc": 0.4859280909399292,
+     "constant_predictor_patient_auc": 0.5037148963160454,
+     "within_series_permutation_null": {
+      "n_perm": 20,
+      "slice_mean": 0.4969416544837113,
+      "slice_range": [
+       0.4918560534768148,
+       0.5031989167504917
+      ],
+      "patient_mean": 0.5161077956653413,
+      "slice_excess_over_null": 0.19351395579797914
+     },
+     "trivial_fraction_slice": 0.3950541594724963,
+     "estimator": "5-fold subject-disjoint, pooled out of fold (SUPERSEDED)"
+    },
+    "delta_vs_pooled_oof": {
+     "slice_auc": 0.004838655608692788,
+     "patient_auc_mean": -0.018555526448202464,
+     "constant_slice_auc": 0.014071909060070775
+    }
+   },
+   "subdural": {
+    "n_test_patients": 5681,
+    "n_test_slices": 226663,
+    "n_train_patients": 13257,
+    "n_train_slices": 526139,
+    "test_slice_prevalence": 0.060446566047391945,
+    "test_patient_prevalence": 0.17373701813061082,
+    "n_pos_test_slices": 13701,
+    "n_pos_test_patients": 987,
+    "slice_auc": 0.7198672252539127,
+    "slice_ci": [
+     0.714702114400007,
+     0.7252705459763067
+    ],
+    "patient_auc_mean": 0.4482675074217922,
+    "patient_auc_mean_ci": [
+     0.42918388747117553,
+     0.4667063705709227
+    ],
+    "gap_slice_minus_patient": 0.27159971783212045,
+    "patient_auc_mean_depthfixed": 0.5107760050938506,
+    "patient_auc_mean_depthfixed_ci": [
+     0.501953463742978,
+     0.5195171242433413
+    ],
+    "patient_auc_mean_depth5": 0.46331673106404825,
+    "patient_auc_mean_depth5_ci": [
+     0.44287066769990074,
+     0.48438739553570875
+    ],
+    "pairs_unstratified": 4632978.0,
+    "pairs_depthfixed": 557535.0,
+    "pairs_depth5": 1441570.0,
+    "n_depth_strata_informative": 23,
+    "depth_alone_patient_auc": 0.43266954861430373,
+    "depth_alone_patient_ci": [
+     0.4135116542957654,
+     0.4515872070468076
+    ],
+    "constant_predictor_slice_auc": 0.5,
+    "constant_predictor_patient_auc": 0.5,
+    "constant_predictor_slice_ci": [
+     0.5,
+     0.5
+    ],
+    "within_series_permutation_null": {
+     "n_perm": 20,
+     "slice_mean": 0.5031509196369608,
+     "slice_range": [
+      0.4991390376050343,
+      0.5069826404597326
+     ],
+     "patient_mean": 0.5517146800610752,
+     "patient_range": [
+      0.5089553630515837,
+      0.5960278680364983
+     ],
+     "patient_depthfixed_mean": 0.5046846834727865,
+     "patient_depthfixed_range": [
+      0.5005676773655465,
+      0.511772355098783
+     ],
+     "slice_excess_over_null": 0.21671630561695188
+    },
+    "published_slice_auc": 0.9682,
+    "trivial_fraction_slice_locked": 0.4696010791412061,
+    "trivial_fraction_slice_locked_ci": [
+     0.45856923195217214,
+     0.4811417043492241
+    ],
+    "superseded_pooled_oof": {
+     "slice_auc": 0.7195392775219301,
+     "slice_ci": [
+      0.7166460032006181,
+      0.7226824917528
+     ],
+     "patient_auc_mean": 0.4763659567615873,
+     "patient_ci": [
+      0.46570316234245357,
+      0.48697662051250695
+     ],
+     "patient_auc_max_agg": 0.4995734193951753,
+     "constant_predictor_slice_auc": 0.4882522230021242,
+     "constant_predictor_patient_auc": 0.5025346326093821,
+     "within_series_permutation_null": {
+      "n_perm": 20,
+      "slice_mean": 0.49729030907615035,
+      "slice_range": [
+       0.4945492576711036,
+       0.5011284238742438
+      ],
+      "patient_mean": 0.5196749777997558,
+      "slice_excess_over_null": 0.2222489684457798
+     },
+     "trivial_fraction_slice": 0.4689006354590563,
+     "estimator": "5-fold subject-disjoint, pooled out of fold (SUPERSEDED)"
+    },
+    "delta_vs_pooled_oof": {
+     "slice_auc": 0.00032794773198252525,
+     "patient_auc_mean": -0.02809844933979505,
+     "constant_slice_auc": 0.011747776997875825
+    }
+   }
+  },
+  "across_holdout_spread": {
+   "any": {
+    "n_draws": 24,
+    "seeds": [
+     20260813,
+     20260814,
+     20260815,
+     20260816,
+     20260817,
+     20260818,
+     20260819,
+     20260820,
+     20260821,
+     20260822,
+     20260823,
+     20260824,
+     20260825,
+     20260826,
+     20260827,
+     20260828,
+     20260829,
+     20260830,
+     20260831,
+     20260832,
+     20260833,
+     20260834,
+     20260835,
+     20260836
+    ],
+    "slice_auc": {
+     "mean": 0.7381310688780066,
+     "sd": 0.001577669077559743,
+     "min": 0.7349876686378971,
+     "max": 0.7414596088300682,
+     "median": 0.7376363409713256
+    },
+    "patient_auc_mean": {
+     "mean": 0.45511216583718267,
+     "sd": 0.005932409728530597,
+     "min": 0.4424181041405673,
+     "max": 0.46276250561242704,
+     "median": 0.4548064925589028
+    },
+    "patient_auc_mean_depthfixed": {
+     "mean": 0.5037481844444041,
+     "sd": 0.002101187833972944,
+     "min": 0.49787895418475575,
+     "max": 0.5071216179659679,
+     "median": 0.5042536638274818
+    },
+    "constant_slice_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "constant_patient_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "depth_alone_patient_auc": {
+     "mean": 0.4031304567728264,
+     "sd": 0.005879680383311887,
+     "min": 0.3898709493614842,
+     "max": 0.4153899780207642,
+     "median": 0.40459593383228454
+    },
+    "n_depth_strata_informative": {
+     "mean": 30.916666666666668,
+     "sd": 1.5298953265321544,
+     "min": 28.0,
+     "max": 34.0,
+     "median": 31.0
+    },
+    "per_draw": [
+     {
+      "seed": 20260813,
+      "slice_auc": 0.737691144133092,
+      "patient_auc_mean": 0.4424181041405673,
+      "patient_auc_mean_depthfixed": 0.5071216179659679,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.39425267418328996,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2306
+     },
+     {
+      "seed": 20260814,
+      "slice_auc": 0.73966378789513,
+      "patient_auc_mean": 0.4585420295473035,
+      "patient_auc_mean_depthfixed": 0.5043910577243911,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4052768688937231,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2365
+     },
+     {
+      "seed": 20260815,
+      "slice_auc": 0.737581537809559,
+      "patient_auc_mean": 0.4577489878020476,
+      "patient_auc_mean_depthfixed": 0.5039088994986975,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.40210911107099573,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2281
+     },
+     {
+      "seed": 20260816,
+      "slice_auc": 0.738620031652981,
+      "patient_auc_mean": 0.4546175753427999,
+      "patient_auc_mean_depthfixed": 0.5035694072285747,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.40721167118426005,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2311
+     },
+     {
+      "seed": 20260817,
+      "slice_auc": 0.740254474450813,
+      "patient_auc_mean": 0.44478965454373415,
+      "patient_auc_mean_depthfixed": 0.5041162699305726,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.39594982972199344,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2322
+     },
+     {
+      "seed": 20260818,
+      "slice_auc": 0.7391649205243255,
+      "patient_auc_mean": 0.461304565753352,
+      "patient_auc_mean_depthfixed": 0.5003120684678218,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.3991110935150072,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2327
+     },
+     {
+      "seed": 20260819,
+      "slice_auc": 0.740141548151354,
+      "patient_auc_mean": 0.44839876266739054,
+      "patient_auc_mean_depthfixed": 0.5029261399651158,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.3972875898644425,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2304
+     },
+     {
+      "seed": 20260820,
+      "slice_auc": 0.7367617720113142,
+      "patient_auc_mean": 0.46204876996840183,
+      "patient_auc_mean_depthfixed": 0.5050545889054392,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.40734926285912776,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2271
+     },
+     {
+      "seed": 20260821,
+      "slice_auc": 0.735408901988558,
+      "patient_auc_mean": 0.44807604151515595,
+      "patient_auc_mean_depthfixed": 0.5052121951806333,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4046106459865596,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2319
+     },
+     {
+      "seed": 20260822,
+      "slice_auc": 0.7407425278806807,
+      "patient_auc_mean": 0.4622194811344822,
+      "patient_auc_mean_depthfixed": 0.5003978161114417,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4123224471241697,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2323
+     },
+     {
+      "seed": 20260823,
+      "slice_auc": 0.7379932230419138,
+      "patient_auc_mean": 0.46144020935406294,
+      "patient_auc_mean_depthfixed": 0.5027470153348917,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.40475586075640085,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2300
+     },
+     {
+      "seed": 20260824,
+      "slice_auc": 0.7373811601112238,
+      "patient_auc_mean": 0.45393698598115206,
+      "patient_auc_mean_depthfixed": 0.5065291953017113,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.40332835007834017,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2293
+     },
+     {
+      "seed": 20260825,
+      "slice_auc": 0.7374433788438897,
+      "patient_auc_mean": 0.44958317773080825,
+      "patient_auc_mean_depthfixed": 0.502644090051153,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.3898709493614842,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2315
+     },
+     {
+      "seed": 20260826,
+      "slice_auc": 0.7374036802290718,
+      "patient_auc_mean": 0.45456955140803246,
+      "patient_auc_mean_depthfixed": 0.5029884684099399,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4049428439268149,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2294
+     },
+     {
+      "seed": 20260827,
+      "slice_auc": 0.7368334840741767,
+      "patient_auc_mean": 0.45863776270705225,
+      "patient_auc_mean_depthfixed": 0.5022807140689887,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4083340969072031,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2275
+     },
+     {
+      "seed": 20260828,
+      "slice_auc": 0.7373717563045193,
+      "patient_auc_mean": 0.45342799596713923,
+      "patient_auc_mean_depthfixed": 0.5026510646418206,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.40566164668630617,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2298
+     },
+     {
+      "seed": 20260829,
+      "slice_auc": 0.7373472556245831,
+      "patient_auc_mean": 0.4549954097750057,
+      "patient_auc_mean_depthfixed": 0.5056678108116047,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.40275848214159393,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2299
+     },
+     {
+      "seed": 20260830,
+      "slice_auc": 0.7414596088300682,
+      "patient_auc_mean": 0.45432188997627065,
+      "patient_auc_mean_depthfixed": 0.504391254948906,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4058860136172588,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2265
+     },
+     {
+      "seed": 20260831,
+      "slice_auc": 0.7392553917004985,
+      "patient_auc_mean": 0.4486009036245052,
+      "patient_auc_mean_depthfixed": 0.5045870189520821,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.39498392946309574,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2317
+     },
+     {
+      "seed": 20260832,
+      "slice_auc": 0.7375094054823378,
+      "patient_auc_mean": 0.45143999762400067,
+      "patient_auc_mean_depthfixed": 0.504936505974041,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.3984711606627489,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2271
+     },
+     {
+      "seed": 20260833,
+      "slice_auc": 0.7383463618528796,
+      "patient_auc_mean": 0.46276250561242704,
+      "patient_auc_mean_depthfixed": 0.5059835626518344,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4153899780207642,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2344
+     },
+     {
+      "seed": 20260834,
+      "slice_auc": 0.7349876686378971,
+      "patient_auc_mean": 0.4619212805072139,
+      "patient_auc_mean_depthfixed": 0.5050644531315276,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4026587804260129,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2231
+     },
+     {
+      "seed": 20260835,
+      "slice_auc": 0.7386689485828988,
+      "patient_auc_mean": 0.4552783417017969,
+      "patient_auc_mean_depthfixed": 0.5045962572237861,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4045812216780094,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2287
+     },
+     {
+      "seed": 20260836,
+      "slice_auc": 0.7371136832583947,
+      "patient_auc_mean": 0.46161199570768097,
+      "patient_auc_mean_depthfixed": 0.49787895418475575,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.40802645441823016,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 2317
+     }
+    ]
+   },
+   "epidural": {
+    "n_draws": 24,
+    "seeds": [
+     20260813,
+     20260814,
+     20260815,
+     20260816,
+     20260817,
+     20260818,
+     20260819,
+     20260820,
+     20260821,
+     20260822,
+     20260823,
+     20260824,
+     20260825,
+     20260826,
+     20260827,
+     20260828,
+     20260829,
+     20260830,
+     20260831,
+     20260832,
+     20260833,
+     20260834,
+     20260835,
+     20260836
+    ],
+    "slice_auc": {
+     "mean": 0.7143544867420925,
+     "sd": 0.009419313230020088,
+     "min": 0.6967909788941057,
+     "max": 0.729870555286493,
+     "median": 0.714812437573629
+    },
+    "patient_auc_mean": {
+     "mean": 0.5005879797441759,
+     "sd": 0.030029864831014382,
+     "min": 0.43999625911839885,
+     "max": 0.5623659756969264,
+     "median": 0.4961433263882362
+    },
+    "patient_auc_mean_depthfixed": {
+     "mean": 0.49829543681239913,
+     "sd": 0.014712413565159585,
+     "min": 0.46878951505416766,
+     "max": 0.5214628594773626,
+     "median": 0.5005874403424211
+    },
+    "constant_slice_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "constant_patient_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "depth_alone_patient_auc": {
+     "mean": 0.47042838191339054,
+     "sd": 0.02652153708388829,
+     "min": 0.4154862106947648,
+     "max": 0.5121908872806056,
+     "median": 0.4683627174387555
+    },
+    "n_depth_strata_informative": {
+     "mean": 16.583333333333332,
+     "sd": 2.282574188835104,
+     "min": 13.0,
+     "max": 21.0,
+     "median": 17.0
+    },
+    "per_draw": [
+     {
+      "seed": 20260813,
+      "slice_auc": 0.708778344864665,
+      "patient_auc_mean": 0.5276963667417642,
+      "patient_auc_mean_depthfixed": 0.504429020889315,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.5121908872806056,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 108
+     },
+     {
+      "seed": 20260814,
+      "slice_auc": 0.7255869200533602,
+      "patient_auc_mean": 0.49820404949934805,
+      "patient_auc_mean_depthfixed": 0.4906094670031353,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.48519570940044776,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 102
+     },
+     {
+      "seed": 20260815,
+      "slice_auc": 0.7086439621472577,
+      "patient_auc_mean": 0.47775238144431953,
+      "patient_auc_mean_depthfixed": 0.47798835086499175,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.45493980208077756,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 83
+     },
+     {
+      "seed": 20260816,
+      "slice_auc": 0.7028921068136703,
+      "patient_auc_mean": 0.5193843279874402,
+      "patient_auc_mean_depthfixed": 0.5214628594773626,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4605069655597289,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 90
+     },
+     {
+      "seed": 20260817,
+      "slice_auc": 0.7176187557332392,
+      "patient_auc_mean": 0.5059161240635721,
+      "patient_auc_mean_depthfixed": 0.5044979579822657,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.49610453763992934,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 92
+     },
+     {
+      "seed": 20260818,
+      "slice_auc": 0.7271437202240632,
+      "patient_auc_mean": 0.5350681102407184,
+      "patient_auc_mean_depthfixed": 0.4994446112278595,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4535395618247528,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 94
+     },
+     {
+      "seed": 20260819,
+      "slice_auc": 0.729870555286493,
+      "patient_auc_mean": 0.43999625911839885,
+      "patient_auc_mean_depthfixed": 0.48594313840950615,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4154862106947648,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 86
+     },
+     {
+      "seed": 20260820,
+      "slice_auc": 0.7079069829323033,
+      "patient_auc_mean": 0.5623659756969264,
+      "patient_auc_mean_depthfixed": 0.4830124777183601,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.5102762477399823,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 85
+     },
+     {
+      "seed": 20260821,
+      "slice_auc": 0.7042184013946727,
+      "patient_auc_mean": 0.4947551116002574,
+      "patient_auc_mean_depthfixed": 0.5017302694569826,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4231365365647457,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 94
+     },
+     {
+      "seed": 20260822,
+      "slice_auc": 0.7235597720962654,
+      "patient_auc_mean": 0.5419931394558827,
+      "patient_auc_mean_depthfixed": 0.5182421478462448,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.496389721738103,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 97
+     },
+     {
+      "seed": 20260823,
+      "slice_auc": 0.7143090655067832,
+      "patient_auc_mean": 0.4954977941362749,
+      "patient_auc_mean_depthfixed": 0.4883317587670441,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.45678298571526804,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 99
+     },
+     {
+      "seed": 20260824,
+      "slice_auc": 0.7246833475140181,
+      "patient_auc_mean": 0.4804355988861641,
+      "patient_auc_mean_depthfixed": 0.5025745010480269,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4464547985990656,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 108
+     },
+     {
+      "seed": 20260825,
+      "slice_auc": 0.7254447779992091,
+      "patient_auc_mean": 0.4880015190239668,
+      "patient_auc_mean_depthfixed": 0.4786867058436043,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.477969129253669,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 89
+     },
+     {
+      "seed": 20260826,
+      "slice_auc": 0.7159921038437901,
+      "patient_auc_mean": 0.5406913424661797,
+      "patient_auc_mean_depthfixed": 0.507555409380767,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.5022666806693272,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 92
+     },
+     {
+      "seed": 20260827,
+      "slice_auc": 0.7105958489220002,
+      "patient_auc_mean": 0.4654822855802865,
+      "patient_auc_mean_depthfixed": 0.49903139734639423,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4887294080862955,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 73
+     },
+     {
+      "seed": 20260828,
+      "slice_auc": 0.7214675243620953,
+      "patient_auc_mean": 0.44623555418298844,
+      "patient_auc_mean_depthfixed": 0.5196666484904666,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44774210457877545,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 88
+     },
+     {
+      "seed": 20260829,
+      "slice_auc": 0.7215115383628102,
+      "patient_auc_mean": 0.4959259577275746,
+      "patient_auc_mean_depthfixed": 0.5170122180283,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4473232886988824,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 79
+     },
+     {
+      "seed": 20260830,
+      "slice_auc": 0.7076661168301046,
+      "patient_auc_mean": 0.5242817155448922,
+      "patient_auc_mean_depthfixed": 0.5176678148365959,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.49610016420361247,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 84
+     },
+     {
+      "seed": 20260831,
+      "slice_auc": 0.7009859877992265,
+      "patient_auc_mean": 0.4820613563985151,
+      "patient_auc_mean_depthfixed": 0.5062198548159216,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.46809599185934764,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 95
+     },
+     {
+      "seed": 20260832,
+      "slice_auc": 0.7153158096404748,
+      "patient_auc_mean": 0.4815504296475288,
+      "patient_auc_mean_depthfixed": 0.46878951505416766,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4628131947612179,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 87
+     },
+     {
+      "seed": 20260833,
+      "slice_auc": 0.7104542443676541,
+      "patient_auc_mean": 0.48498603623577374,
+      "patient_auc_mean_depthfixed": 0.4881101918828778,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4767701696655698,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 92
+     },
+     {
+      "seed": 20260834,
+      "slice_auc": 0.6967909788941057,
+      "patient_auc_mean": 0.5017597304052848,
+      "patient_auc_mean_depthfixed": 0.5034262085261396,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4446493929655419,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 80
+     },
+     {
+      "seed": 20260835,
+      "slice_auc": 0.7205658617883571,
+      "patient_auc_mean": 0.4963606950488978,
+      "patient_auc_mean_depthfixed": 0.48398548745757425,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4686294430181634,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 78
+     },
+     {
+      "seed": 20260836,
+      "slice_auc": 0.7025049544335992,
+      "patient_auc_mean": 0.5277096527272659,
+      "patient_auc_mean_depthfixed": 0.4906724711436761,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4981882333227972,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 94
+     }
+    ]
+   },
+   "intraparenchymal": {
+    "n_draws": 24,
+    "seeds": [
+     20260813,
+     20260814,
+     20260815,
+     20260816,
+     20260817,
+     20260818,
+     20260819,
+     20260820,
+     20260821,
+     20260822,
+     20260823,
+     20260824,
+     20260825,
+     20260826,
+     20260827,
+     20260828,
+     20260829,
+     20260830,
+     20260831,
+     20260832,
+     20260833,
+     20260834,
+     20260835,
+     20260836
+    ],
+    "slice_auc": {
+     "mean": 0.7522330990589228,
+     "sd": 0.002620640597329696,
+     "min": 0.747072393423894,
+     "max": 0.7576771203125823,
+     "median": 0.7522216056479358
+    },
+    "patient_auc_mean": {
+     "mean": 0.48828724182891287,
+     "sd": 0.008191758456922256,
+     "min": 0.4693434929656387,
+     "max": 0.5011694124851286,
+     "median": 0.4888556605792181
+    },
+    "patient_auc_mean_depthfixed": {
+     "mean": 0.5015948218367247,
+     "sd": 0.0017315780057261705,
+     "min": 0.4973635284810127,
+     "max": 0.5050226072433945,
+     "median": 0.501653507864205
+    },
+    "constant_slice_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "constant_patient_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "depth_alone_patient_auc": {
+     "mean": 0.42532779989018127,
+     "sd": 0.007428313149834347,
+     "min": 0.4104348487067509,
+     "max": 0.43771423254670067,
+     "median": 0.4246392301943401
+    },
+    "n_depth_strata_informative": {
+     "mean": 28.166666666666668,
+     "sd": 1.5227739752537621,
+     "min": 26.0,
+     "max": 31.0,
+     "median": 28.0
+    },
+    "per_draw": [
+     {
+      "seed": 20260813,
+      "slice_auc": 0.7533599051118077,
+      "patient_auc_mean": 0.48345999856392147,
+      "patient_auc_mean_depthfixed": 0.499897493416432,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4165165488107143,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1408
+     },
+     {
+      "seed": 20260814,
+      "slice_auc": 0.7528551657549719,
+      "patient_auc_mean": 0.4847086443983454,
+      "patient_auc_mean_depthfixed": 0.5015853466972384,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4188331163859863,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1444
+     },
+     {
+      "seed": 20260815,
+      "slice_auc": 0.7529426532193431,
+      "patient_auc_mean": 0.49838910933093755,
+      "patient_auc_mean_depthfixed": 0.5017838251438836,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4267810469749528,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1406
+     },
+     {
+      "seed": 20260816,
+      "slice_auc": 0.747072393423894,
+      "patient_auc_mean": 0.4693434929656387,
+      "patient_auc_mean_depthfixed": 0.4997056696548078,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4189858545631625,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1401
+     },
+     {
+      "seed": 20260817,
+      "slice_auc": 0.7523624114747846,
+      "patient_auc_mean": 0.4765209023632434,
+      "patient_auc_mean_depthfixed": 0.5026444414436598,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4104348487067509,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1439
+     },
+     {
+      "seed": 20260818,
+      "slice_auc": 0.7490626521321042,
+      "patient_auc_mean": 0.4895536810876917,
+      "patient_auc_mean_depthfixed": 0.5013369422249498,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4236829508479155,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1448
+     },
+     {
+      "seed": 20260819,
+      "slice_auc": 0.7516467177611014,
+      "patient_auc_mean": 0.47757600343547446,
+      "patient_auc_mean_depthfixed": 0.5044496559864569,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.42395282890261216,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1423
+     },
+     {
+      "seed": 20260820,
+      "slice_auc": 0.749428266869834,
+      "patient_auc_mean": 0.494140906751691,
+      "patient_auc_mean_depthfixed": 0.5032747861024961,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.42229461344863145,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1389
+     },
+     {
+      "seed": 20260821,
+      "slice_auc": 0.7512890857016564,
+      "patient_auc_mean": 0.48237089529581395,
+      "patient_auc_mean_depthfixed": 0.5008238815984722,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.425325631486068,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1454
+     },
+     {
+      "seed": 20260822,
+      "slice_auc": 0.7569216838883972,
+      "patient_auc_mean": 0.4934325738519358,
+      "patient_auc_mean_depthfixed": 0.5003766856183158,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43359812713407886,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1420
+     },
+     {
+      "seed": 20260823,
+      "slice_auc": 0.750562256760661,
+      "patient_auc_mean": 0.5005042684491416,
+      "patient_auc_mean_depthfixed": 0.49996010927485096,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4325862928145214,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1422
+     },
+     {
+      "seed": 20260824,
+      "slice_auc": 0.7536158240923534,
+      "patient_auc_mean": 0.4914529034999344,
+      "patient_auc_mean_depthfixed": 0.5031738701105619,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4312602386401924,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1411
+     },
+     {
+      "seed": 20260825,
+      "slice_auc": 0.7505339457673126,
+      "patient_auc_mean": 0.4822515640087976,
+      "patient_auc_mean_depthfixed": 0.5050226072433945,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.41540838601530206,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1430
+     },
+     {
+      "seed": 20260826,
+      "slice_auc": 0.7576771203125823,
+      "patient_auc_mean": 0.4803461987028906,
+      "patient_auc_mean_depthfixed": 0.50334908506455,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.41858936872466324,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1421
+     },
+     {
+      "seed": 20260827,
+      "slice_auc": 0.7559948365232578,
+      "patient_auc_mean": 0.49391614648713444,
+      "patient_auc_mean_depthfixed": 0.5028693881983266,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4312830298433756,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1382
+     },
+     {
+      "seed": 20260828,
+      "slice_auc": 0.7510693962218278,
+      "patient_auc_mean": 0.4898876785607259,
+      "patient_auc_mean_depthfixed": 0.5017216690311717,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4360527187597352,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1428
+     },
+     {
+      "seed": 20260829,
+      "slice_auc": 0.7494403785211649,
+      "patient_auc_mean": 0.4865982016872014,
+      "patient_auc_mean_depthfixed": 0.5014383943252388,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4203931905391651,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1389
+     },
+     {
+      "seed": 20260830,
+      "slice_auc": 0.7531049527227797,
+      "patient_auc_mean": 0.48815764007074447,
+      "patient_auc_mean_depthfixed": 0.4995801852881733,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4291529015250108,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1400
+     },
+     {
+      "seed": 20260831,
+      "slice_auc": 0.752080799821087,
+      "patient_auc_mean": 0.48099299447475774,
+      "patient_auc_mean_depthfixed": 0.5024727144240584,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.41776054900226545,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1417
+     },
+     {
+      "seed": 20260832,
+      "slice_auc": 0.7532086820853923,
+      "patient_auc_mean": 0.49875970658964713,
+      "patient_auc_mean_depthfixed": 0.5023879055593384,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4346369546005871,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1399
+     },
+     {
+      "seed": 20260833,
+      "slice_auc": 0.7500240071698672,
+      "patient_auc_mean": 0.49587764335286755,
+      "patient_auc_mean_depthfixed": 0.5018492529427493,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43771423254670067,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1443
+     },
+     {
+      "seed": 20260834,
+      "slice_auc": 0.7502885602280701,
+      "patient_auc_mean": 0.5011694124851286,
+      "patient_auc_mean_depthfixed": 0.501381999924274,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.42911635743430304,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1363
+     },
+     {
+      "seed": 20260835,
+      "slice_auc": 0.7563381660974869,
+      "patient_auc_mean": 0.4875839825702206,
+      "patient_auc_mean_depthfixed": 0.4998262863269773,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4210059993901158,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1428
+     },
+     {
+      "seed": 20260836,
+      "slice_auc": 0.7527145157524087,
+      "patient_auc_mean": 0.49189925491002506,
+      "patient_auc_mean_depthfixed": 0.4973635284810127,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4325014102675399,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1423
+     }
+    ]
+   },
+   "intraventricular": {
+    "n_draws": 24,
+    "seeds": [
+     20260813,
+     20260814,
+     20260815,
+     20260816,
+     20260817,
+     20260818,
+     20260819,
+     20260820,
+     20260821,
+     20260822,
+     20260823,
+     20260824,
+     20260825,
+     20260826,
+     20260827,
+     20260828,
+     20260829,
+     20260830,
+     20260831,
+     20260832,
+     20260833,
+     20260834,
+     20260835,
+     20260836
+    ],
+    "slice_auc": {
+     "mean": 0.8063996221882705,
+     "sd": 0.0021811304583042833,
+     "min": 0.8026266865799999,
+     "max": 0.8105599732651598,
+     "median": 0.8067163754863206
+    },
+    "patient_auc_mean": {
+     "mean": 0.48403512268617516,
+     "sd": 0.009028778608389193,
+     "min": 0.4691923014344046,
+     "max": 0.5015896379642757,
+     "median": 0.48167407004176827
+    },
+    "patient_auc_mean_depthfixed": {
+     "mean": 0.5037701311844661,
+     "sd": 0.002937229947623486,
+     "min": 0.4981541852795631,
+     "max": 0.5100873808241074,
+     "median": 0.5039254852307108
+    },
+    "constant_slice_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "constant_patient_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "depth_alone_patient_auc": {
+     "mean": 0.43369757231863365,
+     "sd": 0.007837318955836182,
+     "min": 0.42393799789174585,
+     "max": 0.45096231519068114,
+     "median": 0.43204579405158283
+    },
+    "n_depth_strata_informative": {
+     "mean": 27.0,
+     "sd": 1.6939791077198396,
+     "min": 25.0,
+     "max": 30.0,
+     "median": 26.0
+    },
+    "per_draw": [
+     {
+      "seed": 20260813,
+      "slice_auc": 0.8033452469917759,
+      "patient_auc_mean": 0.4851660282086617,
+      "patient_auc_mean_depthfixed": 0.5061858040403809,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.42393799789174585,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1003
+     },
+     {
+      "seed": 20260814,
+      "slice_auc": 0.8090295807956767,
+      "patient_auc_mean": 0.5015896379642757,
+      "patient_auc_mean_depthfixed": 0.5054137455856724,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4368776456235151,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1049
+     },
+     {
+      "seed": 20260815,
+      "slice_auc": 0.8048949379569208,
+      "patient_auc_mean": 0.4851976382886637,
+      "patient_auc_mean_depthfixed": 0.5070728774761265,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43689441849748817,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 990
+     },
+     {
+      "seed": 20260816,
+      "slice_auc": 0.8088028800023184,
+      "patient_auc_mean": 0.4762771994809765,
+      "patient_auc_mean_depthfixed": 0.5038777685069683,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.42653284742815023,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1008
+     },
+     {
+      "seed": 20260817,
+      "slice_auc": 0.8074055605029861,
+      "patient_auc_mean": 0.4775990662332412,
+      "patient_auc_mean_depthfixed": 0.4994520027110575,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4269031993994545,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1008
+     },
+     {
+      "seed": 20260818,
+      "slice_auc": 0.804439826398632,
+      "patient_auc_mean": 0.4913831840188822,
+      "patient_auc_mean_depthfixed": 0.5034696202660409,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4327984140928994,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 968
+     },
+     {
+      "seed": 20260819,
+      "slice_auc": 0.8087843065006671,
+      "patient_auc_mean": 0.4917504775208406,
+      "patient_auc_mean_depthfixed": 0.5039732019544533,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43027195848589367,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1019
+     },
+     {
+      "seed": 20260820,
+      "slice_auc": 0.8029261877353131,
+      "patient_auc_mean": 0.4813925485196203,
+      "patient_auc_mean_depthfixed": 0.5056453711909806,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43225298854708116,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 975
+     },
+     {
+      "seed": 20260821,
+      "slice_auc": 0.8071408349511248,
+      "patient_auc_mean": 0.47507118949426647,
+      "patient_auc_mean_depthfixed": 0.4982353315504444,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4337725308879155,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1001
+     },
+     {
+      "seed": 20260822,
+      "slice_auc": 0.8053640040706417,
+      "patient_auc_mean": 0.48293538269029873,
+      "patient_auc_mean_depthfixed": 0.5002457458472389,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44813618173593667,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 967
+     },
+     {
+      "seed": 20260823,
+      "slice_auc": 0.8066141004352724,
+      "patient_auc_mean": 0.5005418909608048,
+      "patient_auc_mean_depthfixed": 0.502015779295457,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.45096231519068114,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1009
+     },
+     {
+      "seed": 20260824,
+      "slice_auc": 0.807775955277882,
+      "patient_auc_mean": 0.477735762126448,
+      "patient_auc_mean_depthfixed": 0.5046617876132379,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.42543165790355364,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 982
+     },
+     {
+      "seed": 20260825,
+      "slice_auc": 0.8068423616189203,
+      "patient_auc_mean": 0.47870545146530064,
+      "patient_auc_mean_depthfixed": 0.5045785007048371,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4349037315519355,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 978
+     },
+     {
+      "seed": 20260826,
+      "slice_auc": 0.8026266865799999,
+      "patient_auc_mean": 0.48209143109168157,
+      "patient_auc_mean_depthfixed": 0.5046270582854155,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44196220006038006,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1017
+     },
+     {
+      "seed": 20260827,
+      "slice_auc": 0.8056949463981723,
+      "patient_auc_mean": 0.4787252782641773,
+      "patient_auc_mean_depthfixed": 0.5021014790221381,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.430682725091358,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 967
+     },
+     {
+      "seed": 20260828,
+      "slice_auc": 0.8085673548901127,
+      "patient_auc_mean": 0.4992721517657098,
+      "patient_auc_mean_depthfixed": 0.5055166894030958,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44373836136414274,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1021
+     },
+     {
+      "seed": 20260829,
+      "slice_auc": 0.8093473447988827,
+      "patient_auc_mean": 0.4691923014344046,
+      "patient_auc_mean_depthfixed": 0.5028600169795048,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.42680860556210415,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 984
+     },
+     {
+      "seed": 20260830,
+      "slice_auc": 0.8057919304102379,
+      "patient_auc_mean": 0.4775188813077246,
+      "patient_auc_mean_depthfixed": 0.4981541852795631,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.42945747036945464,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 968
+     },
+     {
+      "seed": 20260831,
+      "slice_auc": 0.8105599732651598,
+      "patient_auc_mean": 0.4882527689653254,
+      "patient_auc_mean_depthfixed": 0.5100873808241074,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4296708317099869,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1017
+     },
+     {
+      "seed": 20260832,
+      "slice_auc": 0.8033379908444557,
+      "patient_auc_mean": 0.4794781461714676,
+      "patient_auc_mean_depthfixed": 0.5074033008304915,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.42623745378397015,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 977
+     },
+     {
+      "seed": 20260833,
+      "slice_auc": 0.8069791333268885,
+      "patient_auc_mean": 0.5001486396523839,
+      "patient_auc_mean_depthfixed": 0.5029296096199404,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4492861572936453,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1042
+     },
+     {
+      "seed": 20260834,
+      "slice_auc": 0.8068186505373688,
+      "patient_auc_mean": 0.47870552077502326,
+      "patient_auc_mean_depthfixed": 0.506983559936305,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4269867262046468,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 995
+     },
+     {
+      "seed": 20260835,
+      "slice_auc": 0.8057235293099747,
+      "patient_auc_mean": 0.4819555915639162,
+      "patient_auc_mean_depthfixed": 0.5036737351934552,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43183859955608445,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1016
+     },
+     {
+      "seed": 20260836,
+      "slice_auc": 0.8047776089191121,
+      "patient_auc_mean": 0.4761567765041079,
+      "patient_auc_mean_depthfixed": 0.5013185963102745,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4323967174151849,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 998
+     }
+    ]
+   },
+   "subarachnoid": {
+    "n_draws": 24,
+    "seeds": [
+     20260813,
+     20260814,
+     20260815,
+     20260816,
+     20260817,
+     20260818,
+     20260819,
+     20260820,
+     20260821,
+     20260822,
+     20260823,
+     20260824,
+     20260825,
+     20260826,
+     20260827,
+     20260828,
+     20260829,
+     20260830,
+     20260831,
+     20260832,
+     20260833,
+     20260834,
+     20260835,
+     20260836
+    ],
+    "slice_auc": {
+     "mean": 0.6921954054074879,
+     "sd": 0.003308275869494703,
+     "min": 0.6871353314196025,
+     "max": 0.6987837938728556,
+     "median": 0.692328329196138
+    },
+    "patient_auc_mean": {
+     "mean": 0.48521592752000436,
+     "sd": 0.008915557309231496,
+     "min": 0.4669079455280039,
+     "max": 0.5016601741248817,
+     "median": 0.482314970982659
+    },
+    "patient_auc_mean_depthfixed": {
+     "mean": 0.5039338373484908,
+     "sd": 0.003316668498798102,
+     "min": 0.4975625852363699,
+     "max": 0.5107884609735319,
+     "median": 0.5032768274483475
+    },
+    "constant_slice_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "constant_patient_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "depth_alone_patient_auc": {
+     "mean": 0.4407598150663426,
+     "sd": 0.009586277440489639,
+     "min": 0.41742889610335476,
+     "max": 0.46190030447491426,
+     "median": 0.44057933457685694
+    },
+    "n_depth_strata_informative": {
+     "mean": 25.625,
+     "sd": 1.4688800821211287,
+     "min": 23.0,
+     "max": 28.0,
+     "median": 26.0
+    },
+    "per_draw": [
+     {
+      "seed": 20260813,
+      "slice_auc": 0.6952942658903832,
+      "patient_auc_mean": 0.4669079455280039,
+      "patient_auc_mean_depthfixed": 0.5091207919110635,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.41742889610335476,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1032
+     },
+     {
+      "seed": 20260814,
+      "slice_auc": 0.6886520941418781,
+      "patient_auc_mean": 0.4854910304927375,
+      "patient_auc_mean_depthfixed": 0.5017987365765321,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44872264075578683,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1078
+     },
+     {
+      "seed": 20260815,
+      "slice_auc": 0.6921745913908212,
+      "patient_auc_mean": 0.49648081252806114,
+      "patient_auc_mean_depthfixed": 0.5025773562312307,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43814222606357434,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1053
+     },
+     {
+      "seed": 20260816,
+      "slice_auc": 0.6987837938728556,
+      "patient_auc_mean": 0.48263152792473935,
+      "patient_auc_mean_depthfixed": 0.5056427620414244,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4412850309701931,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1046
+     },
+     {
+      "seed": 20260817,
+      "slice_auc": 0.6974652321666085,
+      "patient_auc_mean": 0.48627828363551034,
+      "patient_auc_mean_depthfixed": 0.5107884609735319,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43278051813285734,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1063
+     },
+     {
+      "seed": 20260818,
+      "slice_auc": 0.6927507319359673,
+      "patient_auc_mean": 0.4778356341825127,
+      "patient_auc_mean_depthfixed": 0.5032124411610879,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43662403237483527,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1046
+     },
+     {
+      "seed": 20260819,
+      "slice_auc": 0.6924820670014549,
+      "patient_auc_mean": 0.4795222281361164,
+      "patient_auc_mean_depthfixed": 0.5009468610573727,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4444228781393017,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1051
+     },
+     {
+      "seed": 20260820,
+      "slice_auc": 0.6889129073634902,
+      "patient_auc_mean": 0.4902164358468414,
+      "patient_auc_mean_depthfixed": 0.5032079498786897,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4398736381835207,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1055
+     },
+     {
+      "seed": 20260821,
+      "slice_auc": 0.6894942740774083,
+      "patient_auc_mean": 0.48050291806732937,
+      "patient_auc_mean_depthfixed": 0.5056702599670035,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4368593467351315,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1054
+     },
+     {
+      "seed": 20260822,
+      "slice_auc": 0.6955809540006203,
+      "patient_auc_mean": 0.49202925053301805,
+      "patient_auc_mean_depthfixed": 0.49937425640803157,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44863316722843094,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1036
+     },
+     {
+      "seed": 20260823,
+      "slice_auc": 0.6897569021340015,
+      "patient_auc_mean": 0.49693547683594586,
+      "patient_auc_mean_depthfixed": 0.503128871077708,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44426904391238997,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1024
+     },
+     {
+      "seed": 20260824,
+      "slice_auc": 0.6959284499199735,
+      "patient_auc_mean": 0.47770993682033513,
+      "patient_auc_mean_depthfixed": 0.5035440493302502,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43535181783406823,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1021
+     },
+     {
+      "seed": 20260825,
+      "slice_auc": 0.6925559771862695,
+      "patient_auc_mean": 0.47819787141241327,
+      "patient_auc_mean_depthfixed": 0.4975625852363699,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4240208037114341,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1052
+     },
+     {
+      "seed": 20260826,
+      "slice_auc": 0.6940957007547431,
+      "patient_auc_mean": 0.48037423757307635,
+      "patient_auc_mean_depthfixed": 0.5060730794420171,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43983210272122175,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1077
+     },
+     {
+      "seed": 20260827,
+      "slice_auc": 0.6908923530891999,
+      "patient_auc_mean": 0.4819984140405787,
+      "patient_auc_mean_depthfixed": 0.4990447112120825,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44948466835779577,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1020
+     },
+     {
+      "seed": 20260828,
+      "slice_auc": 0.689438710793653,
+      "patient_auc_mean": 0.49457692397370756,
+      "patient_auc_mean_depthfixed": 0.5017075593207281,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44939652924830065,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1010
+     },
+     {
+      "seed": 20260829,
+      "slice_auc": 0.6954061080600408,
+      "patient_auc_mean": 0.4966867321867321,
+      "patient_auc_mean_depthfixed": 0.503341213735607,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.45118837018837016,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1056
+     },
+     {
+      "seed": 20260830,
+      "slice_auc": 0.695799096907627,
+      "patient_auc_mean": 0.48057802915129544,
+      "patient_auc_mean_depthfixed": 0.5098126749642085,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4443426074568632,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1006
+     },
+     {
+      "seed": 20260831,
+      "slice_auc": 0.6906195759191949,
+      "patient_auc_mean": 0.48605592494916583,
+      "patient_auc_mean_depthfixed": 0.5052022135941153,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43167394779127494,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1015
+     },
+     {
+      "seed": 20260832,
+      "slice_auc": 0.6878459789378917,
+      "patient_auc_mean": 0.47638889629347425,
+      "patient_auc_mean_depthfixed": 0.5013897421669078,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44699886689339735,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1054
+     },
+     {
+      "seed": 20260833,
+      "slice_auc": 0.6935829400483564,
+      "patient_auc_mean": 0.49957730344610246,
+      "patient_auc_mean_depthfixed": 0.506234482005948,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.46190030447491426,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1032
+     },
+     {
+      "seed": 20260834,
+      "slice_auc": 0.6871353314196025,
+      "patient_auc_mean": 0.4803435928832489,
+      "patient_auc_mean_depthfixed": 0.5056889273766563,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4314245729966218,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1017
+     },
+     {
+      "seed": 20260835,
+      "slice_auc": 0.6877625703740567,
+      "patient_auc_mean": 0.4762026799142782,
+      "patient_auc_mean_depthfixed": 0.5067615680838198,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43570754139673257,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1052
+     },
+     {
+      "seed": 20260836,
+      "slice_auc": 0.6902791223936106,
+      "patient_auc_mean": 0.5016601741248817,
+      "patient_auc_mean_depthfixed": 0.5025805426113923,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4478720099218515,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1053
+     }
+    ]
+   },
+   "subdural": {
+    "n_draws": 24,
+    "seeds": [
+     20260813,
+     20260814,
+     20260815,
+     20260816,
+     20260817,
+     20260818,
+     20260819,
+     20260820,
+     20260821,
+     20260822,
+     20260823,
+     20260824,
+     20260825,
+     20260826,
+     20260827,
+     20260828,
+     20260829,
+     20260830,
+     20260831,
+     20260832,
+     20260833,
+     20260834,
+     20260835,
+     20260836
+    ],
+    "slice_auc": {
+     "mean": 0.7208514860106132,
+     "sd": 0.0023978667002626532,
+     "min": 0.7159454683587668,
+     "max": 0.7283255786669635,
+     "median": 0.7206412180551399
+    },
+    "patient_auc_mean": {
+     "mean": 0.4680522468492498,
+     "sd": 0.012254879707542434,
+     "min": 0.4482675074217922,
+     "max": 0.49157763463248527,
+     "median": 0.4656106943428373
+    },
+    "patient_auc_mean_depthfixed": {
+     "mean": 0.5033974066248456,
+     "sd": 0.0036126112723561723,
+     "min": 0.495246800090437,
+     "max": 0.5107760050938506,
+     "median": 0.5031445796445939
+    },
+    "constant_slice_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "constant_patient_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    },
+    "depth_alone_patient_auc": {
+     "mean": 0.4408945932390325,
+     "sd": 0.007382913870180036,
+     "min": 0.4306091671123653,
+     "max": 0.4577182022263295,
+     "median": 0.4396876420457105
+    },
+    "n_depth_strata_informative": {
+     "mean": 29.958333333333332,
+     "sd": 2.156469874317881,
+     "min": 23.0,
+     "max": 33.0,
+     "median": 30.5
+    },
+    "per_draw": [
+     {
+      "seed": 20260813,
+      "slice_auc": 0.7198672252539127,
+      "patient_auc_mean": 0.4482675074217922,
+      "patient_auc_mean_depthfixed": 0.5107760050938506,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43266954861430373,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 987
+     },
+     {
+      "seed": 20260814,
+      "slice_auc": 0.7256650713451724,
+      "patient_auc_mean": 0.4794101134531179,
+      "patient_auc_mean_depthfixed": 0.5019238326299783,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4548550025305148,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1055
+     },
+     {
+      "seed": 20260815,
+      "slice_auc": 0.7204445008718172,
+      "patient_auc_mean": 0.4853529407502162,
+      "patient_auc_mean_depthfixed": 0.4983640713151073,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4376226813360687,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1003
+     },
+     {
+      "seed": 20260816,
+      "slice_auc": 0.7205689137749264,
+      "patient_auc_mean": 0.47144021430241256,
+      "patient_auc_mean_depthfixed": 0.5073518856510059,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4401810589438871,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 995
+     },
+     {
+      "seed": 20260817,
+      "slice_auc": 0.7215130970726817,
+      "patient_auc_mean": 0.4615843558151251,
+      "patient_auc_mean_depthfixed": 0.501717289187646,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4365922538999462,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1001
+     },
+     {
+      "seed": 20260818,
+      "slice_auc": 0.7204522224942164,
+      "patient_auc_mean": 0.4782809798452743,
+      "patient_auc_mean_depthfixed": 0.5084414788797108,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4393564033637484,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1020
+     },
+     {
+      "seed": 20260819,
+      "slice_auc": 0.7190178325562213,
+      "patient_auc_mean": 0.4582180689986893,
+      "patient_auc_mean_depthfixed": 0.5010979151417845,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43966717410255407,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1023
+     },
+     {
+      "seed": 20260820,
+      "slice_auc": 0.7203397594738832,
+      "patient_auc_mean": 0.47450246903827303,
+      "patient_auc_mean_depthfixed": 0.5040725043831191,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4397081099888669,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 987
+     },
+     {
+      "seed": 20260821,
+      "slice_auc": 0.7168725376765003,
+      "patient_auc_mean": 0.4548584867986868,
+      "patient_auc_mean_depthfixed": 0.5062664054748862,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43799996216786535,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1021
+     },
+     {
+      "seed": 20260822,
+      "slice_auc": 0.721391369759452,
+      "patient_auc_mean": 0.4829743398232777,
+      "patient_auc_mean_depthfixed": 0.5015794243680103,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4577182022263295,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1016
+     },
+     {
+      "seed": 20260823,
+      "slice_auc": 0.7198545932529828,
+      "patient_auc_mean": 0.4584561741753066,
+      "patient_auc_mean_depthfixed": 0.5039575880946264,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43542140912441585,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1034
+     },
+     {
+      "seed": 20260824,
+      "slice_auc": 0.7159454683587668,
+      "patient_auc_mean": 0.46323276148068887,
+      "patient_auc_mean_depthfixed": 0.5057578497303878,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43450341036502466,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1014
+     },
+     {
+      "seed": 20260825,
+      "slice_auc": 0.7208897401530001,
+      "patient_auc_mean": 0.4566394770362375,
+      "patient_auc_mean_depthfixed": 0.49927475417635864,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4306091671123653,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1077
+     },
+     {
+      "seed": 20260826,
+      "slice_auc": 0.7207135223353535,
+      "patient_auc_mean": 0.48281326693532267,
+      "patient_auc_mean_depthfixed": 0.4997985739720018,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4474887207684641,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 998
+     },
+     {
+      "seed": 20260827,
+      "slice_auc": 0.719909678353843,
+      "patient_auc_mean": 0.47875747768705806,
+      "patient_auc_mean_depthfixed": 0.495246800090437,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44398356935207456,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1029
+     },
+     {
+      "seed": 20260828,
+      "slice_auc": 0.720528673341525,
+      "patient_auc_mean": 0.4514903094800183,
+      "patient_auc_mean_depthfixed": 0.5023315711945615,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43147606340566225,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1006
+     },
+     {
+      "seed": 20260829,
+      "slice_auc": 0.7221665851172933,
+      "patient_auc_mean": 0.466821878400059,
+      "patient_auc_mean_depthfixed": 0.5083648385961153,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44435275170425564,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1055
+     },
+     {
+      "seed": 20260830,
+      "slice_auc": 0.7283255786669635,
+      "patient_auc_mean": 0.45818997870743405,
+      "patient_auc_mean_depthfixed": 0.5057400850180687,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4369592333800909,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 970
+     },
+     {
+      "seed": 20260831,
+      "slice_auc": 0.721623312548227,
+      "patient_auc_mean": 0.47747455908686154,
+      "patient_auc_mean_depthfixed": 0.5017486573723395,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44483297684992074,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1014
+     },
+     {
+      "seed": 20260832,
+      "slice_auc": 0.7211601838819389,
+      "patient_auc_mean": 0.4596360583736578,
+      "patient_auc_mean_depthfixed": 0.503994408359821,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.43066744974869026,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1005
+     },
+     {
+      "seed": 20260833,
+      "slice_auc": 0.721059549403161,
+      "patient_auc_mean": 0.45353402269012444,
+      "patient_auc_mean_depthfixed": 0.5041501327532218,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.44377194159017486,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1033
+     },
+     {
+      "seed": 20260834,
+      "slice_auc": 0.7217653177565299,
+      "patient_auc_mean": 0.49157763463248527,
+      "patient_auc_mean_depthfixed": 0.506760829790431,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4483556726744312,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 981
+     },
+     {
+      "seed": 20260835,
+      "slice_auc": 0.7210108125202922,
+      "patient_auc_mean": 0.47534133916425986,
+      "patient_auc_mean_depthfixed": 0.5019690259052644,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.45248719504457857,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 983
+     },
+     {
+      "seed": 20260836,
+      "slice_auc": 0.7193501182860568,
+      "patient_auc_mean": 0.46439951028561566,
+      "patient_auc_mean_depthfixed": 0.5008518318175614,
+      "constant_slice_auc": 0.5,
+      "constant_patient_auc": 0.5,
+      "depth_alone_patient_auc": 0.4401902794425464,
+      "n_test_patients": 5681,
+      "n_pos_test_patients": 1042
+     }
+    ]
+   }
+  },
+  "across_holdout_spread_note": "This is the honest pipeline uncertainty and it is WIDER than the bootstrap interval at the patient level. All six labels share ONE patient split per draw, so the six per-label draws at a given seed are not independent of one another.",
+  "primary_draw_position_in_family": {
+   "any": {
+    "slice_auc": {
+     "value": 0.737691144133092,
+     "rank_of_24_ascending": 13
+    },
+    "patient_auc_mean": {
+     "value": 0.4424181041405673,
+     "rank_of_24_ascending": 1
+    },
+    "patient_auc_mean_depthfixed": {
+     "value": 0.5071216179659679,
+     "rank_of_24_ascending": 24
+    },
+    "depth_alone_patient_auc": {
+     "value": 0.39425267418328996,
+     "rank_of_24_ascending": 2
+    }
+   },
+   "epidural": {
+    "slice_auc": {
+     "value": 0.708778344864665,
+     "rank_of_24_ascending": 9
+    },
+    "patient_auc_mean": {
+     "value": 0.5276963667417642,
+     "rank_of_24_ascending": 19
+    },
+    "patient_auc_mean_depthfixed": {
+     "value": 0.504429020889315,
+     "rank_of_24_ascending": 16
+    },
+    "depth_alone_patient_auc": {
+     "value": 0.5121908872806056,
+     "rank_of_24_ascending": 24
+    }
+   },
+   "intraparenchymal": {
+    "slice_auc": {
+     "value": 0.7533599051118077,
+     "rank_of_24_ascending": 19
+    },
+    "patient_auc_mean": {
+     "value": 0.48345999856392147,
+     "rank_of_24_ascending": 8
+    },
+    "patient_auc_mean_depthfixed": {
+     "value": 0.499897493416432,
+     "rank_of_24_ascending": 5
+    },
+    "depth_alone_patient_auc": {
+     "value": 0.4165165488107143,
+     "rank_of_24_ascending": 3
+    }
+   },
+   "intraventricular": {
+    "slice_auc": {
+     "value": 0.8033452469917759,
+     "rank_of_24_ascending": 4
+    },
+    "patient_auc_mean": {
+     "value": 0.4851660282086617,
+     "rank_of_24_ascending": 16
+    },
+    "patient_auc_mean_depthfixed": {
+     "value": 0.5061858040403809,
+     "rank_of_24_ascending": 20
+    },
+    "depth_alone_patient_auc": {
+     "value": 0.42393799789174585,
+     "rank_of_24_ascending": 1
+    }
+   },
+   "subarachnoid": {
+    "slice_auc": {
+     "value": 0.6952942658903832,
+     "rank_of_24_ascending": 18
+    },
+    "patient_auc_mean": {
+     "value": 0.4669079455280039,
+     "rank_of_24_ascending": 1
+    },
+    "patient_auc_mean_depthfixed": {
+     "value": 0.5091207919110635,
+     "rank_of_24_ascending": 22
+    },
+    "depth_alone_patient_auc": {
+     "value": 0.41742889610335476,
+     "rank_of_24_ascending": 1
+    }
+   },
+   "subdural": {
+    "slice_auc": {
+     "value": 0.7198672252539127,
+     "rank_of_24_ascending": 6
+    },
+    "patient_auc_mean": {
+     "value": 0.4482675074217922,
+     "rank_of_24_ascending": 1
+    },
+    "patient_auc_mean_depthfixed": {
+     "value": 0.5107760050938506,
+     "rank_of_24_ascending": 24
+    },
+    "depth_alone_patient_auc": {
+     "value": 0.43266954861430373,
+     "rank_of_24_ascending": 4
+    }
+   }
+  },
+  "primary_draw_position_note": "The seed was fixed at 20260813 before any held-out number was computed and has NOT been changed since. It nevertheless lands at the extreme of its own family for the patient-level readings: rank 1 of 24 (lowest patient AUC, hence largest slice-to-patient gap) on any, subarachnoid and subdural, and rank 24 of 24 (highest) on the depth-fixed reading for any and subdural. The cause is identifiable rather than mysterious: that split's depth-alone patient AUC is 0.394, rank 2 of 24, and across the 24 draws depth-alone correlates 0.72 with the patient-level mean-aggregated AUC. Seed 20260813 is a draw in which the stack-depth confound happens to be unusually strong. Quote the across-draw spread as the uncertainty statement; the frozen draw is the reproducible reference point, not a tighter estimate.",
+  "aggregation_sensitivity": {
+   "primary_operator": "mean (pre-specified)",
+   "note": "max and top-1 mean are EXACTLY degenerate under a single fit: every series holds at least 20 slices and spans all 20 position bins, so every patient's maximum is the same bin rate and the whole cohort takes ONE score. Under the superseded pooled-out-of-fold estimator the same operator took five values, one per fold, and returned 0.493-0.501; that spread was an artefact of pooling, not a measurement. n_distinct_patient_scores is reported for every operator so a near-degenerate operator cannot be mistaken for a measurement.",
+   "labels": {
+    "any": {
+     "auc": {
+      "mean": 0.4424181041405673,
+      "max": 0.5,
+      "topk1_mean": 0.5,
+      "topk3_mean": 0.5141360059105072,
+      "topk5_mean": 0.5125969612283575,
+      "p75": 0.4798098358549356,
+      "p90": 0.5555949375220841
+     },
+     "ci": {
+      "mean": [
+       0.4279723501195746,
+       0.45684163789290255
+      ],
+      "max": [
+       0.5,
+       0.5
+      ],
+      "topk1_mean": [
+       0.5,
+       0.5
+      ],
+      "topk3_mean": [
+       0.50106225594726,
+       0.5279271740791747
+      ],
+      "topk5_mean": [
+       0.4989593232444169,
+       0.5262184428677991
+      ],
+      "p75": [
+       0.4665846933972076,
+       0.4925161814647043
+      ],
+      "p90": [
+       0.5411413618259537,
+       0.5708471054665641
+      ]
+     },
+     "n_distinct_patient_scores": {
+      "mean": 275,
+      "max": 1,
+      "topk1_mean": 1,
+      "topk3_mean": 4,
+      "topk5_mean": 9,
+      "p75": 6,
+      "p90": 13
+     }
+    },
+    "epidural": {
+     "auc": {
+      "mean": 0.5276963667417642,
+      "max": 0.5,
+      "topk1_mean": 0.5,
+      "topk3_mean": 0.6102214047889627,
+      "topk5_mean": 0.6096099912940035,
+      "p75": 0.5480848469140234,
+      "p90": 0.5543593117610702
+     },
+     "ci": {
+      "mean": [
+       0.4722684247488124,
+       0.5795110212877994
+      ],
+      "max": [
+       0.5,
+       0.5
+      ],
+      "topk1_mean": [
+       0.5,
+       0.5
+      ],
+      "topk3_mean": [
+       0.5606017888082445,
+       0.6613799252292116
+      ],
+      "topk5_mean": [
+       0.5551408635631109,
+       0.6641158819996472
+      ],
+      "p75": [
+       0.5001254211519712,
+       0.5988591632648512
+      ],
+      "p90": [
+       0.501783095081158,
+       0.6087160533559192
+      ]
+     },
+     "n_distinct_patient_scores": {
+      "mean": 276,
+      "max": 1,
+      "topk1_mean": 1,
+      "topk3_mean": 4,
+      "topk5_mean": 10,
+      "p75": 6,
+      "p90": 17
+     }
+    },
+    "intraparenchymal": {
+     "auc": {
+      "mean": 0.48345999856392147,
+      "max": 0.5,
+      "topk1_mean": 0.5,
+      "topk3_mean": 0.5275408783747847,
+      "topk5_mean": 0.5257434532104333,
+      "p75": 0.49540945192328145,
+      "p90": 0.5561721957906942
+     },
+     "ci": {
+      "mean": [
+       0.46667338027465266,
+       0.500009570235742
+      ],
+      "max": [
+       0.5,
+       0.5
+      ],
+      "topk1_mean": [
+       0.5,
+       0.5
+      ],
+      "topk3_mean": [
+       0.5116595206962777,
+       0.5433016372403111
+      ],
+      "topk5_mean": [
+       0.5092355942956208,
+       0.5422245073119956
+      ],
+      "p75": [
+       0.4807550719520136,
+       0.5100737675600123
+      ],
+      "p90": [
+       0.5380262110429741,
+       0.573893808968317
+      ]
+     },
+     "n_distinct_patient_scores": {
+      "mean": 275,
+      "max": 1,
+      "topk1_mean": 1,
+      "topk3_mean": 4,
+      "topk5_mean": 9,
+      "p75": 8,
+      "p90": 13
+     }
+    },
+    "intraventricular": {
+     "auc": {
+      "mean": 0.4851660282086617,
+      "max": 0.5,
+      "topk1_mean": 0.5,
+      "topk3_mean": 0.5348156044905046,
+      "topk5_mean": 0.5331704757467658,
+      "p75": 0.5070681499750429,
+      "p90": 0.5697100660395895
+     },
+     "ci": {
+      "mean": [
+       0.4670547758902647,
+       0.5031442058358808
+      ],
+      "max": [
+       0.5,
+       0.5
+      ],
+      "topk1_mean": [
+       0.5,
+       0.5
+      ],
+      "topk3_mean": [
+       0.5162860420202544,
+       0.5523212595506721
+      ],
+      "topk5_mean": [
+       0.5147979125887941,
+       0.5516639195689268
+      ],
+      "p75": [
+       0.49106945334523866,
+       0.5232924454169372
+      ],
+      "p90": [
+       0.5503378703335357,
+       0.5888762985720541
+      ]
+     },
+     "n_distinct_patient_scores": {
+      "mean": 275,
+      "max": 1,
+      "topk1_mean": 1,
+      "topk3_mean": 4,
+      "topk5_mean": 9,
+      "p75": 8,
+      "p90": 13
+     }
+    },
+    "subarachnoid": {
+     "auc": {
+      "mean": 0.4669079455280039,
+      "max": 0.5,
+      "topk1_mean": 0.5,
+      "topk3_mean": 0.517573171524759,
+      "topk5_mean": 0.5185861425562885,
+      "p75": 0.48209521594207977,
+      "p90": 0.5131327734063006
+     },
+     "ci": {
+      "mean": [
+       0.44854087937495496,
+       0.4855181612500514
+      ],
+      "max": [
+       0.5,
+       0.5
+      ],
+      "topk1_mean": [
+       0.5,
+       0.5
+      ],
+      "topk3_mean": [
+       0.49722199437498465,
+       0.5374710525409784
+      ],
+      "topk5_mean": [
+       0.4989707420042745,
+       0.5381615052478423
+      ],
+      "p75": [
+       0.4636179061824745,
+       0.4997868797294173
+      ],
+      "p90": [
+       0.4909946974431106,
+       0.5335520327437371
+      ]
+     },
+     "n_distinct_patient_scores": {
+      "mean": 275,
+      "max": 1,
+      "topk1_mean": 1,
+      "topk3_mean": 4,
+      "topk5_mean": 9,
+      "p75": 6,
+      "p90": 17
+     }
+    },
+    "subdural": {
+     "auc": {
+      "mean": 0.4482675074217922,
+      "max": 0.5,
+      "topk1_mean": 0.5,
+      "topk3_mean": 0.5184447238903358,
+      "topk5_mean": 0.4914769722627648,
+      "p75": 0.4818466653629696,
+      "p90": 0.4797675490796633
+     },
+     "ci": {
+      "mean": [
+       0.4297423721316751,
+       0.46726399961573944
+      ],
+      "max": [
+       0.5,
+       0.5
+      ],
+      "topk1_mean": [
+       0.5,
+       0.5
+      ],
+      "topk3_mean": [
+       0.49948485023549727,
+       0.537038386582349
+      ],
+      "topk5_mean": [
+       0.4707232955809348,
+       0.5122028630600305
+      ],
+      "p75": [
+       0.4619489109674935,
+       0.5008167676590484
+      ],
+      "p90": [
+       0.46216018436833617,
+       0.49679544415245813
+      ]
+     },
+     "n_distinct_patient_scores": {
+      "mean": 276,
+      "max": 1,
+      "topk1_mean": 1,
+      "topk3_mean": 4,
+      "topk5_mean": 12,
+      "p75": 6,
+      "p90": 15
+     }
+    }
+   }
+  },
+  "baseline_lock": {
+   "primary": "positional_20bin",
+   "locked_before": "any held-out score was computed",
+   "secondary": {
+    "any": {
+     "volume_size": {
+      "slice_auc": 0.5832892451978675,
+      "patient_auc_mean": 0.600651890398638,
+      "n_distinct_slice_scores": 8
+     },
+     "metadata_tree": {
+      "slice_auc": 0.5205689207345596,
+      "patient_auc_mean": 0.5268716713244034,
+      "n_distinct_slice_scores": 2
+     },
+     "combined_position_metadata": {
+      "slice_auc": 0.7194615560394414,
+      "patient_auc_mean": 0.5726711637917189,
+      "n_distinct_slice_scores": 8
+     },
+     "column[plane]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_slope]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_intercept]": {
+      "slice_auc": 0.5364260863857753,
+      "patient_auc_mean": 0.5526304326876746,
+      "n_distinct_slice_scores": 6
+     },
+     "_note": "secondary, reported for completeness; the primary baseline was locked to positional_20bin before the holdout was touched. Definitions imported from the audit tool: depth-3 CART for the tree arms, smoothed target encoding for the column arms."
+    },
+    "epidural": {
+     "volume_size": {
+      "slice_auc": 0.5178206412424478,
+      "patient_auc_mean": 0.47425500594798997,
+      "n_distinct_slice_scores": 8
+     },
+     "metadata_tree": {
+      "slice_auc": 0.4845239107514971,
+      "patient_auc_mean": 0.5104147975357378,
+      "n_distinct_slice_scores": 2
+     },
+     "combined_position_metadata": {
+      "slice_auc": 0.6934111661674734,
+      "patient_auc_mean": 0.5135607525702627,
+      "n_distinct_slice_scores": 8
+     },
+     "column[plane]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_slope]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_intercept]": {
+      "slice_auc": 0.4909139334964052,
+      "patient_auc_mean": 0.5173015066026012,
+      "n_distinct_slice_scores": 6
+     },
+     "_note": "secondary, reported for completeness; the primary baseline was locked to positional_20bin before the holdout was touched. Definitions imported from the audit tool: depth-3 CART for the tree arms, smoothed target encoding for the column arms."
+    },
+    "intraparenchymal": {
+     "volume_size": {
+      "slice_auc": 0.5873997212998647,
+      "patient_auc_mean": 0.5878596678669447,
+      "n_distinct_slice_scores": 8
+     },
+     "metadata_tree": {
+      "slice_auc": 0.5456670719171178,
+      "patient_auc_mean": 0.5494997493511052,
+      "n_distinct_slice_scores": 2
+     },
+     "combined_position_metadata": {
+      "slice_auc": 0.7414127702437935,
+      "patient_auc_mean": 0.598984373337872,
+      "n_distinct_slice_scores": 8
+     },
+     "column[plane]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_slope]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_intercept]": {
+      "slice_auc": 0.5632451355189324,
+      "patient_auc_mean": 0.5757561352466863,
+      "n_distinct_slice_scores": 6
+     },
+     "_note": "secondary, reported for completeness; the primary baseline was locked to positional_20bin before the holdout was touched. Definitions imported from the audit tool: depth-3 CART for the tree arms, smoothed target encoding for the column arms."
+    },
+    "intraventricular": {
+     "volume_size": {
+      "slice_auc": 0.583577566582896,
+      "patient_auc_mean": 0.5902312302084768,
+      "n_distinct_slice_scores": 8
+     },
+     "metadata_tree": {
+      "slice_auc": 0.5996974652663414,
+      "patient_auc_mean": 0.5965547137978966,
+      "n_distinct_slice_scores": 2
+     },
+     "combined_position_metadata": {
+      "slice_auc": 0.7979852416067538,
+      "patient_auc_mean": 0.5856637014991792,
+      "n_distinct_slice_scores": 7
+     },
+     "column[plane]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_slope]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_intercept]": {
+      "slice_auc": 0.6090376641920814,
+      "patient_auc_mean": 0.611779241156394,
+      "n_distinct_slice_scores": 6
+     },
+     "_note": "secondary, reported for completeness; the primary baseline was locked to positional_20bin before the holdout was touched. Definitions imported from the audit tool: depth-3 CART for the tree arms, smoothed target encoding for the column arms."
+    },
+    "subarachnoid": {
+     "volume_size": {
+      "slice_auc": 0.5764788888996173,
+      "patient_auc_mean": 0.565887304263149,
+      "n_distinct_slice_scores": 8
+     },
+     "metadata_tree": {
+      "slice_auc": 0.518352199172607,
+      "patient_auc_mean": 0.5165144500526078,
+      "n_distinct_slice_scores": 2
+     },
+     "combined_position_metadata": {
+      "slice_auc": 0.6782996119972028,
+      "patient_auc_mean": 0.5417306547544608,
+      "n_distinct_slice_scores": 8
+     },
+     "column[plane]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_slope]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_intercept]": {
+      "slice_auc": 0.5406482704983638,
+      "patient_auc_mean": 0.5449623658334459,
+      "n_distinct_slice_scores": 6
+     },
+     "_note": "secondary, reported for completeness; the primary baseline was locked to positional_20bin before the holdout was touched. Definitions imported from the audit tool: depth-3 CART for the tree arms, smoothed target encoding for the column arms."
+    },
+    "subdural": {
+     "volume_size": {
+      "slice_auc": 0.5812384402629401,
+      "patient_auc_mean": 0.5756332104318216,
+      "n_distinct_slice_scores": 8
+     },
+     "metadata_tree": {
+      "slice_auc": 0.5441315664462625,
+      "patient_auc_mean": 0.5583529643352505,
+      "n_distinct_slice_scores": 2
+     },
+     "combined_position_metadata": {
+      "slice_auc": 0.7056302226347386,
+      "patient_auc_mean": 0.5581951824506829,
+      "n_distinct_slice_scores": 8
+     },
+     "column[plane]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_slope]": {
+      "slice_auc": 0.5,
+      "patient_auc_mean": 0.5,
+      "n_distinct_slice_scores": 1
+     },
+     "column[rescale_intercept]": {
+      "slice_auc": 0.5485935928294818,
+      "patient_auc_mean": 0.5647265106806033,
+      "n_distinct_slice_scores": 6
+     },
+     "_note": "secondary, reported for completeness; the primary baseline was locked to positional_20bin before the holdout was touched. Definitions imported from the audit tool: depth-3 CART for the tree arms, smoothed target encoding for the column arms."
+    }
+   },
+   "note": "On the frozen holdout the locked baseline is also the strongest of the five on every one of the six labels, so on RSNA ICH locking costs nothing in the numerator. It is not selected on that basis."
+  },
+  "replication_of_eight_holdout_result": {
+   "reported_by_operator_8_draws": {
+    "slice_auc": {
+     "mean": 0.7378,
+     "range": [
+      0.7359,
+      0.7401
+     ]
+    },
+    "patient_auc_mean": {
+     "mean": 0.4603,
+     "range": [
+      0.4383,
+      0.4741
+     ]
+    },
+    "patient_auc_mean_depthfixed": {
+     "mean": 0.5005,
+     "range": [
+      0.4955,
+      0.505
+     ]
+    },
+    "constant_predictor": {
+     "every_draw": 0.5
+    }
+   },
+   "independent_24_draws_here": {
+    "slice_auc": {
+     "mean": 0.7381310688780066,
+     "sd": 0.001577669077559743,
+     "min": 0.7349876686378971,
+     "max": 0.7414596088300682,
+     "median": 0.7376363409713256
+    },
+    "patient_auc_mean": {
+     "mean": 0.45511216583718267,
+     "sd": 0.005932409728530597,
+     "min": 0.4424181041405673,
+     "max": 0.46276250561242704,
+     "median": 0.4548064925589028
+    },
+    "patient_auc_mean_depthfixed": {
+     "mean": 0.5037481844444041,
+     "sd": 0.002101187833972944,
+     "min": 0.49787895418475575,
+     "max": 0.5071216179659679,
+     "median": 0.5042536638274818
+    },
+    "constant_slice_auc": {
+     "mean": 0.5,
+     "sd": 0.0,
+     "min": 0.5,
+     "max": 0.5,
+     "median": 0.5
+    }
+   },
+   "verdict": "Replicated. Slice AUC agrees to 0.0003 in the family mean; the constant predictor is exactly 0.5000 in every one of 24 draws at both units and for all six labels, so the cross-fold ranking artefact is gone. The patient-level family mean here is 0.4551 against the 0.4603 reported, and the depth-fixed family mean is 0.5037 against 0.5005; both differences are inside the across-draw spread of either family, and the depth-fixed reading covers 0.500 in both. The depth-fixed stratum definition is stated explicitly here because it is the one place the two runs could differ without either being wrong."
+  }
+ },
+ "other_arms": {
+  "fastmri_prostate_t2": {
+   "display_name": "fastMRI Prostate, T2-weighted",
+   "status": "RECOMPUTED",
+   "label_table": "/Volumes/Research/fastmridatasets/prostate/labels/t2_slice_level_labels.csv",
+   "label_table_sha256": "d248d41c9915c3fe10d7d6ecbf38d30c3c28eef0cdc3a216a4e74978fe84e414",
+   "estimator": "benchmark's own published train/test split, single fit, no pooling",
+   "estimator_is_pooled_out_of_fold": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "n_test_subjects": 46,
+   "n_test_slices": 1399,
+   "test_slice_prevalence": 0.04860614724803431,
+   "test_patient_prevalence": 0.43478260869565216,
+   "slice_auc": 0.8542338798780218,
+   "slice_ci": [
+    0.8113824307571834,
+    0.8913881763829432
+   ],
+   "patient_auc_mean": 0.5057692307692307,
+   "patient_auc_mean_ci": [
+    0.3819004120879121,
+    0.6294977990544369
+   ],
+   "patient_auc_mean_depthfixed": 0.5,
+   "patient_auc_mean_depthfixed_ci": [
+    0.5,
+    0.5
+   ],
+   "pairs_depthfixed": 308.0,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "within_volume_permutation_null": {
+    "n_perm": 20,
+    "slice_mean": 0.4984617381888894,
+    "slice_range": [
+     0.45223626640738945,
+     0.5734796924028814
+    ],
+    "patient_mean": 0.49749999999999994,
+    "patient_range": [
+     0.4096153846153846,
+     0.5903846153846154
+    ],
+    "slice_excess_over_null": 0.3557721416891324
+   },
+   "aggregation": {
+    "mean": 0.5057692307692307,
+    "max": 0.5,
+    "topk1_mean": 0.5,
+    "topk3_mean": 0.5269230769230769,
+    "topk5_mean": 0.5307692307692308,
+    "p75": 0.4951923076923077,
+    "p90": 0.5538461538461539
+   },
+   "aggregation_ci": {
+    "mean": [
+     0.38094561688311684,
+     0.6363658514974304
+    ],
+    "max": [
+     0.5,
+     0.5
+    ],
+    "topk1_mean": [
+     0.5,
+     0.5
+    ],
+    "topk3_mean": [
+     0.43451264126340194,
+     0.621832358674464
+    ],
+    "topk5_mean": [
+     0.41853693181818186,
+     0.636368006993007
+    ],
+    "p75": [
+     0.39473684210526316,
+     0.6041940789473682
+    ],
+    "p90": [
+     0.4299975651560409,
+     0.6822681704260651
+    ]
+   },
+   "n_distinct_patient_scores": {
+    "mean": 6,
+    "max": 1,
+    "topk1_mean": 1,
+    "topk3_mean": 2,
+    "topk5_mean": 3,
+    "p75": 3,
+    "p90": 5
+   },
+   "secondary_baselines": {
+    "volume_size": {
+     "slice_auc": 0.5736067529942105,
+     "patient_auc_mean": 0.5423076923076923
+    },
+    "metadata_tree": {
+     "slice_auc": 0.5354609537278473,
+     "patient_auc_mean": 0.5480769230769231
+    },
+    "combined_position_metadata": {
+     "slice_auc": 0.8243138728068237,
+     "patient_auc_mean": 0.5009615384615385
+    }
+   },
+   "published_slice_auc": 0.861,
+   "trivial_fraction_slice_locked": 0.9812572849806698,
+   "trivial_fraction_slice_locked_ci": [
+    0.8625552098536937,
+    1.0841777739139702
+   ],
+   "agrees_with_recorded_card_to": {
+    "slice_auc": 0.0,
+    "patient_auc_mean": 0.0
+   },
+   "note": "Reproduced independently on the benchmark's own published train/test split, validation rows dropped. No pooling; the constant predictor was already exactly 0.500 and remains so. The depth-fixed patient reading is exactly 0.500 with a degenerate interval because within a depth stratum every patient's mean is the same number -- the mean operator is a deterministic function of stack depth here."
+  },
+  "fastmri_prostate_dwi": {
+   "display_name": "fastMRI Prostate, DWI",
+   "status": "RECOMPUTED",
+   "label_table": "/Volumes/Research/fastmridatasets/prostate/labels/dwi_slice_level_labels.csv",
+   "label_table_sha256": "e22a354132cce884a3e7c8e762cf039f5269a4eb49dba650453c3537a3c20ecf",
+   "estimator": "benchmark's own published train/test split, single fit, no pooling",
+   "estimator_is_pooled_out_of_fold": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "n_test_subjects": 46,
+   "n_test_slices": 1395,
+   "test_slice_prevalence": 0.05949820788530466,
+   "test_patient_prevalence": 0.5869565217391305,
+   "slice_auc": 0.851367359682633,
+   "slice_ci": [
+    0.8142406022804916,
+    0.8882826575171989
+   ],
+   "patient_auc_mean": 0.4239766081871345,
+   "patient_auc_mean_ci": [
+    0.29258996212121213,
+    0.5510768138111886
+   ],
+   "patient_auc_mean_depthfixed": 0.5,
+   "patient_auc_mean_depthfixed_ci": [
+    0.5,
+    0.5
+   ],
+   "pairs_depthfixed": 303.0,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "within_volume_permutation_null": {
+    "n_perm": 20,
+    "slice_mean": 0.49986477923890693,
+    "slice_range": [
+     0.45273012782838673,
+     0.5675231413458712
+    ],
+    "patient_mean": 0.48684210526315785,
+    "patient_range": [
+     0.35769980506822613,
+     0.6130604288499024
+    ],
+    "slice_excess_over_null": 0.35150258044372606
+   },
+   "aggregation": {
+    "mean": 0.4239766081871345,
+    "max": 0.5,
+    "topk1_mean": 0.5,
+    "topk3_mean": 0.5419103313840156,
+    "topk5_mean": 0.5331384015594542,
+    "p75": 0.47368421052631576,
+    "p90": 0.5019493177387915
+   },
+   "aggregation_ci": {
+    "mean": [
+     0.30324543610547666,
+     0.5384990253411304
+    ],
+    "max": [
+     0.5,
+     0.5
+    ],
+    "topk1_mean": [
+     0.5,
+     0.5
+    ],
+    "topk3_mean": [
+     0.45073863636363637,
+     0.6471771877610693
+    ],
+    "topk5_mean": [
+     0.4204104262672811,
+     0.6442540322580644
+    ],
+    "p75": [
+     0.3661257606490872,
+     0.5738636363636364
+    ],
+    "p90": [
+     0.3676595740690731,
+     0.6295238095238095
+    ]
+   },
+   "n_distinct_patient_scores": {
+    "mean": 7,
+    "max": 1,
+    "topk1_mean": 1,
+    "topk3_mean": 2,
+    "topk5_mean": 3,
+    "p75": 3,
+    "p90": 5
+   },
+   "secondary_baselines": {
+    "volume_size": {
+     "slice_auc": 0.5245509476932119,
+     "patient_auc_mean": 0.48050682261208577
+    },
+    "metadata_tree": {
+     "slice_auc": 0.539317330296797,
+     "patient_auc_mean": 0.5263157894736842
+    },
+    "combined_position_metadata": {
+     "slice_auc": 0.8288917866588305,
+     "patient_auc_mean": 0.5292397660818714
+    }
+   },
+   "published_slice_auc": 0.861,
+   "trivial_fraction_slice_locked": 0.9733167858244681,
+   "trivial_fraction_slice_locked_ci": [
+    0.8704725824944365,
+    1.0755752285794984
+   ],
+   "agrees_with_recorded_card_to": {
+    "slice_auc": 0.0,
+    "patient_auc_mean": 0.0
+   },
+   "note": "Reproduced independently on the benchmark's own published train/test split, validation rows dropped. No pooling; the constant predictor was already exactly 0.500 and remains so. The depth-fixed patient reading is exactly 0.500 with a degenerate interval because within a depth stratum every patient's mean is the same number -- the mean operator is a deterministic function of stack depth here."
+  },
+  "deeplesion_pelvis_vs_rest": {
+   "display_name": "DeepLesion, pelvis vs rest",
+   "status": "NOT RECOMPUTED -- label table unreachable",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/deeplesion_tidy.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists, and the DeepLesion source release is not on any mounted volume",
+   "estimator": "the dataset's own 'split' column; validation rows: exclude",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.9772133958055309,
+   "slice_ci": [
+    0.9685606763745772,
+    0.9842860448354007
+   ],
+   "patient_auc_mean": 0.9542441492726123,
+   "patient_auc_mean_ci": [
+    0.9385031326875725,
+    0.967404662225802
+   ],
+   "patient_auc_max_agg": 0.9627703984819734,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "best_over_five_baseline": "combined_position_metadata",
+   "best_over_five_value": 0.9822589565671029,
+   "locked_minus_best_over_five": -0.005045560761572032,
+   "n_boot": 2000,
+   "note": "Scored on the benchmark's own official split, ONE fit, no pooling, so the cross-fold ranking artefact never applied here and the constant predictor is already exactly 0.500. The values stand as single-split estimates, not as pooled-out-of-fold estimates.",
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_pelvis_vs_rest.json"
+  },
+  "deeplesion_mediastinum_vs_rest": {
+   "display_name": "DeepLesion, mediastinum vs rest",
+   "status": "NOT RECOMPUTED -- label table unreachable",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/deeplesion_tidy.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists, and the DeepLesion source release is not on any mounted volume",
+   "estimator": "the dataset's own 'split' column; validation rows: exclude",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.8896330992880648,
+   "slice_ci": [
+    0.8706127077416282,
+    0.9064088831765286
+   ],
+   "patient_auc_mean": 0.8139710177699889,
+   "patient_auc_mean_ci": [
+    0.7822732305079765,
+    0.8439321799832562
+   ],
+   "patient_auc_max_agg": 0.8718648124069572,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "best_over_five_baseline": "combined_position_metadata",
+   "best_over_five_value": 0.9565768543586658,
+   "locked_minus_best_over_five": -0.06694375507060102,
+   "n_boot": 2000,
+   "note": "Scored on the benchmark's own official split, ONE fit, no pooling, so the cross-fold ranking artefact never applied here and the constant predictor is already exactly 0.500. The values stand as single-split estimates, not as pooled-out-of-fold estimates.",
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_mediastinum_vs_rest.json"
+  },
+  "deeplesion_abdomen_vs_rest": {
+   "display_name": "DeepLesion, abdomen vs rest",
+   "status": "NOT RECOMPUTED -- label table unreachable",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/deeplesion_tidy.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists, and the DeepLesion source release is not on any mounted volume",
+   "estimator": "the dataset's own 'split' column; validation rows: exclude",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.8860584515476757,
+   "slice_ci": [
+    0.8680806692073995,
+    0.902769816796795
+   ],
+   "patient_auc_mean": 0.8073836639947771,
+   "patient_auc_mean_ci": [
+    0.7744666028187763,
+    0.8413377668942744
+   ],
+   "patient_auc_max_agg": 0.8451089913314714,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "best_over_five_baseline": "positional_20bin",
+   "best_over_five_value": 0.8860584515476757,
+   "locked_minus_best_over_five": 0.0,
+   "n_boot": 2000,
+   "note": "Scored on the benchmark's own official split, ONE fit, no pooling, so the cross-fold ranking artefact never applied here and the constant predictor is already exactly 0.500. The values stand as single-split estimates, not as pooled-out-of-fold estimates.",
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_abdomen_vs_rest.json"
+  },
+  "deeplesion_kidney_vs_rest": {
+   "display_name": "DeepLesion, kidney vs rest",
+   "status": "NOT RECOMPUTED -- label table unreachable",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/deeplesion_tidy.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists, and the DeepLesion source release is not on any mounted volume",
+   "estimator": "the dataset's own 'split' column; validation rows: exclude",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.8767759219495849,
+   "slice_ci": [
+    0.8590848679671195,
+    0.8942438062210841
+   ],
+   "patient_auc_mean": 0.837518975645172,
+   "patient_auc_mean_ci": [
+    0.8024614550212033,
+    0.8704346035126305
+   ],
+   "patient_auc_max_agg": 0.8254405649792093,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "best_over_five_baseline": "combined_position_metadata",
+   "best_over_five_value": 0.8958792054359921,
+   "locked_minus_best_over_five": -0.01910328348640722,
+   "n_boot": 2000,
+   "note": "Scored on the benchmark's own official split, ONE fit, no pooling, so the cross-fold ranking artefact never applied here and the constant predictor is already exactly 0.500. The values stand as single-split estimates, not as pooled-out-of-fold estimates.",
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_kidney_vs_rest.json"
+  },
+  "deeplesion_liver_vs_rest": {
+   "display_name": "DeepLesion, liver vs rest",
+   "status": "NOT RECOMPUTED -- label table unreachable",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/deeplesion_tidy.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists, and the DeepLesion source release is not on any mounted volume",
+   "estimator": "the dataset's own 'split' column; validation rows: exclude",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.8758009733346852,
+   "slice_ci": [
+    0.8599182636058,
+    0.8896917596856232
+   ],
+   "patient_auc_mean": 0.7771302558714733,
+   "patient_auc_mean_ci": [
+    0.7414939302732151,
+    0.8118450022681154
+   ],
+   "patient_auc_max_agg": 0.8191498675772102,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "best_over_five_baseline": "positional_20bin",
+   "best_over_five_value": 0.8758009733346852,
+   "locked_minus_best_over_five": 0.0,
+   "n_boot": 2000,
+   "note": "Scored on the benchmark's own official split, ONE fit, no pooling, so the cross-fold ranking artefact never applied here and the constant predictor is already exactly 0.500. The values stand as single-split estimates, not as pooled-out-of-fold estimates.",
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_liver_vs_rest.json"
+  },
+  "deeplesion_lung_vs_rest": {
+   "display_name": "DeepLesion, lung vs rest",
+   "status": "NOT RECOMPUTED -- label table unreachable",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/deeplesion_tidy.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists, and the DeepLesion source release is not on any mounted volume",
+   "estimator": "the dataset's own 'split' column; validation rows: exclude",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.8724186996698102,
+   "slice_ci": [
+    0.8521978243626221,
+    0.8921951088115898
+   ],
+   "patient_auc_mean": 0.8026710163203392,
+   "patient_auc_mean_ci": [
+    0.7683586764448598,
+    0.8359029617410979
+   ],
+   "patient_auc_max_agg": 0.8897509000858965,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "best_over_five_baseline": "combined_position_metadata",
+   "best_over_five_value": 0.961544409340333,
+   "locked_minus_best_over_five": -0.0891257096705228,
+   "n_boot": 2000,
+   "note": "Scored on the benchmark's own official split, ONE fit, no pooling, so the cross-fold ranking artefact never applied here and the constant predictor is already exactly 0.500. The values stand as single-split estimates, not as pooled-out-of-fold estimates.",
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_lung_vs_rest.json"
+  },
+  "deeplesion_softtissue_vs_rest": {
+   "display_name": "DeepLesion, softtissue vs rest",
+   "status": "NOT RECOMPUTED -- label table unreachable",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/deeplesion_tidy.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists, and the DeepLesion source release is not on any mounted volume",
+   "estimator": "the dataset's own 'split' column; validation rows: exclude",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.8306795590909207,
+   "slice_ci": [
+    0.7774136513657437,
+    0.877950841770047
+   ],
+   "patient_auc_mean": 0.8111248583865005,
+   "patient_auc_mean_ci": [
+    0.7692721296814543,
+    0.8501407309022134
+   ],
+   "patient_auc_max_agg": 0.8151869298193309,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "best_over_five_baseline": "positional_20bin",
+   "best_over_five_value": 0.8306795590909207,
+   "locked_minus_best_over_five": 0.0,
+   "n_boot": 2000,
+   "note": "Scored on the benchmark's own official split, ONE fit, no pooling, so the cross-fold ranking artefact never applied here and the constant predictor is already exactly 0.500. The values stand as single-split estimates, not as pooled-out-of-fold estimates.",
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_softtissue_vs_rest.json"
+  },
+  "deeplesion_bone_vs_rest": {
+   "display_name": "DeepLesion, bone vs rest",
+   "status": "NOT RECOMPUTED -- label table unreachable",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/deeplesion_tidy.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists, and the DeepLesion source release is not on any mounted volume",
+   "estimator": "the dataset's own 'split' column; validation rows: exclude",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.691211677541829,
+   "slice_ci": [
+    0.6175081561061171,
+    0.7628079013595122
+   ],
+   "patient_auc_mean": 0.6422350214230526,
+   "patient_auc_mean_ci": [
+    0.5553528388257049,
+    0.7255942643202145
+   ],
+   "patient_auc_max_agg": 0.7751808667556367,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "best_over_five_baseline": "combined_position_metadata",
+   "best_over_five_value": 0.8316693950642903,
+   "locked_minus_best_over_five": -0.14045771752246128,
+   "n_boot": 2000,
+   "note": "Scored on the benchmark's own official split, ONE fit, no pooling, so the cross-fold ranking artefact never applied here and the constant predictor is already exactly 0.500. The values stand as single-split estimates, not as pooled-out-of-fold estimates.",
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_bone_vs_rest.json"
+  },
+  "fastmriplus_knee_meniscus_tear": {
+   "display_name": "fastMRI+ knee, meniscus tear",
+   "status": "NOT RECOMPUTED -- label table unreachable; value remains POOLED-OUT-OF-FOLD",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/fastmriplus_knee_meniscus.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists; the source release is not on any mounted volume",
+   "estimator": "5-fold subject-level CV, pooled out-of-fold",
+   "estimator_is_pooled_out_of_fold": true,
+   "pooling_artefact_applies": true,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.8726756576756577,
+   "slice_ci": [
+    0.8579356000832701,
+    0.8861792963342839
+   ],
+   "patient_auc_mean": 0.5097087378640777,
+   "patient_auc_mean_ci": [
+    0.42787389045335245,
+    0.5921267457330981
+   ],
+   "patient_auc_max_agg": 0.49413430420711973,
+   "constant_predictor_slice_auc": 0.4545007215007215,
+   "constant_predictor_patient_auc": 0.4940331715210356,
+   "constant_predictor_deviation_from_half": 0.045499278499278484,
+   "best_over_five_baseline": "positional_20bin",
+   "best_over_five_value": 0.8726756576756577,
+   "locked_minus_best_over_five": 0.0,
+   "n_boot": 2000,
+   "note": "This arm STILL carries the cross-fold ranking artefact: its constant predictor is not 0.500. It could not be redone because the label table is unreachable. Report it as pooled out of fold and do not mix it with the frozen-holdout numbers.",
+   "warnings_from_original_run": [
+    "the constant predictor scores 0.455, 0.045 away from 0.5. Pooling out-of-fold predictions across folds whose training prevalence differs makes fold identity rankable on its own. Treat this as the floor of what any pooled number here can mean.",
+    "metadata columns are taken at face value as acquisition/administrative fields. Check payload['columns'] before claiming the baselines are image-blind: an image-derived column would break that guarantee."
+   ],
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/fastmriplus_knee_meniscus_tear.json"
+  },
+  "fastmriplus_knee_any_finding": {
+   "display_name": "fastMRI+ knee, any annotated finding",
+   "status": "NOT RECOMPUTED -- label table unreachable; value remains POOLED-OUT-OF-FOLD",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/fastmriplus_knee_meniscus.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists; the source release is not on any mounted volume",
+   "estimator": "5-fold subject-level CV, pooled out-of-fold",
+   "estimator_is_pooled_out_of_fold": true,
+   "pooling_artefact_applies": true,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.8009933666462113,
+   "slice_ci": [
+    0.7786374365101455,
+    0.8240068513815663
+   ],
+   "patient_auc_mean": 0.5581378299120234,
+   "patient_auc_mean_ci": [
+    0.46957185977133575,
+    0.6481157773804234
+   ],
+   "patient_auc_max_agg": 0.5,
+   "constant_predictor_slice_auc": 0.4831337482832179,
+   "constant_predictor_patient_auc": 0.5,
+   "constant_predictor_deviation_from_half": 0.016866251716782077,
+   "best_over_five_baseline": "positional_20bin",
+   "best_over_five_value": 0.8009933666462113,
+   "locked_minus_best_over_five": 0.0,
+   "n_boot": 2000,
+   "note": "This arm STILL carries the cross-fold ranking artefact: its constant predictor is not 0.500. It could not be redone because the label table is unreachable. Report it as pooled out of fold and do not mix it with the frozen-holdout numbers.",
+   "warnings_from_original_run": [
+    "the constant predictor scores 0.483, 0.017 away from 0.5. Pooling out-of-fold predictions across folds whose training prevalence differs makes fold identity rankable on its own. Treat this as the floor of what any pooled number here can mean.",
+    "metadata columns are taken at face value as acquisition/administrative fields. Check payload['columns'] before claiming the baselines are image-blind: an image-derived column would break that guarantee."
+   ],
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/fastmriplus_knee_any_finding.json"
+  },
+  "duke_breast_owner_slice_task": {
+   "display_name": "Duke Breast, owner-defined slice task",
+   "status": "NOT RECOMPUTED -- label table unreachable; value remains POOLED-OUT-OF-FOLD",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/duke_breast_slices.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists; the source release is not on any mounted volume",
+   "estimator": "5-fold subject-level CV, pooled out-of-fold",
+   "estimator_is_pooled_out_of_fold": true,
+   "pooling_artefact_applies": true,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.823208044878936,
+   "slice_ci": [
+    0.811268771450588,
+    0.8340956595695561
+   ],
+   "patient_auc_mean": NaN,
+   "patient_auc_mean_ci": [
+    null,
+    null
+   ],
+   "patient_auc_max_agg": NaN,
+   "constant_predictor_slice_auc": 0.4830868158580178,
+   "constant_predictor_patient_auc": NaN,
+   "constant_predictor_deviation_from_half": 0.016913184141982174,
+   "best_over_five_baseline": "positional_20bin",
+   "best_over_five_value": 0.823208044878936,
+   "locked_minus_best_over_five": 0.0,
+   "n_boot": 1000,
+   "note": "This arm STILL carries the cross-fold ranking artefact: its constant predictor is not 0.500. It could not be redone because the label table is unreachable. Report it as pooled out of fold and do not mix it with the frozen-holdout numbers.",
+   "warnings_from_original_run": [
+    "the constant predictor scores 0.483, 0.017 away from 0.5. Pooling out-of-fold predictions across folds whose training prevalence differs makes fold identity rankable on its own. Treat this as the floor of what any pooled number here can mean.",
+    "the headline test arm holds 922 subjects (922 positive). Patient-level AUROC on this few subjects is close to uninformative and its interval will be degenerate; read the slice-level row and the cross-validated evaluation instead.",
+    "metadata columns are taken at face value as acquisition/administrative fields. Check payload['columns'] before claiming the baselines are image-blind: an image-derived column would break that guarantee."
+   ],
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/duke_breast_owner_slice_task.json"
+  },
+  "luna16_fp_reduction_candidates": {
+   "display_name": "LUNA16 candidates",
+   "status": "NOT RECOMPUTED -- label table unreachable; value remains POOLED-OUT-OF-FOLD",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/luna16_tidy.csv",
+   "unreachable_reason": "the tidied label table was written to a per-session scratch directory that no longer exists; the source release is not on any mounted volume",
+   "estimator": "5-fold subject-level CV, pooled out-of-fold",
+   "estimator_is_pooled_out_of_fold": true,
+   "pooling_artefact_applies": true,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.5339026299315452,
+   "slice_ci": [
+    0.5134715881265609,
+    0.5579962026230508
+   ],
+   "patient_auc_mean": 0.5812442129629629,
+   "patient_auc_mean_ci": [
+    0.5377479684823636,
+    0.612834670481577
+   ],
+   "patient_auc_max_agg": 0.5001938657407408,
+   "constant_predictor_slice_auc": 0.48323950838795443,
+   "constant_predictor_patient_auc": 0.5006944444444444,
+   "constant_predictor_deviation_from_half": 0.01676049161204557,
+   "best_over_five_baseline": "combined_position_metadata",
+   "best_over_five_value": 0.5386970511897708,
+   "locked_minus_best_over_five": -0.004794421258225601,
+   "n_boot": 200,
+   "note": "This arm STILL carries the cross-fold ranking artefact: its constant predictor is not 0.500. It could not be redone because the label table is unreachable. Report it as pooled out of fold and do not mix it with the frozen-holdout numbers.",
+   "warnings_from_original_run": [
+    "the constant predictor scores 0.483, 0.017 away from 0.5. Pooling out-of-fold predictions across folds whose training prevalence differs makes fold identity rankable on its own. Treat this as the floor of what any pooled number here can mean.",
+    "no admissible metadata columns in this label file; the metadata and combined baselines are position-only. That is a property of the file, not a null result about metadata confounding.",
+    "metadata columns are taken at face value as acquisition/administrative fields. Check payload['columns'] before claiming the baselines are image-blind: an image-derived column would break that guarantee."
+   ],
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/luna16_fp_reduction_candidates.json"
+  },
+  "picai_case_level": {
+   "display_name": "PI-CAI, case level",
+   "status": "NOT RECOMPUTED -- label table unreachable",
+   "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/picai_case_level.csv",
+   "unreachable_reason": "the tidied case-level table was written to a per-session scratch directory that no longer exists",
+   "estimator": "the dataset's own 'split' column; validation rows: exclude",
+   "n_partitions": 1,
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional_20bin (locked) -- INAPPLICABLE on this label file",
+   "positional_slice_auc": 0.5,
+   "positional_patient_auc": 0.5,
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "best_over_five_baseline": "metadata_tree",
+   "best_over_five_value": 0.691672192749779,
+   "secondary_metadata_tree_patient_auc": 0.691672192749779,
+   "secondary_metadata_tree_patient_ci": [
+    0.6258677219026975,
+    0.7554459200792638
+   ],
+   "n_boot": 2000,
+   "note": "The label file carries no slice index, so the LOCKED positional baseline is exactly 0.500 -- the correct registration of 'inapplicable'. Under a locked primary baseline this arm's primary trivial fraction is therefore exactly 0.000. The 0.692 previously carried is the depth-3 metadata tree over patient age, prostate-specific antigen level, centre and scan year: selected on the test set, and two of its four inputs are clinical predictors of the label rather than acquisition metadata. It is reported here as a SECONDARY, clinical-variable baseline.",
+   "estimator_string_discrepancy": "paper/trivial_fraction_distribution.json describes this row's estimator as 'the benchmark's own official 5-fold splits'; the payload's headline evaluation is a single official train/test split with n_partitions = 1 (1200 training / 300 test rows). One of the two is wrong.",
+   "source": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/picai_case_level.json"
+  },
+  "deeplesion_8class_lesion_type": {
+   "display_name": "DeepLesion, 8-class lesion type (the trivial-fraction row)",
+   "status": "NOT RECOMPUTED -- label table unreachable",
+   "estimator": "200 random patient-disjoint 25/25/50 partitions; the interval is partition-to-partition spread",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional 20-bin on published normalised z (already locked)",
+   "metric": "8-class accuracy",
+   "chance": 0.2361,
+   "baseline": 0.5571,
+   "baseline_ci": [
+    0.5243,
+    0.5778
+   ],
+   "note": "Already a repeated-holdout estimator with a single fit per partition, not a pooled cross-fold score, and the baseline was already the positional model, so neither the pooling artefact nor the baseline lock changes this row. It cannot be re-run: the tidy table is gone.",
+   "source": "paper/trivial_fraction_distribution.json (row), pipeline/audit_prep/deeplesion_yan_conditions.py"
+  }
+ },
+ "trivial_fraction_locked": {
+  "definition": "(locked zero-image baseline - chance) / (published - chance)",
+  "status": "DESCRIPTIVE cross-study comparison only. The primary contribution is the slice-versus-patient result, which needs no external comparator. No cross-metric median is reported as an inferential claim.",
+  "rows": [
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "any",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9843,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.737374772144935,
+    "old_trivial_fraction": 0.4901399383541916,
+    "locked_baseline": 0.737691144133092,
+    "locked_baseline_ci": [
+     0.7333370265096615,
+     0.7417343542049176
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.49079319457586623,
+    "locked_trivial_fraction_ci": [
+     0.48180265643126474,
+     0.4991417596632617
+    ],
+    "delta": 0.0006532562216746141
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "any",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9752,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.737374772144935,
+    "old_trivial_fraction": 0.4995260356585332,
+    "locked_baseline": 0.737691144133092,
+    "locked_baseline_ci": [
+     0.7333370265096615,
+     0.7417343542049176
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.5001918016268772,
+    "locked_trivial_fraction_ci": [
+     0.4910290961903651,
+     0.5087002403302139
+    ],
+    "delta": 0.0006657659683439454
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "epidural",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9851,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.7121945902411463,
+    "old_trivial_fraction": 0.43742442845010576,
+    "locked_baseline": 0.708778344864665,
+    "locked_baseline_ci": [
+     0.6869297616223288,
+     0.7290119873553056
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.4303820755816635,
+    "locked_trivial_fraction_ci": [
+     0.3853427368013374,
+     0.4720923260261917
+    ],
+    "delta": -0.0070423528684422365
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "epidural",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9703,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.7121945902411463,
+    "old_trivial_fraction": 0.4511898580504917,
+    "locked_baseline": 0.708778344864665,
+    "locked_baseline_ci": [
+     0.6869297616223288,
+     0.7290119873553056
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.4439258874434721,
+    "locked_trivial_fraction_ci": [
+     0.3974691933283622,
+     0.48694872922667565
+    ],
+    "delta": -0.00726397060701961
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "intraparenchymal",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9927,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.7513707751336752,
+    "old_trivial_fraction": 0.5101903290717987,
+    "locked_baseline": 0.7533599051118077,
+    "locked_baseline_ci": [
+     0.7460980221394755,
+     0.7602387687497029
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.5142275321936426,
+    "locked_trivial_fraction_ci": [
+     0.4994885775106058,
+     0.5281890983350981
+    ],
+    "delta": 0.0040372031218438575
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "intraparenchymal",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9883,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.7513707751336752,
+    "old_trivial_fraction": 0.5147875796307091,
+    "locked_baseline": 0.7533599051118077,
+    "locked_baseline_ci": [
+     0.7460980221394755,
+     0.7602387687497029
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.5188611614003845,
+    "locked_trivial_fraction_ci": [
+     0.5039893961488338,
+     0.5329485331757176
+    ],
+    "delta": 0.004073581769675427
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "intraventricular",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.997,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.8048496457668485,
+    "old_trivial_fraction": 0.6133795689473812,
+    "locked_baseline": 0.8033452469917759,
+    "locked_baseline_ci": [
+     0.797639357948531,
+     0.8090586601846763
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.6103526096414001,
+    "locked_trivial_fraction_ci": [
+     0.5988719475825574,
+     0.6218484108343588
+    ],
+    "delta": -0.0030269593059810695
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "intraventricular",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9953,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.8048496457668485,
+    "old_trivial_fraction": 0.6154848491153816,
+    "locked_baseline": 0.8033452469917759,
+    "locked_baseline_ci": [
+     0.797639357948531,
+     0.8090586601846763
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.6124475004881403,
+    "locked_trivial_fraction_ci": [
+     0.6009274337745428,
+     0.6239827582973477
+    ],
+    "delta": -0.003037348627241254
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "subarachnoid",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9821,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.6904556102816904,
+    "old_trivial_fraction": 0.3950541594724963,
+    "locked_baseline": 0.6952942658903832,
+    "locked_baseline_ci": [
+     0.6878741618550646,
+     0.7029402750795255
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.4050907817680631,
+    "locked_trivial_fraction_ci": [
+     0.3896995682536083,
+     0.4209505809573232
+    ],
+    "delta": 0.010036622295566844
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "subarachnoid",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9644,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.6904556102816904,
+    "old_trivial_fraction": 0.4101111332508407,
+    "locked_baseline": 0.6952942658903832,
+    "locked_baseline_ci": [
+     0.6878741618550646,
+     0.7029402750795255
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.42053028830831873,
+    "locked_trivial_fraction_ci": [
+     0.40455245877490215,
+     0.4369945630480738
+    ],
+    "delta": 0.010419155057478036
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "subdural",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9682,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.7195392775219301,
+    "old_trivial_fraction": 0.4689006354590563,
+    "locked_baseline": 0.7198672252539127,
+    "locked_baseline_ci": [
+     0.714702114400007,
+     0.7252705459763067
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.4696010791412061,
+    "locked_trivial_fraction_ci": [
+     0.45856923195217214,
+     0.4811417043492241
+    ],
+    "delta": 0.0007004436821497761
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "subdural",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9576,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.7195392775219301,
+    "old_trivial_fraction": 0.47976240717205015,
+    "locked_baseline": 0.7198672252539127,
+    "locked_baseline_ci": [
+     0.714702114400007,
+     0.7252705459763067
+    ],
+    "locked_estimator": "frozen single holdout, seed 20260813, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.48047907616676716,
+    "locked_trivial_fraction_ci": [
+     0.4691916835664488,
+     0.49228703229088
+    ],
+    "delta": 0.0007166689947170068
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "any (their split geometry)",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9843,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": "RSNA ICH / any",
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.7381,
+    "old_trivial_fraction": 0.49163741482552137,
+    "locked_baseline": 0.7381,
+    "locked_baseline_ci": null,
+    "locked_estimator": "split-geometry replication over the comparator's published held-out geometry; NOT redone under the frozen holdout",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.49163741482552137,
+    "delta": 0.0
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "epidural (their split geometry)",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9851,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": "RSNA ICH / epidural",
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.7186,
+    "old_trivial_fraction": 0.45062873634302214,
+    "locked_baseline": 0.7186,
+    "locked_baseline_ci": null,
+    "locked_estimator": "split-geometry replication over the comparator's published held-out geometry; NOT redone under the frozen holdout",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.45062873634302214,
+    "delta": 0.0
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "intraparenchymal (their split geometry)",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9927,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": "RSNA ICH / intraparenchymal",
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.7527,
+    "old_trivial_fraction": 0.5128881672417293,
+    "locked_baseline": 0.7527,
+    "locked_baseline_ci": null,
+    "locked_estimator": "split-geometry replication over the comparator's published held-out geometry; NOT redone under the frozen holdout",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.5128881672417293,
+    "delta": 0.0
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "intraventricular (their split geometry)",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.997,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": "RSNA ICH / intraventricular",
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.8058,
+    "old_trivial_fraction": 0.615291750503018,
+    "locked_baseline": 0.8058,
+    "locked_baseline_ci": null,
+    "locked_estimator": "split-geometry replication over the comparator's published held-out geometry; NOT redone under the frozen holdout",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.615291750503018,
+    "delta": 0.0
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "subarachnoid (their split geometry)",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9821,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": "RSNA ICH / subarachnoid",
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.692,
+    "old_trivial_fraction": 0.39825762289981326,
+    "locked_baseline": 0.692,
+    "locked_baseline_ci": null,
+    "locked_estimator": "split-geometry replication over the comparator's published held-out geometry; NOT redone under the frozen holdout",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.39825762289981326,
+    "delta": 0.0
+   },
+   {
+    "benchmark": "RSNA ICH",
+    "arm": "subdural (their split geometry)",
+    "metric": "slice ROC AUC",
+    "chance": 0.5,
+    "published": 0.9682,
+    "comparator": "Burduja, Ionescu & Verga, Sensors 2020;20(19):5611, Table 3",
+    "peer_reviewed": "peer-reviewed (journal, PubMed-indexed)",
+    "estimator_variant_of": "RSNA ICH / subdural",
+    "old_baseline_model": "positional 20-bin",
+    "old_baseline": 0.7211,
+    "old_trivial_fraction": 0.4722340879965826,
+    "locked_baseline": 0.7211,
+    "locked_baseline_ci": null,
+    "locked_estimator": "split-geometry replication over the comparator's published held-out geometry; NOT redone under the frozen holdout",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.4722340879965826,
+    "delta": 0.0
+   },
+   {
+    "benchmark": "fastMRI Prostate",
+    "arm": "T2",
+    "metric": "slice AUROC",
+    "chance": 0.5,
+    "published": 0.861,
+    "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+    "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20bin",
+    "old_baseline": 0.8542338798780218,
+    "old_trivial_fraction": 0.9812572849806698,
+    "locked_baseline": 0.8542338798780218,
+    "locked_baseline_ci": [
+     0.8113824307571834,
+     0.8913881763829432
+    ],
+    "locked_estimator": "published train/test split, single fit, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.9812572849806698,
+    "locked_trivial_fraction_ci": [
+     0.8625552098536937,
+     1.0841777739139702
+    ],
+    "delta": 0.0
+   },
+   {
+    "benchmark": "fastMRI Prostate",
+    "arm": "T2",
+    "metric": "slice AUROC",
+    "chance": 0.5,
+    "published": 0.809,
+    "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+    "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20bin",
+    "old_baseline": 0.8542338798780218,
+    "old_trivial_fraction": 1.146387960770297,
+    "locked_baseline": 0.8542338798780218,
+    "locked_baseline_ci": [
+     0.8113824307571834,
+     0.8913881763829432
+    ],
+    "locked_estimator": "published train/test split, single fit, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 1.146387960770297,
+    "locked_trivial_fraction_ci": [
+     1.0077101319002697,
+     1.2666284025337966
+    ],
+    "delta": 0.0
+   },
+   {
+    "benchmark": "fastMRI Prostate",
+    "arm": "T2",
+    "metric": "slice AUROC",
+    "chance": 0.5,
+    "published": 0.714,
+    "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+    "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20bin",
+    "old_baseline": 0.8542338798780218,
+    "old_trivial_fraction": 1.6552985041029058,
+    "locked_baseline": 0.8542338798780218,
+    "locked_baseline_ci": [
+     0.8113824307571834,
+     0.8913881763829432
+    ],
+    "locked_estimator": "published train/test split, single fit, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 1.6552985041029058,
+    "locked_trivial_fraction_ci": [
+     1.45505808765039,
+     1.8289167120698284
+    ],
+    "delta": 0.0
+   },
+   {
+    "benchmark": "fastMRI Prostate",
+    "arm": "DWI",
+    "metric": "slice AUROC",
+    "chance": 0.5,
+    "published": 0.861,
+    "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+    "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20bin",
+    "old_baseline": 0.851367359682633,
+    "old_trivial_fraction": 0.9733167858244681,
+    "locked_baseline": 0.851367359682633,
+    "locked_baseline_ci": [
+     0.8142406022804916,
+     0.8882826575171989
+    ],
+    "locked_estimator": "published train/test split, single fit, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.9733167858244681,
+    "locked_trivial_fraction_ci": [
+     0.8704725824944365,
+     1.0755752285794984
+    ],
+    "delta": 0.0
+   },
+   {
+    "benchmark": "fastMRI Prostate",
+    "arm": "DWI",
+    "metric": "slice AUROC",
+    "chance": 0.5,
+    "published": 0.809,
+    "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+    "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20bin",
+    "old_baseline": 0.851367359682633,
+    "old_trivial_fraction": 1.1371111963839253,
+    "locked_baseline": 0.851367359682633,
+    "locked_baseline_ci": [
+     0.8142406022804916,
+     0.8882826575171989
+    ],
+    "locked_estimator": "published train/test split, single fit, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 1.1371111963839253,
+    "locked_trivial_fraction_ci": [
+     1.0169598779303932,
+     1.2565781796673103
+    ],
+    "delta": 0.0
+   },
+   {
+    "benchmark": "fastMRI Prostate",
+    "arm": "DWI",
+    "metric": "slice AUROC",
+    "chance": 0.5,
+    "published": 0.714,
+    "comparator": "Rempe et al. 2024, arXiv:2407.06165, Table II",
+    "peer_reviewed": "preprint (arXiv only, re-queried 2026-07-29: no journal-ref, no DOI, no Europe PMC record)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20bin",
+    "old_baseline": 0.851367359682633,
+    "old_trivial_fraction": 1.6419035499188461,
+    "locked_baseline": 0.851367359682633,
+    "locked_baseline_ci": [
+     0.8142406022804916,
+     0.8882826575171989
+    ],
+    "locked_estimator": "published train/test split, single fit, locked positional 20-bin",
+    "locked_note": null,
+    "locked_trivial_fraction": 1.6419035499188461,
+    "locked_trivial_fraction_ci": [
+     1.4684140293480916,
+     1.8144049416691541
+    ],
+    "delta": 0.0
+   },
+   {
+    "benchmark": "DeepLesion",
+    "arm": "8-class lesion type",
+    "metric": "8-class accuracy",
+    "chance": 0.2361,
+    "published": 0.905,
+    "comparator": "Yan et al., CVPR 2018, Table 1",
+    "peer_reviewed": "peer-reviewed (IEEE/CVF conference proceedings)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin on published normalised z",
+    "old_baseline": 0.5571,
+    "old_trivial_fraction": 0.4798923605920168,
+    "locked_baseline": 0.5571,
+    "locked_baseline_ci": [
+     0.5243,
+     0.5778
+    ],
+    "locked_estimator": "unchanged: already the positional baseline on a repeated holdout",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.4798923605920168,
+    "locked_trivial_fraction_ci": [
+     0.4308566302885334,
+     0.5108386903872029
+    ],
+    "delta": 0.0
+   },
+   {
+    "benchmark": "DeepLesion",
+    "arm": "8-class lesion type",
+    "metric": "8-class accuracy",
+    "chance": 0.2361,
+    "published": 0.862,
+    "comparator": "Yan et al., CVPR 2018, Table 1",
+    "peer_reviewed": "peer-reviewed (IEEE/CVF conference proceedings)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin on published normalised z",
+    "old_baseline": 0.5571,
+    "old_trivial_fraction": 0.512861479469564,
+    "locked_baseline": 0.5571,
+    "locked_baseline_ci": [
+     0.5243,
+     0.5778
+    ],
+    "locked_estimator": "unchanged: already the positional baseline on a repeated holdout",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.512861479469564,
+    "locked_trivial_fraction_ci": [
+     0.46045694200351495,
+     0.5459338552484423
+    ],
+    "delta": 0.0
+   },
+   {
+    "benchmark": "DeepLesion",
+    "arm": "8-class lesion type",
+    "metric": "8-class accuracy",
+    "chance": 0.2361,
+    "published": 0.597,
+    "comparator": "Yan et al., CVPR 2018, Table 1",
+    "peer_reviewed": "peer-reviewed (IEEE/CVF conference proceedings)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin on published normalised z",
+    "old_baseline": 0.5571,
+    "old_trivial_fraction": 0.889443059019119,
+    "locked_baseline": 0.5571,
+    "locked_baseline_ci": [
+     0.5243,
+     0.5778
+    ],
+    "locked_estimator": "unchanged: already the positional baseline on a repeated holdout",
+    "locked_note": null,
+    "locked_trivial_fraction": 0.889443059019119,
+    "locked_trivial_fraction_ci": [
+     0.7985591576614021,
+     0.9467996674979219
+    ],
+    "delta": 0.0
+   },
+   {
+    "benchmark": "PI-CAI",
+    "arm": "case level",
+    "metric": "case AUROC",
+    "chance": 0.5,
+    "published": 0.91,
+    "comparator": "Saha et al., Lancet Oncology 2024;25:879-887",
+    "peer_reviewed": "peer-reviewed (journal)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "metadata tree",
+    "old_baseline": 0.691672192749779,
+    "old_trivial_fraction": 0.4674931530482414,
+    "locked_baseline": 0.5,
+    "locked_baseline_ci": [
+     0.5,
+     0.5
+    ],
+    "locked_estimator": "published split, LOCKED positional baseline -- inapplicable, exactly 0.500",
+    "locked_note": "the previous 0.6917 was the metadata tree, selected on the test set; two of its four inputs are clinical predictors. Locking the positional baseline drives this row to exactly 0.",
+    "locked_trivial_fraction": 0.0,
+    "locked_trivial_fraction_ci": [
+     0.0,
+     0.0
+    ],
+    "delta": -0.4674931530482414
+   },
+   {
+    "benchmark": "PI-CAI",
+    "arm": "case level",
+    "metric": "case AUROC",
+    "chance": 0.5,
+    "published": 0.86,
+    "comparator": "Saha et al., Lancet Oncology 2024;25:879-887",
+    "peer_reviewed": "peer-reviewed (journal)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "metadata tree",
+    "old_baseline": 0.691672192749779,
+    "old_trivial_fraction": 0.532422757638275,
+    "locked_baseline": 0.5,
+    "locked_baseline_ci": [
+     0.5,
+     0.5
+    ],
+    "locked_estimator": "published split, LOCKED positional baseline -- inapplicable, exactly 0.500",
+    "locked_note": "the previous 0.6917 was the metadata tree, selected on the test set; two of its four inputs are clinical predictors. Locking the positional baseline drives this row to exactly 0.",
+    "locked_trivial_fraction": 0.0,
+    "locked_trivial_fraction_ci": [
+     0.0,
+     0.0
+    ],
+    "delta": -0.532422757638275
+   },
+   {
+    "benchmark": "LUNA16",
+    "arm": "FP-reduction track",
+    "metric": "sensitivity at 1 FP/scan",
+    "chance": 0.0027,
+    "published": 0.95,
+    "comparator": "Setio et al., Medical Image Analysis 2017;42:1-13",
+    "peer_reviewed": "peer-reviewed (journal)",
+    "estimator_variant_of": null,
+    "old_baseline_model": "positional 20-bin, scored on the challenge metric",
+    "old_baseline": 0.0006,
+    "old_trivial_fraction": -0.0022168267708223377,
+    "locked_baseline": 0.0006,
+    "locked_baseline_ci": null,
+    "locked_estimator": "unchanged in value but STILL pooled out of fold over 5 scan-disjoint folds; label table unreachable, cannot be redone",
+    "locked_note": null,
+    "locked_trivial_fraction": -0.0022168267708223377,
+    "delta": 0.0
+   }
+  ]
+ },
+ "changes_vs_current_manuscript": [
+  {
+   "item": "estimator",
+   "where": "everything about RSNA ICH",
+   "old": "5-fold subject-disjoint split, scored out of fold and POOLED",
+   "new": "one frozen patient-disjoint holdout, 30% of patients (5,681), single fit on the remaining 13,257, seed 20260813, no pooling"
+  },
+  {
+   "item": "constant-predictor floor",
+   "where": "Table 1 note, Table 3 note",
+   "old": "0.492 per slice and 0.501 per patient",
+   "new": "0.500 and 0.500, EXACTLY, on all six labels and in all 24 draws. The cross-fold ranking artefact is gone, not reduced.",
+   "old_value": [
+    0.4918157688599211,
+    0.500693291717998
+   ],
+   "new_value": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "item": "per-label constant-predictor range",
+   "where": "Table 1 note",
+   "old": "0.480 (epidural) to 0.495 (intraparenchymal) per slice, 0.498 to 0.504 per patient",
+   "new": "0.500 for every label at both units. This whole sentence should be deleted."
+  },
+  {
+   "item": "slice AUC, any",
+   "where": "Table 1, Table 2, Table 3, abstract",
+   "old_value": 0.737374772144935,
+   "old_ci": [
+    0.7350661517958363,
+    0.7398236389888124
+   ],
+   "new_value": 0.737691144133092,
+   "new_ci": [
+    0.7333370265096615,
+    0.7417343542049176
+   ],
+   "note": "unchanged in substance; the headline does not move"
+  },
+  {
+   "item": "patient AUC, mean aggregation, any",
+   "where": "Table 1, Table 3, abstract",
+   "old_value": 0.4532834998863832,
+   "old_ci": [
+    0.44541842597258874,
+    0.4613175003556171
+   ],
+   "new_value": 0.4424181041405673,
+   "new_ci": [
+    0.42812223788572984,
+    0.45799054010887214
+   ],
+   "family_mean": 0.45511216583718267,
+   "family_range": [
+    0.4424181041405673,
+    0.46276250561242704
+   ]
+  },
+  {
+   "item": "maximum aggregation",
+   "where": "Table 1 lower block and its note",
+   "old_value": 0.5000606932764332,
+   "new_value": 0.5,
+   "note": "now EXACTLY 0.500 on one distinct patient score. Under a single fit the operator is fully degenerate; the old 0.493 and the old 'five distinct scores, one per fold' were both artefacts of pooling. The sentence about a 0.486-0.505 spread over the six labels must go: the frozen value is 0.500 for every label."
+  },
+  {
+   "item": "within-series permutation null, slice",
+   "where": "Table 1 note",
+   "old_value": 0.5018217223107617,
+   "new_value": 0.5046191530042842,
+   "new_range": [
+    0.5011482458524702,
+    0.5067301789987958
+   ]
+  },
+  {
+   "item": "within-series permutation null, patient",
+   "where": "Table 1 note",
+   "old_value": 0.5227409140955135,
+   "new_value": 0.5802993864636535,
+   "new_range": [
+    0.5460218431788249,
+    0.601488998104783
+   ],
+   "note": "rose from 0.523 to 0.580. The observed patient reading now sits 0.138 BELOW its own null instead of 0.069 below. The depth confound the null preserves is stronger in this split than in the pooled folds."
+  },
+  {
+   "item": "patient AUC with stack depth held fixed",
+   "where": "Table 1 lower block, Results, Discussion",
+   "old": "0.497 (0.487, 0.508), 36 strata, 10,065,308 pairs",
+   "new_value": 0.5071216179659679,
+   "new_ci": [
+    0.5013121592154293,
+    0.5129180258085169
+   ],
+   "new_strata": 29,
+   "new_pairs": 901972.0,
+   "note": "SEE the regression list; the interval no longer covers 0.500."
+  },
+  {
+   "item": "stack depth alone",
+   "where": "Table 1 lower block, Discussion",
+   "old": "0.402 (0.394, 0.410)",
+   "new_value": 0.39425267418328996,
+   "new_ci": [
+    0.3799657018110386,
+    0.40907544121704387
+   ],
+   "family_mean": 0.4031304567728264
+  },
+  {
+   "item": "PI-CAI trivial fraction",
+   "where": "Table 4, Figure 3, Discussion",
+   "old": "0.467 (metadata tree, selected on the test set)",
+   "new": "0.000 exactly. The locked positional baseline is inapplicable on a label file with no slice index, and 0.500 is the correct registration of that. The metadata-tree value survives as a secondary, clinical-variable reading of 0.692 (0.626, 0.755)."
+  },
+  {
+   "item": "baseline lock, other arms",
+   "where": "Table 4",
+   "new": "DeepLesion's 8-class row and LUNA16's row already used the positional baseline, and on both fastMRI Prostate arms the positional model was already the strongest of the five, so PI-CAI is the only row the lock moves. On the DeepLesion body-part arms of Table 3 the combined position-plus-metadata tree beats the positional model on five of eight arms, by up to 0.089 slice AUC (lung); those are Table 3 rows, which already print the positional value, so nothing there moves either."
+  },
+  {
+   "item": "Table 2, independent routes",
+   "where": "Table 2",
+   "new": "the two pooled-out-of-fold full-cohort rows are now SUPERSEDED estimators. Either retitle the table as agreement between implementations under the old estimator, or add the frozen holdout as its own row and mark the pooled rows as superseded. Do not present them side by side as if they were the same estimator."
+  }
+ ],
+ "moved_the_wrong_way": [
+  {
+   "item": "every interval is wider",
+   "detail": "the frozen holdout evaluates on 5,681 patients instead of all 18,938, so the 95% intervals widen by 1.66x to 1.88x. any: slice interval width 0.0048 -> 0.0084, patient 0.0159 -> 0.0299. Precision is the price of removing the artefact and the manuscript should say so."
+  },
+  {
+   "item": "the depth-fixed patient reading no longer covers chance",
+   "old": "0.497 (0.487, 0.508)",
+   "new": [
+    0.5071216179659679,
+    [
+     0.5013121592154293,
+     0.5129180258085169
+    ]
+   ],
+   "detail": "0.507 (0.501, 0.513): the interval EXCLUDES 0.500. Any sentence that says the depth-fixed reading lands AT chance is now wrong. What is still true, and is the stronger statement, is that it lands on its OWN null: the within-series permutation null at fixed depth is 0.5055 (range 0.5035-0.5068), which the observed 0.507 sits inside. Across 24 draws the depth-fixed reading runs 0.4979-0.5071, mean 0.5037, and does cover 0.500 across the family. Do not round 0.507 to 0.50."
+  },
+  {
+   "item": "the depth-fixed row rests on far fewer pairs",
+   "old": "36 informative strata, 10,065,308 pairs",
+   "new": [
+    29,
+    901972.0
+   ],
+   "detail": "29 strata and 901,972 pairs, an 11-fold reduction."
+  },
+  {
+   "item": "two aggregation operators read ABOVE chance",
+   "detail": "on the 'any' label the top-3 mean is 0.5141 (0.5011, 0.5279) and the 90th percentile is 0.5556 (0.5411, 0.5708); both intervals exclude 0.500. So 'the patient-level reading is at or below chance' holds for the pre-specified mean and for the 75th percentile, and does NOT hold for the top-3 mean, the top-5 mean or the 90th percentile. Those three operators take only 4, 9 and 13 distinct values across 5,681 patients respectively, so they are near-degenerate reads of stack depth rather than independent evidence, but the manuscript must report them."
+  },
+  {
+   "item": "epidural flips from sub-chance to above chance at the patient unit",
+   "old": "0.492 (0.461, 0.524)",
+   "new": [
+    0.5276963667417642,
+    [
+     0.4716181958927976,
+     0.5791341797399796
+    ]
+   ],
+   "detail": "0.528 (0.472, 0.579) on the frozen draw; family mean 0.5006 over a range of 0.440-0.562. With 310 positive patients in the whole cohort and roughly 93 in a 30% holdout, this label is now uninformative at the patient unit rather than sub-chance. 'All six labels behaved the same way' is no longer defensible for epidural."
+  },
+  {
+   "item": "the frozen draw sits at the extreme of its own family",
+   "detail": "seed 20260813 was fixed before any held-out number was computed and has not been changed, but it lands at rank 1 of 24 (lowest patient AUC, largest gap) on any, subarachnoid and subdural, and at rank 24 of 24 on the depth-fixed reading for any and subdural. The mechanism is identified: that split's depth-alone patient AUC is 0.394, rank 2 of 24, and depth-alone correlates 0.72 with the patient-level reading across draws. Disclose it, and quote the across-draw spread as the uncertainty statement."
+  },
+  {
+   "item": "four arms could not be moved off the pooled estimator",
+   "detail": "fastMRI+ knee meniscus tear (constant predictor 0.4545), fastMRI+ knee any finding (0.4831), Duke Breast (0.4831) and LUNA16 (0.4832) still carry the cross-fold ranking artefact, because their tidied label tables were written to a per-session scratch directory that no longer exists and the source releases are not on any mounted volume. The 0.4545 on fastMRI+ knee meniscus tear is a 0.045 deviation, the same order as that arm's patient-level departure from chance, and it remains an unrepaired defect in the submission. Label these rows pooled out of fold; do not present them alongside the frozen-holdout numbers without saying which estimator produced which."
+  },
+  {
+   "item": "the patient-level permutation null moved further from the observation",
+   "detail": "0.523 -> 0.580 at the patient unit. This does not weaken the argument, but any sentence quoting a 0.069 gap between observation and null must be rewritten; the frozen-holdout gap is 0.138."
+  }
+ ],
+ "manuscript_edit_map": [
+  {
+   "main_tex_line_hint": 82,
+   "old": "0.497 (95\\% CI: 0.487, 0.508)",
+   "new": "0.507 (95% CI: 0.501, 0.513)",
+   "context": "Summary/abstract depth-fixed"
+  },
+  {
+   "main_tex_line_hint": 135,
+   "old": "0.497 (95\\% CI: 0.487, 0.508)",
+   "new": "0.507 (95% CI: 0.501, 0.513)",
+   "context": "Results depth-fixed"
+  },
+  {
+   "main_tex_line_hint": 350,
+   "old": "0.402 (95\\% CI: 0.394, 0.410)",
+   "new": "0.394 (95% CI: 0.380, 0.409)",
+   "context": "depth alone"
+  },
+  {
+   "main_tex_line_hint": 631,
+   "old": "Table 1 body, six label rows",
+   "new": "see rsna_ich.labels[*].slice_auc / patient_auc_mean and their intervals"
+  },
+  {
+   "main_tex_line_hint": 652,
+   "old": "0.449 (0.441, 0.457) / 86360472",
+   "new": "0.442 (0.428, 0.458) / 7782750"
+  },
+  {
+   "main_tex_line_hint": 653,
+   "old": "0.497 (0.487, 0.508) / 10065308 / 36 strata",
+   "new": "0.507 (0.501, 0.513) / 901972 / 29 strata"
+  },
+  {
+   "main_tex_line_hint": 654,
+   "old": "0.491 (0.482, 0.501) / 25685534",
+   "new": "0.502 (0.487, 0.518) / 2253183"
+  },
+  {
+   "main_tex_line_hint": 655,
+   "old": "0.402 (0.394, 0.410) / 86360472",
+   "new": "0.394 (0.380, 0.409) / 7782750"
+  },
+  {
+   "main_tex_line_hint": 656,
+   "old": "Maximum aggregation 0.493 (0.485, 0.501)",
+   "new": "0.500 exactly, one distinct patient score; degenerate under a single fit"
+  },
+  {
+   "main_tex_line_hint": 666,
+   "old": "null is 0.502 at the slice level and 0.523 at the patient level",
+   "new": "0.505 at the slice level and 0.580 at the patient level"
+  },
+  {
+   "main_tex_line_hint": 677,
+   "old": "constant predictor scores 0.492 per slice and 0.501 per patient ... five fold prevalences reproduce the 0.492 in closed form",
+   "new": "the whole passage is obsolete: the constant predictor is 0.500 at both units by construction under a single fit. Replace with one sentence saying the pooled estimator was abandoned because of exactly this."
+  },
+  {
+   "main_tex_line_hint": 811,
+   "old": "RSNA ICH 0.492, fastMRI+ knee meniscus tear 0.455, fastMRI+ knee any finding 0.483, Duke Breast 0.483, LUNA16 0.483",
+   "new": "RSNA ICH is now 0.500. The remaining four are unchanged and could not be redone; name them as pooled out of fold."
+  }
+ ],
+ "source_ledger": [
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/audit_data/rsna_ich_slices.csv",
+   "role": "RSNA ICH label table (primary analysis input)",
+   "sha256": "7380d44b9602ad405f1c9176811dcce71bccee427c3716e36a303bd2c16765bf",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Volumes/Research/fastmridatasets/prostate/labels/t2_slice_level_labels.csv",
+   "role": "fastMRI Prostate T2 label table",
+   "sha256": "d248d41c9915c3fe10d7d6ecbf38d30c3c28eef0cdc3a216a4e74978fe84e414",
+   "exists": true,
+   "note": "sha256 prefix matches the labels_sha256 recorded in pipeline_out/trivial_baselines/fastmri_prostate_t2_published.json"
+  },
+  {
+   "path": "/Volumes/Research/fastmridatasets/prostate/labels/dwi_slice_level_labels.csv",
+   "role": "fastMRI Prostate DWI label table",
+   "sha256": "e22a354132cce884a3e7c8e762cf039f5269a4eb49dba650453c3537a3c20ecf",
+   "exists": true,
+   "note": "sha256 prefix matches the labels_sha256 recorded in pipeline_out/trivial_baselines/fastmri_prostate_dwi_published.json"
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline/audit_prep/frozen/rsna_frozen_holdout.py",
+   "role": "analysis code, RSNA frozen holdout",
+   "sha256": "2632403f9e863481b5af4f5ad17db2bc781f2921ef063c1b53d8dfc76b4fa353",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline/audit_prep/frozen/prostate_arms_published_split.py",
+   "role": "analysis code, fastMRI Prostate published split",
+   "sha256": "103655d9d2a99f66145b7762fff26db76dd9bf9ab31318b80ae701d11dbb9c29",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline/audit_prep/frozen/aucutil.py",
+   "role": "analysis code, weighted/stratified midrank AUROC machinery",
+   "sha256": "e3e08450fe649cabe3f7d27db71c9e172ba24162abcb01690e9990bfecbd932a",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline/audit_prep/frozen/build_revised_numbers.py",
+   "role": "this assembler",
+   "sha256": "527e75fc04852fb5617584f0523a4b48c053773bcf42db584dd8570395ccf7db",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/rsna_frozen_holdout.json",
+   "role": "RSNA frozen-holdout artefact",
+   "sha256": "3877af40bd84d772ba692760605a9e3ee0094f3a20a1b1b0463f659aa2a50f00",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/prostate_arms_published_split.json",
+   "role": "fastMRI Prostate artefact",
+   "sha256": "4f2174758b30749749aad95631844347089aac01e0bf3004deb574294b246d95",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/rsna_ich_unit_collapse.json",
+   "role": "SUPERSEDED pooled-out-of-fold RSNA values",
+   "sha256": "a3fdfe5d0b14d611cef73df4ebeb922e3f03956f48af3c1fb9b9870d5055255e",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/rsna_ich_any_slice_full.json",
+   "role": "SUPERSEDED pooled-out-of-fold audit card",
+   "sha256": "c6ce495f29c8b7cfe44e939cf52b079ba281d06b5afc14481e07d7bc38a913dc",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_pelvis_vs_rest.json",
+   "role": "carried forward unchanged (single split)",
+   "sha256": "4b8ff2a15c7e183a510559a07cf1768e3a0aaea4cb718efbfd1ddf817a9184fc",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_mediastinum_vs_rest.json",
+   "role": "carried forward unchanged (single split)",
+   "sha256": "7a24c16ef120914cf598512be1b42cd66752dc64d0501120413cade49fb6d776",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_abdomen_vs_rest.json",
+   "role": "carried forward unchanged (single split)",
+   "sha256": "7bc68d49e45ee9e74764559600f51bb6091861c7a5474df1062f877b45865562",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_kidney_vs_rest.json",
+   "role": "carried forward unchanged (single split)",
+   "sha256": "347884a1c4c0e3c6dfa7176db4191d7879f12d2da0fef626c8f8c13bf584eb8d",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_liver_vs_rest.json",
+   "role": "carried forward unchanged (single split)",
+   "sha256": "d846542e81d4bc6681331effb033b1ff11c9b14fa03bda95e73191fa5458278a",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_lung_vs_rest.json",
+   "role": "carried forward unchanged (single split)",
+   "sha256": "e7386c6526511e2445ac6733333519314960f904fd0225c62066a5a9555e8333",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_softtissue_vs_rest.json",
+   "role": "carried forward unchanged (single split)",
+   "sha256": "a89892bca101dc7f3bbdc97694c7e52ad6306470c287cc2b441ec4de584a1061",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/deeplesion_bone_vs_rest.json",
+   "role": "carried forward unchanged (single split)",
+   "sha256": "dae33d34ae2f5eb819440bb0ce07d10b5e826769ad9bd8e010eb668b3cd34bcf",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/fastmriplus_knee_meniscus_tear.json",
+   "role": "carried forward, STILL pooled out of fold",
+   "sha256": "31fab99a46c7bdc462cb820d2e8b643aa15ad03ecf8417500320dfe81f8171d1",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/fastmriplus_knee_any_finding.json",
+   "role": "carried forward, STILL pooled out of fold",
+   "sha256": "d2d7029e3aa3dec14bd29184b16300423fa603a57606530a33e1cebe5a68edeb",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/duke_breast_owner_slice_task.json",
+   "role": "carried forward, STILL pooled out of fold",
+   "sha256": "527e7a245e91875143b3bbc4cc5ae18b47bc230c562d43847f14b9c79d58e177",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/luna16_fp_reduction_candidates.json",
+   "role": "carried forward, STILL pooled out of fold",
+   "sha256": "62e4b8453b678c5ad9ff0d7df8095842b8e39c6a26d4f72d9194108d59d71f66",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/picai_case_level.json",
+   "role": "carried forward; positional baseline inapplicable",
+   "sha256": "5298644078bd05b494f6f4a89607719149200fd83e5eec498a61f58baa04edc3",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/fastmri_prostate_t2_published.json",
+   "role": "cross-check for the recomputation",
+   "sha256": "48905c39409e15faa6720d571338dbba62af5d43513fa17df955cc6722e80a9d",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline_out/trivial_baselines/fastmri_prostate_dwi_published.json",
+   "role": "cross-check for the recomputation",
+   "sha256": "90a63a9164fdca39c338e5580eec57c92dc8cb9738e94f412e3712981851daec",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/paper/trivial_fraction_distribution.json",
+   "role": "source of the 30 (benchmark, comparator) trivial-fraction rows",
+   "sha256": "720e9e660b1a3cc2f713f204c89d75f4984aec31f3425a9d9af54e38ee9b42e2",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline/s14_trivialbaselines.py",
+   "role": "imported for the SECONDARY baseline definitions (depth-3 CART, target encoding)",
+   "sha256": "8263c7eb29892ef1715530e7ec1b2a1693f5b606444b59088a1483b048e088ea",
+   "exists": true,
+   "note": ""
+  },
+  {
+   "path": "/Users/sathvikloke/Downloads/PhaseDx/pipeline/audit_prep/rsna_ich_unit_collapse.py",
+   "role": "superseded second implementation; its methods section is the model for this one",
+   "sha256": "e6bd116b7ffade5c0902eb11bc5ccc26d9d20c6a32cc256ff553557dac01f21b",
+   "exists": true,
+   "note": ""
+  }
+ ]
+}
