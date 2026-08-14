@@ -130,7 +130,7 @@ primary pixel-blind baseline before any held-out value was computed, fitted once
 on \num{13257} patients, and read on a frozen patient-disjoint holdout of the
 remaining \num{5681} at both units, with mean aggregation pre-specified for the
 patient unit. Uncertainty is a 95\% percentile bootstrap confidence
-interval (CI) resampling patients and the spread over 24 independent holdouts.
+interval (CI) resampling patients and the spread over 24 independently drawn holdouts.
 
 \textbf{Results:} One score vector read area under the receiver operating
 characteristic curve (AUC) 0.738 (95\% CI: 0.733, 0.742) per slice and 0.442
@@ -202,11 +202,11 @@ label file.
 
 A dataset entered the audit if the four fields a positional null needs---subject
 identifier, slice index or $z$ position, per-slice label, and train/test
-assignment---could be obtained without pixel data and without a data-use
-agreement covering pixels. Of 25 named candidates, seven benchmarks across eight
-label files qualified. Table 1 gives the full disposition, the ordering evidence,
-and why this is reported as a stated entry criterion with a published exclusion
-list rather than as pre-specification.
+assignment---were obtainable without pixel data or a data-use agreement. Of 25
+candidates, eight label files across seven benchmarks were used, in two tiers:
+four \emph{core}, with every field in the benchmark's own pixel-free release, and
+four \emph{qualified}, carried for a named purpose with one field absent or
+reachable only outside it. The flagship is qualified, not core (Table 1).
 
 The seven are RSNA 2019 Intracranial Hemorrhage (ICH)
 \citep{flanders2020rsnaich}, fastMRI Prostate, T2-weighted and
@@ -339,7 +339,7 @@ below the observed value. Per label the depth-conditioned reading runs 0.4999 to
 
 \subsection*{Pipeline Uncertainty over 24 Holdouts}
 
-Repeating the whole procedure on 24 independent holdouts gives a slice-level mean
+Repeating the whole procedure on 24 independently drawn holdouts gives a slice-level mean
 of 0.7381 (SD 0.0016; range, 0.7350 to 0.7415), a patient-level mean of 0.4551
 (SD 0.0059; range, 0.4424 to 0.4628), a depth-conditioned mean of 0.5037
 (SD 0.0021; range, 0.4979 to 0.5071), which covers 0.500, depth alone 0.4031, and a
@@ -535,7 +535,7 @@ stack depth read alone for comparison. Holding depth fixed removes the
 sub-chance reading; the depth-conditioned value of 0.5071 (95\% CI: 0.5013,
 0.5129) excludes 0.500 but sits 0.0016 above the within-series permutation null
 computed at fixed depth, 0.5055 (range, 0.5035 to 0.5068), shown as the shaded
-band, which its own interval spans. \textbf{(C)} The same four quantities over 24 independent holdouts of the
+band, which its own interval spans. \textbf{(C)} The same four quantities over 24 independently drawn holdouts of the
 identical design. Points are the individual holdouts, the bar is the family
 range, and the open marker is the frozen holdout of panels A and B, which sits at
 the extreme of the family on the patient-level and depth-conditioned readings.
@@ -601,15 +601,17 @@ Required Fields, and Every Disposition}
 \toprule
 Candidate & S & Z & L & P & Disposition and reason\\
 \midrule
-\multicolumn{6}{@{}l}{\textbf{Included---7 benchmarks, 8 label files, 16 arms}}\\
-RSNA 2019 Intracranial Hemorrhage & Y* & Y* & Y & Y & Included, 6 label columns. Official release carries the label only; subject identifier and slice index from a public, license-permissive, pixel-free tabular mirror. Eligible under ``obtainable,'' not under ``in the benchmark's own release''\\
+\multicolumn{6}{@{}l}{\textbf{Included, tier 1---\emph{core}: all four fields in the benchmark's own pixel-free release}}\\
 fastMRI Prostate, T2-weighted & Y & Y & Y & Y & Included. In-file split, subject-disjoint\\
 fastMRI Prostate, DWI & Y & Y & Y & Y & Included\\
 DeepLesion & Y & Y & Y & Y & Included, 8 body-part arms and 1 eight-class arm. Publishes normalized lesion $z$ directly\\
+LUNA16 & Y & Y & Y & Y & Included, 1 arm. Candidate list is detector-produced, so ``zero image'' means ``given the published candidate list''\\
+\addlinespace[2pt]
+\multicolumn{6}{@{}l}{\textbf{Included, tier 2---\emph{qualified}: one field absent, or reachable only outside that release}}\\
+RSNA 2019 Intracranial Hemorrhage & Y* & Y* & Y & Y & \textbf{The flagship, and qualified rather than core.} Official release carries the label only; subject identifier and slice index come from a public, license-permissive, pixel-free tabular mirror. Eligible under ``obtainable,'' not under ``in the benchmark's own release''\\
 fastMRI+ knee & Y & Y* & Y & N & Included with a stated qualification, 2 arms. Positive slices only; per-volume slice counts come from image file headers, 199 of \num{1173} roster volumes held. No published classification split\\
 Duke Breast Cancer MRI & Y & Y & Y & N & Included, 1 arm, on the data owners' own published slice definition. All subjects positive, so patient-level AUC is undefined and is reported as undefined\\
-PI-CAI & Y & N & Y & Y & Included at case level only. Per-slice positivity needs label volumes and a reader that was unavailable; the missing $Z$ is why the locked positional model reads exactly 0.500 here\\
-LUNA16 & Y & Y & Y & Y & Included, 1 arm. Candidate list is detector-produced, so ``zero image'' means ``given the published candidate list''\\
+PI-CAI & Y & N & Y & Y & Included at case level only. Per-slice positivity needs label volumes and a reader that was unavailable; the missing $Z$ is why the locked positional baseline is not estimable here and the row is reported as unavailable\\
 \addlinespace[2pt]
 \multicolumn{6}{@{}l}{\textbf{Excluded on eligibility---criteria recorded before that run's results}}\\
 CQ500 & Y & N & N & N & $L$ fails: three radiologist reads per scan, no per-slice label\\
@@ -634,7 +636,15 @@ Six further candidates & --- & --- & --- & --- & Recorded in the candidate list 
 
 \vspace{0.4em}
 {\scriptsize
-Note.---$S$ = subject identifier; $Z$ = slice index or $z$ position; $L$ =
+Note.---\textbf{Tier 1 files satisfy the entry criterion as written; tier 2 files
+do not, and each is carried for a stated purpose with its shortfall named.} The
+flagship sits in tier 2 because its subject identifier and slice index are not in
+its own release. That placement does not weaken the primary result, which
+compares two readings of one score vector \emph{within} the benchmark and so
+requires the mirror to be internally consistent rather than canonical; Table 2
+tests that consistency and states what those tests cannot establish. It does
+constrain the cross-study comparison, where a tier-2 file is being set beside a
+number computed by others on the release itself. $S$ = subject identifier; $Z$ = slice index or $z$ position; $L$ =
 per-slice label; $P$ = train/test assignment. Y = present in a pixel-free public
 file; Y* = obtainable, but not from the benchmark's own release or not without an
 image file header read; N = not obtainable. AUC = area under the receiver
