@@ -257,8 +257,8 @@ distinct patient scores.
 
 Splits are subject-disjoint, using a benchmark's published assignment where one
 exists. On RSNA ICH, which publishes none, the primary estimator is \emph{one
-frozen patient-disjoint holdout}: 30\% of patients at a seed fixed before any
-held-out value was computed, a single fit on the rest, no pooling. A constant
+frozen patient-disjoint holdout}: 30\% of patients at a pre-set seed, a single
+fit on the rest, no pooling (Table 3 note). A constant
 predictor therefore scores exactly 0.500 at both units by construction, which is
 the point of the design. The pooled out-of-fold estimator used in an earlier
 round does not---each fold emits its own training prevalence, so fold identity
@@ -694,9 +694,12 @@ Maximum aggregation                         & 0.500 exactly & \num{7782750}\\
 Note.---AUC = area under the receiver operating characteristic curve;
 CI = confidence interval. The benchmark holds \num{752802} slices, \num{21744}
 series and \num{18938} patients; this table is computed on one frozen
-patient-disjoint holdout, 30\% of patients drawn at a seed fixed before any
-held-out value was computed, with a single fit on the remaining \num{13257}
-patients and no pooling. The holdout carries \num{5681} patients and
+patient-disjoint holdout, 30\% of patients drawn at a pre-set seed, with a
+single fit on the remaining \num{13257} patients and no pooling. The analysis
+code is released, so every value here is reproducible from the released label
+table; the seed was set before any held-out value was computed, but that
+ordering rests on working-file timestamps rather than an external registration,
+and is reported on the same footing as the eligibility ordering in Table 1. The holdout carries \num{5681} patients and
 \num{226663} slices. Slice-level positive counts are \num{32258} (any),
 \num{1163} (epidural), \num{10915} (intraparenchymal), \num{7901}
 (intraventricular), \num{10991} (subarachnoid) and \num{13701} (subdural);
