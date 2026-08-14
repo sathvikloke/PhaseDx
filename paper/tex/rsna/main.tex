@@ -456,9 +456,12 @@ extreme within its own family of 24 on three of the six labels, which is why bot
 intervals are quoted; the depth-conditioned reading covers 0.500 across that
 family while excluding it here. Four audited arms still rest on the
 superseded pooled estimator, one with a constant predictor 0.045 from 0.500. The
-patient-level reading is not bin-robust, unlike the slice-level one: over 5 to 50
-bins it runs 0.434 to 0.632 per patient against 0.717 to 0.745 per slice. Twenty
-bins was pre-specified. Two benchmarks are not pixel-free in the same clean
+patient-level reading is not robust to either analysis choice the baseline
+requires, unlike the slice-level one: across 5 to 50 bins crossed with six
+aggregation operators it spans 0.415 to 0.652, against 0.717 to 0.745 per slice
+for the identical fits, and at 50 bins every operator reads above chance
+(Fig 4). Twenty bins and mean aggregation were pre-specified, and every
+patient-level statement here is a statement about that cell. Two benchmarks are not pixel-free in the same clean
 sense: fastMRI+ knee needs slice counts from image file headers, and LUNA16's
 candidate list is detector-produced. The PI-CAI comparison is across cohorts, and no peer-reviewed comparison is
 matched. Age and sex are absent from the flagship label file, and no subgroup
@@ -583,6 +586,24 @@ missing input is not a measured absence of signal; the open marker on the same
 row is its secondary tree over four non-image columns, two of which are clinical
 predictors rather than acquisition fields, which reaches 0.467 of the published
 margin and is not part of the primary comparison.
+
+\textbf{Figure 4.} How the two units respond to the two analysis choices the
+positional baseline requires. \textbf{(A)} Slice-level AUC against the number of
+position bins: 0.717, 0.733, 0.738, 0.738 and 0.745 over 5, 10, 20, 30 and 50
+bins, a range of 0.028. \textbf{(B)} Patient-level AUC over the same bin counts
+crossed with six aggregation operators, on the same frozen holdout of
+\num{5681} patients and the same single fit. The boxed cell, 20 bins with mean
+aggregation, is the pre-specified analysis reported throughout; every other cell
+is a sensitivity analysis and none was used to choose it. Colour is centred on
+0.500. The patient reading spans 0.415 to 0.652, a range of 0.237, against 0.028
+at the slice unit for the identical fits. Two features carry the paper's caveat
+rather than its claim: at 50 bins every operator reads above chance, because a
+bin then holds about one slice and the aggregate begins to track stack depth
+directly; and the operators that read near exactly 0.500 are degenerate, taking
+only a handful of distinct values across all \num{5681} patients. The
+slice-level reading is nearly invariant to both choices. The patient-level
+reading is not, and any patient-level statement made here is a statement about
+mean aggregation at 20 bins.
 
 % =====================================================================
 %  TABLES  (embedded, one per page)
