@@ -105,9 +105,11 @@ and 0.973. LUNA16 is plotted at $-0.002$, computed from sensitivity at one false
 positive per scan (0.0006) and not from the challenge's competition performance
 metric, which for the same score vector is 0.0020; the reference of 0.0027, used
 in place of 0.5, is the random-score value of that competition metric. No
-interval is available for that row. PI-CAI is plotted at exactly 0.000 because
-the locked positional baseline is inapplicable on a label file with no slice
-index, and 0.500 is the correct registration of that; the open marker on the same
+interval is available for that row. PI-CAI carries no positional value at all: the
+locked baseline needs a slice index its label file does not have, so the
+quantity is not estimable and the row is drawn in a gutter as unavailable, on
+the same footing as an undefined patient-level AUC. It is not zero, because a
+missing input is not a measured absence of signal; the open marker on the same
 row is its secondary tree over four non-image columns, two of which are clinical
 predictors rather than acquisition fields, which reaches 0.467 of the published
 margin and is not part of the primary comparison.

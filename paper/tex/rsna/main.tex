@@ -90,8 +90,9 @@ stack depth alone reads 0.394 per patient, and with depth held fixed the reading
 is 0.5071 (95\% confidence interval: 0.5013, 0.5129), sitting on its own
 permutation null of 0.5055 rather than at chance.
 \item Against the strongest peer-reviewed comparator on each of four benchmarks,
-the same locked pixel-blind baseline reached 0.491, 0.480, 0.000 and $-0.002$ of
-the published margin over chance; the spread, not an average, is the finding.
+the same locked pixel-blind baseline reached 0.491, 0.480 and $-0.002$ of the
+published margin over chance on the three where it is estimable; the spread, not
+an average, is the finding.
 \end{itemize}
 
 \vspace{0.4em}
@@ -137,8 +138,8 @@ characteristic curve (AUC) 0.738 (95\% CI: 0.733, 0.742) per slice and 0.442
 constant predictor read exactly 0.500 at both units. Gaps over six labels ran
 0.181--0.318. Stack depth alone read 0.394 per patient; with depth fixed the
 reading was 0.5071 (95\% CI: 0.5013, 0.5129), 0.0016 above its own permutation
-null of 0.5055. It reached 0.491, 0.480, 0.000 and $-0.002$ of four peer-reviewed
-benchmarks' published margins over chance.
+null of 0.5055. It reached 0.491, 0.480 and $-0.002$ of three peer-reviewed
+benchmarks' published margins over chance; on a fourth it was not estimable.
 
 \textbf{Conclusion:} A pixel-blind score vector ranked slices far above chance
 and patients at or below it, the difference carried by stack depth.
@@ -172,7 +173,12 @@ image,'' bins the label rate against relative slice position on the training set
 and applies it to the test set with no pixels \citep{osciiart2020baseline}. Yan
 et al, defining the DeepLesion lesion-type task, publish a ``Baseline: Location
 feature'' row at 59.7\% eight-class accuracy against their own method's 90.5\%
-\citep{yan2018deeplesiongraphs}.
+\citep{yan2018deeplesiongraphs}. Closest of all, Wallis and Buvat classify
+tumours in a widely used brain MRI dataset to high accuracy \emph{without
+information about the tumour}, tracing it to implicit radiologist input in the
+selection of the 2-D slices \citep{wallis2022cleverhans}---a shortcut carried by
+which slices were chosen, where the one studied here is carried by where a slice
+sits among those chosen.
 
 That literature measures the cost of a \emph{wrong}, leaky split rather than what
 survives a \emph{correct}, patient-disjoint one, and it does not ask what one
@@ -382,15 +388,15 @@ departure from chance and remains an unrepaired defect.
 Against the strongest peer-reviewed comparator on each benchmark, the locked
 pixel-blind baseline reached 0.491 (95\% CI: 0.482, 0.499) of the published
 margin over chance on RSNA ICH, 0.480 on the DeepLesion eight-class lesion-type
-task, exactly 0.000 on PI-CAI, and $-0.002$ on LUNA16 (Fig 3); over the six
-hemorrhage labels it runs 0.405 to 0.610. The heterogeneity is the result: two of
-four benchmarks return roughly half the published margin and two return none. No
-average is taken over the four, because they sit on four metrics against four
-chance anchors---slice AUC, eight-class accuracy against 0.2361, case-level AUC,
-and sensitivity at one false positive per scan against 0.0027---which a margin
-ratio does not make commensurable. PI-CAI reads exactly 0.000 because the locked
-baseline is inapplicable on a label file with no slice index; its tree over four
-non-image columns still reaches 0.692 per patient, but two of those columns are
+task, and $-0.002$ on LUNA16 (Fig 3); over the six hemorrhage labels it runs
+0.405 to 0.610. On PI-CAI the quantity is \emph{not estimable}: the locked
+baseline needs a slice index the label file does not carry, so the row is
+plotted as unavailable, not as zero. The heterogeneity is the result: two of
+three estimable benchmarks return roughly half the published margin and one
+returns none. No average is taken, because they sit on different metrics against
+different chance anchors---slice AUC, eight-class accuracy against 0.2361, and
+sensitivity at one false positive per scan against 0.0027. PI-CAI's tree over
+four non-image columns reaches 0.692 per patient, but two of those columns are
 clinical predictors, so that reading supports no inference about acquisition
 confounding. Zero peer-reviewed comparisons are matched: the only rows reaching
 parity are a worked example on fastMRI Prostate, 0.981 and 0.973, against a
@@ -569,9 +575,11 @@ and 0.973. LUNA16 is plotted at $-0.002$, computed from sensitivity at one false
 positive per scan (0.0006) and not from the challenge's competition performance
 metric, which for the same score vector is 0.0020; the reference of 0.0027, used
 in place of 0.5, is the random-score value of that competition metric. No
-interval is available for that row. PI-CAI is plotted at exactly 0.000 because
-the locked positional baseline is inapplicable on a label file with no slice
-index, and 0.500 is the correct registration of that; the open marker on the same
+interval is available for that row. PI-CAI carries no positional value at all: the
+locked baseline needs a slice index its label file does not have, so the
+quantity is not estimable and the row is drawn in a gutter as unavailable, on
+the same footing as an undefined patient-level AUC. It is not zero, because a
+missing input is not a measured absence of signal; the open marker on the same
 row is its secondary tree over four non-image columns, two of which are clinical
 predictors rather than acquisition fields, which reaches 0.467 of the published
 margin and is not part of the primary comparison.
