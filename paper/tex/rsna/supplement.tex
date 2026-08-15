@@ -50,17 +50,18 @@ they run from about half the published margin to none of it; that spread is the
 finding. Error bars are 95\% subject-clustered bootstrap intervals propagating
 uncertainty in the baseline only. Rows whose comparator is a preprint that has
 not been peer reviewed are marked as such and are the two highest here, at 0.981
-and 0.973. LUNA16 is plotted at $-0.002$, computed from sensitivity at one false
-positive per scan (0.0006) and not from the challenge's competition performance
-metric, which for the same score vector is 0.0020; the reference of 0.0027, used
-in place of 0.5, is the random-score value of that competition metric. No
-interval is available for that row. PI-CAI carries no positional value at all: the
-locked baseline needs a slice index its label file does not have, so the
-quantity is not estimable and the row is drawn in a gutter as unavailable, on
-the same footing as an undefined patient-level AUC. It is not zero, because a
-missing input is not a measured absence of signal; the open marker on the same
-row is its secondary tree over four non-image columns, two of which are clinical
-predictors rather than acquisition fields, which reaches 0.467 of the published
-margin and is not part of the primary comparison.
+and 0.973. LUNA16 is plotted at $-0.001$, computed on the frozen holdout from
+sensitivity at one false positive per scan and not from the challenge's
+competition performance metric; the reference used in place of 0.5 is the
+random-score value of that metric on the same held-out scans. No interval is
+available for that row. PI-CAI is plotted at 0.174, read at the case unit from
+the locked positional baseline fitted on its lesion delineation volumes and mean
+aggregated. An earlier revision reported this row as not estimable, which was
+true of that benchmark's public marksheet---it carries no slice index---and false
+of the benchmark, whose delineation volumes supply one. That row is across
+cohorts: the published comparator is on the hidden test set and the baseline is
+on the development set. The open marker on the same row is its secondary tree
+over four non-image columns, two of which are clinical predictors rather than
+acquisition fields, and is not part of this comparison.
 
 \end{document}

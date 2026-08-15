@@ -1,0 +1,58 @@
+Subject: A pixel-blind baseline reads 0.85 per slice and 0.51 per patient on a prostate MRI benchmark — and why PI-CAI got its evaluation unit right
+
+Dear Dr Haider,
+
+On the fastMRI Prostate T2 benchmark, scored on its own published split, a model that
+reads no pixels — only each slice's relative position within the acquisition — reaches
+AUC 0.854 per slice and 0.506 per patient from the identical score vector. A constant
+predictor reads exactly 0.500 at both units.
+
+The reason I am writing to you rather than to a general radiologist is what happened when
+we applied the same locked protocol to PI-CAI. We read its 1,295 human-expert lesion
+delineation volumes and found the same divergence: 0.748 per slice against 0.571 per
+patient over 24 holdouts. That result is an argument that PI-CAI's designers chose
+correctly. The challenge is scored at the case level, which is the unit our finding
+says is the defensible one; the slice-level number simply is not available to be inflated
+because nobody scores it that way. We do not criticise PI-CAI anywhere in the paper, and
+I would rather say that in the first paragraph than have you wonder.
+
+I am asking you because you are a PI-RADS v2.1 co-author who publishes cautionary results
+under your own name — the decision-curve paper finding a well-performing CNN was
+miscalibrated into net harm, and the 2025 domain-shift result using PI-CAI itself. Those
+are direct evidence that you will engage with a null result rather than resist it.
+
+What is already done. The analysis is finished and the code is public. Every value
+sits on a subject-disjoint split with a single fit; the flagship is reproduced by a second
+implementation sharing no code with the first; and we obtained the official label file for
+the largest benchmark and reconciled our slice-ordering source against it row for row,
+with zero disagreements across 4.5 million label comparisons.
+
+What I am asking. Co-authorship, on the ICMJE criteria, for contributions I cannot
+make:
+
+1. Whether a positional prior on prostate MRI is better described as a confound or simply
+   as the anatomy of where clinically significant cancer sits in the gland — and where the
+   paper should draw that line.
+2. What a slice-level csPCa metric would mean in an actual reading workflow. The PI-CAI
+   arm is new and currently carries no clinical interpretation at all.
+3. Critical revision of the clinical framing, which is presently written by people who do
+   not read scans.
+
+Two things you should know before deciding. My co-authors and I are secondary-school
+students; there is no funding and no institutional sponsor. And I am separately
+approaching a neuroradiologist about the intracranial hemorrhage arm, since the paper
+spans two subspecialties and I do not think one person should be asked to speak for both.
+
+The manuscript is attached. The target is *Radiology: Artificial Intelligence* and it is
+not yet submitted, so your name would go on before submission rather than being added
+afterwards.
+
+If the answer is no, a single paragraph on question 1 would still be worth a great deal,
+and I would acknowledge it rather than list you as an author. If you would rather not
+spend time on this at all, please say so and I will not follow up.
+
+With thanks for your time,
+
+Sathvik Loke
+Illinois Mathematics and Science Academy
+sloke@imsa.edu
