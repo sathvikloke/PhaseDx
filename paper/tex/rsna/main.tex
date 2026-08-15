@@ -371,7 +371,7 @@ both units (slice 0.691--0.977, patient 0.642--0.954) and none diverges, which i
 expected: the label there is the anatomic region, so relative position is
 legitimate task information. LUNA16 moves little at either unit and its
 slice-level interval reaches chance (0.531; 95\% CI: 0.486, 0.573); Duke Breast
-reads 0.821 (95\% CI: 0.799, 0.841) per slice, its patient-level value undefined,
+reads 0.820 (95\% CI: 0.799, 0.841) per slice, its patient-level value undefined,
 all 922 of 922 patients being positive (Table 4, Fig 2).
 
 \subsection*{The Same Divergence on a Benchmark Not Previously Read}
@@ -956,7 +956,7 @@ DeepLesion, pelvis vs rest & Published split & 0.977 (0.969, 0.984) & 0.954 (0.9
 \quad lung vs rest & Published split & 0.872 (0.852, 0.892) & 0.803 (0.768, 0.836) & 0.500 & G, C\\
 \quad soft tissue vs rest & Published split & 0.831 (0.777, 0.878) & 0.811 (0.769, 0.850) & 0.500 & G, C\\
 \quad bone vs rest & Published split & 0.691 (0.618, 0.763) & 0.642 (0.555, 0.726) & 0.500 & G, C\\
-Duke Breast, owner-defined slice task & Frozen holdout & 0.821 (0.799, 0.841) & Undefined & 0.500 & G, A\\
+Duke Breast, owner-defined slice task & Frozen holdout & 0.820 (0.799, 0.841) & Undefined & 0.500 & G, A\\
 LUNA16 candidates & Frozen holdout & 0.531 (0.486, 0.573) & 0.553 (0.479, 0.628) & 0.500 & G\\
 PI-CAI, slice level & Frozen holdout & 0.773 (0.747, 0.796) & 0.598 (0.530, 0.667) & 0.500 & G\\
 PI-CAI, case level & Published split & Not applicable & 0.500 exactly (locked); 0.692 (0.626, 0.755) secondary & 0.500 & G, A, C\\
@@ -984,7 +984,7 @@ byte-identical against the SHA-256 recorded by the original run before being
 re-scored under the protocol above. The other two, both fastMRI+ knee arms, could
 not be rebuilt on their original cohort---155 of the 199 roster volumes remain
 locally---and are withdrawn rather than carried defective (Table 1). Re-scoring
-moved Duke Breast from 0.823 to 0.821 and LUNA16 from 0.534 to 0.531 at the slice
+moved Duke Breast from 0.823 to 0.820 and LUNA16 from 0.534 to 0.531 at the slice
 unit; LUNA16's interval now reaches chance, which the pooled interval did not.
 \emph{Class} records which kinds of non-image variable that label file makes
 available to the zero-image family: G = geometry and acquisition; A =
