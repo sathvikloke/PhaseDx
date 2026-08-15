@@ -196,13 +196,13 @@ patient-disjoint split and to identify the mechanism separating them.
 This was a retrospective secondary analysis of publicly released, de-identified
 label files from imaging benchmarks released 2016--2024; analyses ran in 2026.
 Institutional review board approval was not required: no data came from
-interaction with a living individual and no identifiable information was used. Age and sex are not distributed with the flagship
+interaction with a living individual and none was identifiable. Age and sex are not distributed with the flagship
 label file.
 
 \subsection*{Benchmark Eligibility}
 
-A dataset entered the audit if the four fields a positional null needs---subject
-identifier, slice index or $z$ position, per-slice label, and train/test
+A dataset entered if the four fields a positional null needs---subject
+identifier, slice index or $z$ position, per-slice label, train/test
 assignment---were obtainable without pixel data or a data-use agreement. Of 25
 candidates, eight label files across six benchmarks are reported, in two tiers:
 five \emph{core}, with every field in the benchmark's own pixel-free release, and
@@ -215,17 +215,18 @@ diffusion-weighted imaging (DWI) arms \citep{tibrewala2023fastmriprostate},
 DeepLesion \citep{yan2018deeplesion},
 Duke Breast Cancer MRI \citep{saha2021dukebreastmri,saha2018radiogenomics},
 PI-CAI \citep{saha2024picai} and LUNA16 \citep{setio2017luna16}; RSNA ICH is the
-largest, at \num{752802} slices, \num{21744} series and \num{18938} patients. A
-seventh, fastMRI+ knee \citep{zhao2022fastmriplus}, was scored in an earlier
-round and is withdrawn: its label table was lost and cannot be rebuilt on its
-original cohort (Table 1).
+largest, at \num{752802} slices, \num{21744} series and \num{18938} patients. A seventh, fastMRI+
+knee \citep{zhao2022fastmriplus}, was scored earlier and is withdrawn, its label
+table being unrebuildable on the original cohort (Table 1).
 
 Every RSNA ICH value rests on a slice ordering and a subject identifier its
 official release does not contain; both came from a public, license-permissive,
-pixel-free tabular mirror \citep{burduja2020ich}. Neither was assumed. Table 2
-reports the internal-consistency tests validating the mapping, their power, and
-what each cannot detect. No image header was read, so they can falsify a bad
-mapping and never certify a good one.
+pixel-free tabular mirror \citep{burduja2020ich}. Neither was assumed. The
+official label file was obtained and the mirror reconciled against it row for
+row: labels agree exactly on every image it holds. That file carries neither of
+the two fields, so the mirror's groupings and slice order rest on the
+internal-consistency tests in Table 2, with their power and limits. No image
+header was read.
 
 % -------------------------------------------------------------------------
 % DO NOT DELETE OR ABRIDGE THE FOLLOWING PARAGRAPH. It is the acknowledgement
@@ -261,9 +262,8 @@ only class the flagship label file contains.
 
 Every baseline produces one score vector per test set, read at \emph{both}
 units: slice-level AUC, and patient-level AUC after aggregating each subject's
-slice scores. The \emph{mean} operator was pre-specified; maximum, top-$k$ mean
-and quantile operators are sensitivity analyses, reported with their
-number of distinct scores.
+scores. The \emph{mean} operator was pre-specified; maximum, top-$k$ mean and quantile
+operators are sensitivity analyses, reported with their distinct-score counts.
 
 Splits are subject-disjoint, using a benchmark's published assignment where one
 exists. On RSNA ICH, which publishes none, a holdout is 30\% of patients with a
@@ -288,15 +288,15 @@ depth.
 As a \emph{secondary} description only, the share of a published margin over
 chance reached by the locked baseline---(baseline $-$ chance) $/$ (published $-$
 chance), against each benchmark's strongest published system---is reported in the
-supplement (Fig S1). It is not inferential and no average is taken over it:
-baseline and comparator sit on different splits and, across benchmarks, on
-different metrics against different chance anchors. No claim here rests on it.
+supplement (Fig S1). It is not inferential and no average is taken: those
+margins sit on different splits and different metrics against different chance
+anchors. No claim here rests on it.
 
 \subsection*{Statistical Analysis}
 
 This is an estimation study: no significance test was pre-specified and no $P$
-values are reported. Analyses used Python 3.14 (Python Software Foundation, Wilmington, Del) with NumPy 2.4, pandas
-3.0 and, for the tree baselines, scikit-learn 1.8.
+values are reported. Analyses used Python 3.14 (Python Software Foundation, Wilmington, Del), NumPy
+2.4, pandas 3.0 and, for the tree baselines, scikit-learn 1.8.
 
 \section*{Results}
 
@@ -461,11 +461,10 @@ slice-level one, and every patient-level statement here is a statement about the
 pre-specified cell (Fig 3). The depth mechanism is established on the flagship
 alone; on the two benchmarks where depth could be conditioned on it was
 degenerate, so the mechanism is not shown to be general. The flagship's subject
-identifier and slice index are
-not in its own release but in a public tabular mirror, and the official label
-file was never obtained, so the mirror could not be checked row for row against
-it; the internal tests in Table 2 can falsify a bad mapping and never certify a
-good one. A seventh benchmark scored in an earlier round, fastMRI+ knee, is
+identifier and slice index are not in its own release but in a public tabular
+mirror. Its labels reconcile exactly against the official release, but that file
+carries neither field, so the mirror's groupings and slice order still rest on
+the internal tests in Table 2. A seventh benchmark scored in an earlier round, fastMRI+ knee, is
 withdrawn because it cannot be reproduced on its original cohort. LUNA16's
 candidate list is detector-produced, so ``zero image'' there means ``given the
 published candidate list.'' The PI-CAI comparison is across cohorts, and no
@@ -793,10 +792,25 @@ permuted, $z=68$; on hemorrhage present 0.801 against 0.500, $z=44$, holding at
 $z=25$; on series depth 0.188 against 0.098, $z=40$. Structure: \num{21743} of
 \num{21744} series have a gapless within-series counter and the single gapped
 series implies exactly one missing row, reconciling the \num{752802} rows held
-against the \num{752803} the comparator describes. No image header was read and
-the official label file was never obtained, so the mirror's identifiers were not
-checked row for row against it; every test above is internal-consistency
-evidence, which can falsify a bad mapping and never certify a good one.
+against the \num{752803} the comparator describes.
+\emph{Reconciliation against the official release.} The official label file was
+subsequently obtained and the mirror checked against it row for row. It carries
+\num{4516842} rows, of which 24 are exact duplicates over 24 identifiers with no
+conflicting labels; deduplicated it describes \num{752803} images. The mirror
+holds \num{752802} of them and contains no image the official file does not.
+Across all six official labels on every shared image---\num{4516812} label
+comparisons---there is \emph{no} disagreement, and the per-label positive counts
+match exactly: \num{3145} epidural, \num{36118} intraparenchymal, \num{26205}
+intraventricular, \num{35675} subarachnoid, \num{47166} subdural and
+\num{107933} any. The single image the mirror lacks is the one the gapless-counter
+test above predicted before the official file was seen: that test located exactly
+one gapped series, missing exactly one index, and the official release contains
+exactly one image absent from the mirror. What this establishes is that the
+mirror reproduces the official label of every image it claims to hold. What it
+cannot establish is the mirror's series and patient groupings or its within-series
+slice order, because the official file carries neither a subject identifier nor a
+slice index---which is why the mirror is used at all. Those still rest on the
+run-length and orientation tests above. No image header was read at any point.
 
 }
 

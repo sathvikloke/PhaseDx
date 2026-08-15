@@ -135,13 +135,15 @@ patient-level one does not.
 \textbf{The flagship's provenance is qualified, and the manuscript says so.} The
 RSNA ICH official release carries the label but neither a subject identifier nor
 a slice index; both come from a public, license-permissive, pixel-free tabular
-mirror. The official label file was never obtained, so the mirror could not be
-checked row for row against it. Table 2 reports the internal-consistency tests,
-the power of each, and what they cannot establish: they can falsify a bad mapping
-and never certify a good one. The primary result compares two readings of one
-score vector \emph{within} the benchmark, so it requires the mirror to be
-internally consistent rather than canonical. We would rather state that plainly
-than have a reviewer find it.
+mirror. We have since obtained the official label file and reconciled the mirror
+against it row for row: across all six labels on every one of the 752,802
+images the mirror holds, there is no disagreement, and it contains no image the
+official release does not. The one image it lacks is the one an internal
+gapless-counter test predicted before that file was seen. What that comparison
+cannot establish is the mirror's series and patient groupings or its slice order,
+because the official file carries neither a subject identifier nor a slice index,
+which is why the mirror is needed; those still rest on the tests in Table 2. We
+would rather state the residual limit plainly than have a reviewer find it.
 
 \textbf{One journal requirement pulls against another.} The Algorithm and Code
 Transparency policy asks Materials and Methods to carry a link to the code and

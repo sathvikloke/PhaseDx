@@ -34,7 +34,7 @@ number changed, the primary baseline was locked before the held-out data were to
 cross-study comparison was demoted to descriptive, and the tables were renumbered — the
 benchmark-eligibility table is now Table 1 because it is cited in Materials and Methods.
 Section names and table numbers below are the current ones. Explicit page numbers have been
-removed rather than left stale; the compiled manuscript is 23 pages and the page map above
+removed rather than left stale; the compiled manuscript is 24 pages and the page map above
 is current.
 
 Figures themselves are in the separate combined figure document — 3 pages, one figure and
