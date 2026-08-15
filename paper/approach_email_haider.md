@@ -2,7 +2,10 @@
 
 **To:** m.haider@utoronto.ca
 **From:** your own named address, not a shared one
-**Attach:** `3_manuscript_anonymized.pdf` only.
+**Attach:** `0_READING_COPY_manuscript_with_figures.pdf` — ONE file containing the
+title page, the manuscript, Figures 1–3 and Figure S1. Do NOT attach
+`3_manuscript_anonymized.pdf` on its own: it carries the figure legends but not the
+figures, so every reference to Fig 1 or Fig 2 would point at nothing.
 
 Different hook from the Filippi email. His entry in `collaborator_candidates.md` is
 flagged `adjacent` — he runs a machine-learning lab building prostate AI — so the opening

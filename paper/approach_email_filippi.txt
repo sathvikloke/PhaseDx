@@ -33,7 +33,7 @@ contributions I cannot make:
 
 What you should know before deciding. My co-authors and I are secondary-school
 students. There is no funding, no institutional sponsor and no conflict of interest on
-any side. The manuscript is 24 pages and is attached; the target is *Radiology:
+any side. The manuscript is attached, figures included; the target is *Radiology:
 Artificial Intelligence*, and it is not yet submitted, so your name would go on before
 submission rather than being added later.
 

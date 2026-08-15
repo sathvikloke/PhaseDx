@@ -2,7 +2,10 @@
 
 **To:** risto.filippi@sickkids.ca
 **From:** your own named address, not a shared one
-**Attach:** `3_manuscript_anonymized.pdf` only. Not the title page, not the cover letter.
+**Attach:** `0_READING_COPY_manuscript_with_figures.pdf` — ONE file containing the
+title page, the manuscript, Figures 1–3 and Figure S1. Do NOT attach
+`3_manuscript_anonymized.pdf` on its own: it carries the figure legends but not the
+figures, so every reference to Fig 1 or Fig 2 would point at nothing.
 
 Follows the rules already recorded in `collaborator_candidates.md`: lead with the
 slice-to-patient collapse, do not open with a critique of any individual paper, do not
@@ -47,7 +50,7 @@ contributions I cannot make:
 
 **What you should know before deciding.** My co-authors and I are secondary-school
 students. There is no funding, no institutional sponsor and no conflict of interest on
-any side. The manuscript is 24 pages and is attached; the target is *Radiology:
+any side. The manuscript is attached, figures included; the target is *Radiology:
 Artificial Intelligence*, and it is not yet submitted, so your name would go on before
 submission rather than being added later.
 

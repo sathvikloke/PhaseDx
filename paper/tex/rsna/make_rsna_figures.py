@@ -398,7 +398,10 @@ def fig1(D, SW):
 # Label placement only. This moves TEXT; no marker is displaced or jittered.
 LABEL_POS = {
     "RSNA ICH, any hemorrhage":            (-0.012, -0.014, "right", "top", False),
-    "LUNA16 candidates":                   (-0.026, 0.000, "right", "center", False),
+    # Placed ABOVE this point, not left of it: a left offset large enough to clear
+    # the arm's own error whisker (slice 0.531 -> 0.486) runs the text off the axis.
+    # +0.120 sits clear of the upper patient whisker, which reaches 0.628.
+    "LUNA16 candidates":                   (0.000, 0.120, "center", "bottom", False),
     "PI-CAI, slice level":                 (0.000, -0.024, "center", "top", False),
     "DeepLesion, 8 body-part arms":        (0.000, 0.021, "center", "bottom", False),
     "fastMRI Prostate, T2":                (0.902, 0.470, "left", "center", True),
