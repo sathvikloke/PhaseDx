@@ -90,11 +90,10 @@ predictor read exactly 0.500 at both units in every draw.
 stack depth alone reads 0.394 per patient, and with depth held fixed the reading
 is 0.5037 (range, 0.4979 to 0.5071), covering chance across the family and
 sitting on its own permutation null.
-\item The two units do not respond alike to the analysis choices the baseline
-requires: across bin counts crossed with six aggregation operators the
-slice-level reading spans 0.028 and the patient-level reading 0.237, so the
-slice-level finding is robust and every patient-level statement is a statement
-about the pre-specified cell.
+\item Applied unchanged to a label file not previously opened, the same protocol
+reproduced the divergence on a second benchmark---0.7482 per slice against 0.5712
+per patient over 24 holdouts---but not the mechanism: stack depth there reads
+0.5048, so the cause is benchmark-specific even where the divergence is not.
 \end{itemize}
 
 \vspace{0.4em}
@@ -120,33 +119,30 @@ Technology Assessment; Brain/Brain Stem.
 \section*{Abstract}
 
 \textbf{Purpose:} To measure what a model given no image data reaches on
-volumetric benchmarks read slice by slice, and what the same scores show per
-patient.
+volumetric benchmarks read slice by slice, and what those scores show per patient.
 
 \textbf{Materials and Methods:} Retrospective secondary analysis of
 de-identified label files from six imaging benchmarks, including NYU fastMRI,
 analyzed in 2026. The largest, the 2019 RSNA Intracranial Hemorrhage benchmark,
-held \num{752802} slices from \num{18938} patients; age and sex are
-undistributed. A 20-bin relative-position model, locked as the primary
-pixel-blind baseline before any held-out value was computed, was fitted and read
-at both units on each of 24 independently drawn patient-disjoint holdouts, mean
-aggregation pre-specified. The primary estimate is that family's mean; one
-holdout, at a seed fixed in advance, is also reported with a 95\% bootstrap
-confidence interval (CI) resampling patients.
+held \num{752802} slices from \num{18938} patients. A 20-bin relative-position model, locked before any held-out value
+was computed, was fitted and read at both units on each of 24 independently drawn
+patient-disjoint holdouts, mean aggregation pre-specified. The primary estimate is
+that family's mean; one holdout, at a seed fixed in advance, is also reported with
+a 95\% bootstrap confidence interval (CI). The locked protocol was then applied
+unchanged to a benchmark label file that had not been read.
 
 \textbf{Results:} Over 24 holdouts one score vector read area under the receiver
 operating characteristic curve (AUC) 0.7381 (0.7350--0.7415) per slice and 0.4551
-(0.4424--0.4628) per patient; on the pre-registered holdout, 0.738 (95\%
-CI: 0.733, 0.742) and 0.442 (95\% CI: 0.428, 0.458). A constant predictor read
-exactly 0.500 at both units in every draw. Gaps over six labels ran
-0.181--0.318. Depth alone read 0.394 per patient; with depth fixed the family
-read 0.5037 (0.4979--0.5071), covering chance. Across bin counts crossed with six
-operators the slice reading spanned 0.028, the patient 0.237.
+(0.4424--0.4628) per patient; on the pre-registered holdout, 0.738 (95\% CI:
+0.733, 0.742) and 0.442 (95\% CI: 0.428, 0.458). A constant predictor read exactly
+0.500 at both units in every draw. Depth alone read 0.394 per patient; with depth fixed the family read 0.5037
+(0.4979--0.5071), covering chance. On the unread benchmark it read 0.7482 per
+slice against 0.5712 per patient, depth alone 0.5048.
 
 \textbf{Conclusion:} A pixel-blind score vector ranked slices far above chance
 and patients at or below it, the difference carried by stack depth; the
-slice-level reading was robust to analysis choices, the patient-level one was
-not.
+divergence reproduced on a benchmark not previously read, though its mechanism
+did not.
 
 \clearpage
 
@@ -208,8 +204,8 @@ label file.
 A dataset entered the audit if the four fields a positional null needs---subject
 identifier, slice index or $z$ position, per-slice label, and train/test
 assignment---were obtainable without pixel data or a data-use agreement. Of 25
-candidates, seven label files across six benchmarks are reported, in two tiers:
-four \emph{core}, with every field in the benchmark's own pixel-free release, and
+candidates, eight label files across six benchmarks are reported, in two tiers:
+five \emph{core}, with every field in the benchmark's own pixel-free release, and
 three \emph{qualified}, with one field absent or reachable only outside it. The
 flagship is qualified, not core (Table 1).
 
@@ -308,8 +304,8 @@ values are reported. Analyses used Python 3.14 (Python Software Foundation, Wilm
 
 No published number enters this section. On RSNA ICH the locked 20-bin
 positional model was fitted and read on each of 24 independently drawn
-patient-disjoint holdouts, every one of them 30\% of patients with a single fit
-on the remaining \num{13257}. Read at the slice level the resulting vectors
+patient-disjoint holdouts, each 30\% of patients with a single fit on the
+remaining \num{13257}. Read at the slice level the resulting vectors
 average AUC 0.7381 (range, 0.7350 to 0.7415); read at the patient level, after
 the pre-specified mean aggregation, the same vectors average 0.4551 (range,
 0.4424 to 0.4628). Nothing changes between the readings except the unit. On the
@@ -317,10 +313,8 @@ pre-registered holdout of \num{5681} patients (\num{226663} slices, \num{32258}
 positive; \num{2306} positive patients) the same pair reads 0.738 (95\% CI:
 0.733, 0.742) and 0.442 (95\% CI: 0.428, 0.458); the difference there is 0.295,
 and over the six official labels the gaps run 0.181 to 0.318 (Table 2, Fig 1A).
-That draw is the lowest of its 24 on the patient reading and the highest on the
-depth-conditioned one, which is why the family and not the draw is the primary
-estimate. A constant predictor reaches exactly 0.500 at both units, on all six
-labels and in all 24 holdouts.
+A constant predictor reaches exactly 0.500 at both units, on all six labels and
+in all 24 holdouts.
 
 At the patient unit the six labels do not all behave alike. Three intervals lie
 wholly below chance (any, subarachnoid, subdural) and three cross it; only
@@ -348,58 +342,64 @@ predictor 0.5000, SD 0.0000 (Table 3, Fig 1C).
 
 \subsection*{Which Uncertainty Statement Applies}
 
-Neither uncertainty statement replaces the other. At the patient unit the
+Neither uncertainty statement replaces the other: at the patient unit the
 bootstrap CI on the pre-registered draw is the wider (0.030 against the family
 range of 0.020) and the narrower on two of the six labels. That draw sits at the
-edge of its own family---lowest of 24 on the patient reading for three labels,
-highest on the depth-conditioned reading for two---because the depth confound is
-unusually strong in it. Its seed was fixed before any held-out value was
-computed, so where it fell is a property of the draw, not a choice; reporting the
-family mean as primary is what keeps it from mattering (Table 3, Fig 1C).
+edge of its own family---lowest of 24 on the patient reading, highest on the
+depth-conditioned one---because the depth confound is unusually strong in it. Its
+seed was fixed before any held-out value was computed, so reporting the family
+mean as primary is what keeps that from mattering (Table 3, Fig 1C).
 
 \subsection*{Aggregation, and the Rest of the Baseline Family}
 
-Six alternatives to the pre-specified mean were run (Table 3). Maximum and top-1
-mean are exactly degenerate under a single fit, all \num{5681} patients taking
-one score, and read exactly 0.500. Three read above chance---top-3 mean
-0.514, top-5 mean 0.513 and the 90th percentile 0.556---so ``at or below chance''
-holds for the pre-specified mean and the 75th percentile (0.480) and not for
-those three, which take 4, 9 and 13 distinct values and are near-degenerate
-readings of stack depth. The strongest secondary model at the patient unit is
-volume size, at 0.601; every column here is a geometry or acquisition field,
-which is why the primary result is about geometry alone.
+Six alternatives to the mean were run (Table 3). Maximum and top-1 mean are
+degenerate under a single fit and read exactly 0.500. Three read
+above chance---top-3 mean 0.514, top-5 mean 0.513 and the 90th percentile
+0.556---so ``at or below chance'' holds for the mean and the 75th percentile
+(0.480) and not for those three, which take 4, 9 and 13 distinct values and are
+near-degenerate readings of stack depth. The strongest secondary model is volume
+size, at 0.601; every column here is a geometry or acquisition field, which is
+why the primary result is about geometry alone.
 
 \subsection*{The Same Reading on Every Other Benchmark-Arm}
 
 Every arm reported here is scored by a single fit on a subject-disjoint split,
 and the constant predictor is exactly 0.500 on all of them. On its own published
 split, fastMRI Prostate reads slice 0.854 against patient 0.506 on T2 and 0.851
-against 0.424 on DWI (Table 4); there the depth-conditioned reading is exactly
-0.500 with a degenerate interval, because within a depth stratum every patient's
-mean is the same number. All eight DeepLesion body-part arms rank above chance at
+against 0.424 on DWI. All eight DeepLesion body-part arms rank above chance at
 both units (slice 0.691--0.977, patient 0.642--0.954) and none diverges, which is
-what should happen: the label there is the anatomic region, so relative position
-is legitimate task information. LUNA16 moves little at either unit and its
+expected: the label there is the anatomic region, so relative position is
+legitimate task information. LUNA16 moves little at either unit and its
 slice-level interval reaches chance (0.531; 95\% CI: 0.486, 0.573); Duke Breast
-reads 0.821 (95\% CI: 0.799, 0.841) per slice, its patient-level value undefined
-with all 922 of 922 patients positive (Table 4, Fig 2).
+reads 0.821 (95\% CI: 0.799, 0.841) per slice, its patient-level value undefined,
+all 922 of 922 patients being positive (Table 4, Fig 2).
+
+\subsection*{The Same Divergence on a Benchmark Not Previously Read}
+
+The locked protocol was then applied, nothing re-tuned, to a label file that had
+not been opened: PI-CAI's \num{1295} human-expert lesion delineation volumes,
+yielding \num{28648} slices over \num{1273} patients. An earlier round recorded it as not
+estimable, true of the public marksheet and false of the benchmark. Over 24 holdouts of the identical design the pixel-blind vector reads
+0.7482 (range, 0.6974 to 0.7744) per slice against 0.5712 (range, 0.4995 to
+0.6215) per patient, a gap of 0.177, the constant predictor exactly 0.500 in every
+draw (Table 4, Fig 2). The divergence reproduces on a different organ, modality
+and institution set. The mechanism does not: depth alone reads 0.5048 here, and
+the depth-conditioned reading is degenerate at exactly 0.500 over 17 strata, as on
+fastMRI Prostate, because within a depth stratum every patient's mean is one
+number.
 
 \subsection*{Sensitivity to the Two Analysis Choices}
 
 The two units do not respond alike to the choices the baseline requires. Across 5
-to 50 position bins the slice-level reading runs 0.717, 0.733, 0.738, 0.738 and
-0.745, a span of 0.028. Crossed with six aggregation operators, the patient-level
-reading over the same fits spans 0.415 to 0.652, a range of 0.237 (Fig 3). At 50
-bins every operator reads above chance, because a bin then holds about one slice
-and the aggregate tracks stack depth directly; the operators reading near 0.500
-are degenerate. Twenty bins with mean aggregation were pre-specified, and every
-patient-level statement here concerns that cell. The slice-level statement does
-not depend on the choice.
+to 50 position bins the slice-level reading spans 0.028; crossed with six
+aggregation operators, the patient-level reading over the same fits spans 0.415
+to 0.652, a range of 0.237 (Fig 3). At 50 bins every operator reads above chance,
+a bin then holding about one slice so that the aggregate tracks depth directly.
+Twenty bins with mean aggregation were pre-specified, and every patient-level
+statement here concerns that cell; the slice-level statement does not.
 
-As a secondary description, the locked baseline reached 0.491 (95\% CI: 0.482,
-0.499) of the published margin over chance on RSNA ICH, 0.480 on the DeepLesion
-eight-class task and $-0.001$ on LUNA16; on PI-CAI it is not estimable, the
-locked baseline needing a slice index that label file does not carry (Fig S1).
+The share of a published margin over chance the locked baseline reaches, on every
+benchmark with a peer-reviewed comparator, is reported in the supplement (Fig S1).
 
 \section*{Discussion}
 
@@ -418,8 +418,7 @@ rather than a measurement. The baseline was locked before the held-out data were
 touched, so nothing is selected on the outcome. And the primary estimate is the
 mean over the family rather than any one draw, because a single draw---including
 the one whose seed was fixed in advance---can sit at the edge of what the
-procedure produces. The cost is precision: every interval widens by about 1.7 to
-1.9 times.
+procedure produces. The cost is precision: intervals widen about 1.7 to 1.9 times.
 
 What survives the analysis choices is the slice-level reading, not the
 patient-level one. That asymmetry is itself the practical result: a slice-pooled
@@ -428,6 +427,14 @@ whereas how far the per-patient reading falls depends on the aggregation
 operator. Where a pixel-blind model ranks well and does \emph{not} diverge
 between units, the right reading may be that the task is legitimately positional,
 as DeepLesion's is.
+
+Applying the locked protocol unchanged to a label file that had not been read
+separates two claims that one benchmark cannot. The divergence generalised---0.75
+per slice against 0.57 per patient on prostate MRI, a different organ, modality
+and institution set from head CT. The depth mechanism did not: depth alone reads 0.5048 there.
+The finding to carry forward is that a slice-pooled and a per-patient AUC of one
+pixel-blind vector can differ widely on unrelated benchmarks, while what produces
+that difference must be established per benchmark rather than assumed.
 
 Badgeley et al's control is \emph{negative}---balance the confounders and watch
 the model collapse to 0.52 \citep{badgeley2019hip}. This one is \emph{positive}:
@@ -451,7 +458,10 @@ by anyone. What this protocol cannot do is detect shortcuts living in the pixels
 \citep{osciiart2020baseline,yan2018deeplesiongraphs}. The patient-level reading
 is not robust to either analysis choice the baseline requires, unlike the
 slice-level one, and every patient-level statement here is a statement about the
-pre-specified cell (Fig 3). The flagship's subject identifier and slice index are
+pre-specified cell (Fig 3). The depth mechanism is established on the flagship
+alone; on the two benchmarks where depth could be conditioned on it was
+degenerate, so the mechanism is not shown to be general. The flagship's subject
+identifier and slice index are
 not in its own release but in a public tabular mirror, and the official label
 file was never obtained, so the mirror could not be checked row for row against
 it; the internal tests in Table 2 can falsify a bad mapping and never certify a
@@ -555,9 +565,11 @@ are plotted, not one of them: they are the arms on which no divergence occurs,
 and that is expected rather than anomalous, because the label there is the
 anatomic region and relative slice position predicts it at either unit. Values
 are for the locked 20-bin positional baseline except PI-CAI, whose positional
-baseline is exactly 0.500 and whose secondary tree over that label file's four
-non-image columns---two of them clinical, age and prostate-specific antigen
-level---is drawn instead. Every arm plotted is scored by a single fit on a
+baseline is exactly 0.500 on the public marksheet, which carries no slice index,
+and whose secondary tree over that file's four non-image columns---two of them
+clinical, age and prostate-specific antigen level---is drawn instead. That
+benchmark's slice-level arm, read from its \num{1295} lesion delineation volumes
+under the same locked protocol, is plotted separately and at both units. Every arm plotted is scored by a single fit on a
 subject-disjoint split and its constant predictor is exactly 0.500. The two arms
 defined at only one unit are drawn in the margins rather than in the field, so
 that a value that does not exist cannot be read as a low one: PI-CAI's label file
@@ -604,11 +616,12 @@ fastMRI Prostate, T2-weighted & Y & Y & Y & Y & Included. In-file split, subject
 fastMRI Prostate, DWI & Y & Y & Y & Y & Included\\
 DeepLesion & Y & Y & Y & Y & Included, 8 body-part arms and 1 eight-class arm. Publishes normalized lesion $z$ directly\\
 LUNA16 & Y & Y & Y & Y & Included, 1 arm. Candidate list is detector-produced, so ``zero image'' means ``given the published candidate list''\\
+PI-CAI, slice level & Y & Y & Y & Y & Included, 1 arm. The four fields come from the benchmark's own pixel-free release once the \num{1295} human-expert lesion delineation volumes are read; those are integer label masks, and no image intensity is opened\\
 \addlinespace[2pt]
 \multicolumn{6}{@{}l}{\textbf{Included, tier 2---\emph{qualified}: one field absent, or reachable only outside that release}}\\
 RSNA 2019 Intracranial Hemorrhage & Y* & Y* & Y & Y & \textbf{The flagship, and qualified rather than core.} Official release carries the label only; subject identifier and slice index come from a public, license-permissive, pixel-free tabular mirror. Eligible under ``obtainable,'' not under ``in the benchmark's own release''\\
 Duke Breast Cancer MRI & Y & Y & Y & N & Included, 1 arm, on the data owners' own published slice definition. All subjects positive, so patient-level AUC is undefined and is reported as undefined\\
-PI-CAI & Y & N & Y & Y & Included at case level only. Per-slice positivity needs label volumes and a reader that was unavailable; the missing $Z$ is why the locked positional baseline is not estimable here and the row is reported as unavailable\\
+PI-CAI, case level & Y & N & Y & Y & Included, 1 arm, on the public marksheet, which carries no slice index. The locked positional baseline is not estimable \emph{on this file}; it is estimable on the same benchmark's delineation volumes, which are the separate tier-1 arm above\\
 \addlinespace[2pt]
 \multicolumn{6}{@{}l}{\textbf{Scored in an earlier round, withdrawn here---reproducibility, not eligibility}}\\
 fastMRI+ knee & Y & Y* & Y & N & \textbf{Withdrawn, 2 arms.} Eligible, and scored in an earlier round under the superseded pooled estimator. Its prepared label table was lost and only 155 of the 199 roster volumes remain locally, so the arm cannot be rebuilt on its original cohort and re-scored under this submission's estimator. Withdrawn rather than carried on the superseded estimator. The two arms it contributed read 0.873 and 0.801 per slice\\
@@ -624,7 +637,6 @@ MRNet & Y & N & N & Y & $Z$ and $L$ fail by construction\\
 RSNA 2023 Abdominal Trauma & Y & Y & Y & Y & All four fields present; blocked by a click-through agreement that was not accepted. The strongest untaken target\\
 RSNA 2022 Cervical Spine & Y & Y & Y & Y & Per-slice labels for 235 of \num{3112} studies only; underpowered, plus the same access blocker\\
 fastMRI+ brain & Y & Y* & Y & N & 73 of \num{1001} roster volumes held; underpowered\\
-PI-CAI, slice level & Y & Y* & Y & Y & Label volumes are pixel-free but need a reader that was unavailable; the case-level arm was run instead\\
 \addlinespace[2pt]
 \multicolumn{6}{@{}l}{\textbf{Added to the universe after other results were seen, then excluded on a measurement}}\\
 RSNA-STR Pulmonary Embolism & Y & \textbf{N} & Y & Y & Label file obtained and verified genuine against a published row count, then excluded: $Z$ is absent, and neither the file's row order (run-length ratio 0.974) nor its identifier order (1.001) carries positional information. Peer-reviewed numbers on it are exam-level on a private test set whose labels were never released\\
@@ -650,7 +662,11 @@ file; Y* = obtainable, but not from the benchmark's own release or not without a
 image file header read; N = not obtainable. AUC = area under the receiver
 operating characteristic curve; DWI = diffusion-weighted imaging. Twenty-five
 datasets were named, counting the five segmentation benchmarks individually; 19
-were assessed against the four fields and 6 were not. Every exclusion is a named
+were assessed against the four fields and 6 were not. The PI-CAI slice-level arm
+was recorded in an earlier round as eligible but not reached, on the ground that
+its label volumes needed a reader that was unavailable; that was a tooling
+limitation, not an eligibility one, and it has since been read under the same
+locked protocol with nothing re-tuned for it. Every exclusion is a named
 field failure; none followed a computed baseline, and no candidate was dropped
 after its baseline had been computed. The candidate list, its entry criterion and
 its per-candidate exclusion reasons were recorded before 7 of the 8 included label
@@ -928,6 +944,7 @@ DeepLesion, pelvis vs rest & Published split & 0.977 (0.969, 0.984) & 0.954 (0.9
 \quad bone vs rest & Published split & 0.691 (0.618, 0.763) & 0.642 (0.555, 0.726) & 0.500 & G, C\\
 Duke Breast, owner-defined slice task & Frozen holdout & 0.821 (0.799, 0.841) & Undefined & 0.500 & G, A\\
 LUNA16 candidates & Frozen holdout & 0.531 (0.486, 0.573) & 0.553 (0.479, 0.628) & 0.500 & G\\
+PI-CAI, slice level & Frozen holdout & 0.773 (0.747, 0.796) & 0.598 (0.530, 0.667) & 0.500 & G\\
 PI-CAI, case level & Published split & Not applicable & 0.500 exactly (locked); 0.692 (0.626, 0.755) secondary & 0.500 & G, A, C\\
 \bottomrule
 \end{tabular}

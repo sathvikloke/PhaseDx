@@ -81,9 +81,11 @@ are plotted, not one of them: they are the arms on which no divergence occurs,
 and that is expected rather than anomalous, because the label there is the
 anatomic region and relative slice position predicts it at either unit. Values
 are for the locked 20-bin positional baseline except PI-CAI, whose positional
-baseline is exactly 0.500 and whose secondary tree over that label file's four
-non-image columns---two of them clinical, age and prostate-specific antigen
-level---is drawn instead. Every arm plotted is scored by a single fit on a
+baseline is exactly 0.500 on the public marksheet, which carries no slice index,
+and whose secondary tree over that file's four non-image columns---two of them
+clinical, age and prostate-specific antigen level---is drawn instead. That
+benchmark's slice-level arm, read from its \num{1295} lesion delineation volumes
+under the same locked protocol, is plotted separately and at both units. Every arm plotted is scored by a single fit on a
 subject-disjoint split and its constant predictor is exactly 0.500. The two arms
 defined at only one unit are drawn in the margins rather than in the field, so
 that a value that does not exist cannot be read as a low one: PI-CAI's label file

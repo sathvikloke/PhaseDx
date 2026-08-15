@@ -399,6 +399,7 @@ def fig1(D, SW):
 LABEL_POS = {
     "RSNA ICH, any hemorrhage":            (-0.012, -0.014, "right", "top", False),
     "LUNA16 candidates":                   (-0.026, 0.000, "right", "center", False),
+    "PI-CAI, slice level":                 (0.000, -0.024, "center", "top", False),
     "DeepLesion, 8 body-part arms":        (0.000, 0.021, "center", "bottom", False),
     "fastMRI Prostate, T2":                (0.902, 0.470, "left", "center", True),
     "fastMRI Prostate, DWI":               (0.902, 0.408, "left", "center", True),
@@ -411,13 +412,14 @@ DEEPLESION_ARMS = ["deeplesion_pelvis_vs_rest", "deeplesion_mediastinum_vs_rest"
 
 OTHER_ARMS = ["fastmri_prostate_t2", "fastmri_prostate_dwi",
               "duke_breast_owner_slice_task", "luna16_fp_reduction_candidates",
-              "picai_case_level"]
+              "picai_slice_level", "picai_case_level"]
 
 SHORT = {
     "fastMRI Prostate, T2-weighted": "fastMRI Prostate, T2",
     "fastMRI Prostate, DWI": "fastMRI Prostate, DWI",
     "Duke Breast, owner-defined slice task": "Duke Breast",
     "LUNA16 candidates": "LUNA16 candidates",
+    "PI-CAI, slice level": "PI-CAI, slice level",
     "PI-CAI, case level": "PI-CAI, case level",
 }
 

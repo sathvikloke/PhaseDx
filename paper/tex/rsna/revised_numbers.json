@@ -3937,7 +3937,7 @@
   },
   "picai_case_level": {
    "display_name": "PI-CAI, case level",
-   "status": "NOT RECOMPUTED -- label table unreachable",
+   "status": "Case-level marksheet arm, unchanged. The benchmark's SLICE-level arm is now reported separately from the delineation volumes; see picai_slice_level.",
    "unreachable_label_table": "/private/tmp/claude-501/-Users-sathvikloke-Downloads-PhaseDx/20765690-1294-4135-b633-a1e4b2778ed4/scratchpad/audit/labels/picai_case_level.csv",
    "unreachable_reason": "the tidied case-level table was written to a per-session scratch directory that no longer exists",
    "estimator": "the dataset's own 'split' column; validation rows: exclude",
@@ -3977,6 +3977,44 @@
    ],
    "note": "Already a repeated-holdout estimator with a single fit per partition, not a pooled cross-fold score, and the baseline was already the positional model, so neither the pooling artefact nor the baseline lock changes this row. It cannot be re-run: the tidy table is gone.",
    "source": "paper/trivial_fraction_distribution.json (row), pipeline/audit_prep/deeplesion_yan_conditions.py"
+  },
+  "picai_slice_level": {
+   "display_name": "PI-CAI, slice level",
+   "status": "NEW ARM. The locked protocol applied to a label file never previously opened: the 1,295 human-expert csPCa lesion delineation volumes. An earlier round recorded this as not estimable, which was true of the marksheet and false of the benchmark; the blocker was a NIfTI reader.",
+   "estimator": "single frozen patient-disjoint holdout, one fit, no pooling",
+   "estimator_is_pooled_out_of_fold": false,
+   "pooling_artefact_applies": false,
+   "primary_baseline": "positional_20bin (locked)",
+   "slice_auc": 0.7729245531367507,
+   "slice_ci": [
+    0.7471186427231641,
+    0.7960022528477222
+   ],
+   "patient_auc_mean": 0.5982997033880604,
+   "patient_auc_mean_ci": [
+    0.5297397059077387,
+    0.6671796370286889
+   ],
+   "constant_predictor_slice_auc": 0.5,
+   "constant_predictor_patient_auc": 0.5,
+   "constant_predictor_deviation_from_half": 0.0,
+   "n_boot": 2000,
+   "n_subjects": 1273,
+   "n_rows": 28648,
+   "slice_prevalence": 0.0435981569394024,
+   "family_slice_mean": 0.748243163195934,
+   "family_slice_range": [
+    0.6973822575006046,
+    0.7743765200768741
+   ],
+   "family_patient_mean": 0.5711508409783882,
+   "family_patient_range": [
+    0.4994725738396624,
+    0.621499636010677
+   ],
+   "depth_alone_patient_auc": 0.5048,
+   "depth_fixed_patient_auc": 0.5,
+   "depth_note": "stack depth carries no signal here (0.5048) and the depth-conditioned reading is degenerate at exactly 0.500 over 17 strata, as on fastMRI Prostate: within a depth stratum every patient's mean is one number. The divergence replicates; the depth mechanism is NOT established here."
   }
  },
  "trivial_fraction_locked": {
@@ -4655,17 +4693,17 @@
     "old_baseline_model": "metadata tree",
     "old_baseline": 0.691672192749779,
     "old_trivial_fraction": 0.4674931530482414,
-    "locked_baseline": 0.5,
+    "locked_baseline": 0.5711508409783882,
     "locked_baseline_ci": [
-     0.5,
-     0.5
+     0.4994725738396624,
+     0.621499636010677
     ],
-    "locked_estimator": "published split, LOCKED positional baseline -- inapplicable, exactly 0.500",
-    "locked_note": "the previous 0.6917 was the metadata tree, selected on the test set; two of its four inputs are clinical predictors. Locking the positional baseline drives this row to exactly 0.",
-    "locked_trivial_fraction": 0.0,
+    "locked_estimator": "frozen patient-disjoint holdout, family of 24, locked positional 20-bin from the delineation volumes, mean aggregated",
+    "locked_note": "now estimable: the locked positional baseline applies once the delineation volumes are read. Across cohorts -- the published value is on the hidden test set.",
+    "locked_trivial_fraction": 0.17353863653265414,
     "locked_trivial_fraction_ci": [
-     0.0,
-     0.0
+     -0.0012864052691160342,
+     0.29634057563579763
     ],
     "delta": -0.4674931530482414
    },
@@ -4681,17 +4719,17 @@
     "old_baseline_model": "metadata tree",
     "old_baseline": 0.691672192749779,
     "old_trivial_fraction": 0.532422757638275,
-    "locked_baseline": 0.5,
+    "locked_baseline": 0.5711508409783882,
     "locked_baseline_ci": [
-     0.5,
-     0.5
+     0.4994725738396624,
+     0.621499636010677
     ],
-    "locked_estimator": "published split, LOCKED positional baseline -- inapplicable, exactly 0.500",
-    "locked_note": "the previous 0.6917 was the metadata tree, selected on the test set; two of its four inputs are clinical predictors. Locking the positional baseline drives this row to exactly 0.",
-    "locked_trivial_fraction": 0.0,
+    "locked_estimator": "frozen patient-disjoint holdout, family of 24, locked positional 20-bin from the delineation volumes, mean aggregated",
+    "locked_note": "now estimable: the locked positional baseline applies once the delineation volumes are read. Across cohorts -- the published value is on the hidden test set.",
+    "locked_trivial_fraction": 0.19764122493996722,
     "locked_trivial_fraction_ci": [
-     0.0,
-     0.0
+     -0.0014650726676043724,
+     0.33749898891854735
     ],
     "delta": -0.532422757638275
    },
