@@ -405,54 +405,51 @@ benchmark with a peer-reviewed comparator, is reported in the supplement (Fig S1
 
 The unit at which a three-dimensional benchmark is read decides what its number
 means. Over 24 patient-disjoint holdouts a single pixel-blind score vector read
-0.7381 per slice and 0.4551 per patient; only the first is what a paper would
-print. The mechanism is identified rather than inferred: mean aggregation carries
+0.7381 per slice and 0.4551 per patient. The mechanism is identified rather than inferred: mean aggregation carries
 stack depth into a per-patient score, depth is associated with the label here,
 and with depth held fixed the same vector reads 0.5037 across the family,
 covering chance. Read the patient-level value as a null, not as a reversal.
 
 Three protocol choices carry that claim. Every holdout is a single fit, under
 which a constant predictor is exactly 0.500 by construction; the pooled
-out-of-fold alternative put that floor at 0.492, a ranking artifact of pooling
-rather than a measurement. The baseline was locked before the held-out data were
-touched, so nothing is selected on the outcome. And the primary estimate is the
-mean over the family rather than any one draw, because a single draw---including
-the one whose seed was fixed in advance---can sit at the edge of what the
-procedure produces. The cost is precision: intervals widen about 1.7 to 1.9 times.
+alternative put that floor at 0.492, a ranking artifact rather than a measurement. The baseline was locked before the held-out data were
+touched, so nothing is selected on the outcome. And the primary estimate is the family
+mean rather than any one draw, because a single draw---including the seed-fixed
+one---can sit at the edge of what the procedure produces. The cost is precision: intervals widen 1.7 to 1.9 times.
 
-What survives the analysis choices is the slice-level reading, not the
-patient-level one. That asymmetry is itself the practical result: a slice-pooled
-AUC on this benchmark is reachable without pixels under every binning tried,
-whereas how far the per-patient reading falls depends on the aggregation
-operator. Where a pixel-blind model ranks well and does \emph{not} diverge
-between units, the right reading may be that the task is legitimately positional,
-as DeepLesion's is.
+What survives the analysis choices is the slice-level reading: a slice-pooled AUC
+here is reachable without pixels under every binning tried, whereas how far the
+per-patient reading falls depends on the aggregation operator. Where a
+pixel-blind model ranks well and does \emph{not} diverge between units, the task
+may be legitimately positional, as DeepLesion's is.
 
 Applying the locked protocol unchanged to a label file that had not been read
 separates two claims that one benchmark cannot. The divergence generalised---0.75
 per slice against 0.57 per patient on prostate MRI, a different organ, modality
 and institution set from head CT. The depth mechanism did not: depth alone reads 0.5048 there.
-The finding to carry forward is that a slice-pooled and a per-patient AUC of one
+The finding to carry forward: a slice-pooled and a per-patient AUC of one
 pixel-blind vector can differ widely on unrelated benchmarks, while what produces
-that difference must be established per benchmark rather than assumed.
+that difference must be established per benchmark.
 
 Badgeley et al's control is \emph{negative}---balance the confounders and watch
 the model collapse to 0.52 \citep{badgeley2019hip}. This one is \emph{positive}:
 fit a model on the confounder alone and see what it reaches. Against the leakage
 literature the distinction is the
 split, theirs wrong and this one patient-disjoint
-\citep{yagis2021leakage,tampu2022leakage}; against Yan et al it is the source of
-the position, theirs from a body-part regressor on the image and this one from a
+\citep{yagis2021leakage,tampu2022leakage}; against Yan et al, the source of the
+position---theirs from a body-part regressor on the image, this one from a
 published column \citep{yan2018deeplesiongraphs}.
 
 For a radiologist reading an imaging AI paper, the operative question is what a
 reported AUC was computed over. On the hemorrhage benchmark the slice-pooled
 number stood 0.181 to 0.318 above the per-patient number from the same scores,
-and the per-patient number is the one aligned with a per-patient decision---a
-statement about these benchmarks, since no regulatory filing was examined. For benchmark publishers, three fields
-already in the released label file---a subject identifier, a slice index or $z$
-position, and the train/test assignment---make every one of these checks runnable
-by anyone. What this protocol cannot do is detect shortcuts living in the pixels.
+and the per-patient number is the one aligned with a per-patient decision. That
+is not an argument that slice-level output is without value: localising a finding
+in three dimensions is part of what a reader needs. The narrower claim is that a slice-pooled AUC is not a patient-level
+claim and should not be read as one---a statement about these benchmarks, since
+no regulatory filing was examined. For benchmark publishers, three fields
+already in the released label file---subject identifier, slice index or $z$
+position, and train/test assignment---make these checks runnable by anyone. What this protocol cannot do is detect shortcuts living in the pixels.
 
 \textbf{Limitations.} The construction is prior art
 \citep{osciiart2020baseline,yan2018deeplesiongraphs}. The patient-level reading
@@ -463,16 +460,18 @@ alone; on the two benchmarks where depth could be conditioned on it was
 degenerate, so the mechanism is not shown to be general. The flagship's subject
 identifier and slice index are not in its own release but in a public tabular
 mirror. Its labels reconcile exactly against the official release, but that file
-carries neither field, so the mirror's groupings and slice order still rest on
-the internal tests in Table 2. A seventh benchmark scored in an earlier round, fastMRI+ knee, is
-withdrawn because it cannot be reproduced on its original cohort. LUNA16's
+carries neither field, so the mirror's groupings and slice order rest on
+the internal tests in Table 2. A seventh benchmark, fastMRI+ knee, is withdrawn:
+it cannot be reproduced on its original cohort. LUNA16's
 candidate list is detector-produced, so ``zero image'' there means ``given the
 published candidate list.'' The PI-CAI comparison is across cohorts, and no
 peer-reviewed comparison is matched. The candidate universe has a stated entry
-criterion and a published exclusion list but is not externally registered, and
-two included benchmarks already carried results when it was written (Table 1).
+criterion and published exclusion list but is not externally registered, and two
+included benchmarks already carried results when written (Table 1).
 Age and sex are absent from the flagship label file, and no subgroup analysis is
-reported.
+reported. Every value reported is a rank statistic; a screening application turns
+on negative predictive value at a chosen operating point, which an AUC does not
+report.
 
 In summary, one pixel-blind score vector ranked slices well above chance and
 patients at or below it, the difference carried by stack depth rather than by any
