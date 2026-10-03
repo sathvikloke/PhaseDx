@@ -62,7 +62,7 @@ pip install ./trivialbaselines
 trivial-baselines --labels your_labels.csv --published 0.86
 ```
 
-No images, no GPU, no data-use agreement. numpy and pandas only.
+No images, no GPU, no data use agreement. NumPy and pandas only.
 See [`trivialbaselines/README.md`](trivialbaselines/README.md).
 
 ## Layout
@@ -82,7 +82,7 @@ manuscript/         superseded drafts (not published; see DO_NOT_SUBMIT.md)
 NYU fastMRI, under a data use agreement: <https://fastmri.med.nyu.edu>.
 
 Practical notes, unchanged and still accurate: download `labels.tar` first for prostate;
-don't pull everything, it's terabytes. For breast, malignant cases concentrate in patients
+don't pull everything; it's terabytes. For breast, malignant cases concentrate in patients
 131–160 and 261–300, so those blocks give the most signal per gigabyte.
 
 **No imaging data or derived cohort table is in this repository.** `pipeline_out/` is
