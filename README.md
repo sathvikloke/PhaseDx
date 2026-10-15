@@ -1,5 +1,12 @@
 # PhaseDx
 
+> **Current execution handoff — October 15, 2026:** The revised study's remaining
+> work is tracked in [docs/execution](docs/execution/README.md), with detailed
+> task cards, dataset sources and a complete Claude executor assignment.
+> The findings and manuscript descriptions below describe earlier project
+> versions; they are not a completion report for the October external CT study.
+> Use the new handoff for current work and preserve the historical record.
+
 MRI scanners collect k-space — complex numbers with both magnitude and phase. Standard
 reconstruction throws the phase away, and essentially every published AI tumour classifier
 trains on what's left. A 2024 paper reported that keeping phase improved prostate cancer

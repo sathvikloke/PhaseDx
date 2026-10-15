@@ -1,0 +1,1758 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-15",
+  "repository_base": "68ba769",
+  "scope": "October revised study and fixed external CT comparison; conditional historical work explicitly separated",
+  "tasks": [
+    {
+      "id": "E01",
+      "title": "Bring the current study implementation into a portable repository layout",
+      "lane": "implementation",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "ready",
+      "dependencies": [],
+      "inputs": "source_map.json; B26 image/geometry, B28 manifest/protocol, B29 scorer, B30 acquisition source; current Git tree",
+      "outputs": "src/phasedx_external/; configs/external/; docs/execution/IMPLEMENTATION_MAP.md",
+      "steps": [
+        "Import only the selected source modules and their actual import dependencies. Preserve original source hashes and map each function to its originating batch; do not copy whole batch directories.",
+        "Port absolute paths to explicit arguments/configuration. Keep acquisition, image, geometry, manifest, selection, reference and scoring modules separate so tasks can edit disjoint files.",
+        "Use batch30 acquire30.py, batch28 build_manifest28.py/protocol28.py/selection28.py/reference28.py, batch29 scorer29.py and the image/geometry dependencies named in source_map.json. Later batch number alone is not proof of a better implementation.",
+        "Keep private images, subject tables, weights, logs and credential-bearing URLs outside Git. Importing code is not approval of its scientific behavior."
+      ],
+      "acceptance": "Every retained module has an origin entry; imports and --help work without creating a data destination; no calculation, download or model evaluation runs on import. Preserve known E06 defects until repaired.",
+      "resource": "CPU-light",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E01.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E02",
+      "title": "Locate the exact private inputs and checkpoint files",
+      "lane": "inputs",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "ready",
+      "dependencies": [],
+      "inputs": "Dataset registry; existing PhaseDx pipeline_out; revision source/config locks; Research archive inventory",
+      "outputs": "private input_locations.json and input_presence.csv; public schema/example only",
+      "steps": [
+        "Resolve each retained family, seed, fold, checkpoint, original weights/replicate arrays and source table from existing manifests before scanning directories.",
+        "Record path, artifact identity, cohort role and present/missing/unreadable state. Separate C2 from historical MRI and original CT from later sensitivity families.",
+        "Identify source and target overlap using already legitimate source identifiers only; do not seek identities or link to outside personal data.",
+        "Do not load large images or recalculate accepted outcomes merely to inventory files. Missing evidence becomes a named task-specific dependency, not a global stop."
+      ],
+      "acceptance": "All active dataset families and model inputs resolve or have an explicit missing-item record. No source-level identifiers or private machine paths are added to the public repository.",
+      "resource": "filesystem metadata",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E02.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E03",
+      "title": "Create reproducible CPU and inference environments",
+      "lane": "implementation",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "ready",
+      "dependencies": [],
+      "inputs": "requirements.txt; imported-module dependency list; existing working environment records",
+      "outputs": "requirements-external.lock; requirements-cpu.lock; environment instructions and observed platform record",
+      "steps": [
+        "Resolve packages actually used, including DICOM decoding, numerical libraries and inference dependencies; retain Python/platform versions and model serialization compatibility.",
+        "Separate CPU metadata/scoring dependencies from torch/device dependencies; avoid an unnecessary CUDA installation on the Mac.",
+        "Use isolated environments and check imports and tiny synthetic I/O, without updating the user-wide environment or running training.",
+        "Document unsupported codecs/device behavior as exact dependency failures."
+      ],
+      "acceptance": "A fresh environment can import the declared modules and parse a synthetic object. Version pins describe a tested installation, not a guessed list.",
+      "resource": "setup / bounded disk",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E03.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E04",
+      "title": "Provide resumable execution with measured resource admission",
+      "lane": "execution",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E01",
+        "E03"
+      ],
+      "inputs": "Task dependency graph; existing registry/STOP logic; actual host resource readings",
+      "outputs": "tools/run_external.py; private run ledger and resumable shard state",
+      "steps": [
+        "Implement dry-run and task-specific execution; persist input/config/command identity, child start/end, exit code, device, RSS and output identity.",
+        "Admit independent ready tasks using measured CPU/RAM/disk pressure. Start with four lightweight one-thread workers and increase only when headroom is demonstrated; serialize conflicting writes and scarce GPU use.",
+        "Backfill freed slots immediately, without waiting for an hourly controller. Resume completed shards by identity rather than replaying a whole wave.",
+        "Checkpoint on STOP/deadline, preserve failed attempts and terminate only recorded owned children. Do not create a persistent Codex-Claude supervisor."
+      ],
+      "acceptance": "One tiny synthetic two-job run shows real start/end overlap and safe resume/STOP. Failed time remains in accounting. No claim of 100 concurrent tasks from queue size.",
+      "resource": "CPU-light orchestration",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E04.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E05",
+      "title": "Prepare an optional Einstein Slurm execution profile",
+      "lane": "HPC",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "optional",
+      "dependencies": [
+        "E01",
+        "E03"
+      ],
+      "inputs": "Existing user-authenticated Einstein connection; actual PhaseDx remote directory/environment if any",
+      "outputs": "profiles/einstein.example.json; slurm/external_inference.sbatch; remote resume/runbook",
+      "steps": [
+        "Read the existing connection and project job records first; discover the actual PhaseDx remote checkout/storage/environment and job ownership instead of borrowing another project configuration.",
+        "Prepare a parameterized bounded Slurm script, one-thread numerical libraries and stage/checkpoint commands with input hashes and exit propagation.",
+        "Record current partition/GRES options, requested GPU/memory/time and total project budget as explicit user-approved values before any submission.",
+        "Do not compute on the login node or submit while only preparing this task. If the shared master is absent, record that the local execution route remains available."
+      ],
+      "acceptance": "Script passes shell syntax checks and documents the exact project-specific values still required. No invented GPU allocation, remote path or scheduler job.",
+      "resource": "read-only SSH / no submission",
+      "gate": "",
+      "optional": true,
+      "evidence": [],
+      "card": "tasks/E05.md",
+      "priority": "conditional"
+    },
+    {
+      "id": "E06",
+      "title": "Repair the three remaining acquisition edge cases once",
+      "lane": "acquisition",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "ready",
+      "dependencies": [],
+      "inputs": "B30 acquire30.py; BATCH30_CODEX_CLOSURE_REVIEW.md; fake-response fixture patterns",
+      "outputs": "Separate scratch repair: work/execution/repairs/acquire30_fixed.py; three focused regression outputs. E07 merges into the E01 imported module after both finish.",
+      "steps": [
+        "Refresh free space and project storage immediately after a blocking read and before writing; account for bytes already received even when the write pauses.",
+        "Reserve and account for the one-byte overrun probe, or omit it when the remaining cumulative allowance cannot cover it.",
+        "Recognize a complete .part before making another HTTP range request; verify the expected content and atomically promote it, otherwise retain/quarantine the mismatch.",
+        "Use fake paths/responses only. Preserve the first failure. Do not repeat all previous acquisition tests or contact the real endpoint for a refusal test."
+      ],
+      "acceptance": "The three identified failure paths pass focused tests: changing space during read, exact transfer-budget boundary, and full-sized partial resume. No changes to actual Research files.",
+      "resource": "CPU-light synthetic",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E06.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E07",
+      "title": "Prepare the executable image-only acquisition operation",
+      "lane": "acquisition",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E01",
+        "E02",
+        "E06"
+      ],
+      "inputs": "B30 operation/source list; verified torrent identity; private cumulative usage evidence",
+      "outputs": "configs/external/cq500_images.operation.json; dry-run report and baseline evidence",
+      "steps": [
+        "Bind exactly 491 image ZIP entries totaling 28,660,207,451 bytes to the saved release list; exclude reads.csv and prediction_probabilities.csv.",
+        "Use the known direct HTTPS webseed composition, explicit destination/project root, current deadline/STOP path, content digests, retry policy and resumable byte ledger.",
+        "Retain the approved 400 GB project storage and 200 GB cumulative-download allowance. Establish prior consumption from trustworthy records; absence of a ledger is not zero.",
+        "Present one concrete operation with total transfer, extraction headroom estimate, baseline source and remaining scope decision. Do not request storage selection again or invent a new EULA."
+      ],
+      "acceptance": "Dry-run is read-only, contains no expired cycle paths and names exactly the remaining authorization/baseline inputs. Source manifest disagreement fails before network or destination creation.",
+      "resource": "CPU-light / metadata",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E07.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E08",
+      "title": "Acquire the CQ500 image archives",
+      "lane": "acquisition",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E04",
+        "E07",
+        "H02"
+      ],
+      "inputs": "Approved image-only operation and valid baseline; source images D15",
+      "outputs": "Private archive store; per-file transfer/content receipts; complete source roster with failures",
+      "steps": [
+        "Execute the approved direct HTTPS operation with bounded transfers and measured disk/network pressure; do not use a peer-upload client.",
+        "Resume only matching partials; validate content and response ranges, not merely Content-Length or multipart ETag.",
+        "Keep failures in the 491-candidate roster; do not silently replace cases or fetch outcomes/source predictions.",
+        "Report actual transferred bytes including failed/retried bytes and retained extraction headroom."
+      ],
+      "acceptance": "Every source entry is verified complete or explicitly failed/paused. No uncounted retry traffic, excluded CSVs or silent cohort shrinkage.",
+      "resource": "network / approximately 28.66 GB compressed",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E08.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E09",
+      "title": "Extract verified images without changing the source population",
+      "lane": "acquisition",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E08"
+      ],
+      "inputs": "Verified archive identities; source roster; extraction module",
+      "outputs": "Private DICOM tree; archive-to-member ledger; extracted/unreadable status per source case",
+      "steps": [
+        "Bind resume state to archive digest and member identity, and validate completed members before reuse.",
+        "Reject traversal, links and conflicting members; extract atomically into source-specific directories.",
+        "Reserve measured extraction space at the project root. Preserve corrupt archives and failures without modifying the source list.",
+        "Never mix members from a replaced archive with an earlier done-list."
+      ],
+      "acceptance": "All 491 source entries remain accounted for; safe pause/resume has no mixed-source output; extracted size and failures are measured.",
+      "resource": "disk I/O / capacity measured after acquisition",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E09.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E10",
+      "title": "Build the full DICOM roster and geometry inventory",
+      "lane": "cohort",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E01",
+        "E09"
+      ],
+      "inputs": "Source roster; extracted DICOMs; B28 manifest builder",
+      "outputs": "Private candidates/instances/series tables, collision table and manifest identity",
+      "steps": [
+        "Create candidates from the source roster before parsing; attach parse failures and missing files to those candidates.",
+        "Retain StudyUID/SeriesUID ambiguities and duplicate objects until their bytes and metadata are compared; never discard a conflicting object by filename alone.",
+        "Compute outcome-blind orientation/physical-order/gap/coverage and codec support fields, with exact input-member identity.",
+        "Keep clinical eligibility, technical failure and development-support flags as separate fields."
+      ],
+      "acceptance": "The denominator does not depend on successful parsing; unresolved source-to-study mapping is visible; input identity is tied to actual members.",
+      "resource": "parallel header parsing / one source stream if drive contention",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E10.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E11",
+      "title": "Assemble a blinded clinical series-selection packet",
+      "lane": "cohort",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E10"
+      ],
+      "inputs": "DICOM series inventory; fixed external protocol; public source methods",
+      "outputs": "Private series_selection.csv awaiting review; public schema; ambiguous-series evidence packet",
+      "steps": [
+        "Collect source-authenticated evidence for noncontrast axial soft-kernel brain coverage. Record vendor mappings and missing metadata explicitly.",
+        "Prepare a review view containing permitted selection evidence but no hemorrhage labels, predictions or performance numbers.",
+        "Auto-populate only cases resolved by authenticated rules; send ambiguous cases to the named human decision H03 through the user, not an unsolicited message.",
+        "Keep every source case and reasons for unknown/eligible/ineligible status."
+      ],
+      "acceptance": "Reviewer inputs are outcome-blind and auditable; missing contrast tags never automatically mean noncontrast.",
+      "resource": "header parsing / document preparation",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E11.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E12",
+      "title": "Apply the fixed clinical series selector",
+      "lane": "cohort",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E01",
+        "E11",
+        "H03"
+      ],
+      "inputs": "Reviewed compatibility table; B28 selection28.py; protocol contract",
+      "outputs": "Private selected_series.csv and excluded/unknown reason table",
+      "steps": [
+        "Select only among clinically qualifying series.",
+        "Apply largest superior-inferior coverage, then gap closest to 5 mm, then lexical SeriesUID; do not optimize the tie-break using outcomes.",
+        "Retain unknown eligibility separately and bind reviewer/source evidence into the manifest.",
+        "Make one synthetic tie/unknown-status check if porting changed the selector; do not repeat accepted clinical computations."
+      ],
+      "acceptance": "Each eligible source exam has exactly the protocol-defined selection or a named technical failure; unresolved compatibility cannot silently enter inference.",
+      "resource": "CPU-light",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E12.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E13",
+      "title": "Authenticate the external reference and source-key schema",
+      "lane": "reference",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "ready",
+      "dependencies": [],
+      "inputs": "CQ500 primary methods/release metadata; B28 reference contract; permitted header-only metadata",
+      "outputs": "reference_schema.json; source-key specification; evidence locators for reader fields",
+      "steps": [
+        "Identify the exact three reader columns for any-ICH, chronic inclusion, source-case key and permissible missing values.",
+        "Use published schemas or a bounded header-only retrieval if already permitted; do not open individual outcome values during image/protocol preparation.",
+        "Separate paper-level reference description from proof of released column names and local source-key linkage.",
+        "Reject duplicate/extra reader fields and ambiguous key transformations rather than guessing a majority rule."
+      ],
+      "acceptance": "A schema with exact source locators is ready for H04. If unavailable, the missing field/source is named; other lanes continue.",
+      "resource": "primary text / metadata",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E13.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E14",
+      "title": "Ingest the authorized reader reference after prediction freeze",
+      "lane": "reference",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E13",
+        "E22",
+        "E23",
+        "E25",
+        "H04"
+      ],
+      "inputs": "Authorized reads.csv; locked schema; frozen primary predictions; source roster",
+      "outputs": "Private reference table and join/majority/missingness receipts",
+      "steps": [
+        "Acquire/read only the approved reader-reference payload, never prediction_probabilities.csv.",
+        "Map to the complete source roster using the authenticated key; detect duplicates, extra keys and absent references.",
+        "Apply any-ICH majority including chronic: two agreeing valid reads suffice; otherwise missing/indeterminate.",
+        "Keep labels sealed from preprocessing/selection changes and retain every unmatched row in an exception table."
+      ],
+      "acceptance": "Reference joins are unique and all exclusions explicit. Reference availability cannot alter already frozen predictions or primary selection.",
+      "resource": "CPU-light / small authorized reference file",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E14.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E15",
+      "title": "Bind person/examination grouping using legitimate source evidence",
+      "lane": "reference",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E02",
+        "E13"
+      ],
+      "inputs": "CQ500 published repeat-scan description and legitimate released map if present; source manifest",
+      "outputs": "Private grouping map or explicit no-map evidence; grouping decision record",
+      "steps": [
+        "Search only authorized release metadata for person-to-exam correspondence; never infer real identities or join unrelated personal datasets.",
+        "Validate conflicting person-map duplicates and source keys before binding a map.",
+        "If no supported map exists, prepare the already adjudicated examination-cluster fallback with unknown repeat-dependence limitation for H05.",
+        "Do not hold image/geometry predictions waiting for a grouping map when they do not depend on it."
+      ],
+      "acceptance": "Grouping is either source-supported and content-bound or explicitly examination-level; no fake patient independence.",
+      "resource": "metadata",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E15.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E16",
+      "title": "Bind the frozen CT model, comparator and executed preprocessing identities",
+      "lane": "model",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E02"
+      ],
+      "inputs": "Original CT seeds42/123 checkpoint records; reconstructed frozen G2; B26\u201328 source locks",
+      "outputs": "Private model_registry.json; public registry schema and exact algorithm descriptions",
+      "steps": [
+        "Resolve bytes of both image checkpoints and the frozen reconstructed G2; preserve original training/selection records and labels-seen chronology.",
+        "Bind architecture, maximum-logit aggregation, canonical float16 input path, image preprocessing source and comparator feature order.",
+        "Do not substitute a retrained/current checkpoint or original counter feature for transported physical rank.",
+        "Distinguish located code from proven executed historical code. Missing provenance is reported without fabricating a reconstruction history."
+      ],
+      "acceptance": "Execution compares actual model/source bytes against the intended registry, not a caller-supplied digest alone.",
+      "resource": "metadata / checkpoint hashing once",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E16.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E17",
+      "title": "Finish the portable frozen image inference CLI",
+      "lane": "model",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E01",
+        "E03",
+        "E16"
+      ],
+      "inputs": "B26 image_adapter26.py and B28 image_adapter27.py/predict_image28.py plus canonical recipe",
+      "outputs": "src/phasedx_external/image.py; image predict CLI with explicit manifest/model/output arguments",
+      "steps": [
+        "Port actual model loading and canonical input transformation; preserve precision, rescale/window/order/resize rules supported by source evidence.",
+        "Consume the selected-series manifest and bind source members and checkpoint bytes into prediction receipts.",
+        "Preserve per-exam/per-slice failures and expose a resumable shard interface; outputs contain logits and identity, not labels.",
+        "Reuse the existing 16-pair fidelity evidence; run only a tiny fixed fixture for changed code paths. No new training or full fidelity-suite replay."
+      ],
+      "acceptance": "CLI is runnable, respects wrong-checkpoint rejection and produces source-bound synthetic/development-fixture outputs. Producer historical fidelity remains labeled as such.",
+      "resource": "bounded development fixture; clinical inference only E23/E24",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E17.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E18",
+      "title": "Finish the transported frozen geometry inference CLI",
+      "lane": "model",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E01",
+        "E16"
+      ],
+      "inputs": "B28 geometry_adapter27.py/predict_geometry28.py, bgeom.py/bstats.py and G2 parameters",
+      "outputs": "src/phasedx_external/geometry.py; geometry predict CLI and feature schema",
+      "steps": [
+        "Implement the adjudicated physical-rank representation from selected series with exact units/order/missingness behavior.",
+        "Use frozen reconstructed G2 parameters without refitting or calibration; name the output G2_tree_transported_rank_reconstructed_frozen.",
+        "Keep development range flags as support diagnostics, not exclusion filters.",
+        "Preserve original-counter incompatibility evidence; use targeted synthetic gap/order/missing-geometry checks only if code changes."
+      ],
+      "acceptance": "No output claims original-G-star equivalence; prediction identity binds frozen model and actual feature/input bytes.",
+      "resource": "CPU-light",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E18.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E19",
+      "title": "Make the paired scorer enforce the fixed study contract",
+      "lane": "statistics execution",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E01"
+      ],
+      "inputs": "B29 scorer29.py; B28 scorer28.py/scorer26.py/protocol28.py/reference28.py; protocol amendment",
+      "outputs": "src/phasedx_external/score.py; point/interval commands with immutable protocol input",
+      "steps": [
+        "Bind actual cohort, model, reference, grouping and execution-lock identities before calculating results.",
+        "Preserve seed42 primary and seed123 descriptive roles and their own paired subsets; report absolute AUROCs, signed differences and class counts.",
+        "For the future clinical run enforce exactly 2000 paired cluster draws, seed2026101327, linear percentiles; retain undefined draws, never replace them.",
+        "No runtime override may silently change bootstrap count, seed, grouping, endpoint or aggregation. Use tiny fabricated point fields for port checks; no clinical draws in this implementation task."
+      ],
+      "acceptance": "Changed cohort with a fresh receipt but old predictions is rejected; secondary outputs remain present; numerical execution and scientific interpretation are separated.",
+      "resource": "CPU-light synthetic",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E19.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E20",
+      "title": "Port deterministic missing-prediction completion bounds",
+      "lane": "statistics execution",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E01"
+      ],
+      "inputs": "B26 scorer26.py and missing-prediction design; fixed eight synthetic cases",
+      "outputs": "Completion-bound function and denominator outputs",
+      "steps": [
+        "Preserve the full intended eligible labeled denominator and the actually paired subset separately.",
+        "Apply conservative AUROC completion bounds for missing predictions; show assumptions and positive/negative counts.",
+        "Do not extend these bounds to unknown labels or unknown eligibility and do not call them confidence intervals.",
+        "Reuse the fixed eight tiny cases; add a targeted check only for an implementation change. No bootstrap or clinical recomputation here."
+      ],
+      "acceptance": "Complete support reduces to the observed AUROC; missing-score cases bound completion without silently changing denominators.",
+      "resource": "CPU-light synthetic",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E20.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E21",
+      "title": "Complete one end-to-end synthetic execution rehearsal",
+      "lane": "integration",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E01",
+        "E04",
+        "E17",
+        "E18",
+        "E19",
+        "E20"
+      ],
+      "inputs": "Portable modules; fake images/headers/labels/maps; selected-source and run contracts",
+      "outputs": "One tiny integration receipt with commands and expected synthetic outputs",
+      "steps": [
+        "Exercise roster\u2192selection\u2192inputs\u2192both prediction interfaces\u2192frozen receipts\u2192reference join\u2192point scorer using fake inputs and stubbed model responses.",
+        "Check one wrong model, one changed cohort and one unresolved eligibility refusal at their real entry points.",
+        "Preserve CLI errors and verify resumable per-task output paths are distinct.",
+        "Do not run a neural model, real transfer, bootstrap draws or another broad regression campaign for this rehearsal."
+      ],
+      "acceptance": "All real entry points connect; known identity/denominator failures are rejected before labels or scores are consumed.",
+      "resource": "CPU-light",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E21.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E22",
+      "title": "Freeze the clinical execution package before outcomes",
+      "lane": "integration",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E12",
+        "E16",
+        "E17",
+        "E18",
+        "H01"
+      ],
+      "inputs": "Current selected manifest, model identities, protocol, source/acquisition evidence",
+      "outputs": "Private execution_lock.json; public redacted lock summary",
+      "steps": [
+        "Lock exact candidate/selected input identities, primary/secondary model roles, transported features, precision and aggregation.",
+        "Attach current authorized execution environment and resource profile. Record which source/outcome material has already been exposed.",
+        "Version any necessary amendment before outcomes; never rewrite historical timestamps or call the whole project prospectively registered.",
+        "Predictions must carry this actual lock, not just a mutable path."
+      ],
+      "acceptance": "Frozen input/model/protocol package is immutable and mechanically bound; no unseen-outcome-dependent design choices remain for execution.",
+      "resource": "metadata",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E22.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E23",
+      "title": "Run frozen seed42 external image predictions",
+      "lane": "clinical inference",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E04",
+        "E08",
+        "E09",
+        "E12",
+        "E17",
+        "E21",
+        "E22",
+        "H02"
+      ],
+      "inputs": "CQ500 selected images; frozen seed42 image model; execution lock",
+      "outputs": "Private image_seed42 predictions and complete failure ledger",
+      "steps": [
+        "Run inference by checkpointable source-exam shards using authorized local device or approved E05 profile.",
+        "Use no clinical labels in inference. Record per-slice logit and prespecified maximum per examination with all input/model identities.",
+        "Resume only matching shards and preserve failed examinations instead of changing eligibility.",
+        "Measure real throughput, memory and device time; backfill independent CPU lanes without competing for the same GPU."
+      ],
+      "acceptance": "Each eligible selected examination has frozen predictions or a specific failure; no tuning, refitting, hidden replacement or outcome exposure.",
+      "resource": "GPU/MPS/CPU inference; benchmark actual throughput first",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E23.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E24",
+      "title": "Run frozen seed123 descriptive external predictions",
+      "lane": "clinical inference",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E04",
+        "E12",
+        "E17",
+        "E21",
+        "E22",
+        "H02"
+      ],
+      "inputs": "Same frozen study inputs; original seed123 checkpoint",
+      "outputs": "Private image_seed123 predictions with own availability ledger",
+      "steps": [
+        "Run the same frozen preprocessing and aggregation under seed123 model identity.",
+        "Run alongside seed42 only if resources support it; otherwise queue GPU work while other CPU tasks proceed.",
+        "Retain its own score-availability set and do not replace primary failures or promote seed123 if it performs better."
+      ],
+      "acceptance": "All outputs are explicitly descriptive and tied to the seed123 model; paired-set overlap can be calculated later.",
+      "resource": "inference; shared GPU contention-aware",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E24.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E25",
+      "title": "Run the frozen transported geometry comparator",
+      "lane": "clinical inference",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E04",
+        "E12",
+        "E18",
+        "E21",
+        "E22",
+        "H02"
+      ],
+      "inputs": "Same selected cohort and geometry metadata; frozen G2 parameters",
+      "outputs": "Private geometry predictions/features/support flags and failure ledger",
+      "steps": [
+        "Execute independently of image inference where metadata are ready.",
+        "Retain exact physical features and named reasons for unsupported/missing geometry.",
+        "Do not train, recalibrate or drop out-of-development-range examples merely to improve support.",
+        "Bind predictions to selected inputs and the adapted comparator name."
+      ],
+      "acceptance": "Each selected exam remains represented, with a score or reason; no clinical labels read.",
+      "resource": "CPU-light parallel to image inference",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E25.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E26",
+      "title": "Execute the prespecified external primary comparison",
+      "lane": "statistics execution",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E14",
+        "E15",
+        "E19",
+        "E23",
+        "E25",
+        "H05"
+      ],
+      "inputs": "Frozen primary image/geometry predictions; reference/grouping; protocol lock",
+      "outputs": "Private primary result/paired arrays/original multiplicities; public aggregate candidate table",
+      "steps": [
+        "Join on exact eligible exam identities; report intended, eligible labeled and paired counts, class counts and all missingness reasons.",
+        "Calculate both absolute AUROCs and image-minus-transported-geometry difference on the same paired set.",
+        "Execute the fixed 2000 paired resamples once with person clustering if authenticated or the documented examination fallback.",
+        "Retain the original draws, undefined count, percentile method and source identities for H07; do not interpret significance or extend runs."
+      ],
+      "acceptance": "One complete result artifact supports independent scientific verification. Null, negative and undefined results are all retained.",
+      "resource": "bounded CPU; no refit",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E26.md",
+      "priority": "critical"
+    },
+    {
+      "id": "E27",
+      "title": "Produce the prespecified descriptive secondary result",
+      "lane": "statistics execution",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E14",
+        "E19",
+        "E24",
+        "E25"
+      ],
+      "inputs": "Frozen seed123 and geometry predictions; same reference and contract",
+      "outputs": "Descriptive seed123 aggregate table and primary/secondary overlap counts",
+      "steps": [
+        "Calculate the declared descriptive point endpoints on seed123\u2019s own paired subset.",
+        "Report set overlap and denominators relative to seed42; do not borrow the primary CI.",
+        "Do not add bootstrap intervals, new subgroups or outcome-selected endpoints."
+      ],
+      "acceptance": "Secondary remains descriptive regardless of outcome and all support differences are explicit.",
+      "resource": "CPU-light",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E27.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E28",
+      "title": "Produce full-cohort flow, support and missing-score results",
+      "lane": "cohort results",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E10",
+        "E12",
+        "E14",
+        "E20",
+        "E23",
+        "E25"
+      ],
+      "inputs": "Complete roster; eligibility/reference/prediction states; geometry support flags",
+      "outputs": "Flow table; support/missingness table; deterministic completion bounds",
+      "steps": [
+        "Reconcile all source candidates through acquisition, parsing, clinical qualification, labeling and score availability.",
+        "Report source B1/B2 membership counts only if authenticated; do not add new stratum-performance endpoints.",
+        "Compute the locked completion bounds only over the intended eligible labeled denominator.",
+        "Keep clinical exclusion, unknown eligibility, missing reference and scoring failure separate in results."
+      ],
+      "acceptance": "Counts reconcile without deleting unknowns; bounds and bootstrap intervals are distinctly named.",
+      "resource": "CPU-light",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E28.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E29",
+      "title": "Generate external-study tables and figure data mechanically",
+      "lane": "presentation execution",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E26",
+        "E27",
+        "E28"
+      ],
+      "inputs": "Frozen result artifacts and Codex-approved figure specifications",
+      "outputs": "CSV aggregate tables; plotting inputs/scripts; draft vector figures",
+      "steps": [
+        "Generate source-keyed absolute/difference/uncertainty tables and a complete flow diagram.",
+        "Plot primary interval and descriptive secondary points with correct populations and comparator names; do not invent a secondary CI.",
+        "Bind each displayed field to an artifact key, signed value, unit and denominator.",
+        "Return plots and captions-as-specifications for H09/H10; do not write scientific conclusions."
+      ],
+      "acceptance": "No manually invented numbers; manuscript-ready machine outputs retain explicit source mapping and limitations.",
+      "resource": "CPU-light plotting",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E29.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E30",
+      "title": "Recover source-bound MRI training and preprocessing Methods",
+      "lane": "historical Methods",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "ready",
+      "dependencies": [],
+      "inputs": "C2 twenty-run registry; B21/B22 source/config records; original pipeline and raw-to-cache candidate sources",
+      "outputs": "MRI_METHODS_EVIDENCE.csv and exact source excerpts; unresolved executed-code list",
+      "steps": [
+        "Map architecture, initialization, optimizer, schedule, sampler, validation/early stop, fold membership and preprocessing to the twenty actual C2 runs.",
+        "Reconcile the previously stale 19/20 count without re-executing training. Distinguish row-level evidence from older summaries.",
+        "Identify the source identity for raw-to-cache transformation or state it was not retained; candidate code cannot prove executed history.",
+        "Separate historical MRI families from C2 and preserve the shared-subject modality relationship."
+      ],
+      "acceptance": "Every Methods field has an executed-source/config locator or an explicit unknown. No blanket retraining or accepted-score replay.",
+      "resource": "text/config extraction",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E30.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E31",
+      "title": "Recover breast target, case mapping and executed Methods",
+      "lane": "historical Methods",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "ready",
+      "dependencies": [],
+      "inputs": "Authorized breast workbook/source evidence; retained70-case mapping; historical train/preprocess configs; D03",
+      "outputs": "Private case/source mapping; aggregate reference/methods evidence and missing-field list",
+      "steps": [
+        "Trace the existing binary target to the actual workbook columns and retained cache records without public row-level export.",
+        "Check legitimate repeated-exam identifiers within the source release; do not infer outside identities. Cases are not automatically unique persons.",
+        "Extract architecture, training, split and preprocessing from executed records; flag candidate-only provenance.",
+        "Preserve 54 positive/16 negative case target and broadcast-to-slice interpretation unless a source-backed correction is adjudicated by H06."
+      ],
+      "acceptance": "No claim of universal pathology confirmation or slice-localization truth from the case labels. Mapping findings go to H06 before any reanalysis.",
+      "resource": "private metadata / text",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E31.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E32",
+      "title": "Recover internal CT model, selection and preprocessing Methods",
+      "lane": "historical Methods",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "ready",
+      "dependencies": [],
+      "inputs": "Original CT job/config/source records; original geometry selection; later sensitivity records; D08/D09",
+      "outputs": "CT_METHODS_EVIDENCE.csv; original-versus-sensitivity lineage; input-selection chronology",
+      "steps": [
+        "Bind original image checkpoints and preprocessing to the original 283-study/250-recorded-patient comparison.",
+        "Trace original geometry selection and the 1500-versus1498 orientation rule; identify the already executed sensitivity separately.",
+        "Recover exact label/source mirror reconciliation and patient-study mapping evidence; preserve unknown clinical ascertainment.",
+        "Do not refit geometry or replace the original result with a later preferred arm."
+      ],
+      "acceptance": "Original and sensitivity methods are disjoint, source-bound and usable by Codex for accurate writing; unresolved facts are named.",
+      "resource": "text/config extraction",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E32.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E33",
+      "title": "Complete retained-cohort selection and exposure chronology",
+      "lane": "historical Methods",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E02"
+      ],
+      "inputs": "Existing download/cache/split manifests and recorded timestamps for MRI/breast/CT",
+      "outputs": "Cohort flow/source-selection chronology and exposure table, aggregate only in Git",
+      "steps": [
+        "Reconcile source release, acquired subset, readable files, retained labels, split units and evaluated population.",
+        "Record whether decisions occurred before or after outcomes were seen using the strength of actual evidence, not timestamps alone.",
+        "Reuse already verified duplicate/overlap findings; inspect new evidence only for unresolved inclusion questions.",
+        "Keep DWI/T2 overlap and breast repeat uncertainty visible; do not equate different subset sizes with independent datasets."
+      ],
+      "acceptance": "A source-to-analysis flow exists for each retained family; missing contemporaneous reasons remain unknown rather than retroactively invented.",
+      "resource": "metadata",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E33.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E34",
+      "title": "Assemble the accepted aggregate result inputs for the revised paper",
+      "lane": "paper inputs",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E02"
+      ],
+      "inputs": "Reviewed MRI90-row, breast38-row, original CT tables and B25 simulation summaries; v14 source locators",
+      "outputs": "Private result registry; sanitized aggregate table exports with family/seed/endpoint keys",
+      "steps": [
+        "Select only reviewed families used in the revised paper; separate pooled and within-fold endpoints.",
+        "Copy by exact keys including signed contrast direction, unit and evaluated population.",
+        "Preserve the evidence level for each result: producer output, selected independent check, or missing provenance.",
+        "Do not regenerate bootstrap draws, old figures\u2019 underlying experiments or alter values to agree with obsolete GitHub text."
+      ],
+      "acceptance": "Each manuscript input resolves to a specific source field; old public paper and October revision are not merged by number matching.",
+      "resource": "CPU-light table assembly",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E34.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E35",
+      "title": "Package the completed synthetic studies for reproducible use",
+      "lane": "paper inputs",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E02"
+      ],
+      "inputs": "B25 sim25/transport25/precision25 sources, fixed configs and existing result arrays; B25 selected review",
+      "outputs": "Portable synthetic source/configs; existing summary/figure inputs; concise reproduction commands",
+      "steps": [
+        "Preserve the fixed 12\u00d7200 transport design and 108\u00d7500 precision design, seed streams, arm definitions and output schema.",
+        "Copy existing aggregate summaries rather than rerunning the matrix. Explain how a future reader could reproduce it.",
+        "Document the 265 selected checks and their scope without claiming a full independent rerun.",
+        "Retain synthetic-counterexample and hypothetical-precision labels; no extra cells or replicates based on results."
+      ],
+      "acceptance": "The two finished experiments are accessible as completed evidence and not placed back in the execution queue.",
+      "resource": "source/aggregate packaging",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E35.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E36",
+      "title": "Reconcile the older public study with the current submission scope",
+      "lane": "historical inventory",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "ready",
+      "dependencies": [],
+      "inputs": "paper/FINDINGS.md; paper/tex/rsna; old screening/baseline outputs; current audit and H01 scope",
+      "outputs": "HISTORICAL_DISPOSITION.csv keyed by dataset/claim/script and current-paper role",
+      "steps": [
+        "List older six-dataset audit, screening/prevalence, phase/acquisition controls, architecture sweep and rank-inversion artifacts.",
+        "Mark each as retained supporting evidence, historical not included, or optional pending a scientific decision; do not rerun it simply because it exists.",
+        "Flag stale public README claims and prior manuscript scope instead of overwriting historical results.",
+        "Assign only genuinely missing retained evidence to E46/E47; screen extensions stay optional E48/E49."
+      ],
+      "acceptance": "No legacy workflow is silently mistaken for the current primary study or made a mandatory new experiment.",
+      "resource": "text/artifact inventory",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E36.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E37",
+      "title": "Provide a clean-checkout reproducibility smoke path",
+      "lane": "release",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E01",
+        "E03",
+        "E17",
+        "E18",
+        "E19",
+        "E20",
+        "E35"
+      ],
+      "inputs": "Portable source and synthetic inputs; private-input configuration schema",
+      "outputs": "One documented clean-checkout smoke command and retained output",
+      "steps": [
+        "Install into a fresh isolated environment and run the tiny synthetic contract path, not the full imaging study.",
+        "Show how authorized users supply private source/checkpoint locations and reproduce named results.",
+        "Fail clearly on absent private inputs; do not fetch restricted data automatically.",
+        "Record actual environment and exit status."
+      ],
+      "acceptance": "A fresh clone can exercise public code without private images and can identify every extra input required for clinical reproduction.",
+      "resource": "CPU-light / environment setup",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E37.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E38",
+      "title": "Render approved figures and tables at submission quality",
+      "lane": "presentation execution",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E29",
+        "E34",
+        "E35",
+        "H10"
+      ],
+      "inputs": "Codex-approved table/figure specifications and reviewed aggregates",
+      "outputs": "Vector figures, high-resolution exports, source scripts and table files",
+      "steps": [
+        "Apply approved scales, units, uncertainty labels, color/accessibility choices and panel ordering.",
+        "Keep simulation empirical ranges separate from clinical CIs and deterministic completion bounds.",
+        "Check visual clipping/legibility and exact counts/labels on rendered files.",
+        "Do not select only favorable panels or rewrite the scientific message."
+      ],
+      "acceptance": "All figure/table files reproduce from approved inputs and meet the selected journal export specification.",
+      "resource": "CPU-light rendering",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E38.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E39",
+      "title": "Collect verifiable reference metadata and Methods source excerpts",
+      "lane": "paper inputs",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "ready",
+      "dependencies": [],
+      "inputs": "Current source list; primary dataset papers; nearest methodological sources; existing bib files",
+      "outputs": "Bibliographic metadata, exact proposition/source locators and unavailable-source list",
+      "steps": [
+        "Resolve DOI/title/year/version and authoritative URLs for retained citations.",
+        "Retrieve permitted primary text and extract the exact Methods propositions needed for target, grouping, comparator and access descriptions.",
+        "Distinguish abstract-only from full-text evidence and source-release facts from local subset facts.",
+        "Provide evidence to H11; do not decide novelty, fabricate inaccessible text or write a literature conclusion."
+      ],
+      "acceptance": "Every retained citation has a checkable identity and evidence boundary; no paywall bypass, unauthorized contact or long copyrighted source redistribution.",
+      "resource": "primary text retrieval / parse",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E39.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E40",
+      "title": "Assemble the reporting and disclosure evidence matrix",
+      "lane": "paper inputs",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E30",
+        "E31",
+        "E32",
+        "E33"
+      ],
+      "inputs": "Current methods evidence; CLAIM2024; official journal instructions; AI activity records",
+      "outputs": "Item-to-evidence matrix and missing-fields list for H10/H12/H13",
+      "steps": [
+        "Map applicable reporting items to current evidence locators, not to obsolete paper page numbers.",
+        "Separate not-applicable, not-reported and unresolved source evidence.",
+        "Collect actual AI tool/version/activity dates and contributions from records without guessing that all work used one model.",
+        "Prepare data/code availability and ethics inputs for human decisions; do not assert approval or final compliance."
+      ],
+      "acceptance": "The matrix identifies what a human must resolve and what is mechanically documented; no scientific signoff is assigned to Claude.",
+      "resource": "document extraction",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E40.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E41",
+      "title": "Populate the approved author and disclosure metadata mechanically",
+      "lane": "submission assembly",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "H12",
+        "H13"
+      ],
+      "inputs": "Final roster supplied by user; approved affiliations/CRediT/funding/conflicts/ethics text",
+      "outputs": "Title page and submission metadata draft",
+      "steps": [
+        "Replace the older roster only with the user\u2019s final roster; authorship does not allocate compute work.",
+        "Populate one corresponding-author record and exact approved contributor/disclosure fields.",
+        "Flag inconsistent names/affiliations or missing statements for the user; do not invent agreement or consent.",
+        "Keep personal contact details out of public Git unless the user approves that publication."
+      ],
+      "acceptance": "Title-page metadata match human-approved records; no author is added based on historical outreach.",
+      "resource": "document assembly",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E41.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E42",
+      "title": "Build the final journal files from scientifically approved text",
+      "lane": "submission assembly",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E38",
+        "E40",
+        "E41",
+        "H10",
+        "H11"
+      ],
+      "inputs": "Approved manuscript/supplement/cover text; official current author requirements",
+      "outputs": "Reading PDF, submission DOCX or accepted format, separate figures/title page/checklist",
+      "steps": [
+        "Typeset approved prose and source-keyed tables without rewriting scientific interpretation.",
+        "Run word/reference/figure/table counts and cross-reference checks against the selected article type.",
+        "Render every page for clipping, symbols and table continuity; preserve an editable source.",
+        "Separate anonymized review files from identified title-page material and record any journal-rule ambiguities."
+      ],
+      "acceptance": "Files build cleanly, carry no unresolved placeholder presented as fact, and are ready for H14 human final review; not automatically submitted.",
+      "resource": "document build/render",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E42.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E43",
+      "title": "Prepare the reproducible public code and aggregate release",
+      "lane": "release",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E34",
+        "E35",
+        "E37",
+        "H12"
+      ],
+      "inputs": "Approved code/aggregate outputs; dataset permissions; license and existing citation metadata",
+      "outputs": "Release-candidate directory, README, environment lock, citation metadata, private-data exclusion report",
+      "steps": [
+        "Stage only source, schemas, permitted aggregate results and genuinely synthetic examples.",
+        "Keep raw/derived restricted data, case tables, subject keys, credentials, private URLs and unapproved weights out.",
+        "Check that reproduction instructions resolve correct cohort/arm versions and preserve known deviations.",
+        "Prepare an immutable tag/archive candidate; actual publication/deposit is E50 after explicit approval."
+      ],
+      "acceptance": "Public contents are reviewed by allowlist, not just file extension, and are sufficient to reproduce public synthetic checks.",
+      "resource": "filesystem / documentation",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E43.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E44",
+      "title": "Prepare a checkpoint availability package if redistribution is permitted",
+      "lane": "release",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E16",
+        "H12"
+      ],
+      "inputs": "Frozen image/G2 checkpoints; ownership and dataset/model license terms",
+      "outputs": "Permitted weight release candidate OR documented authorized-access route",
+      "steps": [
+        "Determine whether checkpoint redistribution is allowed, including dependencies and source data restrictions.",
+        "If allowed, bind each file to architecture, input precision, training record and checksum; otherwise provide an access/reproduction description.",
+        "Do not upload weights merely because the repository license is MIT.",
+        "Keep the scientific record honest if full raw-image training reproduction is not possible."
+      ],
+      "acceptance": "A truthful model-availability statement and concrete access/reproduction path exist without unsupported permissions.",
+      "resource": "metadata / optional large artifact",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E44.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E45",
+      "title": "Return a compact evidence bundle for independent scientific review",
+      "lane": "review handoff",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E26",
+        "E27",
+        "E28",
+        "E30",
+        "E31",
+        "E32",
+        "E33",
+        "E34",
+        "E35"
+      ],
+      "inputs": "New external outputs, historical Methods evidence and existing accepted result registry",
+      "outputs": "Review index with commands/inputs/failures/aggregate tables and private artifact references",
+      "steps": [
+        "Organize by scientific question and endpoint, not batch count or hundreds of generated files.",
+        "Include source/config/actual execution identities, original resamples, exclusions and all failed/undefined results.",
+        "Label producer checks versus independently reviewed results and leave interpretations to H07\u2013H10.",
+        "Do one integrity pass on the final handoff; do not rerun the study for archive packaging."
+      ],
+      "acceptance": "Codex can reproduce selected new results and assess limitations without guessing which output is authoritative.",
+      "resource": "metadata / aggregate packaging",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E45.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "E46",
+      "title": "Execute only a specifically adjudicated result-changing correction",
+      "lane": "conditional repair",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "optional",
+      "dependencies": [
+        "H07"
+      ],
+      "inputs": "A concrete scientific defect record, affected family/endpoint and approved correction specification",
+      "outputs": "Versioned corrected output and explicit old/new impact table",
+      "steps": [
+        "Run only affected computations from fixed inputs and preserve the original results.",
+        "Bind the correction to the defect and retain all attempts; do not add samples, seeds, hyperparameters or outcomes to chase significance.",
+        "Return correction evidence for a new scoped review; downstream tables update only after that review."
+      ],
+      "acceptance": "The identified defect is resolved and its exact numerical/scope impact is visible. This is dormant without a real defect.",
+      "resource": "depends on defect; must be specified",
+      "gate": "",
+      "optional": true,
+      "evidence": [],
+      "card": "tasks/E46.md",
+      "priority": "conditional"
+    },
+    {
+      "id": "E47",
+      "title": "Recover a retained historical benchmark artifact only if absent",
+      "lane": "conditional historical",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "optional",
+      "dependencies": [
+        "E36",
+        "H01"
+      ],
+      "inputs": "Selected retained legacy claim; source dataset table, original frozen split/config and missing artifact record",
+      "outputs": "Recovered artifact or explicitly scoped rerun with original identity",
+      "steps": [
+        "Prefer locating existing immutable results over recomputation.",
+        "If truly missing and scientifically retained, execute only the named original script/config for that benchmark; do not run pipeline/run_all.py --force.",
+        "Preserve task/metric distinctions: LUNA FROC versus AUROC, PI-CAI case versus lesion, Duke within-cancer localization, and metadata versus pixels.",
+        "No full architecture sweep, new training or retrospective registration is authorized by this task."
+      ],
+      "acceptance": "One specified retained evidence gap is closed, or irrecoverability is documented. Historical-only claims do not trigger execution.",
+      "resource": "dataset-specific; bounded before run",
+      "gate": "",
+      "optional": true,
+      "evidence": [],
+      "card": "tasks/E47.md",
+      "priority": "conditional"
+    },
+    {
+      "id": "E48",
+      "title": "Recover permissible full texts if the historical prevalence study is retained",
+      "lane": "optional screen",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "optional",
+      "dependencies": [
+        "E36",
+        "H01"
+      ],
+      "inputs": "Original frozen PMID frame and unresolved-access list; existing screening protocol",
+      "outputs": "Access-recovery log and permissible source locators",
+      "steps": [
+        "Work only on the existing unresolved list; do not enlarge/re-draw the sample.",
+        "Use lawful open repositories or user-provided institutional access; never bypass a paywall or contact authors without instruction.",
+        "Preserve unreachable records in the denominator and return retrieved text for human coding.",
+        "Do not restore this removed study to the main paper on Claude\u2019s initiative."
+      ],
+      "acceptance": "Recovery changes access status with evidence, not the scientific codes or claims.",
+      "resource": "public text retrieval",
+      "gate": "",
+      "optional": true,
+      "evidence": [],
+      "card": "tasks/E48.md",
+      "priority": "conditional"
+    },
+    {
+      "id": "E49",
+      "title": "Recompute the historical screen outputs after independent human coding",
+      "lane": "optional screen",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "optional",
+      "dependencies": [
+        "E48",
+        "H15"
+      ],
+      "inputs": "Approved human re-code/adjudication, original frame and stopping rule",
+      "outputs": "Versioned flow/bounds/agreement tables and exploratory-label record",
+      "steps": [
+        "Apply approved codes mechanically and preserve old values.",
+        "Keep access bounds primary when the frozen rule requires them; do not silently use complete cases.",
+        "Label post-hoc blocks and retrospective registration honestly; do not claim model agents are independent human screeners.",
+        "Generate figures from the corrected source table once."
+      ],
+      "acceptance": "Every denominator/recode is traceable and the historical study remains separate unless H01 includes it.",
+      "resource": "CPU-light",
+      "gate": "",
+      "optional": true,
+      "evidence": [],
+      "card": "tasks/E49.md",
+      "priority": "conditional"
+    },
+    {
+      "id": "E50",
+      "title": "Publish only the explicitly approved release artifacts",
+      "lane": "release",
+      "owner": "user / Claude executor",
+      "kind": "execution",
+      "status": "pending",
+      "dependencies": [
+        "E43",
+        "E44",
+        "H14"
+      ],
+      "inputs": "Human-approved public release manifest and repository/archive destination",
+      "outputs": "Tag/commit or archive receipt, citation metadata and persistent links",
+      "steps": [
+        "Publish only the approved artifact set and record the exact content identity.",
+        "Do not upload source imaging, individual labels or personally identifying author forms.",
+        "A GitHub code release is separate from a journal submission; do not submit the manuscript or accept agreements for the user.",
+        "Update links mechanically in approved documents and retain the final version."
+      ],
+      "acceptance": "Approved public artifact links resolve and match the release manifest; no implied journal acceptance.",
+      "resource": "network upload after explicit approval",
+      "gate": "",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/E50.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "H01",
+      "title": "Confirm the current paper scope and uphold the frozen external design",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [],
+      "inputs": "Audit; v14; October14 protocol amendment; older RSNA manuscript",
+      "outputs": "Current scientific scope/claim map and any prospective amendment",
+      "steps": [
+        "Use the October revised study plus the frozen external comparison as the working route; do not merge older claims automatically.",
+        "Confirm which historical benchmarks remain supporting/supplemental and which are excluded.",
+        "Adjudicate any necessary endpoint/reference/input change before affected outcomes are exposed; narrower audit-only submission is a separate explicit choice."
+      ],
+      "acceptance": "Primary scientific question and included evidence are unambiguous; no retrospective claim of untouched design.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H01.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "H02",
+      "title": "Resolve the concrete current acquisition/inference scope and cumulative baseline",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "E07"
+      ],
+      "inputs": "Reviewed image-only operation; prior resource approval; actual baseline evidence",
+      "outputs": "One scoped execution authorization record with runtime and baseline",
+      "steps": [
+        "Retain the existing 400 GB storage/200 GB cumulative download approval; do not ask for the same storage again.",
+        "Resolve only the remaining current operation, baseline and device/HPC allocation required for this run.",
+        "Do not require an unknown EULA or use historical expiry to prevent independent code preparation."
+      ],
+      "acceptance": "Claude knows exactly which real-data operations may execute and with which resources; no global blockade of unrelated ready tasks.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H02.md",
+      "priority": "critical"
+    },
+    {
+      "id": "H03",
+      "title": "Resolve ambiguous clinical series compatibility while blinded",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "E11"
+      ],
+      "inputs": "Selection packet and source rules; no labels or predictions",
+      "outputs": "Signed selection evidence or explicit unresolved clinical statuses",
+      "steps": [
+        "A qualified human resolves noncontrast/axial/kernel/coverage ambiguities or accepts narrow source-supported exclusions.",
+        "Record evidence and reviewer identity locally; do not infer clinical competence from model agreement."
+      ],
+      "acceptance": "Ambiguities have defensible dispositions before fixed tie-break and clinical inference.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H03.md",
+      "priority": "critical"
+    },
+    {
+      "id": "H04",
+      "title": "Approve the exact external reference/source-key interpretation",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "E13"
+      ],
+      "inputs": "Authenticated reader schema and published methods",
+      "outputs": "Reference contract and authorized label-stage boundary",
+      "steps": [
+        "Confirm that fields implement the already specified any-ICH majority/chronic/missing-read rule.",
+        "Authorize the outcome stage only after predictions are frozen; adjudicate any schema conflict before reading outcomes."
+      ],
+      "acceptance": "No target is guessed, redefined from performance or confused with source-model predictions.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H04.md",
+      "priority": "critical"
+    },
+    {
+      "id": "H05",
+      "title": "Adjudicate the supported resampling unit",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "E15"
+      ],
+      "inputs": "Actual released map or no-map evidence",
+      "outputs": "Person-cluster decision or explicit examination fallback and limitation",
+      "steps": [
+        "Use authentic within-release person linkage if available.",
+        "Otherwise apply the already allowed examination fallback and disclose unknown repeated-person dependence; do not manufacture independent patients."
+      ],
+      "acceptance": "The interval interpretation matches the available grouping evidence.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H05.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "H06",
+      "title": "Resolve clinical meaning and reference limits of retained MRI/breast/CT targets",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "E30",
+        "E31",
+        "E32",
+        "E33"
+      ],
+      "inputs": "Source-bound target/methods/selection evidence",
+      "outputs": "Clinical interpretation decisions and any narrowly justified correction request",
+      "steps": [
+        "Keep prostate suspicion labels distinct from pathology-confirmed cancer and breast case labels distinct from slice localization.",
+        "Assess repeat-exam dependence and missing clinical ascertainment using the legitimate retained mappings.",
+        "Choose defensible wording or a concrete required correction; do not require a new clinical study for a claim the paper does not make."
+      ],
+      "acceptance": "Each retained target has an honest meaning and limitation; unresolved clinical facts are not filled by Claude.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H06.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "H07",
+      "title": "Independently verify the new external numerical result",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "E26",
+        "E27",
+        "E28"
+      ],
+      "inputs": "Original frozen scores, references, grouping, resamples and execution evidence",
+      "outputs": "Scoped independent verification report and defect ledger",
+      "steps": [
+        "Choose checks capable of changing the conclusion: denominators, joins, paired score comparison, cluster draws, selected interval arithmetic and completion bounds.",
+        "Use an independent implementation where appropriate and state sampled versus full coverage.",
+        "Preserve failures; request E46 only for an actual result-changing defect, not generic repeated tests."
+      ],
+      "acceptance": "Every promoted primary claim has adequate numerical support and clearly bounded verification scope.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H07.md",
+      "priority": "critical"
+    },
+    {
+      "id": "H08",
+      "title": "Adjudicate the completed synthetic findings for the current paper",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "E35"
+      ],
+      "inputs": "Existing fixed designs and selected review evidence",
+      "outputs": "Approved synthetic claim/limitation mapping",
+      "steps": [
+        "Retain the counterexample interpretation and distinguish simulated score construction from observed CNN shortcut behavior.",
+        "Keep precision assumptions/proxy separate from achieved clinical precision or power.",
+        "Reuse the closed arithmetic review; no new scenarios or full rerun without a new scientific rationale."
+      ],
+      "acceptance": "Simulation adds a bounded methodological result without substituting for external clinical evidence.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H08.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "H09",
+      "title": "Interpret external evidence against the stated question",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "H07",
+        "H05"
+      ],
+      "inputs": "Verified primary/secondary/flow/support results and frozen protocol",
+      "outputs": "Scientific assessment, permissible claims and explicit negative/uncertain findings",
+      "steps": [
+        "Assess effect size, interval/support/missingness and comparator adaptation without treating a favorable AUROC as clinical utility.",
+        "Retain null/negative results and disclose enriched case mix, unknown repeat dependence and selection limits.",
+        "Do not tune thresholds, promote seed123 or add exploratory subgroups to rescue the result."
+      ],
+      "acceptance": "Interpretation follows the frozen question and evidence rather than publication pressure.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H09.md",
+      "priority": "critical"
+    },
+    {
+      "id": "H10",
+      "title": "Write and validate the revised scientific manuscript",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "H06",
+        "H08",
+        "H09",
+        "E34"
+      ],
+      "inputs": "v14 draft; verified evidence; Methods and clinical decisions; selected journal",
+      "outputs": "Approved main text, supplement, table/figure specifications and source-to-claim map",
+      "steps": [
+        "Write the scientific argument and update Methods/Results/limitations with reviewed external findings.",
+        "Separate original internal results, transported external comparator and synthetic evidence.",
+        "Check every numerical and qualitative claim against its source and actual verification scope; avoid obsolete pre-registration/superiority claims.",
+        "Resolve remaining scientific placeholders before asking Claude to typeset."
+      ],
+      "acceptance": "The revised manuscript is scientifically defensible within its explicitly chosen scope; Claude has not supplied independent scientific signoff.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H10.md",
+      "priority": "critical"
+    },
+    {
+      "id": "H11",
+      "title": "Assess current novelty and journal fit from primary sources",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "E39"
+      ],
+      "inputs": "Closest actual methodological papers and official venue instructions",
+      "outputs": "Bounded novelty comparison, target article type and source-verified bibliography decisions",
+      "steps": [
+        "Distinguish the existing positional-baseline prior art from this study\u2019s specific contribution.",
+        "Do not promise acceptance, a journal tier or a performance improvement.",
+        "Choose a defensible article scope; no automatic expansion to every legacy dataset."
+      ],
+      "acceptance": "Target and novelty language are evidence-based; current instructions replace stale file-format claims.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H11.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "H12",
+      "title": "Confirm ethics, permitted use and release statements",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [],
+      "inputs": "Project-specific institutional determination; data/model agreements; funding/conflict facts",
+      "outputs": "Approved oversight, consent/waiver, data/code/model availability and disclosure text",
+      "steps": [
+        "Do not copy source-dataset ethics approvals as this project\u2019s determination.",
+        "Confirm applicable permissions for derived aggregates, images and checkpoints separately.",
+        "Provide actual facts or a named unresolved decision; no signing agreements or contacting institutions by the executor."
+      ],
+      "acceptance": "Submission statements and release permissions are truthful and attributable to humans.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H12.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "H13",
+      "title": "Supply the final author roster and approvals",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [],
+      "inputs": "User\u2019s final paper roster, affiliations, roles, correspondence details",
+      "outputs": "Approved author/CRediT/acknowledgment record",
+      "steps": [
+        "Treat all execution tasks as user/Claude-owned; this project has no assigned collaborator compute slots.",
+        "Confirm contribution and final manuscript approval with authors through user-managed communication.",
+        "Do not infer authorship from older outreach files or offers to help."
+      ],
+      "acceptance": "Final roster is explicitly provided and approved; no fabricated collaborators.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H13.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "H14",
+      "title": "Perform final scientific and author submission review",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "decision_needed",
+      "dependencies": [
+        "H10",
+        "H11",
+        "H12",
+        "H13",
+        "E42",
+        "E43"
+      ],
+      "inputs": "Final rendered files, verified results, completed disclosures and applicable checklist",
+      "outputs": "Submit / revise decision and approved release manifest",
+      "steps": [
+        "Review the rendered manuscript and all claims, figures, limitations and supporting evidence.",
+        "Confirm author agreement, journal fit, source permissions and actual format requirements.",
+        "The user performs or explicitly authorizes final journal submission; completion means ready-to-submit, not guaranteed acceptance."
+      ],
+      "acceptance": "All required work is resolved or transparently narrowed for the selected claim; no administrative task substitutes for missing science.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": false,
+      "evidence": [],
+      "card": "tasks/H14.md",
+      "priority": "parallel"
+    },
+    {
+      "id": "H15",
+      "title": "Provide genuinely independent coding if the older screen is included",
+      "lane": "scientific / author",
+      "owner": "user / Codex scientific review",
+      "kind": "scientific_author",
+      "status": "optional",
+      "dependencies": [
+        "E48"
+      ],
+      "inputs": "Frozen screening protocol, original sealed codes and recovered permissible texts",
+      "outputs": "Human coding/adjudication record with actual independence and deviations",
+      "steps": [
+        "Assess whether the historical screen belongs in this paper before spending time.",
+        "Do not call repeated model outputs independent human coding; preserve original access/chronology deviations.",
+        "Approve mechanical E49 recomputation only after the coding decisions."
+      ],
+      "acceptance": "Evidence supports the stated screening reliability; otherwise keep the screen excluded.",
+      "resource": "analysis / human decision",
+      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "optional": true,
+      "evidence": [],
+      "card": "tasks/H15.md",
+      "priority": "conditional"
+    }
+  ]
+}

@@ -1,0 +1,399 @@
+{
+  "version": 1,
+  "root_definition": "PHASEDX_REVISION_ROOT = local nine_hour_20261014T022606Z directory; set privately as described in INPUTS.md",
+  "note": "Content hashes establish which local artifacts informed this backlog; they do not prove scientific validity. These files are locators, not all included in Git.",
+  "sources": [
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "NINE_HOUR_REPORT.md",
+      "sha256": "6da5fab7be270a4a3ae6630b168311389d60b383b508d8f336d3b633c82e0738",
+      "bytes": 9948,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "MANUSCRIPT_DRAFT_v14_COMPLETE.md",
+      "sha256": "949d8d22e8792c4de32eb21d543b48165c69fc37e8929886ca120b8f4a1719aa",
+      "bytes": 32362,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "EXTERNAL_PROTOCOL_AMENDMENT_20261014.md",
+      "sha256": "323622c37762df39794089718b1ac5fa275803d6fcde1e4c334fc54eeaf60a21",
+      "bytes": 7478,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "EXTERNAL_MISSING_PREDICTION_SENSITIVITY.md",
+      "sha256": "715362040656d14bc582e35d06dd08ce9aa231f5100feab78d1316cf55e2d613",
+      "bytes": 7652,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BREAST_REFERENCE_STANDARD_DECISION.md",
+      "sha256": "272b10078b9eeb3a1fa8b4e3a7aff7d3d6f30480766ea08476ab1317f87ae047",
+      "bytes": 1812,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "CQ500_SOURCE_AND_ACQUISITION_DECISION.md",
+      "sha256": "8ec1413509df0f20dfec8c37224044c56b25d4fd142231cc1bee0216e2b297d5",
+      "bytes": 2675,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH25_CODEX_ASSESSMENT.md",
+      "sha256": "ef4952975b42db1143d351df5f858a640bb5b95a8e0df758cd2c55accd696fe9",
+      "bytes": 8716,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH26_CODEX_ASSESSMENT.md",
+      "sha256": "a7f136c8b8db46b714ab9cdb7e1c32ad597698d539c373d9b11b0d7ba738a1a8",
+      "bytes": 6081,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH27_CODEX_ASSESSMENT.md",
+      "sha256": "aa4297b616616361911fee4d26094942d3b278a410d766304c0efc7f8cc41b5d",
+      "bytes": 4904,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH28_CODEX_ASSESSMENT.md",
+      "sha256": "a4a1eb3da48a6bd3c4ff07d18d71530ce866f5874713a991ceed6bf6231411ef",
+      "bytes": 4871,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH29_CODEX_ASSESSMENT.md",
+      "sha256": "ab29f765ed87ff645393df1471aa2b92bfb50c59db11103c901e9b22ab52cdc3",
+      "bytes": 4028,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH30_CODEX_CLOSURE_REVIEW.md",
+      "sha256": "a9cd6cfd5a01acc7e06c8c1d83111b3687b6349e3cd8142c74fc1d339b3995d6",
+      "bytes": 3256,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH25_CODEX_REVIEW_EVIDENCE.json",
+      "sha256": "a7338323c6c42bfce773995688675e0670a184c79c47d4ec2ed87c58528dec78",
+      "bytes": 54352,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH26_CODEX_REVIEW_EVIDENCE.json",
+      "sha256": "d24301f96b707399b95674040550ee6339fe982cfff8a90282a3ed4316cdfd3d",
+      "bytes": 8035,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH27_CODEX_REVIEW_EVIDENCE.json",
+      "sha256": "177bcce31c5de16bb548cfd7c23737a6d584b0485313e089628231fef99ca0e5",
+      "bytes": 1916,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH28_CODEX_REVIEW_EVIDENCE.json",
+      "sha256": "1ef5c8bd0a55e5efffe9469be126b7bcdbbef5ab244f3f7a29036d79d35729df",
+      "bytes": 1947,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH29_CODEX_REVIEW_EVIDENCE.json",
+      "sha256": "f3910cbf98e415a730d79382dedd6e078231e3c323f3e1ef90d0490871473347",
+      "bytes": 1477,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "BATCH30_CODEX_CLOSURE_EVIDENCE.json",
+      "sha256": "7b4c0620b4ee2d0ecc72c1f92d7aa7e8818f9df861304024ace1bb237b9dffdf",
+      "bytes": 862,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch25/scripts/sim25.py",
+      "sha256": "e605803be76692fd403e2608d4558b7850884f75e92a24e7cf11a6295b034006",
+      "bytes": 843,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch25/scripts/transport25.py",
+      "sha256": "ce4031ad96ef9772d26e33899305284714b12c89c9045bb93bc6dbafcf0a667b",
+      "bytes": 3564,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch25/scripts/precision25.py",
+      "sha256": "03c6d6b89a0cd264f50e72eef3b44c2759dda7cea5bfff04f6fd15c0adfb7d19",
+      "bytes": 2397,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch25/scripts/agg25.py",
+      "sha256": "1811124c5a0e65351e0efe4873816790c4f726220ba71acb2285ebb12f099ea8",
+      "bytes": 6764,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/image/a_ct_recipe_b2_v7_verbatim.py",
+      "sha256": "e9d31679d37a9e3e3753eb5c0e48c94a7d05533eaa0fb015b30fabbac2d8c729",
+      "bytes": 6985,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/image/image_adapter26.py",
+      "sha256": "e40c9e76bd35114ae84862b98e1c3d2a39cd3b6f5b79697e564d28769849a543",
+      "bytes": 6652,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/image/predict_image.py",
+      "sha256": "8b8563804a3d13cfe45aba58576bc28435a53e8e41bfbb7c961b5fc98dc063c0",
+      "bytes": 5281,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/geometry/bgeom.py",
+      "sha256": "3477218f55955f30fa26f30509a47e9e4b91261c75f5244ce3cdbaf79c3a587e",
+      "bytes": 10226,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/geometry/bstats.py",
+      "sha256": "35b2877d88f9f1cdb5ba29461b6a57278ee1ea3c94c9b5a7118ca65def40196f",
+      "bytes": 4767,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/geometry/geometry_adapter.py",
+      "sha256": "aa18022255d4dd0c4aa0b36aaad95f132047d8149fab5d593ecc5934bdf7266d",
+      "bytes": 5486,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/geometry/geometry_adapter26.py",
+      "sha256": "c2f3b3145ccf45f65d83388564781b67fd429f3ca2062f947b8eea82eda28763",
+      "bytes": 7270,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/geometry/predict_geometry.py",
+      "sha256": "857041e988be940f2eaa19b1b4965779f0dbc9b9f99a78c973a19897f74de37a",
+      "bytes": 2285,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/geometry/test_geometry26.py",
+      "sha256": "4f7429fdaf4e3ccb88483f1342ee675be51aeb5b5f379ad74d7fdd9421ecb0e3",
+      "bytes": 4912,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/evaluation/reference_adapter.py",
+      "sha256": "6611dc8f02aa1d2917d06e9529dcd26d2cce4711cc08361a0559bdd0e270adcf",
+      "bytes": 2528,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/evaluation/scorer26.py",
+      "sha256": "10dfa67c950cca587a6f821ad2bcf78e34e68c9ceafb06f92b3196047c1e783f",
+      "bytes": 11522,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/evaluation/test_scorer26.py",
+      "sha256": "a572662526453ef5dc12b523d2090f08561b2d48dc2c1e89234abd3b95a8439b",
+      "bytes": 10960,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch26/manifest/build_manifest.py",
+      "sha256": "56e82981e7f0217181bfbf623e77c4462e7c2a947373638c36857c8af4d99f68",
+      "bytes": 11037,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/manifest/a_ct_recipe_b2_v7_verbatim.py",
+      "sha256": "e9d31679d37a9e3e3753eb5c0e48c94a7d05533eaa0fb015b30fabbac2d8c729",
+      "bytes": 6985,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/manifest/build_manifest28.py",
+      "sha256": "3d72250be08856fd9150ad471f3ac9d652af4083ec4f0ce1144e57f1541e9799",
+      "bytes": 11981,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/manifest/image_adapter27.py",
+      "sha256": "281d1403625281cdf429ee4995066be493211987813ccabc0d113b142a5ea4a7",
+      "bytes": 6907,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/manifest/predict_image28.py",
+      "sha256": "d9fb2779c55354f16919f9e5d12455279ba8095a4b8c849a0dc1a90ea38603ef",
+      "bytes": 5072,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/geometry/bgeom.py",
+      "sha256": "3477218f55955f30fa26f30509a47e9e4b91261c75f5244ce3cdbaf79c3a587e",
+      "bytes": 10226,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/geometry/bstats.py",
+      "sha256": "35b2877d88f9f1cdb5ba29461b6a57278ee1ea3c94c9b5a7118ca65def40196f",
+      "bytes": 4767,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/geometry/geometry_adapter27.py",
+      "sha256": "0d3acb6c7c7398af95a714db4012cac68c952b6b8ba4fa6a98ffe4d2f9c4c8af",
+      "bytes": 7994,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/geometry/predict_geometry28.py",
+      "sha256": "d14d0c38be1a5a0b79be113f41816c9beb810853521e053f37c577143056ef37",
+      "bytes": 2119,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/scripts/protocol28.py",
+      "sha256": "7c64e231b86c20670f4013e124fc152b130b496dafea759f95d3df7166632da3",
+      "bytes": 13535,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/scripts/selection28.py",
+      "sha256": "dbdd3e27a2d97a4e9a5195fcb84942a09632694cd272020caffc863c7ac0e2e1",
+      "bytes": 2774,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/scripts/reference28.py",
+      "sha256": "a5e8be35b26ae46fa77cb8687a90039ca77ffec30eff6fe77d072f5cd46d8aa2",
+      "bytes": 2401,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/scripts/scorer26.py",
+      "sha256": "10dfa67c950cca587a6f821ad2bcf78e34e68c9ceafb06f92b3196047c1e783f",
+      "bytes": 11522,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/scripts/scorer28.py",
+      "sha256": "283f28da3404776fb0d93494b4971edcd09d00c1b12ff5d1c740e62d6939197b",
+      "bytes": 8384,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch28/reference/REFERENCE_AND_SCHEMA_CONTRACT.md",
+      "sha256": "2c8cebfee0ff716ebf2618c2003d5bfb9a586a933c518b217a38b927ce7ff157",
+      "bytes": 2384,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch29/scripts/scorer29.py",
+      "sha256": "46a77331193951a29e4b1664c5892f624ad46b16dbabe06b2efdfc3dc6d973ef",
+      "bytes": 9055,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch29/clinical/MINIMUM_EVIDENCE.md",
+      "sha256": "7c9eca5f79607575fdeb0bfa2407f76b0ff4b3eb3961bf37f2a7d5702f523c4e",
+      "bytes": 1209,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch30/acquisition/acquire30.py",
+      "sha256": "1d50a04b8aca4680a476dfe8a04afd186f41a0c25ca1a4c3d24047a1d4711bc8",
+      "bytes": 22947,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch30/acquisition/operation_cq500_images_v2.json",
+      "sha256": "97ddbe5919d2b39a05fa98a6d191d2a0a33c30d12a7d6dae231bc275fee56139",
+      "bytes": 1504,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch30/acquisition/source_list_images_only.csv",
+      "sha256": "39960c565b3efc786bc3bfa7cdf40057bd89c70f2d15593e2ac37cd577752f07",
+      "bytes": 175668,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch30/scripts/test_acquire30.py",
+      "sha256": "1cca25d939dc899b3eb766926f6179faf4c4d8e09a1fc0b9c728745361b65973",
+      "bytes": 10089,
+      "role": "historical input; do not execute automatically or upload private contents"
+    },
+    {
+      "root": "PHASEDX_REVISION_ROOT",
+      "relative_path": "batch30/FINAL_ACQUISITION_HANDOFF.md",
+      "sha256": "9effc8dff8158aee2b6dd169fcd07f28513f91ac86a51f2c2131cd8f328265a5",
+      "bytes": 4025,
+      "role": "historical input; do not execute automatically or upload private contents"
+    }
+  ]
+}

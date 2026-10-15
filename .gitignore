@@ -18,6 +18,10 @@ results/
 results_*/
 experiment_output/
 checkpoints/
+work/execution/
+.phasedx-local.json
+private_inputs/
+external_runs/
 smoke_output/
 smoke_results/
 
