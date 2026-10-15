@@ -92,7 +92,7 @@ def render(tasks):
     (DOCS / "TASK_INDEX.md").write_text("\n".join(lines))
     fields = ["id", "title", "owner", "kind", "lane", "priority", "status", "dependencies", "resource", "card"]
     with (DOCS / "TASK_INDEX.csv").open("w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fields)
+        writer = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for t in tasks:
             row = {k: t[k] for k in fields}
