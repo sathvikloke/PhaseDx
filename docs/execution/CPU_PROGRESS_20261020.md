@@ -13,7 +13,7 @@ This checkpoint covers new portable execution code, input/source recovery and Me
 - The two completed synthetic studies have portable source/configuration and aggregate outputs. Their experiments were not rerun.
 - A private manuscript v15 integrates the recovered Methods and corrects the obsolete C2 evidence summary. Existing numerical Results are unchanged.
 
-The task queue currently records 24 execution deliverables complete, three in progress, 18 blocked and five conditional. Four bounded scientific/design tasks are recorded complete; manuscript revision remains in progress. These counts include reused prior acquisition evidence and are **not a percentage of the paper completed**.
+The task queue currently records 24 execution deliverables complete, four in progress, 17 blocked and five conditional. Four bounded scientific/design tasks are recorded complete; manuscript revision remains in progress. These counts include reused prior acquisition evidence and are **not a percentage of the paper completed**.
 
 ## Active work and remaining clinical path
 
@@ -36,3 +36,9 @@ Private receipts identify commands, input/source hashes, failed attempts and mea
 A targeted [novelty and venue assessment](../study/NOVELTY_AND_JOURNAL_FIT_20261020.md) limits the contribution against primary prior art and corrects stale journal file-format guidance. A shorter private abstract candidate is prepared for author review, without new statistics.
 
 The header writer now keeps one append handle open while retaining per-record flushing and all identity/STOP/resume checks. Five focused scanner tests passed. A 150-row identical-byte synthetic writing probe took 2.807 seconds with repeated open/close versus 0.292 seconds with a persistent handle; this measures record-writing overhead, not whole-scan acceleration. The prior scanner was checkpointed and versioned; 67,311 authenticated rows were reused with lineage in a separate V4 queue. Source inputs and original failures remain preserved.
+
+## Preliminary clinical-review handoff
+
+A private outcome-blind preliminary packet now contains 459 series from 178 exams whose entire planned source inventory is authenticated in closed shards. Its progress roster retains all 491 source exams: 312 remain pending scan and one has no extracted files. These statuses are not clinical exclusions or eligible-cohort counts. Clinical noncontrast/axial/kernel/coverage judgments, reviewer identity and evidence are blank. The packet allows early qualified review but cannot freeze a clinical input or substitute for final whole-inventory conflict reconciliation. Exact denominator, subset identity, blank clinical fields and output identities were checked. No source images or outcome rows were read during packet assembly.
+
+The first packet attempt exposed exFAT AppleDouble plan sidecars. Its failed attempt is preserved. A synthetic regression reproduced the same failure in the final index builder; a narrow sidecar exclusion passed six cache/index tests. The active scanner was unchanged, and prior full-suite results were not rerun.

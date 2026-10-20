@@ -287,7 +287,7 @@
       "lane": "cohort",
       "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "blocked",
+      "status": "doing",
       "dependencies": [
         "E10"
       ],
@@ -304,7 +304,8 @@
       "gate": "",
       "optional": false,
       "evidence": [
-        "B31 blinded packet retained, but lossless-inclusive technical packet awaits E10. Clinical qualification is not filled from technical eligibility."
+        "B31 blinded packet retained, but lossless-inclusive technical packet awaits E10. Clinical qualification is not filled from technical eligibility.",
+        "October20 preliminary packet:459metadata series from178complete-source exams; all491source exams remain in progress roster,312pending scan and1without extracted files. All clinical fields remain blank. Closed-shard source identities and output denominator/blank-field checks passed. This is not the final selection packet or a clinical cohort; E10 remains incomplete."
       ],
       "card": "tasks/E11.md",
       "priority": "parallel"

@@ -18,7 +18,7 @@ Execution is owned by the user and their authorized executor (currently Codex fo
 | [E08](tasks/E08.md) | Acquire the CQ500 image archives | acquisition | done | E04, E07, H02 |
 | [E09](tasks/E09.md) | Extract verified images without changing the source population | acquisition | done | E08 |
 | [E10](tasks/E10.md) | Build the full DICOM roster and geometry inventory | cohort | doing | E01, E09 |
-| [E11](tasks/E11.md) | Assemble a blinded clinical series-selection packet | cohort | blocked | E10 |
+| [E11](tasks/E11.md) | Assemble a blinded clinical series-selection packet | cohort | doing | E10 |
 | [E12](tasks/E12.md) | Apply the fixed clinical series selector | cohort | blocked | E01, E11, H03 |
 | [E13](tasks/E13.md) | Authenticate the external reference and source-key schema | reference | blocked | none |
 | [E14](tasks/E14.md) | Ingest the authorized reader reference after prediction freeze | reference | blocked | E13, E22, E23, E25, H04 |
