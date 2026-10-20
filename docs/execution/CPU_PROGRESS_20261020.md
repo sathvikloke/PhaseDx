@@ -19,6 +19,8 @@ The task queue currently records 24 execution deliverables complete, three in pr
 
 B31 already reports all 491 image archives acquired and verified, 490 extracted, and one source-corrupt archive preserved in the denominator. The expanded lossless-inclusive header scan is running after Research reconnected. The first October 20 scan attempt incorrectly classified absent-drive I/O as completed source failures; it read zero bytes and is rejected. Its code/logs/receipts remain. The repaired version pauses pending files on I/O loss and resumes without inventing exclusions.
 
+A later pass found four changed extracted DICOM copies. The saved archive members matched the frozen inventory, so the four members were recovered into a separate input overlay while the original copies were preserved. The scan resumes from 21,522 previously verified records. See [input recovery](../study/INPUT_RECOVERY_20261020.md) for the exact scope and the verified storage move that relieved internal disk pressure.
+
 The next external steps are the complete technical packet, blinded clinical qualification/selection, authenticated source-key/reference interpretation, frozen clinical input package, model predictions and the prespecified comparison. Technical decodability alone cannot fill unknown noncontrast, reconstruction-kernel or brain-coverage fields. Reference outcome rows remain unopened.
 
 The neural dependencies now install and load the actual checkpoints on CPU; a clinical forward run still awaits the scientific input prerequisites. Project ethics/permitted-use statements, individual clinical ascertainment where required, author roster/approvals and final publication permissions remain separate factual inputs.
