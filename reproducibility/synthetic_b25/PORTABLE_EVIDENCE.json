@@ -1,0 +1,217 @@
+{
+  "origin": "PhaseDx Batch25, completed October 14 2026",
+  "scope": "No experiments rerun. 265 previously reviewed selected arithmetic checks; not a full independent repeat.",
+  "clinical_interpretation": "Synthetic counterexample and hypothetical precision; no external clinical performance.",
+  "files": [
+    {
+      "relative_path": "scripts/sim25.py",
+      "sha256": "e605803be76692fd403e2608d4558b7850884f75e92a24e7cf11a6295b034006",
+      "bytes": 843,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "scripts/transport25.py",
+      "sha256": "ce4031ad96ef9772d26e33899305284714b12c89c9045bb93bc6dbafcf0a667b",
+      "bytes": 3564,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "scripts/precision25.py",
+      "sha256": "03c6d6b89a0cd264f50e72eef3b44c2759dda7cea5bfff04f6fd15c0adfb7d19",
+      "bytes": 2397,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "scripts/check25.py",
+      "sha256": "de7aa9ef212f7b9b6abca5d44658845b25d49cbb8f5f8626191d1cc85d1674d4",
+      "bytes": 2331,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "scripts/prospective_guard.py",
+      "sha256": "9889ac2dff19ad460c10023d68f3a4adec31f9108ac0e39ec2c0b6a6ce7ab510",
+      "bytes": 2422,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_00.json",
+      "sha256": "0376705f6cdd56d3dee3773ce924a02078483b81470db03e40255fc0e9208cd6",
+      "bytes": 109,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_01.json",
+      "sha256": "233b79819817aef820c12bb545f8884dc3dba5d1565ff8886fc3f2cd044ad2f7",
+      "bytes": 112,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_02.json",
+      "sha256": "f3c2521a24f28c87153773753034f734af6662588b7941f817f923d7b8dde831",
+      "bytes": 108,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_03.json",
+      "sha256": "ec6b3e45a98b3a79af7ac16c88446e34ea698a35f299459f726535b51fd368bd",
+      "bytes": 110,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_04.json",
+      "sha256": "36407a0658d361eab17b1a857837ea156f896f97907d4b9169773301e18004d7",
+      "bytes": 113,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_05.json",
+      "sha256": "57ec1a9a108a7a31b27191d640f934a440f59076d4c21c6a7fc744d45d291ba3",
+      "bytes": 109,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_06.json",
+      "sha256": "86777ad23b1baeb1171d22fb241b6c0c9ea06d841d77a1124ca804fae21332aa",
+      "bytes": 109,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_07.json",
+      "sha256": "04a76c536211ad58dbc50cd7b1b36063af54f6e3b258098eb83ea129b5326a6a",
+      "bytes": 112,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_08.json",
+      "sha256": "696594652d041745ec505c1dc7a12fda7314f3766b17453027e41c73612adc0f",
+      "bytes": 108,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_09.json",
+      "sha256": "44c0a39882892acfe7c5bae61429e9dff5638a34728897fad607fb6210d918ab",
+      "bytes": 110,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_10.json",
+      "sha256": "78bdde4ba27b10d3982bc9346f94ae6ce90938347c56fea7f56a286202358582",
+      "bytes": 113,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/transport_11.json",
+      "sha256": "e4f125a31ae3bfd53e317062897734f862d5e739bc060a0ecbffcb7f374a0fb7",
+      "bytes": 109,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_00.json",
+      "sha256": "2efd0fe99ef48ac8f15d3225511125c91746de03029452b0d5c8e212d7ad1b9f",
+      "bytes": 58,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_01.json",
+      "sha256": "2d92bdb4bbd778c5010643280465139268373232872770dda76731bcb83a734a",
+      "bytes": 66,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_02.json",
+      "sha256": "17cdaa6762dee39ba93e6e24f5ee70726ed2b5477f29ab6a3b56c12d95511d48",
+      "bytes": 67,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_03.json",
+      "sha256": "522965f6179b85024d61586c35a23c286567d0f4b3f202ff75729664bc0a39f6",
+      "bytes": 67,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_04.json",
+      "sha256": "7632c6e77d398a701748687c87ac3f38fe13ee4cab60ebd670b73a1d86765df8",
+      "bytes": 67,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_05.json",
+      "sha256": "c20340d224562c50e5ebcf98c1d8a78806530c15fbd4700fe53da8f15a5c449f",
+      "bytes": 67,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_06.json",
+      "sha256": "95308a130053b4c3561e2cc98959f6250bf2ed224f4d8fa7d92907cd1683fd1b",
+      "bytes": 67,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_07.json",
+      "sha256": "a20c7f1d7a578db440bcd6797f9f580bb9a4cfb2bbf64010de8a9442bf450d7a",
+      "bytes": 67,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_08.json",
+      "sha256": "b9e78f6dea0b4696458f5762a49aba1ca4e4dce856b267f6fcec91e7ba385386",
+      "bytes": 67,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_09.json",
+      "sha256": "f0ee4d5dccfd9a17efc4682f1c902a5a9e2f07e8e3f0ecbb642be59e1cf8fa68",
+      "bytes": 67,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_10.json",
+      "sha256": "5d564fa2e49d96f646f8868f8934c4b1230df92e889d26ca33b7e721ffb000fe",
+      "bytes": 67,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "config/precision_11.json",
+      "sha256": "ae750bfa33109edffb9c49c281795f05ad49efc1c5e80373820cb10fd0462d24",
+      "bytes": 75,
+      "scope": "original frozen source/config"
+    },
+    {
+      "relative_path": "state/LOCK25.json",
+      "sha256": "3d156e54e3ebda6d6e96668c25124bba6d76d5db1febd8807dc9ee0e5491fadf",
+      "bytes": 3785,
+      "scope": "original lock"
+    },
+    {
+      "relative_path": "transport/transport_source_to_target_change_summary.csv",
+      "sha256": "6126bb692f304ebeed8b6f77d9f53cd7ff73b0e54a3636aa6b006fb8ad04b16d",
+      "bytes": 41947,
+      "scope": "retained aggregate; no recomputation"
+    },
+    {
+      "relative_path": "transport/audit_pattern_vs_transport_loss.csv",
+      "sha256": "1087896769042c877d59a7a1809694e6a4abe4064e1683aa646f6a883416cfb3",
+      "bytes": 7887,
+      "scope": "retained aggregate; no recomputation"
+    },
+    {
+      "relative_path": "transport/transport_image_minus_geometry_summary.csv",
+      "sha256": "c088ba564a2db3cf8a5afcefdc1e8ec3228d90e94255555fb8d37f36b9b50b78",
+      "bytes": 70895,
+      "scope": "retained aggregate; no recomputation"
+    },
+    {
+      "relative_path": "transport/transport_auroc_summary.csv",
+      "sha256": "fcc8b056e33b52035f416621843c54823c7e3a928a31d544f91b7841bec06fb1",
+      "bytes": 83194,
+      "scope": "retained aggregate; no recomputation"
+    },
+    {
+      "relative_path": "precision/precision_108cells.csv",
+      "sha256": "26d43de22f59b94319f520f670e0ccb2c6eeb31accf888a4c3372d1e28e90a14",
+      "bytes": 18246,
+      "scope": "retained aggregate; no recomputation"
+    }
+  ]
+}

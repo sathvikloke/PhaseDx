@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Private frozen CT model registry",
+  "type": "object",
+  "required": ["seed42", "seed123", "geometry", "preprocessing"],
+  "properties": {
+    "seed42": {"$ref": "#/$defs/checkpoint"},
+    "seed123": {"$ref": "#/$defs/checkpoint"},
+    "geometry": {"type": "object", "required": ["path", "actual_sha256", "representation", "feature_order", "estimator_class"]},
+    "preprocessing": {"type": "object", "required": ["recipe_sha256", "precision_path", "architecture", "aggregation", "decoder_source_sha256", "adapter_source_sha256"]}
+  },
+  "$defs": {"checkpoint": {"type": "object", "required": ["path", "expected_sha256", "actual_sha256", "matches_original_record"], "properties": {
+    "path": {"type": "string"}, "expected_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "actual_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "matches_original_record": {"const": true}
+  }}},
+  "description": "Structural handoff schema only. Execution reads actual bytes and compares them with the frozen design; schema validation is not source authentication. Keep filled paths and weights private."
+}

@@ -1,0 +1,429 @@
+[
+  {
+    "module": "phasedx_external.image_adapter27",
+    "origin": "batch28/manifest/image_adapter27.py",
+    "origin_sha256": "281d1403625281cdf429ee4995066be493211987813ccabc0d113b142a5ea4a7",
+    "imported_sha256": "12f616734701608a32b072e12469b99b47a9aafeca2dabdc85456421043a3dad",
+    "functions": [
+      "sha256_file",
+      "load_model",
+      "normalize",
+      "f16_roundtrip",
+      "score_tensors",
+      "decode_hu",
+      "preprocess_hu",
+      "read_dicom",
+      "preprocess_dicom",
+      "score_exam",
+      "__init__"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "134f44e8e787b6e2c40470514fe23a22396e3a76733bcd60fb8afa1930d36e57",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": [
+      "explicit lossless decoder policy; uncompressed canonical recipe retained"
+    ]
+  },
+  {
+    "module": "phasedx_external.a_ct_recipe_b2_v7_verbatim",
+    "origin": "batch28/manifest/a_ct_recipe_b2_v7_verbatim.py",
+    "origin_sha256": "e9d31679d37a9e3e3753eb5c0e48c94a7d05533eaa0fb015b30fabbac2d8c729",
+    "imported_sha256": "7e8a27fd01da5bd2d8509545fc8a62a68c07cf76fab81171a8032a5c92154553",
+    "functions": [
+      "read_hu",
+      "window_bounds",
+      "preprocess",
+      "load_example",
+      "_skip_undefined",
+      "_read_elem",
+      "parse_reference",
+      "read_hu_reference"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "e9d31679d37a9e3e3753eb5c0e48c94a7d05533eaa0fb015b30fabbac2d8c729",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": [
+      "restored exact original bytes after initial formatting; current hash equals origin"
+    ]
+  },
+  {
+    "module": "phasedx_external.geometry_adapter27",
+    "origin": "batch28/geometry/geometry_adapter27.py",
+    "origin_sha256": "0d3acb6c7c7398af95a714db4012cac68c952b6b8ba4fa6a98ffe4d2f9c4c8af",
+    "imported_sha256": "730171827c21d90d6e2f10166d5efef9579bb71995c45d3f07f1d099ce9c823d",
+    "functions": [
+      "rational_bin",
+      "verify_series",
+      "series_row",
+      "load_model",
+      "predict_external"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "730171827c21d90d6e2f10166d5efef9579bb71995c45d3f07f1d099ce9c823d",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": []
+  },
+  {
+    "module": "phasedx_external.bgeom",
+    "origin": "batch28/geometry/bgeom.py",
+    "origin_sha256": "3477218f55955f30fa26f30509a47e9e4b91261c75f5244ce3cdbaf79c3a587e",
+    "imported_sha256": "38924ca2864e91b6740a635ab00abdbcdadca11daba87d8780755120e3847bff",
+    "functions": [
+      "_iqr",
+      "study_features",
+      "fit_g1",
+      "score_g1",
+      "study_labels",
+      "fit_all",
+      "fit",
+      "transform",
+      "fit",
+      "transform"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "38924ca2864e91b6740a635ab00abdbcdadca11daba87d8780755120e3847bff",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": []
+  },
+  {
+    "module": "phasedx_external.bstats",
+    "origin": "batch28/geometry/bstats.py",
+    "origin_sha256": "35b2877d88f9f1cdb5ba29461b6a57278ee1ea3c94c9b5a7118ca65def40196f",
+    "imported_sha256": "047e21b148bf97fce4d1e450c4e5a321b40d4498723d4d5deaba20b96066832e",
+    "functions": [
+      "dense_rank",
+      "auroc",
+      "auroc_exact_fraction",
+      "weighted_auroc_draws",
+      "cluster_draws",
+      "summarise",
+      "select_with_ties"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "047e21b148bf97fce4d1e450c4e5a321b40d4498723d4d5deaba20b96066832e",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": []
+  },
+  {
+    "module": "phasedx_external.protocol28",
+    "origin": "batch28/scripts/protocol28.py",
+    "origin_sha256": "7c64e231b86c20670f4013e124fc152b130b496dafea759f95d3df7166632da3",
+    "imported_sha256": "8f30e466cfe737245a7f46326dde9942d615b1d9b0901cf77773da58442fb730",
+    "functions": [
+      "sha_file",
+      "sha_obj",
+      "now_utc",
+      "parse_utc",
+      "write_once",
+      "verify_manifest_dir",
+      "make_design_lock",
+      "make_execution_lock",
+      "intended_identity",
+      "start_run",
+      "end_run",
+      "make_receipt",
+      "_check_run",
+      "admit"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "288308f80ea4c36d14ab796b0e0f9ee92deb836955fec0d3d3ca0b478dd4c5f5",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": []
+  },
+  {
+    "module": "phasedx_external.selection28",
+    "origin": "batch28/scripts/selection28.py",
+    "origin_sha256": "dbdd3e27a2d97a4e9a5195fcb84942a09632694cd272020caffc863c7ac0e2e1",
+    "imported_sha256": "a41c631c2618f3846a195d5bf1c96d3dd7aef7eb8689cd92f9432bd92571cbfd",
+    "functions": [
+      "load_selection",
+      "clinical_state",
+      "select"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "a41c631c2618f3846a195d5bf1c96d3dd7aef7eb8689cd92f9432bd92571cbfd",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": []
+  },
+  {
+    "module": "phasedx_external.reference28",
+    "origin": "batch28/scripts/reference28.py",
+    "origin_sha256": "a5e8be35b26ae46fa77cb8687a90039ca77ffec30eff6fe77d072f5cd46d8aa2",
+    "imported_sha256": "94b7b8e2678385867802459353040b93ca304deac46636bd9487ba13fcb2a314",
+    "functions": [
+      "validate_schema",
+      "key_transform",
+      "majority",
+      "adapt"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "94b7b8e2678385867802459353040b93ca304deac46636bd9487ba13fcb2a314",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": []
+  },
+  {
+    "module": "phasedx_external.scorer26",
+    "origin": "batch29/scripts/scorer26.py",
+    "origin_sha256": "10dfa67c950cca587a6f821ad2bcf78e34e68c9ceafb06f92b3196047c1e783f",
+    "imported_sha256": "eb114fbc4dac992ba2a0897ede6d9f16186dceb6a991af3592e97724ef3a0d82",
+    "functions": [
+      "sha",
+      "ranks",
+      "auroc",
+      "concordance_sum",
+      "verify_lock",
+      "verify_receipt",
+      "_read",
+      "completion_bounds",
+      "cluster_bootstrap",
+      "evaluate",
+      "collections_counter",
+      "make_receipt",
+      "preds"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "ffa62af25f5d90d7e420ddb35699abd9c3b79e18d6dfc42de082904d82c19369",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": [
+      "retain ordered resample values including undefined entries and identity; no clinical resampling executed this session"
+    ]
+  },
+  {
+    "module": "phasedx_external.scorer29",
+    "origin": "batch29/scripts/scorer29.py",
+    "origin_sha256": "46a77331193951a29e4b1664c5892f624ad46b16dbabe06b2efdfc3dc6d973ef",
+    "imported_sha256": "6fc1b48cb5440996195fdc62d804689d1f5fd341cb61dcfced9ec1ba35d21754",
+    "functions": [
+      "_unique_rows",
+      "load_person_map",
+      "verify_grouping_binding",
+      "evaluate",
+      "opener",
+      "preds"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "6fc1b48cb5440996195fdc62d804689d1f5fd341cb61dcfced9ec1ba35d21754",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": []
+  },
+  {
+    "module": "phasedx_external.prospective_guard",
+    "origin": "batch28/scripts/prospective_guard.py",
+    "origin_sha256": "9889ac2dff19ad460c10023d68f3a4adec31f9108ac0e39ec2c0b6a6ce7ab510",
+    "imported_sha256": "759259fa3bd421a7763c681cfc3a86c253fa6081c1dddd263fddbbaa14d12570",
+    "functions": [
+      "_sha",
+      "require_registration"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting",
+      "receipt root taken from explicit PHASEDX_RUN_ROOT"
+    ],
+    "current_sha256": "759259fa3bd421a7763c681cfc3a86c253fa6081c1dddd263fddbbaa14d12570",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": []
+  },
+  {
+    "module": "phasedx_external.build_manifest28",
+    "origin": "batch28/manifest/build_manifest28.py",
+    "origin_sha256": "3d72250be08856fd9150ad471f3ac9d652af4083ec4f0ce1144e57f1541e9799",
+    "imported_sha256": "2c97a7bdc36e14dd619cf7d89c54d52266d157b268f9627ae960460158dfc683",
+    "functions": [
+      "hdr",
+      "shaf"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting",
+      "explicit main(argv), no execution on import"
+    ],
+    "current_sha256": "ca88d08a0d3a401b84520002fe855c83adc7b1d01c45b53f309785e507a1cb89",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": [
+      "lossless metadata policy, lossiness flag and validated optional cached-header input; fail on absent image root; optional roster columns"
+    ]
+  },
+  {
+    "module": "phasedx_external.predict_image28",
+    "origin": "batch28/manifest/predict_image28.py",
+    "origin_sha256": "d9fb2779c55354f16919f9e5d12455279ba8095a4b8c849a0dc1a90ea38603ef",
+    "imported_sha256": "8957ae0718d3ef2bfb2ef81d4fa2c9ba34ea957ebb1b1662b453df1c87123e34",
+    "functions": [
+      "fail"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting",
+      "explicit main(argv), no execution on import"
+    ],
+    "current_sha256": "d8747597ae4c682db9e100d7192b1ce309ee4e1efe5d700289d93fbad8d8fa9f",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": [
+      "portable actual-source/decoder identity binding; CPU execution, STOP/deadline and resumable outputs"
+    ]
+  },
+  {
+    "module": "phasedx_external.predict_geometry28",
+    "origin": "batch28/geometry/predict_geometry28.py",
+    "origin_sha256": "d14d0c38be1a5a0b79be113f41816c9beb810853521e053f37c577143056ef37",
+    "imported_sha256": "638175370efed1a8709d282301cec2f33633bca05f412065d8db461aa83585d2",
+    "functions": [],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting",
+      "explicit main(argv), no execution on import"
+    ],
+    "current_sha256": "638175370efed1a8709d282301cec2f33633bca05f412065d8db461aa83585d2",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": [
+      "portable guarded CLI and frozen identity checks"
+    ]
+  },
+  {
+    "module": "phasedx_external.acquire31",
+    "origin": "batch31/code/acquire31.py",
+    "origin_sha256": "545f221b69c7d379b3bab13148303e1611cb6ca0be9e5b8824e0e6d60e56db16",
+    "imported_sha256": "c53f8696dbb773fc1236df35c4cc69a556c1ddd86c7a2f37b10b40412a4f73fe",
+    "functions": [
+      "_net",
+      "free_bytes",
+      "tree_bytes",
+      "sha_file",
+      "read_list",
+      "select",
+      "partial_meta_path",
+      "expected_digests",
+      "verify_complete",
+      "fetch_one",
+      "_atomic_json",
+      "_case_path_map",
+      "safe_extract",
+      "probe_header_bounded",
+      "_fetch_with_retries",
+      "run_fetch",
+      "_baseline",
+      "run_extract",
+      "main",
+      "__init__",
+      "redirect_request",
+      "__init__",
+      "_lock_is_stale",
+      "acquire",
+      "release",
+      "check",
+      "_ledger",
+      "events",
+      "append",
+      "cumulative_used",
+      "stored",
+      "note_written",
+      "check_resources",
+      "admit_bytes",
+      "reserve",
+      "settle",
+      "one",
+      "work"
+    ],
+    "changes": [
+      "package-relative imports",
+      "remove global sys.path modifications",
+      "AST formatting"
+    ],
+    "current_sha256": "c53f8696dbb773fc1236df35c4cc69a556c1ddd86c7a2f37b10b40412a4f73fe",
+    "initial_import_hash_note": "imported_sha256 is initial port snapshot, not current bytes",
+    "subsequent_changes": []
+  },
+  {
+    "module": "phasedx_external.__init__",
+    "origin": "CPU implementation 2026-10-20",
+    "current_sha256": "39bfb76bd0b1b0ecde4c3a98b1d24d8d53d329a678d4eeda8c68b3a49eed12cf",
+    "changes": [
+      "new portable wrapper, fixed synthetic smoke, decoder or cached-header support; see module and tests"
+    ]
+  },
+  {
+    "module": "phasedx_external.__main__",
+    "origin": "CPU implementation 2026-10-20",
+    "current_sha256": "9622c5b4b580de3be5b76b9beafb6628f33e2a4fdf394c2033207c8e17ed5168",
+    "changes": [
+      "new portable wrapper, fixed synthetic smoke, decoder or cached-header support; see module and tests"
+    ]
+  },
+  {
+    "module": "phasedx_external.commands",
+    "origin": "CPU implementation 2026-10-20",
+    "current_sha256": "e280bc8e19ac0d2e823cf931db58ed6c5a26b09b4b7be874d24fd092cdbac2f1",
+    "changes": [
+      "new portable wrapper, fixed synthetic smoke, decoder or cached-header support; see module and tests"
+    ]
+  },
+  {
+    "module": "phasedx_external.dicom_decode",
+    "origin": "CPU implementation 2026-10-20",
+    "current_sha256": "98063030117e10851e9956bc402583c95f23246a027927739861843546caed75",
+    "changes": [
+      "new portable wrapper, fixed synthetic smoke, decoder or cached-header support; see module and tests"
+    ]
+  },
+  {
+    "module": "phasedx_external.header_cache",
+    "origin": "CPU implementation 2026-10-20",
+    "current_sha256": "fb60ea9d373c6c145377a764de9c7e9b9b3a58816f79bfdd12c86be6073ce03c",
+    "changes": [
+      "new portable wrapper, fixed synthetic smoke, decoder or cached-header support; see module and tests"
+    ]
+  },
+  {
+    "module": "phasedx_external.smoke",
+    "origin": "CPU implementation 2026-10-20",
+    "current_sha256": "68ca9ef65d9083f9da3307fb9aa7828de868e71b18729a3cfa2953c7977faed5",
+    "changes": [
+      "new portable wrapper, fixed synthetic smoke, decoder or cached-header support; see module and tests"
+    ]
+  }
+]

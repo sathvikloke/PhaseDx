@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "as_of": "2026-10-15",
-  "repository_base": "68ba769",
-  "scope": "October revised study and fixed external CT comparison; conditional historical work explicitly separated",
+  "as_of": "2026-10-20",
+  "repository_base": "a5a6b7264d0050ce8c918a395cf2a4c0e006a568",
+  "scope": "Active CPU execution. Task completion is deliverable-specific; scientific/author dependencies and conditional historical work remain explicit.",
   "tasks": [
     {
       "id": "E01",
       "title": "Bring the current study implementation into a portable repository layout",
       "lane": "implementation",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "ready",
+      "status": "done",
       "dependencies": [],
       "inputs": "source_map.json; B26 image/geometry, B28 manifest/protocol, B29 scorer, B30 acquisition source; current Git tree",
       "outputs": "src/phasedx_external/; configs/external/; docs/execution/IMPLEMENTATION_MAP.md",
@@ -24,7 +24,9 @@
       "resource": "CPU-light",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;54 clean CPU tests passed. CLI rehearsal uses fabricated data and stub neural responses, not clinical inference. Final runner receipt filename failure preserved; see ENVIRONMENT.md."
+      ],
       "card": "tasks/E01.md",
       "priority": "critical"
     },
@@ -32,9 +34,9 @@
       "id": "E02",
       "title": "Locate the exact private inputs and checkpoint files",
       "lane": "inputs",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "ready",
+      "status": "done",
       "dependencies": [],
       "inputs": "Dataset registry; existing PhaseDx pipeline_out; revision source/config locks; Research archive inventory",
       "outputs": "private input_locations.json and input_presence.csv; public schema/example only",
@@ -48,7 +50,9 @@
       "resource": "filesystem metadata",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;ACTIVE_INPUT_REGISTRY.json and input_presence.csv:91 paths,8 dataset IDs,0 missing recorded local paths,6 unavailable drive paths; missing provenance fields explicit. Historical expected hashes are not fresh checks."
+      ],
       "card": "tasks/E02.md",
       "priority": "parallel"
     },
@@ -56,9 +60,9 @@
       "id": "E03",
       "title": "Create reproducible CPU and inference environments",
       "lane": "implementation",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "ready",
+      "status": "doing",
       "dependencies": [],
       "inputs": "requirements.txt; imported-module dependency list; existing working environment records",
       "outputs": "requirements-external.lock; requirements-cpu.lock; environment instructions and observed platform record",
@@ -72,7 +76,9 @@
       "resource": "setup / bounded disk",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Isolated CPU dependency install/smoke complete; requirements/cpu.lock.txt tested. Existing torch/vision pins recorded, fresh inference environment still untested; low internal free space limits additional installation."
+      ],
       "card": "tasks/E03.md",
       "priority": "parallel"
     },
@@ -80,9 +86,9 @@
       "id": "E04",
       "title": "Provide resumable execution with measured resource admission",
       "lane": "execution",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E01",
         "E03"
@@ -99,7 +105,9 @@
       "resource": "CPU-light orchestration",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;54 clean CPU tests passed. CLI rehearsal uses fabricated data and stub neural responses, not clinical inference. Final runner receipt filename failure preserved; see ENVIRONMENT.md."
+      ],
       "card": "tasks/E04.md",
       "priority": "parallel"
     },
@@ -107,7 +115,7 @@
       "id": "E05",
       "title": "Prepare an optional Einstein Slurm execution profile",
       "lane": "HPC",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
       "status": "optional",
       "dependencies": [
@@ -134,9 +142,9 @@
       "id": "E06",
       "title": "Repair the three remaining acquisition edge cases once",
       "lane": "acquisition",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "ready",
+      "status": "done",
       "dependencies": [],
       "inputs": "B30 acquire30.py; BATCH30_CODEX_CLOSURE_REVIEW.md; fake-response fixture patterns",
       "outputs": "Separate scratch repair: work/execution/repairs/acquire30_fixed.py; three focused regression outputs. E07 merges into the E01 imported module after both finish.",
@@ -150,7 +158,9 @@
       "resource": "CPU-light synthetic",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;54 clean CPU tests passed. CLI rehearsal uses fabricated data and stub neural responses, not clinical inference. Final runner receipt filename failure preserved; see ENVIRONMENT.md."
+      ],
       "card": "tasks/E06.md",
       "priority": "critical"
     },
@@ -158,9 +168,9 @@
       "id": "E07",
       "title": "Prepare the executable image-only acquisition operation",
       "lane": "acquisition",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E01",
         "E02",
@@ -178,7 +188,9 @@
       "resource": "CPU-light / metadata",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Batch31 completed image-only acquisition491 verified archives/28,660,207,451bytes and490 extractions, with one authenticated source-corrupt archive and case-collision renames retained. Prior producer report reused, no repeat full download/hash campaign. Portable acquire31 includes its fixes and three focused current regression tests."
+      ],
       "card": "tasks/E07.md",
       "priority": "critical"
     },
@@ -186,9 +198,9 @@
       "id": "E08",
       "title": "Acquire the CQ500 image archives",
       "lane": "acquisition",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E04",
         "E07",
@@ -206,7 +218,9 @@
       "resource": "network / approximately 28.66 GB compressed",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Batch31 completed image-only acquisition491 verified archives/28,660,207,451bytes and490 extractions, with one authenticated source-corrupt archive and case-collision renames retained. Prior producer report reused, no repeat full download/hash campaign. Portable acquire31 includes its fixes and three focused current regression tests."
+      ],
       "card": "tasks/E08.md",
       "priority": "critical"
     },
@@ -214,9 +228,9 @@
       "id": "E09",
       "title": "Extract verified images without changing the source population",
       "lane": "acquisition",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E08"
       ],
@@ -232,7 +246,9 @@
       "resource": "disk I/O / capacity measured after acquisition",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Batch31 completed image-only acquisition491 verified archives/28,660,207,451bytes and490 extractions, with one authenticated source-corrupt archive and case-collision renames retained. Prior producer report reused, no repeat full download/hash campaign. Portable acquire31 includes its fixes and three focused current regression tests."
+      ],
       "card": "tasks/E09.md",
       "priority": "critical"
     },
@@ -240,9 +256,9 @@
       "id": "E10",
       "title": "Build the full DICOM roster and geometry inventory",
       "lane": "cohort",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "doing",
       "dependencies": [
         "E01",
         "E09"
@@ -259,7 +275,9 @@
       "resource": "parallel header parsing / one source stream if drive contention",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Original B31 roster available. Expanded lossless-policy header inventory awaits stable Research mount. Initial October20 attempt read0bytes and is INVALID_IO_ATTEMPT; repaired scanner/checkpoint tests pass. Separate v2 queue is bounded to12:30Z and preserves all source exams."
+      ],
       "card": "tasks/E10.md",
       "priority": "critical"
     },
@@ -267,9 +285,9 @@
       "id": "E11",
       "title": "Assemble a blinded clinical series-selection packet",
       "lane": "cohort",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E10"
       ],
@@ -285,7 +303,9 @@
       "resource": "header parsing / document preparation",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "B31 blinded packet retained, but lossless-inclusive technical packet awaits E10. Clinical qualification is not filled from technical eligibility."
+      ],
       "card": "tasks/E11.md",
       "priority": "parallel"
     },
@@ -293,9 +313,9 @@
       "id": "E12",
       "title": "Apply the fixed clinical series selector",
       "lane": "cohort",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E01",
         "E11",
@@ -313,7 +333,9 @@
       "resource": "CPU-light",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Needs current source packet and qualified outcome-blind clinical compatibility decisions. No chosen series or silent exclusions fabricated."
+      ],
       "card": "tasks/E12.md",
       "priority": "critical"
     },
@@ -321,9 +343,9 @@
       "id": "E13",
       "title": "Authenticate the external reference and source-key schema",
       "lane": "reference",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "ready",
+      "status": "blocked",
       "dependencies": [],
       "inputs": "CQ500 primary methods/release metadata; B28 reference contract; permitted header-only metadata",
       "outputs": "reference_schema.json; source-key specification; evidence locators for reader fields",
@@ -337,7 +359,9 @@
       "resource": "primary text / metadata",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Header-only HTTP206 retrieval authenticated564bytes and exact name/Category/R1:ICH/R2:ICH/R3:ICH columns;0 outcome rows opened. Key-value normalization and Category meaning lack primary schema evidence; pending schema remains authenticated=false."
+      ],
       "card": "tasks/E13.md",
       "priority": "parallel"
     },
@@ -345,9 +369,9 @@
       "id": "E14",
       "title": "Ingest the authorized reader reference after prediction freeze",
       "lane": "reference",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E13",
         "E22",
@@ -367,7 +391,9 @@
       "resource": "CPU-light / small authorized reference file",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Reference data rows remain unopened until frozen predictions and approved source-key/schema interpretation. Exact header already retrieved."
+      ],
       "card": "tasks/E14.md",
       "priority": "parallel"
     },
@@ -375,9 +401,9 @@
       "id": "E15",
       "title": "Bind person/examination grouping using legitimate source evidence",
       "lane": "reference",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E02",
         "E13"
@@ -394,7 +420,9 @@
       "resource": "metadata",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Already adjudicated examination fallback exists, but no CQ500 person-map evidence or authenticated source-key rule is available. No patient identity inference performed."
+      ],
       "card": "tasks/E15.md",
       "priority": "parallel"
     },
@@ -402,9 +430,9 @@
       "id": "E16",
       "title": "Bind the frozen CT model, comparator and executed preprocessing identities",
       "lane": "model",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E02"
       ],
@@ -420,7 +448,9 @@
       "resource": "metadata / checkpoint hashing once",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;private model_registry_v2.json binds both original CT checkpoints, transported frozen G2, feature order, canonical precision and decoder/source hashes. Clinical manifest/design final freeze remains E22."
+      ],
       "card": "tasks/E16.md",
       "priority": "critical"
     },
@@ -428,9 +458,9 @@
       "id": "E17",
       "title": "Finish the portable frozen image inference CLI",
       "lane": "model",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E01",
         "E03",
@@ -448,7 +478,9 @@
       "resource": "bounded development fixture; clinical inference only E23/E24",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;54 clean CPU tests passed. CLI rehearsal uses fabricated data and stub neural responses, not clinical inference. Final runner receipt filename failure preserved; see ENVIRONMENT.md."
+      ],
       "card": "tasks/E17.md",
       "priority": "critical"
     },
@@ -456,9 +488,9 @@
       "id": "E18",
       "title": "Finish the transported frozen geometry inference CLI",
       "lane": "model",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E01",
         "E16"
@@ -475,7 +507,9 @@
       "resource": "CPU-light",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;54 clean CPU tests passed. CLI rehearsal uses fabricated data and stub neural responses, not clinical inference. Final runner receipt filename failure preserved; see ENVIRONMENT.md."
+      ],
       "card": "tasks/E18.md",
       "priority": "critical"
     },
@@ -483,9 +517,9 @@
       "id": "E19",
       "title": "Make the paired scorer enforce the fixed study contract",
       "lane": "statistics execution",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E01"
       ],
@@ -501,7 +535,9 @@
       "resource": "CPU-light synthetic",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;54 clean CPU tests passed. CLI rehearsal uses fabricated data and stub neural responses, not clinical inference. Final runner receipt filename failure preserved; see ENVIRONMENT.md."
+      ],
       "card": "tasks/E19.md",
       "priority": "critical"
     },
@@ -509,9 +545,9 @@
       "id": "E20",
       "title": "Port deterministic missing-prediction completion bounds",
       "lane": "statistics execution",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E01"
       ],
@@ -527,7 +563,9 @@
       "resource": "CPU-light synthetic",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;54 clean CPU tests passed. CLI rehearsal uses fabricated data and stub neural responses, not clinical inference. Final runner receipt filename failure preserved; see ENVIRONMENT.md."
+      ],
       "card": "tasks/E20.md",
       "priority": "parallel"
     },
@@ -535,9 +573,9 @@
       "id": "E21",
       "title": "Complete one end-to-end synthetic execution rehearsal",
       "lane": "integration",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E01",
         "E04",
@@ -558,7 +596,9 @@
       "resource": "CPU-light",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;54 clean CPU tests passed. CLI rehearsal uses fabricated data and stub neural responses, not clinical inference. Final runner receipt filename failure preserved; see ENVIRONMENT.md."
+      ],
       "card": "tasks/E21.md",
       "priority": "critical"
     },
@@ -566,9 +606,9 @@
       "id": "E22",
       "title": "Freeze the clinical execution package before outcomes",
       "lane": "integration",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E12",
         "E16",
@@ -588,7 +628,9 @@
       "resource": "metadata",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "External clinical path awaits stable image inventory, clinical compatibility/selection and source-reference interpretation. No external predictions/outcome rows/results exist; independently ready CPU preparation was completed."
+      ],
       "card": "tasks/E22.md",
       "priority": "critical"
     },
@@ -596,9 +638,9 @@
       "id": "E23",
       "title": "Run frozen seed42 external image predictions",
       "lane": "clinical inference",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E04",
         "E08",
@@ -621,7 +663,9 @@
       "resource": "GPU/MPS/CPU inference; benchmark actual throughput first",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "External clinical path awaits stable image inventory, clinical compatibility/selection and source-reference interpretation. No external predictions/outcome rows/results exist; independently ready CPU preparation was completed."
+      ],
       "card": "tasks/E23.md",
       "priority": "critical"
     },
@@ -629,9 +673,9 @@
       "id": "E24",
       "title": "Run frozen seed123 descriptive external predictions",
       "lane": "clinical inference",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E04",
         "E12",
@@ -651,7 +695,9 @@
       "resource": "inference; shared GPU contention-aware",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "External clinical path awaits stable image inventory, clinical compatibility/selection and source-reference interpretation. No external predictions/outcome rows/results exist; independently ready CPU preparation was completed."
+      ],
       "card": "tasks/E24.md",
       "priority": "parallel"
     },
@@ -659,9 +705,9 @@
       "id": "E25",
       "title": "Run the frozen transported geometry comparator",
       "lane": "clinical inference",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E04",
         "E12",
@@ -682,7 +728,9 @@
       "resource": "CPU-light parallel to image inference",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "External clinical path awaits stable image inventory, clinical compatibility/selection and source-reference interpretation. No external predictions/outcome rows/results exist; independently ready CPU preparation was completed."
+      ],
       "card": "tasks/E25.md",
       "priority": "critical"
     },
@@ -690,9 +738,9 @@
       "id": "E26",
       "title": "Execute the prespecified external primary comparison",
       "lane": "statistics execution",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E14",
         "E15",
@@ -713,7 +761,9 @@
       "resource": "bounded CPU; no refit",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "External clinical path awaits stable image inventory, clinical compatibility/selection and source-reference interpretation. No external predictions/outcome rows/results exist; independently ready CPU preparation was completed."
+      ],
       "card": "tasks/E26.md",
       "priority": "critical"
     },
@@ -721,9 +771,9 @@
       "id": "E27",
       "title": "Produce the prespecified descriptive secondary result",
       "lane": "statistics execution",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E14",
         "E19",
@@ -741,7 +791,9 @@
       "resource": "CPU-light",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "External clinical path awaits stable image inventory, clinical compatibility/selection and source-reference interpretation. No external predictions/outcome rows/results exist; independently ready CPU preparation was completed."
+      ],
       "card": "tasks/E27.md",
       "priority": "parallel"
     },
@@ -749,9 +801,9 @@
       "id": "E28",
       "title": "Produce full-cohort flow, support and missing-score results",
       "lane": "cohort results",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E10",
         "E12",
@@ -772,7 +824,9 @@
       "resource": "CPU-light",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "External clinical path awaits stable image inventory, clinical compatibility/selection and source-reference interpretation. No external predictions/outcome rows/results exist; independently ready CPU preparation was completed."
+      ],
       "card": "tasks/E28.md",
       "priority": "parallel"
     },
@@ -780,9 +834,9 @@
       "id": "E29",
       "title": "Generate external-study tables and figure data mechanically",
       "lane": "presentation execution",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E26",
         "E27",
@@ -800,7 +854,9 @@
       "resource": "CPU-light plotting",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "External clinical path awaits stable image inventory, clinical compatibility/selection and source-reference interpretation. No external predictions/outcome rows/results exist; independently ready CPU preparation was completed."
+      ],
       "card": "tasks/E29.md",
       "priority": "parallel"
     },
@@ -808,9 +864,9 @@
       "id": "E30",
       "title": "Recover source-bound MRI training and preprocessing Methods",
       "lane": "historical Methods",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "ready",
+      "status": "done",
       "dependencies": [],
       "inputs": "C2 twenty-run registry; B21/B22 source/config records; original pipeline and raw-to-cache candidate sources",
       "outputs": "MRI_METHODS_EVIDENCE.csv and exact source excerpts; unresolved executed-code list",
@@ -824,7 +880,9 @@
       "resource": "text/config extraction",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "RETAINED_METHODS.md and METHODS_SOURCE_INDEX.csv plus private exact excerpts/receipts. Fifteen source files inspected;20 canonical MRI run records reused. Breast prior70-case mapping recovered; per-case ascertainment, full raw-to-cache executed lineage and identity beyond repeat flags remain explicitly unknown. Source extraction completion is not clinical signoff."
+      ],
       "card": "tasks/E30.md",
       "priority": "parallel"
     },
@@ -832,9 +890,9 @@
       "id": "E31",
       "title": "Recover breast target, case mapping and executed Methods",
       "lane": "historical Methods",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "ready",
+      "status": "done",
       "dependencies": [],
       "inputs": "Authorized breast workbook/source evidence; retained70-case mapping; historical train/preprocess configs; D03",
       "outputs": "Private case/source mapping; aggregate reference/methods evidence and missing-field list",
@@ -848,7 +906,9 @@
       "resource": "private metadata / text",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "RETAINED_METHODS.md and METHODS_SOURCE_INDEX.csv plus private exact excerpts/receipts. Fifteen source files inspected;20 canonical MRI run records reused. Breast prior70-case mapping recovered; per-case ascertainment, full raw-to-cache executed lineage and identity beyond repeat flags remain explicitly unknown. Source extraction completion is not clinical signoff."
+      ],
       "card": "tasks/E31.md",
       "priority": "parallel"
     },
@@ -856,9 +916,9 @@
       "id": "E32",
       "title": "Recover internal CT model, selection and preprocessing Methods",
       "lane": "historical Methods",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "ready",
+      "status": "done",
       "dependencies": [],
       "inputs": "Original CT job/config/source records; original geometry selection; later sensitivity records; D08/D09",
       "outputs": "CT_METHODS_EVIDENCE.csv; original-versus-sensitivity lineage; input-selection chronology",
@@ -872,7 +932,9 @@
       "resource": "text/config extraction",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "RETAINED_METHODS.md and METHODS_SOURCE_INDEX.csv plus private exact excerpts/receipts. Fifteen source files inspected;20 canonical MRI run records reused. Breast prior70-case mapping recovered; per-case ascertainment, full raw-to-cache executed lineage and identity beyond repeat flags remain explicitly unknown. Source extraction completion is not clinical signoff."
+      ],
       "card": "tasks/E32.md",
       "priority": "parallel"
     },
@@ -880,9 +942,9 @@
       "id": "E33",
       "title": "Complete retained-cohort selection and exposure chronology",
       "lane": "historical Methods",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E02"
       ],
@@ -898,7 +960,9 @@
       "resource": "metadata",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "RETAINED_METHODS.md,EXPOSURE_CHRONOLOGY.csv,private B15 C1_POPULATIONS.csv and source-bound flow notes distinguish release/acquired/cached/evaluated populations; missing contemporaneous reasons explicitly unknown. No new outcome calculations."
+      ],
       "card": "tasks/E33.md",
       "priority": "parallel"
     },
@@ -906,9 +970,9 @@
       "id": "E34",
       "title": "Assemble the accepted aggregate result inputs for the revised paper",
       "lane": "paper inputs",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E02"
       ],
@@ -924,7 +988,9 @@
       "resource": "CPU-light table assembly",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Private writing_inputs:90 reviewed MRI interval rows,38 reviewed breast rows,26 original CT table rows, exact source bindings and retained evidence levels. No draw/statistic replay or private-case publication."
+      ],
       "card": "tasks/E34.md",
       "priority": "parallel"
     },
@@ -932,9 +998,9 @@
       "id": "E35",
       "title": "Package the completed synthetic studies for reproducible use",
       "lane": "paper inputs",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E02"
       ],
@@ -950,7 +1016,9 @@
       "resource": "source/aggregate packaging",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "reproducibility/synthetic_b25 contains fixed source/config and completed aggregate outputs; tools/reproduce_synthetic.py provides plan by default. B25 simulations not rerun."
+      ],
       "card": "tasks/E35.md",
       "priority": "parallel"
     },
@@ -958,9 +1026,9 @@
       "id": "E36",
       "title": "Reconcile the older public study with the current submission scope",
       "lane": "historical inventory",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "ready",
+      "status": "done",
       "dependencies": [],
       "inputs": "paper/FINDINGS.md; paper/tex/rsna; old screening/baseline outputs; current audit and H01 scope",
       "outputs": "HISTORICAL_DISPOSITION.csv keyed by dataset/claim/script and current-paper role",
@@ -974,7 +1042,9 @@
       "resource": "text/artifact inventory",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "HISTORICAL_DISPOSITION.csv separates October study from historical benchmarks, literature screen and FDA scoping. No extra experiments silently added."
+      ],
       "card": "tasks/E36.md",
       "priority": "parallel"
     },
@@ -982,9 +1052,9 @@
       "id": "E37",
       "title": "Provide a clean-checkout reproducibility smoke path",
       "lane": "release",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E01",
         "E03",
@@ -1006,7 +1076,9 @@
       "resource": "CPU-light / environment setup",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "CPU_EVIDENCE_20261020.json; private cpu_20261020T0751Z evidence index;54 clean CPU tests passed. CLI rehearsal uses fabricated data and stub neural responses, not clinical inference. Final runner receipt filename failure preserved; see ENVIRONMENT.md."
+      ],
       "card": "tasks/E37.md",
       "priority": "parallel"
     },
@@ -1014,9 +1086,9 @@
       "id": "E38",
       "title": "Render approved figures and tables at submission quality",
       "lane": "presentation execution",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E29",
         "E34",
@@ -1035,7 +1107,9 @@
       "resource": "CPU-light rendering",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Requires applicable external result/scientific approval, author or release-permission inputs. Existing reading PDF is not final submission evidence. No publication or weight redistribution authorized by code push."
+      ],
       "card": "tasks/E38.md",
       "priority": "parallel"
     },
@@ -1043,9 +1117,9 @@
       "id": "E39",
       "title": "Collect verifiable reference metadata and Methods source excerpts",
       "lane": "paper inputs",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "ready",
+      "status": "done",
       "dependencies": [],
       "inputs": "Current source list; primary dataset papers; nearest methodological sources; existing bib files",
       "outputs": "Bibliographic metadata, exact proposition/source locators and unavailable-source list",
@@ -1059,7 +1133,9 @@
       "resource": "primary text retrieval / parse",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "references.bib has14 full-author retained citations from cached primary metadata; source excerpts and title identity records retained. New metadata assembly made0 network requests; inaccessible/unproven fields stay explicit."
+      ],
       "card": "tasks/E39.md",
       "priority": "parallel"
     },
@@ -1067,9 +1143,9 @@
       "id": "E40",
       "title": "Assemble the reporting and disclosure evidence matrix",
       "lane": "paper inputs",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         "E30",
         "E31",
@@ -1088,7 +1164,9 @@
       "resource": "document extraction",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "REPORTING_MAP.csv covers44 topics with current evidence and unresolved fields; DISCLOSURE_INPUTS.md separates tool contributions and human declarations. Completion of matrix does not mean reporting compliance or author approval."
+      ],
       "card": "tasks/E40.md",
       "priority": "parallel"
     },
@@ -1096,9 +1174,9 @@
       "id": "E41",
       "title": "Populate the approved author and disclosure metadata mechanically",
       "lane": "submission assembly",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "H12",
         "H13"
@@ -1115,7 +1193,9 @@
       "resource": "document assembly",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Requires applicable external result/scientific approval, author or release-permission inputs. Existing reading PDF is not final submission evidence. No publication or weight redistribution authorized by code push."
+      ],
       "card": "tasks/E41.md",
       "priority": "parallel"
     },
@@ -1123,9 +1203,9 @@
       "id": "E42",
       "title": "Build the final journal files from scientifically approved text",
       "lane": "submission assembly",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E38",
         "E40",
@@ -1145,7 +1225,9 @@
       "resource": "document build/render",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Requires applicable external result/scientific approval, author or release-permission inputs. Existing reading PDF is not final submission evidence. No publication or weight redistribution authorized by code push."
+      ],
       "card": "tasks/E42.md",
       "priority": "parallel"
     },
@@ -1153,9 +1235,9 @@
       "id": "E43",
       "title": "Prepare the reproducible public code and aggregate release",
       "lane": "release",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "doing",
       "dependencies": [
         "E34",
         "E35",
@@ -1174,7 +1256,9 @@
       "resource": "filesystem / documentation",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Public code/synthetic/schema/Methods candidate prepared; restricted inputs and weights excluded. Prior user authorization permits repository code/task push; broad data/model release and journal deposit remain distinct H12/E50 decisions."
+      ],
       "card": "tasks/E43.md",
       "priority": "parallel"
     },
@@ -1182,9 +1266,9 @@
       "id": "E44",
       "title": "Prepare a checkpoint availability package if redistribution is permitted",
       "lane": "release",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E16",
         "H12"
@@ -1201,7 +1285,9 @@
       "resource": "metadata / optional large artifact",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Requires applicable external result/scientific approval, author or release-permission inputs. Existing reading PDF is not final submission evidence. No publication or weight redistribution authorized by code push."
+      ],
       "card": "tasks/E44.md",
       "priority": "parallel"
     },
@@ -1209,9 +1295,9 @@
       "id": "E45",
       "title": "Return a compact evidence bundle for independent scientific review",
       "lane": "review handoff",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "doing",
       "dependencies": [
         "E26",
         "E27",
@@ -1235,7 +1321,9 @@
       "resource": "metadata / aggregate packaging",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Compact current CPU evidence index prepared; complete study evidence handoff cannot exist before external E26\u2013E29."
+      ],
       "card": "tasks/E45.md",
       "priority": "parallel"
     },
@@ -1243,7 +1331,7 @@
       "id": "E46",
       "title": "Execute only a specifically adjudicated result-changing correction",
       "lane": "conditional repair",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
       "status": "optional",
       "dependencies": [
@@ -1268,7 +1356,7 @@
       "id": "E47",
       "title": "Recover a retained historical benchmark artifact only if absent",
       "lane": "conditional historical",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
       "status": "optional",
       "dependencies": [
@@ -1295,7 +1383,7 @@
       "id": "E48",
       "title": "Recover permissible full texts if the historical prevalence study is retained",
       "lane": "optional screen",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
       "status": "optional",
       "dependencies": [
@@ -1322,7 +1410,7 @@
       "id": "E49",
       "title": "Recompute the historical screen outputs after independent human coding",
       "lane": "optional screen",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
       "status": "optional",
       "dependencies": [
@@ -1349,9 +1437,9 @@
       "id": "E50",
       "title": "Publish only the explicitly approved release artifacts",
       "lane": "release",
-      "owner": "user / Claude executor",
+      "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "pending",
+      "status": "blocked",
       "dependencies": [
         "E43",
         "E44",
@@ -1369,7 +1457,9 @@
       "resource": "network upload after explicit approval",
       "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Requires applicable external result/scientific approval, author or release-permission inputs. Existing reading PDF is not final submission evidence. No publication or weight redistribution authorized by code push."
+      ],
       "card": "tasks/E50.md",
       "priority": "parallel"
     },
@@ -1379,7 +1469,7 @@
       "lane": "scientific / author",
       "owner": "user / Codex scientific review",
       "kind": "scientific_author",
-      "status": "decision_needed",
+      "status": "done",
       "dependencies": [],
       "inputs": "Audit; v14; October14 protocol amendment; older RSNA manuscript",
       "outputs": "Current scientific scope/claim map and any prospective amendment",
@@ -1390,9 +1480,11 @@
       ],
       "acceptance": "Primary scientific question and included evidence are unambiguous; no retrospective claim of untouched design.",
       "resource": "analysis / human decision",
-      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "October revised study/external transported G2 route retained; HISTORICAL_DISPOSITION.csv and DECODER_AMENDMENT_20261020.md specify bounded scope and outcome-blind lossless input amendment."
+      ],
       "card": "tasks/H01.md",
       "priority": "parallel"
     },
@@ -1402,7 +1494,7 @@
       "lane": "scientific / author",
       "owner": "user / Codex scientific review",
       "kind": "scientific_author",
-      "status": "decision_needed",
+      "status": "done",
       "dependencies": [
         "E07"
       ],
@@ -1415,9 +1507,11 @@
       ],
       "acceptance": "Claude knows exactly which real-data operations may execute and with which resources; no global blockade of unrelated ready tasks.",
       "resource": "analysis / human decision",
-      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "User explicitly authorized current PhaseDx CPU execution/downloads; existing400GBstored/200GBcumulative allowance retained and Batch31 baseline recorded. Current deadline12:30Z; no GPU/HPC. Clinical facts and outcome-blinding remain required, not repeated resource approvals."
+      ],
       "card": "tasks/H02.md",
       "priority": "critical"
     },
@@ -1554,7 +1648,7 @@
       "lane": "scientific / author",
       "owner": "user / Codex scientific review",
       "kind": "scientific_author",
-      "status": "decision_needed",
+      "status": "done",
       "dependencies": [
         "E35"
       ],
@@ -1567,9 +1661,11 @@
       ],
       "acceptance": "Simulation adds a bounded methodological result without substituting for external clinical evidence.",
       "resource": "analysis / human decision",
-      "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
+      "gate": "",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "B25 closed selected review reused: internal increment may coexist with controlled transport failure; precision design is hypothetical, not clinical power. No proof empirical CNN shortcuts or clinical superiority."
+      ],
       "card": "tasks/H08.md",
       "priority": "parallel"
     },

@@ -1,0 +1,1 @@
+{"shard": "T03", "n_rep": 200, "configs": [{"label_mode": "broadcast", "n_eval": 300, "regime": "unchanged"}]}

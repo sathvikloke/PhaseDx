@@ -1,0 +1,49 @@
+{
+  "observed_utc": "2026-10-20T08:55:53.252811+00:00",
+  "tests": {
+    "clean_source_tests": 54,
+    "failed": 0,
+    "test_scope": "synthetic/fixture CPU tests, no neural or clinical inference",
+    "receipt_issue": "summary name retained V2; queue failed missing declared V3; post-execution V3 explanation retained"
+  },
+  "decoder": {
+    "fixed_sources": 16,
+    "compressed_exact_two_decoder_pixel_hu": 12,
+    "uncompressed_skips": 4,
+    "failures": 0,
+    "scope": "outcome-blind fixed diagnostic, not all-series validation"
+  },
+  "inputs": {
+    "family_ids": 8,
+    "paths": 91,
+    "missing_local_recorded_paths": 0,
+    "unavailable_volume_entries": 6,
+    "expected_hashes": "copied prior locks unless separate current model receipt"
+  },
+  "source_methods": {
+    "source_files": 15,
+    "canonical_C2_records": 20,
+    "bibliographic_entries": 14,
+    "reporting_topics": 44
+  },
+  "header_attempt1": {
+    "state": "INVALID_IO_ATTEMPT",
+    "bytes_read": 0,
+    "accepted_headers": 0
+  },
+  "external_results": {
+    "predictions_run": false,
+    "reference_outcome_rows_opened": 0,
+    "performance_result": false
+  },
+  "private_evidence_names": [
+    "CLEAN_CHECKOUT_SMOKE_V3.json",
+    "tests-isolated-v3.xml",
+    "ACTIVE_INPUT_REGISTRY.json",
+    "model_registry_v2.json",
+    "DECODER_DIAGNOSTIC_LOCK.json",
+    "decoder_samples/SUMMARY.json",
+    "breast_case_mapping/COPY_RECEIPTS.json",
+    "HEADER_ATTEMPT1_ADJUDICATION.json"
+  ]
+}

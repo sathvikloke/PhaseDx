@@ -1,8 +1,8 @@
 # PhaseDx: execution backlog to a defensible submission
 
-**Current handoff: October 15, 2026.** The user has ended the automated Codex–Claude dispatch arrangement. This repository is now the work queue for the user's independently launched Claude sessions. All execution belongs to **the user / Claude executor**. The final author roster is separate; there are no collaborator compute assignments.
+**Current checkpoint: October 20, 2026.** Automated Codex–Claude dispatch is ended. The user has authorized Codex to execute dependency-ready CPU work; the same repository also supports independently launched Claude sessions. There are no collaborator compute assignments. See [current evidence](CPU_EVIDENCE_20261020.json) and [progress](CPU_PROGRESS_20261020.md).
 
-There are **50 execution task cards** and **15 scientific/author task cards**. Five execution cards are conditional alternatives or repairs, and one scientific card concerns the optional historical screen. These are work packages with real outputs, not a promise of 65 simultaneous workers. Nothing in this commit claims that the queued experiments have run.
+There are **50 execution task cards** and **15 scientific/author task cards**. Five execution cards are conditional alternatives or repairs, and one scientific card concerns the optional historical screen. These are work packages with real outputs, not a promise of 65 simultaneous workers. Each card now distinguishes completed implementation/evidence assembly from pending clinical execution. Card counts are not a measure of the paper’s scientific completeness.
 
 Start with [the complete executor assignment](CLAUDE_EXECUTOR.md). Use [the task index](TASK_INDEX.md), [machine-readable queue](tasks.json), [dataset registry](DATASETS.md), [audit](AUDIT.md), [input map](INPUTS.md) and [CLI contract](CLI_CONTRACT.md). Every task has inputs, owned deliverables, execution steps, dependencies, resource profile and acceptance evidence.
 
@@ -10,8 +10,8 @@ Start with [the complete executor assignment](CLAUDE_EXECUTOR.md). Use [the task
 
 The next major empirical result is the **frozen external CT image-versus-transported-geometry comparison**. Its critical path is:
 
-1. Consolidate source and resolve the three narrow acquisition defects: E01, E06, E07.
-2. Complete the concrete access/baseline decision H02; acquire/extract the identified image cohort E08–E10.
+1. Portable implementation and targeted acquisition repairs are complete; B31 already acquired491 image archives and extracted490, with one source-corrupt archive retained in the denominator.
+2. Finish the lossless-inclusive header inventory E10 once Research is readable. The repaired reader checkpoints I/O outages rather than interpreting them as clinical exclusions.
 3. Resolve clinical series compatibility and source/reference mapping E11–E15, H03–H05.
 4. Freeze actual model/input identities E16–E22; execute independent image and geometry work E23–E25.
 5. Produce the specified primary, descriptive secondary and missingness results E26–E29; independently verify and interpret them H07–H09.
@@ -33,7 +33,7 @@ python3 tools/execution_backlog.py show E06
 
 This small tool reads the queue; it does **not** launch compute, download data, call models or approve science. Update `tasks.json` with evidence and regenerate the index with `python3 tools/execution_backlog.py render` as work proceeds. `ready` means dependencies recorded complete, not proof that private inputs or permissions exist on a different machine. Check only the applicable task's inputs.
 
-For the first night, start the locally resolvable independent tasks E01, E02, E03, E06, E13, E30–E32, E36 and E39. Backfill E16/E33–E35 as E02 resolves inputs. H01/H12/H13 can proceed with the user/Codex independently of Claude. Do not hold these tasks because CQ500 acquisition has a separate scope decision.
+Read current card evidence before rerunning anything. The portable CPU environment,54 synthetic/fixture tests, source-bound Methods, model/input registry and completed synthetic evidence are available. Remaining ready I/O work is supervised separately while the drive is unavailable. Fresh neural-environment installation, clinical series qualification, reference-key interpretation, external execution and final author/release inputs remain explicit tasks. Do not repeat the completed test suite or outcome checks merely to fill a session.
 
 ## Definition of completion
 
