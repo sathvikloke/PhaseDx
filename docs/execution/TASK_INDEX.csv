@@ -58,8 +58,8 @@ H06,Resolve clinical meaning and reference limits of retained MRI/breast/CT targ
 H07,Independently verify the new external numerical result,user / Codex scientific review,scientific_author,scientific / author,critical,decision_needed,E26;E27;E28,analysis / human decision,tasks/H07.md
 H08,Adjudicate the completed synthetic findings for the current paper,user / Codex scientific review,scientific_author,scientific / author,parallel,done,E35,analysis / human decision,tasks/H08.md
 H09,Interpret external evidence against the stated question,user / Codex scientific review,scientific_author,scientific / author,critical,decision_needed,H07;H05,analysis / human decision,tasks/H09.md
-H10,Write and validate the revised scientific manuscript,user / Codex scientific review,scientific_author,scientific / author,critical,decision_needed,H06;H08;H09;E34,analysis / human decision,tasks/H10.md
-H11,Assess current novelty and journal fit from primary sources,user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,E39,analysis / human decision,tasks/H11.md
+H10,Write and validate the revised scientific manuscript,user / Codex scientific review,scientific_author,scientific / author,critical,doing,H06;H08;H09;E34,analysis / human decision,tasks/H10.md
+H11,Assess current novelty and journal fit from primary sources,user / Codex scientific review,scientific_author,scientific / author,parallel,done,E39,analysis / human decision,tasks/H11.md
 H12,"Confirm ethics, permitted use and release statements",user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,,analysis / human decision,tasks/H12.md
 H13,Supply the final author roster and approvals,user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,,analysis / human decision,tasks/H13.md
 H14,Perform final scientific and author submission review,user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,H10;H11;H12;H13;E42;E43,analysis / human decision,tasks/H14.md

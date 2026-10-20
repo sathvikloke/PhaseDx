@@ -1701,7 +1701,7 @@
       "lane": "scientific / author",
       "owner": "user / Codex scientific review",
       "kind": "scientific_author",
-      "status": "decision_needed",
+      "status": "doing",
       "dependencies": [
         "H06",
         "H08",
@@ -1720,7 +1720,9 @@
       "resource": "analysis / human decision",
       "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "Private manuscript v15 integrates recovered Methods without changing numerical Results; an author-review structured abstract candidate uses existing results. Final external findings, author facts and scientific approval remain incomplete."
+      ],
       "card": "tasks/H10.md",
       "priority": "critical"
     },
@@ -1730,7 +1732,7 @@
       "lane": "scientific / author",
       "owner": "user / Codex scientific review",
       "kind": "scientific_author",
-      "status": "decision_needed",
+      "status": "done",
       "dependencies": [
         "E39"
       ],
@@ -1745,7 +1747,9 @@
       "resource": "analysis / human decision",
       "gate": "Reserved for user/Codex or qualified human as stated; Claude supplies evidence, never self-approves.",
       "optional": false,
-      "evidence": [],
+      "evidence": [
+        "docs/study/NOVELTY_AND_JOURNAL_FIT_20261020.md: bounded primary-source comparison and current Original Research instructions. General firstness is not claimed; full G-AUDIT method comparison remains necessary before any stronger distinction. Working venue fit is not acceptance or final author approval."
+      ],
       "card": "tasks/H11.md",
       "priority": "parallel"
     },

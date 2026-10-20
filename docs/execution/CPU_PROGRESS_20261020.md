@@ -13,7 +13,7 @@ This checkpoint covers new portable execution code, input/source recovery and Me
 - The two completed synthetic studies have portable source/configuration and aggregate outputs. Their experiments were not rerun.
 - A private manuscript v15 integrates the recovered Methods and corrects the obsolete C2 evidence summary. Existing numerical Results are unchanged.
 
-The task queue currently records 24 execution deliverables complete, three in progress, 18 blocked and five conditional. Three scientific decisions are recorded complete. These counts include reused prior acquisition evidence and are **not a percentage of the paper completed**.
+The task queue currently records 24 execution deliverables complete, three in progress, 18 blocked and five conditional. Four bounded scientific/design tasks are recorded complete; manuscript revision remains in progress. These counts include reused prior acquisition evidence and are **not a percentage of the paper completed**.
 
 ## Active work and remaining clinical path
 
@@ -30,3 +30,9 @@ The neural dependencies now install and load the actual checkpoints on CPU; a cl
 See [CPU_EVIDENCE_20261020.json](CPU_EVIDENCE_20261020.json), [Methods](../study/RETAINED_METHODS.md), [decoder amendment](../study/DECODER_AMENDMENT_20261020.md), [CLI contract](CLI_CONTRACT.md) and the regenerated [task index](TASK_INDEX.md).
 
 Private receipts identify commands, input/source hashes, failed attempts and measured child times. Previously reviewed outcomes retain their original verification scope; copying them is not a new independent reproduction. No case identifiers, clinical images, outcome rows, weights or private machine paths are included in this code/task handoff.
+
+## October 20 follow-up
+
+A targeted [novelty and venue assessment](../study/NOVELTY_AND_JOURNAL_FIT_20261020.md) limits the contribution against primary prior art and corrects stale journal file-format guidance. A shorter private abstract candidate is prepared for author review, without new statistics.
+
+The header writer now keeps one append handle open while retaining per-record flushing and all identity/STOP/resume checks. Five focused scanner tests passed. A 150-row identical-byte synthetic writing probe took 2.807 seconds with repeated open/close versus 0.292 seconds with a persistent handle; this measures record-writing overhead, not whole-scan acceleration. The prior scanner was checkpointed and versioned; 67,311 authenticated rows were reused with lineage in a separate V4 queue. Source inputs and original failures remain preserved.

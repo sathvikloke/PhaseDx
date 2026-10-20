@@ -72,8 +72,8 @@ Execution is owned by the user and their authorized executor (currently Codex fo
 | [H07](tasks/H07.md) | Independently verify the new external numerical result | scientific / author | decision_needed | E26, E27, E28 |
 | [H08](tasks/H08.md) | Adjudicate the completed synthetic findings for the current paper | scientific / author | done | E35 |
 | [H09](tasks/H09.md) | Interpret external evidence against the stated question | scientific / author | decision_needed | H07, H05 |
-| [H10](tasks/H10.md) | Write and validate the revised scientific manuscript | scientific / author | decision_needed | H06, H08, H09, E34 |
-| [H11](tasks/H11.md) | Assess current novelty and journal fit from primary sources | scientific / author | decision_needed | E39 |
+| [H10](tasks/H10.md) | Write and validate the revised scientific manuscript | scientific / author | doing | H06, H08, H09, E34 |
+| [H11](tasks/H11.md) | Assess current novelty and journal fit from primary sources | scientific / author | done | E39 |
 | [H12](tasks/H12.md) | Confirm ethics, permitted use and release statements | scientific / author | decision_needed | none |
 | [H13](tasks/H13.md) | Supply the final author roster and approvals | scientific / author | decision_needed | none |
 | [H14](tasks/H14.md) | Perform final scientific and author submission review | scientific / author | decision_needed | H10, H11, H12, H13, E42, E43 |

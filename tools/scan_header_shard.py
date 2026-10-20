@@ -5,6 +5,7 @@ No pixel decompression, model, reference labels or scientific outcome calculatio
 Each source remains represented, including parse failures and identity mismatches.
 """
 import argparse
+from contextlib import nullcontext
 import datetime
 import hashlib
 import io
@@ -85,42 +86,43 @@ def main(argv=None):
             raise FileNotFoundError("source image root is unavailable")
     except OSError as e:
         io_failure = {"reason": f"{type(e).__name__}: {e}", "relpath": None}
-    for src in plan["files"]:
-        if io_failure:
-            break
-        if src["relpath"] in done:
-            continue
-        if time.time() >= deadline or (Path(plan["run_root"]) / "STOP_REQUESTED").exists():
-            break
-        row = {k: src[k] for k in ("relpath", "size", "sha256", "source_exam_id", "assignment")}
-        row["size"] = int(row["size"])
-        row.update(readable=False, unreadable_reason="", hash_verified=False)
-        try:
-            p = root / src["relpath"]
-            payload = p.read_bytes()
-            newly_read += len(payload)
-            actual = hashlib.sha256(payload).hexdigest()
-            if actual != src["sha256"] or len(payload) != int(src["size"]):
-                row.update(actual_sha256=actual, actual_size=len(payload))
-                raise RuntimeError("source changed since frozen inventory")
-            row["hash_verified"] = True
-            row.update(header(payload))
-            row["readable"] = True
-        except OSError as e:
-            io_failure = {"reason": f"{type(e).__name__}: {e}", "relpath": src["relpath"]}
-            # No source bytes/header were authenticated. Do not add it to done.
-            break
-        except Exception as e:
-            row["unreadable_reason"] = f"{type(e).__name__}: {e}"
-        with records.open("a") as f:
-            f.write(json.dumps(row, allow_nan=False)+"\n")
-            f.flush()
-        done[src["relpath"]] = row
-        n_new += 1
-        if n_new % 100 == 0:
-            (out / "PROGRESS.json").write_text(json.dumps({
-                "completed": len(done), "planned": len(plan["files"]), "new_bytes_read": newly_read,
-                "elapsed_seconds": time.monotonic()-started}))
+    # Keep the append handle open; retain the same per-row flush/checkpoint behavior.
+    with (records.open("a") if not io_failure else nullcontext(None)) as record_file:
+        for src in plan["files"]:
+            if io_failure:
+                break
+            if src["relpath"] in done:
+                continue
+            if time.time() >= deadline or (Path(plan["run_root"]) / "STOP_REQUESTED").exists():
+                break
+            row = {k: src[k] for k in ("relpath", "size", "sha256", "source_exam_id", "assignment")}
+            row["size"] = int(row["size"])
+            row.update(readable=False, unreadable_reason="", hash_verified=False)
+            try:
+                p = root / src["relpath"]
+                payload = p.read_bytes()
+                newly_read += len(payload)
+                actual = hashlib.sha256(payload).hexdigest()
+                if actual != src["sha256"] or len(payload) != int(src["size"]):
+                    row.update(actual_sha256=actual, actual_size=len(payload))
+                    raise RuntimeError("source changed since frozen inventory")
+                row["hash_verified"] = True
+                row.update(header(payload))
+                row["readable"] = True
+            except OSError as e:
+                io_failure = {"reason": f"{type(e).__name__}: {e}", "relpath": src["relpath"]}
+                # No source bytes/header were authenticated. Do not add it to done.
+                break
+            except Exception as e:
+                row["unreadable_reason"] = f"{type(e).__name__}: {e}"
+            record_file.write(json.dumps(row, allow_nan=False)+"\n")
+            record_file.flush()
+            done[src["relpath"]] = row
+            n_new += 1
+            if n_new % 100 == 0:
+                (out / "PROGRESS.json").write_text(json.dumps({
+                    "completed": len(done), "planned": len(plan["files"]), "new_bytes_read": newly_read,
+                    "elapsed_seconds": time.monotonic()-started}))
     summary = {"planned": len(plan["files"]), "completed": len(done),
                "parse_failures": sum(r["hash_verified"] and not r["readable"] for r in done.values()),
                "identity_failures": sum(not r["hash_verified"] for r in done.values()),
