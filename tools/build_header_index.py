@@ -14,6 +14,9 @@ def main():
     a = ap.parse_args()
     rows, seen = [], set()
     for plan in sorted(Path(a.plans).glob("*.json")):
+        # exFAT AppleDouble sidecars are filesystem metadata, not input plans.
+        if plan.name.startswith("._"):
+            continue
         d = json.loads(plan.read_text())
         root = Path(a.shards) / plan.stem
         summary, records = root/"SUMMARY.json", root/"headers.jsonl"

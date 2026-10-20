@@ -43,3 +43,28 @@ def test_cache_mutation_and_other_source_rejected(tmp_path):
     records.write_text(records.read_text().replace("synthetic/a", "synthetic/b"))
     with pytest.raises(ValueError, match="identity changed"):
         C.load(index, root)
+
+
+def test_index_ignores_exfat_metadata_sidecar_but_loads_real_plan(tmp_path):
+    import subprocess
+    import sys
+    from pathlib import Path
+    index, root, records = fixture(tmp_path)
+    plans, shards = tmp_path / 'plans', tmp_path / 'shards'
+    plans.mkdir()
+    part = shards / '00'
+    part.mkdir(parents=True)
+    source = json.loads(index.read_text())['shards'][0]
+    plan = plans / '00.json'
+    plan.write_bytes(Path(source['plan']).read_bytes())
+    summary = json.loads(Path(source['summary']).read_text())
+    summary['plan_sha256'] = C.sha(plan)
+    (part / 'SUMMARY.json').write_text(json.dumps(summary))
+    (part / 'headers.jsonl').write_bytes(records.read_bytes())
+    (plans / '._00.json').write_bytes(b'AppleDouble metadata, not a plan')
+    dest = tmp_path / 'new-index.json'
+    p = subprocess.run([sys.executable, str(Path(__file__).resolve().parents[2] / 'tools/build_header_index.py'),
+                        '--plans', str(plans), '--shards', str(shards), '--image-root', str(root), '--out', str(dest)],
+                       capture_output=True, text=True)
+    assert p.returncode == 0, p.stderr
+    assert len(C.load(dest, root)) == 1
