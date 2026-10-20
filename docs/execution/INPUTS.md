@@ -2,7 +2,7 @@
 
 ## Current repository versus local artifacts
 
-GitHub at the audit base contains the older `pipeline/`, `trivialbaselines/` and August `paper/` tree. The newer external implementation and reviewed outputs are not automatically available in a fresh clone. This is a real handoff requirement, not an instruction to recreate them from scratch.
+The older `pipeline/`, `trivialbaselines/` and August `paper/` tree are historical. The portable external implementation now lives in `src/phasedx_external/`; the completed synthetic studies are under `reproducibility/synthetic_b25/`. Private images, checkpoints and individual scores remain outside the public handoff.
 
 Configure these roots locally, outside Git:
 
@@ -15,7 +15,7 @@ Configure these roots locally, outside Git:
 | `PHASEDX_EXTERNAL_ROOT` | Already chosen Research project area `PhaseDx_revamp_data`; dataset folders remain private |
 | `PHASEDX_RUN_ROOT` | New, non-overwriting execution output directory for the user's current session |
 
-No private absolute machine paths are required in public code. The user supplies the same local roots to Claude; a remote/cloud worker that cannot see them must obtain a permitted source-only handoff or authorized private inputs, not fabricate their contents. Do not upload restricted inputs to make a cloud worker convenient.
+No private absolute machine paths are required in public code. The user supplies these roots to their authorized executor; a remote/cloud worker that cannot see them must obtain a permitted source-only handoff or authorized private inputs, not fabricate their contents. Do not upload restricted inputs to make a cloud worker convenient.
 
 `source_map.json` records 56 specific source/document locators with content hashes from this audit. Resolve each relative path under `PHASEDX_REVISION_ROOT`. A file can be scientifically limited even if its hash matches. Do not upload everything in this map: some paths locate private configuration/source lists.
 
@@ -32,7 +32,7 @@ E02 reads existing manifests first to resolve exact files; these anchors are not
 
 | Component | Existing source | Required treatment |
 |---|---|---|
-| Acquisition | `batch30/acquisition/acquire30.py` | E06 repairs three specific paths; E07 binds current operation |
+| Acquisition | `revamp/batches/batch31_20261015T135412Z/code/acquire31.py` under the legacy root | Portable `acquire31.py` incorporates the actual B31 transfer repairs; three targeted portable regression checks pass. Original B30 remains historical |
 | Source roster/operation | `batch30/acquisition/source_list_images_only.csv`, `operation_cq500_images_v2.json` | Local-only inputs; replace expired STOP/deadline paths; verify expected list/hash |
 | Input/manifest binding | `batch28/manifest/build_manifest28.py`, `scripts/protocol28.py` | Preserve actual input/cohort identity checks |
 | Image inference | `batch28/manifest/predict_image28.py`, `image_adapter27.py`, canonical recipe beside them | Preserve canonical precision/preprocessing and actual model binding |
@@ -44,6 +44,12 @@ E02 reads existing manifests first to resolve exact files; these anchors are not
 | Completed synthetic work | `batch25/scripts/sim25.py`, `transport25.py`, `precision25.py`, `agg25.py` | Reuse results; make source portable without changing design |
 
 **No implicit authorization from availability:** possession of an input does not authorize a new clinical exposure or publication. Conversely, lack of CQ500 access does not block code portability, source extraction or the accepted-result handoff.
+
+## October 20 input resolution
+
+The private current-run `ACTIVE_INPUT_REGISTRY.json` resolves 91 paths across eight active dataset IDs (including the shared RSNA parent/subset and the two synthetic designs). It cites the retained B18/B20 source locks, separates historical MRI from C2 and original CT from the later sensitivity fit, and records three frozen model files. Local path resolution found no missing recorded local files; six drive-based entries were unavailable while Research was disconnected. A disconnected volume is not evidence that a source file is missing.
+
+Expected hashes copied from previous locks are labeled as such. Path presence does not mean fresh byte verification; the two CT checkpoints and geometry file were checked separately. No old arrays or outcome statistics were recomputed for this inventory. The private breast handoff includes the retained 70-case mapping and repeat-group findings with their producer-evidence limitations.
 
 ## Output conventions
 

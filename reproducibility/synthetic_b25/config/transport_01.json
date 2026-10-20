@@ -1,0 +1,1 @@
+{"shard": "T01", "n_rep": 200, "configs": [{"label_mode": "broadcast", "n_eval": 75, "regime": "decorrelated"}]}

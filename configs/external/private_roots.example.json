@@ -1,0 +1,10 @@
+{
+  "example_only": true,
+  "revision_root": "/private/revision",
+  "historical_work_root": "/private/historical-work",
+  "legacy_checkout": "/private/PhaseDx",
+  "external_project_root": "/private/authorized-storage/PhaseDx_revamp_data",
+  "image_root": "/private/authorized-storage/PhaseDx_revamp_data/cq500/extracted",
+  "run_root": "/private/new-session",
+  "instruction": "Resolve actual existing inputs from manifests. Keep the filled configuration outside Git. This example neither downloads data nor establishes clinical access."
+}

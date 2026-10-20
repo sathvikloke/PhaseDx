@@ -1,0 +1,12 @@
+{
+  "authenticated": false,
+  "provenance": {"locator": "CQ500 official reads.csv header; source-key value transformation still requires documentation"},
+  "exam_key_col": "name",
+  "key_transform": "UNRESOLVED_DO_NOT_INFER_FROM_OUTCOMES",
+  "reader_cols": ["R1:ICH", "R2:ICH", "R3:ICH"],
+  "n_readers": 3,
+  "rule_id": "majority_of_reader_ich_field_two_agreeing_else_missing",
+  "missing_policy": "two_agreeing_valid_reads_else_missing",
+  "header_sha256": "6961c98e4000c64e352e152646f525b5a1ea073ce963a104b8c61e3c028a3f02",
+  "note": "Column names authenticated by a header-only read; no outcome rows opened. Category meaning and source-key value format are not proven by column names. This deliberately incomplete schema must be refused by clinical scoring."
+}

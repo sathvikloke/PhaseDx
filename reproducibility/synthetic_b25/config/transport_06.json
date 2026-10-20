@@ -1,0 +1,1 @@
+{"shard": "T06", "n_rep": 200, "configs": [{"label_mode": "localized", "n_eval": 75, "regime": "unchanged"}]}

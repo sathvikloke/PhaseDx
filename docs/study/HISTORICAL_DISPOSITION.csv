@@ -1,0 +1,15 @@
+component,current_role,action,reason
+Prostate C2 magnitude analyses,supporting retained evidence,retain separately from historical scores,20 source-bound current-implementation jobs with conditional uncertainty and cache-production limitations
+Historical prostate magnitude phase combined,supporting retrospective evidence,retain family and provenance labels,accepted arithmetic does not recover missing training history
+Breast magnitude phase combined,supporting retrospective evidence,retain selection and reference limitations,local sampled case labels are not independent slice pathology
+Internal CT original primary,supporting comparator development,retain original identity,do not replace with later two-patient sensitivity fit
+Internal CT later eligibility sensitivity,sensitivity only,keep separate timing and rows,performed after original outcomes
+CQ500 external CT,current primary empirical extension,execute only frozen qualified input and reference chain,no external clinical results yet
+B25 controlled transport,completed synthetic evidence,reuse fixed sources and aggregates,no real-network shortcut mechanism established
+B25 precision feasibility,completed synthetic evidence,reuse fixed108-cell design,not achieved clinical power
+FastMRI knee brain and auxiliary benchmark audits,historical separate scope,preserve existing artifacts; no automatic expansion,not needed for the adjudicated external-CT paper
+DeepLesion LUNA16 PI-CAI Duke label-position benchmarks,historical separate scope,preserve; do not recreate absent outputs by default,different tasks units and reference definitions
+Historical literature prevalence screen,excluded from current manuscript,no retrieval or recoding campaign without scope change,requires independent coding and distinct design
+FDA and regulatory scoping,historical exploratory,preserve; no new audit,not a clinical validation result
+Old claim that image models learned the scanner,unsupported as a general mechanism claim,do not carry into revised conclusions,geometry predictability and simulation counterexamples do not identify network mechanism
+Old unrestricted preregistration claim,not supported for October revision,report recorded chronology and prior exposure,local timestamps do not establish independent prospective registration

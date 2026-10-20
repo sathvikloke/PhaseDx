@@ -81,7 +81,7 @@ def ready(tasks, by_id):
 
 def render(tasks):
     lines = ["# Task index", "", "Generated from `tasks.json`. Task counts are not completion percentages or measured worker concurrency.", "",
-             "All execution is owned by the user / Claude. Scientific and author decisions stay with the user/Codex or a qualified human. No collaborator compute allocation.", ""]
+             "Execution is owned by the user and their authorized executor (currently Codex for CPU work). Scientific and author decisions stay with the user/Codex or a qualified human. No collaborator compute allocation.", ""]
     for kind, heading in (("execution", "Execution tasks"), ("scientific_author", "Scientific and author tasks")):
         lines += [f"## {heading}", "", "| ID | Deliverable | Lane | Status | Dependencies |", "|---|---|---|---|---|"]
         for t in tasks:

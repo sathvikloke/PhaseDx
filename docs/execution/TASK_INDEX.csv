@@ -1,65 +1,65 @@
 id,title,owner,kind,lane,priority,status,dependencies,resource,card
-E01,Bring the current study implementation into a portable repository layout,user / Claude executor,execution,implementation,critical,ready,,CPU-light,tasks/E01.md
-E02,Locate the exact private inputs and checkpoint files,user / Claude executor,execution,inputs,parallel,ready,,filesystem metadata,tasks/E02.md
-E03,Create reproducible CPU and inference environments,user / Claude executor,execution,implementation,parallel,ready,,setup / bounded disk,tasks/E03.md
-E04,Provide resumable execution with measured resource admission,user / Claude executor,execution,execution,parallel,pending,E01;E03,CPU-light orchestration,tasks/E04.md
-E05,Prepare an optional Einstein Slurm execution profile,user / Claude executor,execution,HPC,conditional,optional,E01;E03,read-only SSH / no submission,tasks/E05.md
-E06,Repair the three remaining acquisition edge cases once,user / Claude executor,execution,acquisition,critical,ready,,CPU-light synthetic,tasks/E06.md
-E07,Prepare the executable image-only acquisition operation,user / Claude executor,execution,acquisition,critical,pending,E01;E02;E06,CPU-light / metadata,tasks/E07.md
-E08,Acquire the CQ500 image archives,user / Claude executor,execution,acquisition,critical,pending,E04;E07;H02,network / approximately 28.66 GB compressed,tasks/E08.md
-E09,Extract verified images without changing the source population,user / Claude executor,execution,acquisition,critical,pending,E08,disk I/O / capacity measured after acquisition,tasks/E09.md
-E10,Build the full DICOM roster and geometry inventory,user / Claude executor,execution,cohort,critical,pending,E01;E09,parallel header parsing / one source stream if drive contention,tasks/E10.md
-E11,Assemble a blinded clinical series-selection packet,user / Claude executor,execution,cohort,parallel,pending,E10,header parsing / document preparation,tasks/E11.md
-E12,Apply the fixed clinical series selector,user / Claude executor,execution,cohort,critical,pending,E01;E11;H03,CPU-light,tasks/E12.md
-E13,Authenticate the external reference and source-key schema,user / Claude executor,execution,reference,parallel,ready,,primary text / metadata,tasks/E13.md
-E14,Ingest the authorized reader reference after prediction freeze,user / Claude executor,execution,reference,parallel,pending,E13;E22;E23;E25;H04,CPU-light / small authorized reference file,tasks/E14.md
-E15,Bind person/examination grouping using legitimate source evidence,user / Claude executor,execution,reference,parallel,pending,E02;E13,metadata,tasks/E15.md
-E16,"Bind the frozen CT model, comparator and executed preprocessing identities",user / Claude executor,execution,model,critical,pending,E02,metadata / checkpoint hashing once,tasks/E16.md
-E17,Finish the portable frozen image inference CLI,user / Claude executor,execution,model,critical,pending,E01;E03;E16,bounded development fixture; clinical inference only E23/E24,tasks/E17.md
-E18,Finish the transported frozen geometry inference CLI,user / Claude executor,execution,model,critical,pending,E01;E16,CPU-light,tasks/E18.md
-E19,Make the paired scorer enforce the fixed study contract,user / Claude executor,execution,statistics execution,critical,pending,E01,CPU-light synthetic,tasks/E19.md
-E20,Port deterministic missing-prediction completion bounds,user / Claude executor,execution,statistics execution,parallel,pending,E01,CPU-light synthetic,tasks/E20.md
-E21,Complete one end-to-end synthetic execution rehearsal,user / Claude executor,execution,integration,critical,pending,E01;E04;E17;E18;E19;E20,CPU-light,tasks/E21.md
-E22,Freeze the clinical execution package before outcomes,user / Claude executor,execution,integration,critical,pending,E12;E16;E17;E18;H01,metadata,tasks/E22.md
-E23,Run frozen seed42 external image predictions,user / Claude executor,execution,clinical inference,critical,pending,E04;E08;E09;E12;E17;E21;E22;H02,GPU/MPS/CPU inference; benchmark actual throughput first,tasks/E23.md
-E24,Run frozen seed123 descriptive external predictions,user / Claude executor,execution,clinical inference,parallel,pending,E04;E12;E17;E21;E22;H02,inference; shared GPU contention-aware,tasks/E24.md
-E25,Run the frozen transported geometry comparator,user / Claude executor,execution,clinical inference,critical,pending,E04;E12;E18;E21;E22;H02,CPU-light parallel to image inference,tasks/E25.md
-E26,Execute the prespecified external primary comparison,user / Claude executor,execution,statistics execution,critical,pending,E14;E15;E19;E23;E25;H05,bounded CPU; no refit,tasks/E26.md
-E27,Produce the prespecified descriptive secondary result,user / Claude executor,execution,statistics execution,parallel,pending,E14;E19;E24;E25,CPU-light,tasks/E27.md
-E28,"Produce full-cohort flow, support and missing-score results",user / Claude executor,execution,cohort results,parallel,pending,E10;E12;E14;E20;E23;E25,CPU-light,tasks/E28.md
-E29,Generate external-study tables and figure data mechanically,user / Claude executor,execution,presentation execution,parallel,pending,E26;E27;E28,CPU-light plotting,tasks/E29.md
-E30,Recover source-bound MRI training and preprocessing Methods,user / Claude executor,execution,historical Methods,parallel,ready,,text/config extraction,tasks/E30.md
-E31,"Recover breast target, case mapping and executed Methods",user / Claude executor,execution,historical Methods,parallel,ready,,private metadata / text,tasks/E31.md
-E32,"Recover internal CT model, selection and preprocessing Methods",user / Claude executor,execution,historical Methods,parallel,ready,,text/config extraction,tasks/E32.md
-E33,Complete retained-cohort selection and exposure chronology,user / Claude executor,execution,historical Methods,parallel,pending,E02,metadata,tasks/E33.md
-E34,Assemble the accepted aggregate result inputs for the revised paper,user / Claude executor,execution,paper inputs,parallel,pending,E02,CPU-light table assembly,tasks/E34.md
-E35,Package the completed synthetic studies for reproducible use,user / Claude executor,execution,paper inputs,parallel,pending,E02,source/aggregate packaging,tasks/E35.md
-E36,Reconcile the older public study with the current submission scope,user / Claude executor,execution,historical inventory,parallel,ready,,text/artifact inventory,tasks/E36.md
-E37,Provide a clean-checkout reproducibility smoke path,user / Claude executor,execution,release,parallel,pending,E01;E03;E17;E18;E19;E20;E35,CPU-light / environment setup,tasks/E37.md
-E38,Render approved figures and tables at submission quality,user / Claude executor,execution,presentation execution,parallel,pending,E29;E34;E35;H10,CPU-light rendering,tasks/E38.md
-E39,Collect verifiable reference metadata and Methods source excerpts,user / Claude executor,execution,paper inputs,parallel,ready,,primary text retrieval / parse,tasks/E39.md
-E40,Assemble the reporting and disclosure evidence matrix,user / Claude executor,execution,paper inputs,parallel,pending,E30;E31;E32;E33,document extraction,tasks/E40.md
-E41,Populate the approved author and disclosure metadata mechanically,user / Claude executor,execution,submission assembly,parallel,pending,H12;H13,document assembly,tasks/E41.md
-E42,Build the final journal files from scientifically approved text,user / Claude executor,execution,submission assembly,parallel,pending,E38;E40;E41;H10;H11,document build/render,tasks/E42.md
-E43,Prepare the reproducible public code and aggregate release,user / Claude executor,execution,release,parallel,pending,E34;E35;E37;H12,filesystem / documentation,tasks/E43.md
-E44,Prepare a checkpoint availability package if redistribution is permitted,user / Claude executor,execution,release,parallel,pending,E16;H12,metadata / optional large artifact,tasks/E44.md
-E45,Return a compact evidence bundle for independent scientific review,user / Claude executor,execution,review handoff,parallel,pending,E26;E27;E28;E30;E31;E32;E33;E34;E35,metadata / aggregate packaging,tasks/E45.md
-E46,Execute only a specifically adjudicated result-changing correction,user / Claude executor,execution,conditional repair,conditional,optional,H07,depends on defect; must be specified,tasks/E46.md
-E47,Recover a retained historical benchmark artifact only if absent,user / Claude executor,execution,conditional historical,conditional,optional,E36;H01,dataset-specific; bounded before run,tasks/E47.md
-E48,Recover permissible full texts if the historical prevalence study is retained,user / Claude executor,execution,optional screen,conditional,optional,E36;H01,public text retrieval,tasks/E48.md
-E49,Recompute the historical screen outputs after independent human coding,user / Claude executor,execution,optional screen,conditional,optional,E48;H15,CPU-light,tasks/E49.md
-E50,Publish only the explicitly approved release artifacts,user / Claude executor,execution,release,parallel,pending,E43;E44;H14,network upload after explicit approval,tasks/E50.md
-H01,Confirm the current paper scope and uphold the frozen external design,user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,,analysis / human decision,tasks/H01.md
-H02,Resolve the concrete current acquisition/inference scope and cumulative baseline,user / Codex scientific review,scientific_author,scientific / author,critical,decision_needed,E07,analysis / human decision,tasks/H02.md
+E01,Bring the current study implementation into a portable repository layout,User / authorized CPU executor (Codex or independently launched Claude),execution,implementation,critical,done,,CPU-light,tasks/E01.md
+E02,Locate the exact private inputs and checkpoint files,User / authorized CPU executor (Codex or independently launched Claude),execution,inputs,parallel,done,,filesystem metadata,tasks/E02.md
+E03,Create reproducible CPU and inference environments,User / authorized CPU executor (Codex or independently launched Claude),execution,implementation,parallel,done,,setup / bounded disk,tasks/E03.md
+E04,Provide resumable execution with measured resource admission,User / authorized CPU executor (Codex or independently launched Claude),execution,execution,parallel,done,E01;E03,CPU-light orchestration,tasks/E04.md
+E05,Prepare an optional Einstein Slurm execution profile,User / authorized CPU executor (Codex or independently launched Claude),execution,HPC,conditional,optional,E01;E03,read-only SSH / no submission,tasks/E05.md
+E06,Repair the three remaining acquisition edge cases once,User / authorized CPU executor (Codex or independently launched Claude),execution,acquisition,critical,done,,CPU-light synthetic,tasks/E06.md
+E07,Prepare the executable image-only acquisition operation,User / authorized CPU executor (Codex or independently launched Claude),execution,acquisition,critical,done,E01;E02;E06,CPU-light / metadata,tasks/E07.md
+E08,Acquire the CQ500 image archives,User / authorized CPU executor (Codex or independently launched Claude),execution,acquisition,critical,done,E04;E07;H02,network / approximately 28.66 GB compressed,tasks/E08.md
+E09,Extract verified images without changing the source population,User / authorized CPU executor (Codex or independently launched Claude),execution,acquisition,critical,done,E08,disk I/O / capacity measured after acquisition,tasks/E09.md
+E10,Build the full DICOM roster and geometry inventory,User / authorized CPU executor (Codex or independently launched Claude),execution,cohort,critical,doing,E01;E09,parallel header parsing / one source stream if drive contention,tasks/E10.md
+E11,Assemble a blinded clinical series-selection packet,User / authorized CPU executor (Codex or independently launched Claude),execution,cohort,parallel,doing,E10,header parsing / document preparation,tasks/E11.md
+E12,Apply the fixed clinical series selector,User / authorized CPU executor (Codex or independently launched Claude),execution,cohort,critical,blocked,E01;E11;H03,CPU-light,tasks/E12.md
+E13,Authenticate the external reference and source-key schema,User / authorized CPU executor (Codex or independently launched Claude),execution,reference,parallel,blocked,,primary text / metadata,tasks/E13.md
+E14,Ingest the authorized reader reference after prediction freeze,User / authorized CPU executor (Codex or independently launched Claude),execution,reference,parallel,blocked,E13;E22;E23;E25;H04,CPU-light / small authorized reference file,tasks/E14.md
+E15,Bind person/examination grouping using legitimate source evidence,User / authorized CPU executor (Codex or independently launched Claude),execution,reference,parallel,blocked,E02;E13,metadata,tasks/E15.md
+E16,"Bind the frozen CT model, comparator and executed preprocessing identities",User / authorized CPU executor (Codex or independently launched Claude),execution,model,critical,done,E02,metadata / checkpoint hashing once,tasks/E16.md
+E17,Finish the portable frozen image inference CLI,User / authorized CPU executor (Codex or independently launched Claude),execution,model,critical,done,E01;E03;E16,bounded development fixture; clinical inference only E23/E24,tasks/E17.md
+E18,Finish the transported frozen geometry inference CLI,User / authorized CPU executor (Codex or independently launched Claude),execution,model,critical,done,E01;E16,CPU-light,tasks/E18.md
+E19,Make the paired scorer enforce the fixed study contract,User / authorized CPU executor (Codex or independently launched Claude),execution,statistics execution,critical,done,E01,CPU-light synthetic,tasks/E19.md
+E20,Port deterministic missing-prediction completion bounds,User / authorized CPU executor (Codex or independently launched Claude),execution,statistics execution,parallel,done,E01,CPU-light synthetic,tasks/E20.md
+E21,Complete one end-to-end synthetic execution rehearsal,User / authorized CPU executor (Codex or independently launched Claude),execution,integration,critical,done,E01;E04;E17;E18;E19;E20,CPU-light,tasks/E21.md
+E22,Freeze the clinical execution package before outcomes,User / authorized CPU executor (Codex or independently launched Claude),execution,integration,critical,blocked,E12;E16;E17;E18;H01,metadata,tasks/E22.md
+E23,Run frozen seed42 external image predictions,User / authorized CPU executor (Codex or independently launched Claude),execution,clinical inference,critical,blocked,E04;E08;E09;E12;E17;E21;E22;H02,GPU/MPS/CPU inference; benchmark actual throughput first,tasks/E23.md
+E24,Run frozen seed123 descriptive external predictions,User / authorized CPU executor (Codex or independently launched Claude),execution,clinical inference,parallel,blocked,E04;E12;E17;E21;E22;H02,inference; shared GPU contention-aware,tasks/E24.md
+E25,Run the frozen transported geometry comparator,User / authorized CPU executor (Codex or independently launched Claude),execution,clinical inference,critical,blocked,E04;E12;E18;E21;E22;H02,CPU-light parallel to image inference,tasks/E25.md
+E26,Execute the prespecified external primary comparison,User / authorized CPU executor (Codex or independently launched Claude),execution,statistics execution,critical,blocked,E14;E15;E19;E23;E25;H05,bounded CPU; no refit,tasks/E26.md
+E27,Produce the prespecified descriptive secondary result,User / authorized CPU executor (Codex or independently launched Claude),execution,statistics execution,parallel,blocked,E14;E19;E24;E25,CPU-light,tasks/E27.md
+E28,"Produce full-cohort flow, support and missing-score results",User / authorized CPU executor (Codex or independently launched Claude),execution,cohort results,parallel,blocked,E10;E12;E14;E20;E23;E25,CPU-light,tasks/E28.md
+E29,Generate external-study tables and figure data mechanically,User / authorized CPU executor (Codex or independently launched Claude),execution,presentation execution,parallel,blocked,E26;E27;E28,CPU-light plotting,tasks/E29.md
+E30,Recover source-bound MRI training and preprocessing Methods,User / authorized CPU executor (Codex or independently launched Claude),execution,historical Methods,parallel,done,,text/config extraction,tasks/E30.md
+E31,"Recover breast target, case mapping and executed Methods",User / authorized CPU executor (Codex or independently launched Claude),execution,historical Methods,parallel,done,,private metadata / text,tasks/E31.md
+E32,"Recover internal CT model, selection and preprocessing Methods",User / authorized CPU executor (Codex or independently launched Claude),execution,historical Methods,parallel,done,,text/config extraction,tasks/E32.md
+E33,Complete retained-cohort selection and exposure chronology,User / authorized CPU executor (Codex or independently launched Claude),execution,historical Methods,parallel,done,E02,metadata,tasks/E33.md
+E34,Assemble the accepted aggregate result inputs for the revised paper,User / authorized CPU executor (Codex or independently launched Claude),execution,paper inputs,parallel,done,E02,CPU-light table assembly,tasks/E34.md
+E35,Package the completed synthetic studies for reproducible use,User / authorized CPU executor (Codex or independently launched Claude),execution,paper inputs,parallel,done,E02,source/aggregate packaging,tasks/E35.md
+E36,Reconcile the older public study with the current submission scope,User / authorized CPU executor (Codex or independently launched Claude),execution,historical inventory,parallel,done,,text/artifact inventory,tasks/E36.md
+E37,Provide a clean-checkout reproducibility smoke path,User / authorized CPU executor (Codex or independently launched Claude),execution,release,parallel,done,E01;E03;E17;E18;E19;E20;E35,CPU-light / environment setup,tasks/E37.md
+E38,Render approved figures and tables at submission quality,User / authorized CPU executor (Codex or independently launched Claude),execution,presentation execution,parallel,blocked,E29;E34;E35;H10,CPU-light rendering,tasks/E38.md
+E39,Collect verifiable reference metadata and Methods source excerpts,User / authorized CPU executor (Codex or independently launched Claude),execution,paper inputs,parallel,done,,primary text retrieval / parse,tasks/E39.md
+E40,Assemble the reporting and disclosure evidence matrix,User / authorized CPU executor (Codex or independently launched Claude),execution,paper inputs,parallel,done,E30;E31;E32;E33,document extraction,tasks/E40.md
+E41,Populate the approved author and disclosure metadata mechanically,User / authorized CPU executor (Codex or independently launched Claude),execution,submission assembly,parallel,blocked,H12;H13,document assembly,tasks/E41.md
+E42,Build the final journal files from scientifically approved text,User / authorized CPU executor (Codex or independently launched Claude),execution,submission assembly,parallel,blocked,E38;E40;E41;H10;H11,document build/render,tasks/E42.md
+E43,Prepare the reproducible public code and aggregate release,User / authorized CPU executor (Codex or independently launched Claude),execution,release,parallel,doing,E34;E35;E37;H12,filesystem / documentation,tasks/E43.md
+E44,Prepare a checkpoint availability package if redistribution is permitted,User / authorized CPU executor (Codex or independently launched Claude),execution,release,parallel,blocked,E16;H12,metadata / optional large artifact,tasks/E44.md
+E45,Return a compact evidence bundle for independent scientific review,User / authorized CPU executor (Codex or independently launched Claude),execution,review handoff,parallel,doing,E26;E27;E28;E30;E31;E32;E33;E34;E35,metadata / aggregate packaging,tasks/E45.md
+E46,Execute only a specifically adjudicated result-changing correction,User / authorized CPU executor (Codex or independently launched Claude),execution,conditional repair,conditional,optional,H07,depends on defect; must be specified,tasks/E46.md
+E47,Recover a retained historical benchmark artifact only if absent,User / authorized CPU executor (Codex or independently launched Claude),execution,conditional historical,conditional,optional,E36;H01,dataset-specific; bounded before run,tasks/E47.md
+E48,Recover permissible full texts if the historical prevalence study is retained,User / authorized CPU executor (Codex or independently launched Claude),execution,optional screen,conditional,optional,E36;H01,public text retrieval,tasks/E48.md
+E49,Recompute the historical screen outputs after independent human coding,User / authorized CPU executor (Codex or independently launched Claude),execution,optional screen,conditional,optional,E48;H15,CPU-light,tasks/E49.md
+E50,Publish only the explicitly approved release artifacts,User / authorized CPU executor (Codex or independently launched Claude),execution,release,parallel,blocked,E43;E44;H14,network upload after explicit approval,tasks/E50.md
+H01,Confirm the current paper scope and uphold the frozen external design,user / Codex scientific review,scientific_author,scientific / author,parallel,done,,analysis / human decision,tasks/H01.md
+H02,Resolve the concrete current acquisition/inference scope and cumulative baseline,user / Codex scientific review,scientific_author,scientific / author,critical,done,E07,analysis / human decision,tasks/H02.md
 H03,Resolve ambiguous clinical series compatibility while blinded,user / Codex scientific review,scientific_author,scientific / author,critical,decision_needed,E11,analysis / human decision,tasks/H03.md
 H04,Approve the exact external reference/source-key interpretation,user / Codex scientific review,scientific_author,scientific / author,critical,decision_needed,E13,analysis / human decision,tasks/H04.md
 H05,Adjudicate the supported resampling unit,user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,E15,analysis / human decision,tasks/H05.md
 H06,Resolve clinical meaning and reference limits of retained MRI/breast/CT targets,user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,E30;E31;E32;E33,analysis / human decision,tasks/H06.md
 H07,Independently verify the new external numerical result,user / Codex scientific review,scientific_author,scientific / author,critical,decision_needed,E26;E27;E28,analysis / human decision,tasks/H07.md
-H08,Adjudicate the completed synthetic findings for the current paper,user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,E35,analysis / human decision,tasks/H08.md
+H08,Adjudicate the completed synthetic findings for the current paper,user / Codex scientific review,scientific_author,scientific / author,parallel,done,E35,analysis / human decision,tasks/H08.md
 H09,Interpret external evidence against the stated question,user / Codex scientific review,scientific_author,scientific / author,critical,decision_needed,H07;H05,analysis / human decision,tasks/H09.md
-H10,Write and validate the revised scientific manuscript,user / Codex scientific review,scientific_author,scientific / author,critical,decision_needed,H06;H08;H09;E34,analysis / human decision,tasks/H10.md
-H11,Assess current novelty and journal fit from primary sources,user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,E39,analysis / human decision,tasks/H11.md
+H10,Write and validate the revised scientific manuscript,user / Codex scientific review,scientific_author,scientific / author,critical,doing,H06;H08;H09;E34,analysis / human decision,tasks/H10.md
+H11,Assess current novelty and journal fit from primary sources,user / Codex scientific review,scientific_author,scientific / author,parallel,done,E39,analysis / human decision,tasks/H11.md
 H12,"Confirm ethics, permitted use and release statements",user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,,analysis / human decision,tasks/H12.md
 H13,Supply the final author roster and approvals,user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,,analysis / human decision,tasks/H13.md
 H14,Perform final scientific and author submission review,user / Codex scientific review,scientific_author,scientific / author,parallel,decision_needed,H10;H11;H12;H13;E42;E43,analysis / human decision,tasks/H14.md
