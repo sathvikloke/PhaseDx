@@ -276,7 +276,8 @@
       "gate": "",
       "optional": false,
       "evidence": [
-        "Expanded header inventory running through V3 overlay. Four extracted copies differed from intact acquired archives; matching archive members restored to a separate input overlay, original copies preserved.21,522 authenticated rows reused; first two resumed shards21,526 records/0identity failures. Remaining shards independent,one drive stream. See docs/study/INPUT_RECOVERY_20261020.md and current-run overlay/reuse receipts. No clinical labels or predictions used."
+        "Expanded header inventory running through V3 overlay. Four extracted copies differed from intact acquired archives; matching archive members restored to a separate input overlay, original copies preserved.21,522 authenticated rows reused; first two resumed shards21,526 records/0identity failures. Remaining shards independent,one drive stream. See docs/study/INPUT_RECOVERY_20261020.md and current-run overlay/reuse receipts. No clinical labels or predictions used.",
+        "Final October20 checkpoint: six of16V4shards complete,64,578authenticated file records; interrupted rows retained. Later free-space stops and drive I/O failure left full cache/manifest unfinished. Owned waiter recorded deadline checkpoint12:30:00.414Z and all owned work was absent at late closure. Resume requires new authorized window/versioned deadline amendment, mounted source and adequate resources."
       ],
       "card": "tasks/E10.md",
       "priority": "critical"
@@ -1323,7 +1324,8 @@
       "gate": "",
       "optional": false,
       "evidence": [
-        "Compact current CPU evidence index prepared; complete study evidence handoff cannot exist before external E26\u2013E29."
+        "Compact current CPU evidence index prepared; complete study evidence handoff cannot exist before external E26\u2013E29.",
+        "October20 session report and exact versioned-resume conditions prepared; no owned supervisor remains. This is a partial CPU-window handoff, not whole-study completion. Clinical results/author approval remain outstanding."
       ],
       "card": "tasks/E45.md",
       "priority": "parallel"

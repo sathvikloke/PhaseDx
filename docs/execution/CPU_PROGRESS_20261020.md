@@ -42,3 +42,7 @@ The header writer now keeps one append handle open while retaining per-record fl
 A private outcome-blind preliminary packet now contains 459 series from 178 exams whose entire planned source inventory is authenticated in closed shards. Its progress roster retains all 491 source exams: 312 remain pending scan and one has no extracted files. These statuses are not clinical exclusions or eligible-cohort counts. Clinical noncontrast/axial/kernel/coverage judgments, reviewer identity and evidence are blank. The packet allows early qualified review but cannot freeze a clinical input or substitute for final whole-inventory conflict reconciliation. Exact denominator, subset identity, blank clinical fields and output identities were checked. No source images or outcome rows were read during packet assembly.
 
 The first packet attempt exposed exFAT AppleDouble plan sidecars. Its failed attempt is preserved. A synthetic regression reproduced the same failure in the final index builder; a narrow sidecar exclusion passed six cache/index tests. The active scanner was unchanged, and prior full-suite results were not rerun.
+
+## Closed window
+
+This CPU window is closed with a partial header inventory. See [final aggregate handoff](CPU_FINAL_20261020.md). No owned supervisor remains and no automatic restart is scheduled.
