@@ -62,7 +62,7 @@
       "lane": "implementation",
       "owner": "User / authorized CPU executor (Codex or independently launched Claude)",
       "kind": "execution",
-      "status": "doing",
+      "status": "done",
       "dependencies": [],
       "inputs": "requirements.txt; imported-module dependency list; existing working environment records",
       "outputs": "requirements-external.lock; requirements-cpu.lock; environment instructions and observed platform record",
@@ -77,7 +77,7 @@
       "gate": "",
       "optional": false,
       "evidence": [
-        "Isolated CPU dependency install/smoke complete; requirements/cpu.lock.txt tested. Existing torch/vision pins recorded, fresh inference environment still untested; low internal free space limits additional installation."
+        "ENVIRONMENT.md and requirements/cpu.lock.txt/inference.lock.txt: fresh isolated dependencies installed, pip check passed, two original CT checkpoints strictly loaded on CPU with expected hashes; no forward pass or images/labels."
       ],
       "card": "tasks/E03.md",
       "priority": "parallel"

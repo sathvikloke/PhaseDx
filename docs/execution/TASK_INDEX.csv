@@ -1,7 +1,7 @@
 id,title,owner,kind,lane,priority,status,dependencies,resource,card
 E01,Bring the current study implementation into a portable repository layout,User / authorized CPU executor (Codex or independently launched Claude),execution,implementation,critical,done,,CPU-light,tasks/E01.md
 E02,Locate the exact private inputs and checkpoint files,User / authorized CPU executor (Codex or independently launched Claude),execution,inputs,parallel,done,,filesystem metadata,tasks/E02.md
-E03,Create reproducible CPU and inference environments,User / authorized CPU executor (Codex or independently launched Claude),execution,implementation,parallel,doing,,setup / bounded disk,tasks/E03.md
+E03,Create reproducible CPU and inference environments,User / authorized CPU executor (Codex or independently launched Claude),execution,implementation,parallel,done,,setup / bounded disk,tasks/E03.md
 E04,Provide resumable execution with measured resource admission,User / authorized CPU executor (Codex or independently launched Claude),execution,execution,parallel,done,E01;E03,CPU-light orchestration,tasks/E04.md
 E05,Prepare an optional Einstein Slurm execution profile,User / authorized CPU executor (Codex or independently launched Claude),execution,HPC,conditional,optional,E01;E03,read-only SSH / no submission,tasks/E05.md
 E06,Repair the three remaining acquisition edge cases once,User / authorized CPU executor (Codex or independently launched Claude),execution,acquisition,critical,done,,CPU-light synthetic,tasks/E06.md

@@ -33,7 +33,7 @@ python3 tools/execution_backlog.py show E06
 
 This small tool reads the queue; it does **not** launch compute, download data, call models or approve science. Update `tasks.json` with evidence and regenerate the index with `python3 tools/execution_backlog.py render` as work proceeds. `ready` means dependencies recorded complete, not proof that private inputs or permissions exist on a different machine. Check only the applicable task's inputs.
 
-Read current card evidence before rerunning anything. The portable CPU environment,54 synthetic/fixture tests, source-bound Methods, model/input registry and completed synthetic evidence are available. Remaining ready I/O work is supervised separately while the drive is unavailable. Fresh neural-environment installation, clinical series qualification, reference-key interpretation, external execution and final author/release inputs remain explicit tasks. Do not repeat the completed test suite or outcome checks merely to fill a session.
+Read current card evidence before rerunning anything. The portable CPU environment, 54 synthetic/fixture tests, source-bound Methods, model/input registry and completed synthetic evidence are available. Fresh neural dependencies and strict loading of both original checkpoints on CPU also passed. The resumed header inventory is supervised separately. Clinical series qualification, reference-key interpretation, external execution and final author/release inputs remain explicit tasks. Do not repeat the completed test suite or outcome checks merely to fill a session.
 
 ## Definition of completion
 

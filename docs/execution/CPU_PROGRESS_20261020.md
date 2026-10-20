@@ -6,14 +6,14 @@ This checkpoint covers new portable execution code, input/source recovery and Me
 
 - Portable manifest, selection, frozen image/geometry prediction interfaces, reference admission, paired scoring, completion bounds, cohort flow and aggregate export.
 - A clean-source installation, isolated installed-module smoke and **54 CPU fixture tests** passed. The complete command chain was exercised with fabricated cases and stub neural responses, without clinical inference or new bootstrap outcomes. The final receipt filename failure remains documented in [ENVIRONMENT.md](ENVIRONMENT.md).
-- An isolated CPU dependency lock, guarded resumable queue, actual worker overlap/STOP tests, and three focused acquisition regression checks.
+- Tested isolated CPU and neural-dependency locks, strict loading of both frozen CT checkpoints on CPU, a guarded resumable queue, actual worker overlap/STOP tests, and three focused acquisition regression checks.
 - An explicit JPEG-Lossless SV1 amendment. Twelve fixed compressed source images produced exact pixel/HU agreement across two decoders; four uncompressed images were skipped. This supports the bounded decoder change, not all-series clinical acceptance.
 - A private registry resolves 91 paths across eight active dataset IDs, including both original CT checkpoints, frozen transported geometry, original retained resamples, historical/C2 MRI separation, breast mapping and completed synthetic inputs.
 - Source-backed Methods from 15 inspected files and the canonical 20-run C2 record; retained breast mapping, 14 full-author references, exposure chronology and a 44-topic reporting map. Unknown executed-cache history and clinical facts remain explicit.
 - The two completed synthetic studies have portable source/configuration and aggregate outputs. Their experiments were not rerun.
 - A private manuscript v15 integrates the recovered Methods and corrects the obsolete C2 evidence summary. Existing numerical Results are unchanged.
 
-The task queue currently records 23 execution deliverables complete, four in progress, 18 blocked and five conditional. Three scientific decisions are recorded complete. These counts include reused prior acquisition evidence and are **not a percentage of the paper completed**.
+The task queue currently records 24 execution deliverables complete, three in progress, 18 blocked and five conditional. Three scientific decisions are recorded complete. These counts include reused prior acquisition evidence and are **not a percentage of the paper completed**.
 
 ## Active work and remaining clinical path
 
@@ -21,7 +21,7 @@ B31 already reports all 491 image archives acquired and verified, 490 extracted,
 
 The next external steps are the complete technical packet, blinded clinical qualification/selection, authenticated source-key/reference interpretation, frozen clinical input package, model predictions and the prespecified comparison. Technical decodability alone cannot fill unknown noncontrast, reconstruction-kernel or brain-coverage fields. Reference outcome rows remain unopened.
 
-Fresh installation of the neural inference dependencies remains unverified, although the existing environment's versions are recorded. Project ethics/permitted-use statements, individual clinical ascertainment where required, author roster/approvals and final publication permissions remain separate factual inputs.
+The neural dependencies now install and load the actual checkpoints on CPU; a clinical forward run still awaits the scientific input prerequisites. Project ethics/permitted-use statements, individual clinical ascertainment where required, author roster/approvals and final publication permissions remain separate factual inputs.
 
 ## Evidence boundaries
 

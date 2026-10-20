@@ -10,7 +10,7 @@ Execution is owned by the user and their authorized executor (currently Codex fo
 |---|---|---|---|---|
 | [E01](tasks/E01.md) | Bring the current study implementation into a portable repository layout | implementation | done | none |
 | [E02](tasks/E02.md) | Locate the exact private inputs and checkpoint files | inputs | done | none |
-| [E03](tasks/E03.md) | Create reproducible CPU and inference environments | implementation | doing | none |
+| [E03](tasks/E03.md) | Create reproducible CPU and inference environments | implementation | done | none |
 | [E04](tasks/E04.md) | Provide resumable execution with measured resource admission | execution | done | E01, E03 |
 | [E05](tasks/E05.md) | Prepare an optional Einstein Slurm execution profile | HPC | optional | E01, E03 |
 | [E06](tasks/E06.md) | Repair the three remaining acquisition edge cases once | acquisition | done | none |

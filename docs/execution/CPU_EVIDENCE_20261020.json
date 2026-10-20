@@ -44,6 +44,14 @@
     "DECODER_DIAGNOSTIC_LOCK.json",
     "decoder_samples/SUMMARY.json",
     "breast_case_mapping/COPY_RECEIPTS.json",
-    "HEADER_ATTEMPT1_ADJUDICATION.json"
-  ]
+    "HEADER_ATTEMPT1_ADJUDICATION.json",
+    "INFERENCE_ENVIRONMENT_CHECK.json"
+  ],
+  "inference_environment": {
+    "fresh_isolated_install": true,
+    "strict_original_checkpoint_loads": 2,
+    "device": "CPU",
+    "forward_passes": 0,
+    "pip_check_exit": 0
+  }
 }
